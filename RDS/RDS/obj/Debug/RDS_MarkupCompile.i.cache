@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\zhaomin\sourcecode\RDS\RDS\RDS\obj\Debug\
+D:\00_rdbio\01_RDS\01_Software\RDS\RDS\RDS\obj\Debug\
 RDS
 none
 false
 DEBUG;TRACE
-C:\zhaomin\sourcecode\RDS\RDS\RDS\Apps\App.xaml
+D:\00_rdbio\01_RDS\01_Software\RDS\RDS\RDS\Apps\App.xaml
 201976310408
 161704435602
-69-610340809
-432017242086
+69-963550063
+43-1164994451
 Apps\Languages\en-US.xaml;Apps\Languages\zh-CN.xaml;Apps\Styles\TextBlockStyle.xaml;Views\BcWindow.xaml;Views\FinalView.xaml;Views\HistroyView.xaml;Views\MainView.xaml;Views\HelpView.xaml;Views\Monitor\MonitorView.xaml;Views\Monitor\ReagentView.xaml;Views\Monitor\ReportView.xaml;Views\Monitor\SampleView.xaml;Views\MaintenanceView.xaml;Views\MainWindow.xaml;Views\Monitor\StripView.xaml;Views\PopupWindow.xaml;Views\PrecheckView.xaml;Views\SetupView.xaml;Views\TaskView.xaml;Views\TestView.xaml;
 
 True
