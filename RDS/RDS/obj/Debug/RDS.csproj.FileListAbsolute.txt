@@ -374,3 +374,6 @@ C:\zhaomin\sourcecode\RDS\RDS\RDS\obj\Debug\Views\TestView.baml
 C:\zhaomin\sourcecode\RDS\RDS\RDS\obj\Debug\RDS.g.resources
 C:\zhaomin\sourcecode\RDS\RDS\RDS\obj\Debug\RDS.Properties.Resources.resources
 C:\zhaomin\sourcecode\RDS\RDS\RDS\obj\Debug\RDS.csproj.GenerateResource.Cache
+D:\00_rdbio\01_RDS\01_Software\RDS\RDS\RDS\bin\Debug\RDS.exe.config
+D:\00_rdbio\01_RDS\01_Software\RDS\RDS\RDS\obj\Debug\RDS.exe
+D:\00_rdbio\01_RDS\01_Software\RDS\RDS\RDS\obj\Debug\RDS.pdb
