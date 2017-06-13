@@ -1,0 +1,80 @@
+01002017/6/12 13:50 NewLogFile for client SCanIO
+040413:50:20.001 Assembly: vshost32, ProductVersion=14.0.23107.0, Version=14.0.0.0, FileVersion=14.0.23107.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDS.vshost.exe
+040413:50:20.024 Assembly: Microsoft.Expression.Drawing, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Drawing.dll
+040413:50:20.026 Assembly: Microsoft.Expression.Effects, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Effects.dll
+040413:50:20.027 Assembly: Microsoft.Expression.Interactions, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Interactions.dll
+400413:50:20.043 Unsigned Assembly: System.Data.SQLite, Version=1.0.104.0, FileVersion=1.0.104.0 of Company https://system.data.sqlit loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\System.Data.SQLite.dll
+040413:50:20.044 Assembly: System.Windows.Interactivity, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\System.Windows.Interactivity.dll
+040413:50:20.044 Assembly: RDS, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDS.exe
+400413:50:20.045 Unsigned Assembly: RdEntity, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RdEntity.dll
+400413:50:20.053 Unsigned Assembly: RdCore, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RdCore.dll
+100413:50:20.057 Signed Assembly Core, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Core.dll
+020413:50:20.059 No key for Assembly: SmartPropertyGrid, Version=3.0.0.45, FileVersion=3.0.0.45 of Company VisualHint loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\SmartPropertyGrid.dll
+100413:50:20.060 Signed Assembly DEV_CanDev, ProductVersion=1.4.1, Version=1.2.7.0, FileVersion=1.2.7.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dll
+040413:50:20.063 Startup:
+040413:50:20.064  - Work Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040413:50:20.085  - StartPath = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\
+100413:50:20.088 Signed Assembly Dev_BaseDev, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BaseDev.dll
+040413:50:20.110  - SetupFile = Sias.Config.xml
+040413:50:20.110 SConfigurationManager base paths:
+040413:50:20.111  - Old  Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040413:50:20.111  - Bin. Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\
+040413:50:20.112  - Data Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040413:50:20.112 SConfigurationManager:
+040413:50:20.113  - Driver Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices
+040413:50:20.113  - Data   Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data
+040413:50:20.114  - Layout Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Layouts
+040413:50:20.114  - Device Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Devices
+100413:50:20.153 Signed Assembly TipManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\TipManager.dll
+100413:50:20.203 Signed Assembly LiquidManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LiquidManager.dll
+100413:50:20.230 Signed Assembly DetectionManager, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DetectionManager.dll
+100413:50:20.272 Signed Assembly Dev_Robot, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Robot.dll
+100413:50:20.307 Signed Assembly Dev_PipArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PipArm.dll
+100413:50:20.317 Signed Assembly Dev_DropStation, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DropStation.dll
+100413:50:20.346 Signed Assembly LayoutManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LayoutManager.dll
+100413:50:20.363 Signed Assembly DatabaseManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DatabaseManager.dll
+100413:50:20.377 Signed Assembly Layout, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Layout.dll
+100413:50:20.384 Signed Assembly LayoutDB, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LayoutDB.dll
+100413:50:21.160 Signed Assembly DeviceManager, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DeviceManager.dll
+100413:50:21.700 Signed Assembly Dev_BarcodeYZ, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BarcodeYZ.dll
+100413:50:22.002 Signed Assembly Dev_BCReader, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BCReader.dll
+100413:50:22.077 Signed Assembly Dev_BottleSensor, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BottleSensor.dll
+020413:50:22.250 Unable to register types of assembly C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Centrifuge.dll
+040413:50:22.251 未能加载文件或程序集“Dev_Centrifuge”或它的某一个依赖项。应用程序异常 (异常来自 HRESULT:0x80131600)
+040413:50:22.374    在 System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)|    在 System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNot
+040413:50:22.375 Inner exception: Failed resolving assembly
+040413:50:22.412    在 Sias.Core.STypeManager.?(Object A_0, ResolveEventArgs A_1)|    在 System.AppDomain.OnAssemblyResolveEvent(RuntimeAssembly assembly, String assemblyFullName)
+100413:50:22.487 Signed Assembly Dev_CombiArm, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_CombiArm.dll
+100413:50:22.553 Signed Assembly Dev_GripArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripArm.dll
+100413:50:22.615 Signed Assembly Dev_Motor, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Motor.dll
+100413:50:22.644 Signed Assembly Dev_Cover, ProductVersion=1.4.1, Version=0.9.1.0, FileVersion=0.9.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Cover.dll
+100413:50:22.680 Signed Assembly Dev_DownHolder, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DownHolder.dll
+100413:50:22.888 Signed Assembly Dev_DynamicWasher, ProductVersion=1.4.1, Version=1.0.4.0, FileVersion=1.0.4.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DynamicWasher.dll
+100413:50:22.974 Signed Assembly Dev_Washer, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Washer.dll
+100413:50:23.304 Signed Assembly WashManager, ProductVersion=1.4.1, Version=1.2.0.0, FileVersion=1.2.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\WashManager.dll
+100413:50:23.386 Signed Assembly Dev_GripperBarcodeYZ, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperBarcodeYZ.dll
+100413:50:23.447 Signed Assembly Dev_GripperFlexBcrYZ, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperFlexBcrYZ.dll
+100413:50:23.520 Signed Assembly Dev_HeatPos, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_HeatPos.dll
+100413:50:23.564 Signed Assembly Dev_HumidityChamber, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_HumidityChamber.dll
+100413:50:23.684 Signed Assembly Dev_IDTrax, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_IDTrax.dll
+100413:50:23.749 Signed Assembly Dev_IOPort, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_IOPort.dll
+100413:50:23.796 Signed Assembly Dev_PipPump, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PipPump.dll
+100413:50:23.837 Signed Assembly Dev_PlateTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PlateTrax.dll
+100413:50:23.871 Signed Assembly Dev_Reader, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Reader.dll
+100413:50:23.942 Signed Assembly Dev_ReSaTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_ReSaTrax.dll
+100413:50:23.975 Signed Assembly Dev_Scale, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Scale.dll
+100413:50:24.072 Signed Assembly Dev_Shaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Shaker.dll
+100413:50:24.120 Signed Assembly Dev_ThermoShaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_ThermoShaker.dll
+100413:50:24.143 Signed Assembly Dev_TipWasher, ProductVersion=1.4.1, Version=1.0.5.0, FileVersion=1.0.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_TipWasher.dll
+100413:50:24.192 Signed Assembly Dev_Ultrasonic, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Ultrasonic.dll
+100413:50:24.232 Signed Assembly Dev_VacuumStation, ProductVersion=1.4.1, Version=1.0.0.0, FileVersion=1.0.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_VacuumStation.dll
+100413:50:24.324 Signed Assembly Dev_WashHead, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_WashHead.dll
+100413:50:24.426 Signed Assembly UserManager, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\UserManager.dll
+040413:50:24.430 Clear Devices
+020413:50:24.469 Exception when trying to load layout C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Layouts\Rendu.Layout.xml
+040413:50:24.470 Failed resolving assembly
+040413:50:24.472    在 System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)|    在 System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNot
+040413:50:24.475 Inner exception: 字符串的长度不能为零。
+040413:50:24.476    在 System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)|    在 System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNot
+020413:50:24.561 Error 00000002 at SLayoutManager(SLayoutManager): Unable to load layout data for layout 'Rendu.Layout.xml' from 'C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Layouts\Rendu.Layout.xml'.
+200413:50:29.645 Error Result for Error 00000002: Ok

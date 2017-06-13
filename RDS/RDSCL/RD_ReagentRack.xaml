@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="RDSCL.RD_ReagentRack"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RDSCL"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="90">
+    <UserControl.Resources>
+
+        <SolidColorBrush x:Key="TextColor" Color="#FF97C300"/>
+        <system:Double x:Key="StrokeThickness" >1</system:Double>
+        <Style x:Key="TextBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+
+
+    </UserControl.Resources>
+
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="UserControl">
+                        <Viewbox Stretch="Fill">
+                            <Canvas Width="90" Height="530">
+                                <Rectangle RadiusX="10" RadiusY="10" Width="90" Height="524" Canvas.Top="10" Fill="{StaticResource BlueColor}"/>
+
+                                <local:RD_Hole x:Name="RD_MBBottle1" ContentColor="{Binding DataSource.MBBottles[0].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="38" Canvas.Left="-4" Canvas.Top="20"/>
+                                <local:RD_Hole x:Name="RD_MBBottle2" ContentColor="{Binding DataSource.MBBottles[1].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="38" Canvas.Left="40" Canvas.Top="20"/>
+
+                                <local:RD_Hole x:Name="RD_AMPBottle1" IsTwinkle="{Binding DataSource.AMPBottles[0].IsTwinkle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" ContentColor="{Binding DataSource.AMPBottles[0].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="25" Canvas.Left="-4" Canvas.Top="72"/>
+                                <local:RD_Hole x:Name="RD_AMPBottle2" IsTwinkle="{Binding DataSource.AMPBottles[1].IsTwinkle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" ContentColor="{Binding DataSource.AMPBottles[1].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="25" Canvas.Left="-4" Canvas.Top="100"/>
+                                <local:RD_Hole x:Name="RD_AMPBottle3" ContentColor="{Binding DataSource.AMPBottles[2].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="25" Canvas.Left="-4" Canvas.Top="128"/>
+                                <local:RD_Hole x:Name="RD_AMPBottle4" ContentColor="{Binding DataSource.AMPBottles[3].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="25" Canvas.Left="-4" Canvas.Top="156"/>
+
+                                <local:RD_Hole x:Name="RD_PNBottle1" ContentColor="{Binding DataSource.PNBottles[0].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="20" Canvas.Left="-4" Canvas.Top="195"/>
+                                <local:RD_Hole x:Name="RD_PNBottle2" ContentColor="{Binding DataSource.PNBottles[1].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="20" Canvas.Left="-4" Canvas.Top="220"/>
+                                <local:RD_Hole x:Name="RD_PNBottle3" ContentColor="{Binding DataSource.PNBottles[2].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="245"/>
+                                <local:RD_Hole x:Name="RD_PNBottle4" ContentColor="{Binding DataSource.PNBottles[3].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="270"/>
+
+
+                                <local:RD_Hole x:Name="RD_ISBottle1" ContentColor="{Binding DataSource.ISBottles[0].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="305"/>
+                                <local:RD_Hole x:Name="RD_ISBottle2" ContentColor="{Binding DataSource.ISBottles[1].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="330"/>
+                                <local:RD_Hole x:Name="RD_ISBottle3" ContentColor="{Binding DataSource.ISBottles[2].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="355"/>
+                                <local:RD_Hole x:Name="RD_ISBottle4" ContentColor="{Binding DataSource.ISBottles[3].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="380"/>
+
+                                <local:RD_Hole x:Name="RD_PNBottle5" ContentColor="{Binding DataSource.PNBottles[4].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="420"/>
+                                <local:RD_Hole x:Name="RD_PNBottle6" ContentColor="{Binding DataSource.PNBottles[5].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="445"/>
+                                <local:RD_Hole x:Name="RD_PNBottle7" ContentColor="{Binding DataSource.PNBottles[6].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="470"/>
+                                <local:RD_Hole x:Name="RD_PNBottle8" ContentColor="{Binding DataSource.PNBottles[7].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"   Width="20" Canvas.Left="-4" Canvas.Top="495"/>
+
+                                <local:RD_ReagentBox IsTwinkle="{Binding DataSource.ReagentBoxs[0].IsTwinkle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"  ContentColor="{Binding DataSource.ReagentBoxs[0].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="27" Canvas.Top="64" />
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[1].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="57" Canvas.Top="64" />
+
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[2].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="27" Canvas.Top="180" />
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[3].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="57" Canvas.Top="180" />
+
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[4].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="27" Canvas.Top="296" />
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[5].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="57" Canvas.Top="296" />
+
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[6].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="27" Canvas.Top="412" />
+                                <local:RD_ReagentBox ContentColor="{Binding DataSource.ReagentBoxs[7].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}" Width="28" Height="112" Canvas.Left="57"  Canvas.Top="412" />
+
+                                <Canvas x:Name="PopupForm"  Visibility="Visible" Canvas.Left="-30" Width="150" Height="550" >
+                                    <Path Canvas.Left="0" Canvas.Top="25" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 40,10"/>
+                                    <TextBlock Text="{Binding DataSource.MBBottles[0].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}}"  Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="90" Canvas.Top="25" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,10 L 10,0 40,0"/>
+                                    <TextBlock Text="{Binding DataSource.MBBottles[1].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Left="100" HorizontalAlignment="Center"  Style="{StaticResource TextBlock}"/>
+
+                                   
+                                    <TextBlock Text="{Binding DataSource.AMPBottles[0].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%- }"  Canvas.Top="74" Canvas.Right="122"  Style="{StaticResource TextBlock}" HorizontalAlignment="Right"/>
+
+                                    <TextBlock Text="{Binding DataSource.AMPBottles[1].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Top="103" Canvas.Right="122" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="135" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 40,10"/>
+                                    <TextBlock Text="{Binding DataSource.AMPBottles[2].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Top="115"  Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="165" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 40,10"/>
+                                    <TextBlock Text="{Binding DataSource.AMPBottles[3].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Top="145"  Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="0" Canvas.Top="200" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[0].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Top="182"  Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="226" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[1].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="208"  Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="252" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[2].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="234"  Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="278" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[3].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="260"  Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="0" Canvas.Top="310" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.ISBottles[0].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="292" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="336" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.ISBottles[1].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="318" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="362" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.ISBottles[2].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="344" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="388" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.ISBottles[3].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="370" Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="0" Canvas.Top="426" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[4].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="408" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="452" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[5].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="434" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="478" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[6].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="460" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="0" Canvas.Top="504" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,0 L 30,0 35,5"/>
+                                    <TextBlock Text="{Binding DataSource.PNBottles[7].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Top="486" Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="70" Canvas.Top="100" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,30 L 30,0 70,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[0].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Left="110" Canvas.Top="80" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="100" Canvas.Top="140" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,10 L 10,0 40,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[1].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Left="110" Canvas.Top="120" Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="70" Canvas.Top="216" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,30 L 30,0 70,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[2].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Left="110" Canvas.Top="196" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="100" Canvas.Top="256" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,10 L 10,0 40,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[3].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Left="110" Canvas.Top="236"  Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="70" Canvas.Top="330" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,30 L 30,0 70,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[4].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Left="110" Canvas.Top="310"  Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="100" Canvas.Top="370" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,10 L 10,0 40,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[5].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}" Canvas.Left="110" Canvas.Top="352"  Style="{StaticResource TextBlock}"/>
+
+                                    <Path Canvas.Left="70" Canvas.Top="444" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,30 L 30,0 70,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[6].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Left="110" Canvas.Top="424" Style="{StaticResource TextBlock}"/>
+                                    <Path Canvas.Left="100" Canvas.Top="484" Stroke="{StaticResource TextColor}" StrokeThickness="{StaticResource StrokeThickness}" Data="M0,10 L 10,0 40,0"/>
+                                    <TextBlock Text="{Binding DataSource.ReagentBoxs[7].Content,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_ReagentRack}}, StringFormat=\{0\}%}"  Canvas.Left="110" Canvas.Top="464" Style="{StaticResource TextBlock}"/>
+                                </Canvas>
+                
+                            </Canvas>
+                        </Viewbox>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PopupForm" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Style>
+</UserControl>

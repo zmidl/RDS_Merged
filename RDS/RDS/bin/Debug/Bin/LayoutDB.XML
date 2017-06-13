@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LayoutDB</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.Layout.DB.Serializer">
+            <summary>
+            Summary description for PrimitiveSerializer.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.DB.TypeProxy.Store(Sias.Layout.DB.TypeData)">
+            <summary>
+            Saves LabObject to database.
+            </summary>
+            <param name="typeData">Type data of the LabObject to be saved.</param>
+        </member>
+        <member name="T:Sias.Layout.DB.InserterNode">
+            <summary>
+            Summary description for InserterNode.
+            </summary>
+        </member>
+    </members>
+</doc>

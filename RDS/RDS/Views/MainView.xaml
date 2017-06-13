@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="RDS.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:rdscl="clr-namespace:RDSCL;assembly=RDSCL"
+             d:DesignHeight="1000" d:DesignWidth="1900">
+    <UserControl.Resources>
+
+        <SolidColorBrush x:Key="BodyBackground" Color="White"/>
+
+        <Path x:Key="Path_Exit" Fill="{Binding ElementName=Button_Exit,Path=Foreground}" Data="{StaticResource Close}"  Stretch="UniformToFill" Width="17" Margin="6,6,0,0"/>
+        <Path x:Key="Path_Administrators" Fill="{Binding ElementName=Button_AccountSettingsVariant,Path=Foreground}" Data="{StaticResource AccountSettingsVariant}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Height="20" Margin="3,3,0,0"/>
+        <Path x:Key="Path_Minimize" Fill="{Binding ElementName=Button_Minimize,Path=Foreground}" Data="{StaticResource Minimize}" Stretch="UniformToFill" Width="20" Margin="4,12,0,0"/>
+        <Path x:Key="Path_Information" Fill="{Binding ElementName=Button_Information,Path=Foreground}" Data="{StaticResource Information}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="20" Margin="-1,4,0,0"/>
+
+        <StackPanel x:Key="LabelButton_Content_Task" HorizontalAlignment="Center" Orientation="Horizontal" Margin="40,10,0,0">
+            <Path Fill="{Binding ElementName=CheckBox_Task,Path=Foreground}" Stretch="Uniform" Width="80" Height="60"  Data="{StaticResource Monitor}"/>
+            <TextBlock Foreground="{Binding ElementName=CheckBox_Task,Path=Foreground}" FontSize="38" FontWeight="Bold" Text="{DynamicResource MainView_CurrentTask}" Margin="20,5,0,0"/>
+        </StackPanel>
+
+        <StackPanel x:Key="LabelButton_Content_Histroy" HorizontalAlignment="Center" Orientation="Horizontal" Margin="40,10,0,0">
+            <Path Fill="{Binding ElementName=CheckBox_Histroy,Path=Foreground}" Stretch="Uniform" Width="80" Height="60"  Data="{StaticResource Histroy}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Foreground="{Binding ElementName=CheckBox_Histroy,Path=Foreground}" FontSize="38" FontWeight="Bold" Text="{DynamicResource MainView_Histroy}" Margin="20,5,0,0"/>
+        </StackPanel>
+
+        <StackPanel x:Key="LabelButton_Content_Help" HorizontalAlignment="Center" Orientation="Horizontal" Margin="40,10,0,0">
+            <Path Fill="{Binding ElementName=CheckBox_Help,Path=Foreground}" Stretch="Uniform" Width="80" Height="60" Data="{StaticResource Help}"/>
+            <TextBlock Foreground="{Binding ElementName=CheckBox_Help,Path=Foreground}" FontSize="38" FontWeight="Bold" Text="{DynamicResource MainView_Help}" Margin="20,5,0,0"/>
+        </StackPanel>
+    </UserControl.Resources>
+    <Viewbox Stretch="Fill" >
+        <Grid Width="1900" Height="1000">
+            <DockPanel Width="1900" Height="1000" LastChildFill="True">
+                <Canvas  x:Name="StackPanel_Head" Background="{StaticResource BlueColor}" Height="80"  DockPanel.Dock="Top">
+                    <Image Stretch="UniformToFill" Height="70" Canvas.Top="5" Canvas.Left="30" Source="/RDS;component/Apps/Images/RdLogo.png" />
+                    <Button  x:Name="Button_Exit" Style="{StaticResource RD_EllipseButtonStyle}" Content="{StaticResource Path_Exit}" Command="{Binding ExitApp}" Width="55" Height="55" Canvas.Right="20" Canvas.Top="10"  FontSize="100" />
+                    <Button  x:Name="Button_Minimize" Style="{StaticResource RD_EllipseButtonStyle}" Command="{Binding ShowCricleProgress}" Content="{StaticResource Path_Minimize}" Width="55" Height="55" Canvas.Right="100" Canvas.Top="10"  FontSize="100" Click="Button_Minimize_Click" />
+                    <Button  x:Name="Button_Information" Style="{StaticResource RD_EllipseButtonStyle}"  Content="{StaticResource Path_Information}" Width="55" Height="55" Canvas.Right="180" Canvas.Top="10"    FontSize="100" Click="Button_Information_Click" />
+                    <Button  x:Name="Button_AccountSettingsVariant" Command="{Binding ShowAdministratorsLogin}" Style="{StaticResource RD_EllipseButtonStyle}" Content="{StaticResource Path_Administrators}" Width="55" Height="55" Canvas.Right="260" Canvas.Top="10"    FontSize="100" />
+                    <CheckBox x:Name="CheckBox_Task" Style="{StaticResource RD_LabelButtonBrightStyle}" IsChecked="{Binding IsTask}" Content="{StaticResource LabelButton_Content_Task}" Canvas.Left="400" Width="350" Height="81" />
+                    <CheckBox x:Name="CheckBox_Histroy" Style="{StaticResource RD_LabelButtonBrightStyle}" IsChecked="{Binding IsHistroy}" Content="{StaticResource LabelButton_Content_Histroy}" Canvas.Left="750" Width="350" Height="81"/>
+                    <CheckBox x:Name="CheckBox_Help" Style="{StaticResource RD_LabelButtonBrightStyle}" IsChecked="{Binding IsHelp}" Content="{StaticResource LabelButton_Content_Help}" Canvas.Left="1100" Width="350" Height="81"/>
+                  
+                </Canvas>
+                <ContentControl x:Name="ContentControl_CurrentContent"/>
+            </DockPanel>
+        </Grid>
+    </Viewbox>
+</UserControl>

@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_Motor</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.Motor.SMotorDevice">
+            <summary>
+            Motor device class
+            
+            The %motor device is a single device representing exactly one logical module on a 
+            sias instrument. 
+            </summary>
+            <details>
+            \ingroup    Dev_Motor
+            
+            The class is implemented in \ref Dev_Motor. It implements 
+             - configuration properties for default speeds and ramps,
+             - a configuration property for the maximum move range,
+             - configuration properties for the scaling and axis units ([mm] or [°]),
+             - properties for the last known or actual positions,
+             - methods to convert positions (in [mm] or [°]) to or from %motor units and
+             - methods for different kind of moves (absolute, relative, block , scan, ...)
+             .
+            
+            The %motor device expects a connected CAN device implementing the %motor module 
+            interface messages like
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Init}: Init %motor
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Move}: Move %motor absolute or relative
+             - optional \nlink{Sias::CanDev::SCanMsg,CanMsg_SetLqMode}: Set liquid detector mode
+            
+            <div class="dynheader">%SMotorDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SMotorDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice._SpeedFactor">
+            <summary>General Speed factor  field</summary>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.#ctor">
+            <summary>
+            Default constructor
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.#ctor(System.Int16,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Manual generation constructor
+            
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Adr">Address of %motor module</param>
+            <param name="Speed">Default move speed [units/s]</param>
+            <param name="Ramp">Default acceleration [units/s²]</param>
+            <param name="InitSpeed">Default init speed [units/s]</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.ToMot(System.Double)">
+            <summary>
+            Get %motor device position [units] from %motor position [mm] or [°]
+            </summary>
+            <param name="Pos">Motor position [mm] or [°]</param>
+            <returns>Motor device position [units]</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.ToMotSpeed(System.Double)">
+            <summary>
+            Get %motor device speed [units/s] from %motor speed [mm/s] or [°/s]
+            </summary>
+            <param name="Speed">Motor speed [mm/s] or [°/s]</param>
+            <returns>Motor device speed [units/s]</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.ToMotRamp(System.Double)">
+            <summary>
+            Get %motor device acceleration [units/s²] from %motor acceleration [mm/s²] or [°/s²]
+            </summary>
+            <param name="Ramp">Motor acceleration [mm/s²] or [°/s²]</param>
+            <returns>Motor device acceleration [units/s²]</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.ToInitSpeed(System.Double)">
+            <summary>
+            Get %motor device init speed [units/s] from %motor init speed [mm/s] or [°/s]
+            </summary>
+            <param name="Speed">Motor init speed [mm/s] or [°/s]</param>
+            <returns>Motor device init speed [units/s]</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.ToPos(System.Int32)">
+            <summary>
+            Get %motor position [mm] or [°] from %motor device position [units]
+            </summary>
+            <param name="val">Motor device position [units]</param>
+            <returns>Motor position [mm] or [°]</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SMotor devices 
+            </summary>
+            <details>
+            Possible Module types:
+            	0x0002 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MOTOR_2DC_P1")
+            	0x0003 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MOTOR_2DC_P2")
+            	0x0004 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MOTOR_2DC_V1")
+            	0x0005 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MCB_DC_MOTOR")
+            	0x0010 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_DC_PUMP_V1")
+            	0x0030 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BC_RACK") ?
+            	0x0031 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MCB_IDTRAX")
+            	0xFFE1 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BASE_540")?
+            
+            Handled errors: 
+            	0x01 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INIT_ERROR")	at Error1
+            	0x02 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_MOVE_ERROR")	at Error1
+            	0x04 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INVALID_MOD")	at Error1
+            	0x0F (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_NO_LS_FOUND")	at Error1 and Error2
+            </details>
+            <param name="ForceHandling">true to force the handler to handle the error</param>
+            <param name="AddInfo">additional error information's</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Single motor init method. 
+            
+            Mostly this init method is not called if the motor device is 
+            a sub device of another device e.g. an arm device or an Y/Z devices.
+            </summary>
+            <param name="InitOptions">Initialization options (Init level (PreInit, Init, PostInit, UserInit) and Init Group 0..7)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.CheckMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            This method checks the %motors destination position before moving the %motor. It gets called 
+            from the %motor move methods.
+            </summary>
+            <param name="Dest">Destination position (may be relative)</param>
+            <param name="Options">move options</param>
+            <param name="Speed">motor move speed</param>
+            <param name="Ramp">motor move ramp</param>
+            <returns>New %motor destination position (may be limited)</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Prepare for general %motor move 
+            </summary>
+            <param name="Dest">Destination position (absolute or relative depends on Options)</param>
+            <param name="Options">Options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS})</param>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Ramp">Move Acceleration (0=defautl acceleration)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareMoveAbs(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare for absolute %motor move 
+            </summary>
+            <param name="Dest">Destination position (absolute)</param>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Ramp">Move Acceleration (0=default acceleration)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareMoveRel(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare for relative %motor move 
+            </summary>
+            <param name="Delta">Move way (relative)</param>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Ramp">Move Acceleration (0=defautl acceleration)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareBlockMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Prepare for absolute %motor block move 
+            </summary>
+            <param name="Dest">Destination position (absolute)</param>
+            <param name="BlockMode">Block mode (from 1=strongest to 3=weakest)</param>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Ramp">Move Acceleration (0=defautl acceleration)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareScanMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare for absolute %motor scan move 
+            </summary>
+            <param name="Dest">Destination position (absolute)</param>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Submerge">Destination position for movement after detection (relative to detect position)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.SetLDSensitivity(System.Byte)">
+            <summary>
+            Set liquid detection sensitivity
+            </summary>
+            <param name="Sens">New sensitivity</param>
+            <returns>True if setting successful</returns>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareInit(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare for %motor init move 
+            </summary>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Ramp">Move Acceleration (0=defautl acceleration)</param>
+            <param name="InitSpeed">Init speed (0=default init speed)</param>
+        </member>
+        <member name="M:Sias.Motor.SMotorDevice.PrepareInitMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare for %motor init move \n
+            \n (in difference to Init this method will set the MM_RELATIVE flag)
+            </summary>
+            <param name="Speed">Move speed (0=default speed)</param>
+            <param name="Ramp">Move Acceleration (0=defautl acceleration)</param>
+            <param name="InitSpeed">Init speed (0=default init speed)</param>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.SpeedFactor">
+            <summary>
+            General Speed factor  property
+            
+            This property may be used to reduce the speed of ALL motors in Nelsn 
+            SDK. I may only be used for teaching or debugging purposes as it will
+            not allow a correct tracking ...
+            </summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.MaxPos">
+            <summary>Maximum move range [units]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.MoveRange">
+            <summary>Maximum move range [mm] or [°]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.Speed">
+            <summary>Default moving speed [units/s]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.Default_Speed">
+            <summary>Default moving speed [mm/s] or [°/s]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.Ramp">
+            <summary>Default acceleration [100 units/s]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.Default_Ramp">
+            <summary>Default acceleration [mm/s²] or [°/s²]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.InitSpeed">
+            <summary>Default init speed [units/s]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.Default_InitSpeed">
+            <summary>Default init speed [mm/s] or [°/s]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.ScaleFactor">
+            <summary>Scaling factor [mm/unit] or [°/unit]</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.UnitName">
+            <summary>Motor unit name</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice._Unit">
+            <summary>Motor unit mm or °</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice._RangeUnit">
+            <summary>Unit string for <see cref="P:Sias.Motor.SMotorDevice.MoveRange"/> property</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice._SpeedUnit">
+            <summary>Unit string for <see cref="P:Sias.Motor.SMotorDevice.Default_Speed"/> property</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice._RampUnit">
+            <summary>Unit string for <see cref="P:Sias.Motor.SMotorDevice.Default_Ramp"/> property</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice._InitSpeedUnit">
+            <summary>Unit string for <see cref="P:Sias.Motor.SMotorDevice.Default_InitSpeed"/> property</summary>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.Pos">
+            <summary>
+            Last known %motor position. If the %motor is not moving and no external force is 
+            attached to the %motor this will be identical to the actual position.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.Motor.SMotorDevice.PosFromDevice">
+            <summary>
+            Current %motor position. \n
+            In difference to property Pos, this property will actively request the actual position 
+            from the motor. So the position will also recognize position changes evoked by external 
+            force. 
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.Motor.SMotorDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::Motor::SMotorDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.InitError">
+            <summary>0x1301: Unable to initialize motor. No block and no index position found.</summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.MoveError">
+            <summary>0x1302: %Motor movement blocked. %Motor is unable to reach the destination position.</summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.DeviceHardwareError">
+            <summary>0x1304: Unable to initialize the device hardware.</summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.NoValidLevelSensorConfig">
+            <summary>0x130F: Unable to find a valid level sensor configuration.</summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.NoLevelSensor">
+            <summary>0x138F: Unable to initialize level sensor hardware.</summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.MotorPositionTooHigh">
+            <summary>0x2001: Motor destination position too high.</summary>
+        </member>
+        <member name="F:Sias.Motor.SMotorDevice.ErrorCodes.MotorPositionTooLow">
+            <summary>0x2002: Motor destination position too low.</summary>
+        </member>
+    </members>
+</doc>

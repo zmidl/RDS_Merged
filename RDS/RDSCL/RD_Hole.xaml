@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="RDSCL.RD_Hole"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RDSCL"
+             mc:Ignorable="d" 
+             x:Name="UserControl_RD_Hole"
+              d:DesignHeight="100" d:DesignWidth="100">
+    <UserControl.Resources>
+        <Storyboard x:Key="TwinkleAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:0.5" AutoReverse="True" />
+        </Storyboard>
+
+        <local:EndAngleConverter x:Key="EndAngleConverter"/>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="UserControl">
+                        <Viewbox Stretch="Fill">
+                            <Grid>
+                                <Canvas x:Name="ReagentContent" Width="120" Height="120">
+                                    <Ellipse Canvas.Left="10" Canvas.Top="10" Width="100" Height="100" Panel.ZIndex="0" Fill="{Binding ContentColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                                </Canvas>
+                            </Grid>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Style>
+</UserControl>

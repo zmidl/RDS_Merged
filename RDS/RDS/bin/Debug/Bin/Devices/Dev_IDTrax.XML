@@ -1,0 +1,418 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_IDTrax</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.IDTrax.SIDTraxDevice">
+            <summary>
+            ID-Trax device driver class.
+            This class represents a ID-Trax device.
+            </summary>
+            <details>
+            \ingroup	Dev_IDTrax
+            
+            The device includes the following methods and properties:
+             - configuration properties
+               - MaxSlot: The number of slots on the hardware ID-Trax
+               .
+             - layout properties
+               - An array of ID-Trax slots
+               .
+             - Methods for ID-Trax movements
+             - Methods for ID-Trax reading
+             - Methods for getting/setting the access modes
+             .
+            
+            <div class="dynheader">%SIDTraxDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SIDTraxDevice.png"
+            </div>
+            
+            \b Supported \b Modules \b Types:
+             - \ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BC_RACK" (0x0030)		
+                "old" ID-Trax modules (LM629)
+             - \ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MCB_IDTRAX" (0x0031)	
+                "new" ID-Trax modules
+             - \ref Sias::CanDev::eMODULE_TYPE_CONST "MT_RE_SA_TRAX" (0x003D)	
+                ReSaTrax modules (only basic support) \n
+                It is recommended to create an own device for ReSaTrax including a
+                user interface with load / unload dialogs.
+             .
+            </details>
+            <remarks>
+             -	ATTENTION:	When using the base class functions the actual strip number 
+            				(_ActStrip)	may get incorrect without recognition of the 
+            				ID-Trax class! This can make problems when using SetAccessMode
+            				or GetAccessMode.
+             -	What about multi threading support for devices. Do we need to take care for 
+            	for usage of the device at different threads ?
+             -	Take care not to use the device at different threads expect for Set/GetAccessMode
+             .
+            </remarks>
+            TODO: GetAccessMode/SetAccessMode design check
+            TODO: Implement and document access mode dependent device display modes (Visualizations)
+            TODO: Optionally implement scaling for ID-Trax axis
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice._MaxSlot">
+            <summary>No of slots.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice._Slot">
+            <summary>Slot array.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice._StripInfo">
+            <summary>Strip information array.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice._ActStrip">
+            <summary>Actual Strip number (255=unknown).</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice._PrepareCount">
+            <summary>Block movements flag.</summary>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.#ctor">
+            <summary>
+            Default constructor.
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>		
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.#ctor(System.Int16,System.Int16,System.String,System.String)">
+            <summary>
+            Manual generation constructor.
+            
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Adr">ID-Trax device address</param>
+            <param name="SlotCnt">Number of slots on the ID-Trax device</param>
+            <param name="InitString">BCR initialization string (not used yet)</param>
+            <param name="Pattern">Barcode filter string</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.PrepareXMove(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Prepare for a ID-Trax X-Motor Move to an absolute motor position.\n
+            Take care, this doesn't check the Y motor position. Using at incorrect Y positions may 
+            crash the module or hardware.
+            </summary>
+            <param name="Dest">Absolute motor position</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.PrepareRelativeXMove(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Prepare for a ID-Trax X-motor move to a relative motor position.\n
+            Take care, this doesn't check the Y motor position. Using at incorrect Y positions may 
+            crash the module or hardware.
+            </summary>
+            <param name="Dest">Relative motor position</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.PrepareYMove(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Prepare for a ID-Trax Y-motor move to an absolute motor position.\n
+            Take care, this doesn't check the X motor position. Using at incorrect X positions may 
+            crash the module or hardware.
+            </summary>
+            <param name="Dest">Absolute motor position</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.PrepareRelativeYMove(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Prepare for a ID-Trax Y-motor move to a relative motor position.\n
+            Take care, this doesn't check the X motor position. Using at incorrect X positions may 
+            crash the module or hardware.
+            </summary>
+            <param name="Dest">Relative motor position</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.MoveBarXY(System.Int32,System.Int32)">
+            <summary>
+            Move to X/Y coordinate.
+            This method moves the ID-Trax module to a defined X/Y coordinate. It 
+            first moves the Y motor to 0 before moving the X motor.\n 
+            Take care, an incorrect X or Y position may crash the module or hardware.
+            </summary>
+            <param name="X"></param>
+            <param name="Y"></param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.StripOK(System.SByte)">
+            <summary>
+            Check if a strip is ok, that means if the strip number is less then the maximum 
+            number of strips and the strips strip information block is valid.
+            </summary>
+            <param name="StripNo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.GetRawBarcode(System.SByte,System.Byte)">
+            <summary>
+            Get the raw barcode of a specific tube on the given strip.
+            </summary>
+            <param name="StripNo">Strip index</param>
+            <param name="CodeIndex">Code (Tube) index</param>
+            <returns>barcode of the tube ("" if not read yet)</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.GetBarcode(System.SByte,System.Byte)">
+            <summary>
+            Get translated (filtered) barcode of a specific tube on the given strip.
+            </summary>
+            <param name="StripNo">Strip index</param>
+            <param name="CodeIndex">Code (Tube) index</param>
+            <returns>barcode of the tube ("" if not read yet or if filter does not match)</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.GetSlotIndex(System.Object)">
+            <summary>
+            Get index of ID-Trax slot.
+            This method searches for the given object in the ID-Trax slot list. If the 
+            slot is found, it returns the slot list index, else it returns -1.
+            </summary>
+            <param name="SlotObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.GetMoveAccess(System.Int32)">
+            <summary>
+            This method waits until the ID-Trax device is allowed to be moved.
+            The ID-Trax device is not allowed to be moved if 
+             - a read strip is active or 
+             - a move strip is active
+             .
+            If the move access can not be allowed within the given timeout the 
+            method returns false.
+            </summary>
+            <param name="time_ms">Timeout for waiting</param>
+            <returns>True if move access is allowed, false if not.</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.MoveToStrip(System.SByte)">
+            <summary>
+            Move to a strip of the ID-Trax.
+            </summary>
+            <param name="Strip">Strip to move to</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.ReadStrip(System.SByte,System.Byte,System.Byte,System.Byte,System.SByte)">
+            <summary>
+            Read a barcode strip.
+            
+            This Method reads the defined strip and optionally moves to the next strip
+            while processing the retrieved barcode data.
+            </summary>
+            <param name="Strip">Strip index to read [0..NoOfStrips-1]</param>
+            <param name="StripType">Strip type</param>
+            <param name="First">First cavity to read</param>
+            <param name="Last">Last cavity to read</param>
+            <param name="NextStrip">Next strip to move (-1 means no add. move)</param>
+            <returns></returns>
+            <remarks>The device gets locked/unlocked in this method. Timeout: ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SIDTrax devices. 
+            </summary>
+            <details>
+            Possible Module types:
+                - 0x0030 ((\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BC_RACK")
+                - 0x0031 ((\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MCB_IDTRAX")
+                - 0x003D ((\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_RE_SA_TRAX")
+                .
+            Handled errors: 
+                - 0x01 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INIT_ERROR")	at Error1
+                - 0x02 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_MOVE_ERROR")	at Error1
+                - 0x03 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INIT_ERROR2")	at Error1
+                - 0x04 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INVALID_MOD")	at Error1
+                - 0x50 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_TIMEOUT_ERR")	at Error2
+                - 0xF1 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_NOT_INIT")	at Error1
+                .
+            </details>
+            <param name="ForceHandling">True to force the handler to handle the error</param>
+            <param name="AddInfo">Additional error information's</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice._AccessMode">
+            <summary>Actual access mode of the ID-Trax.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ActualLayoutDevice">
+            <summary>Actual layout device. E.g. for sending the display state to layout</summary>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.AttachLayoutData(Sias.Core.Interfaces.ILayoutDevice)">
+            <summary>
+            Attach layout data. 
+            
+            This method tries to attach the layout data found at the given layout device 
+            to the  device. If this succeeds, it returns true. If it fails, it returns false.
+            In this case the calling method should retry until it finds a fitting layout 
+            device.
+            </summary>
+            <param name="LayoutDevice">The layout device to attach or null to unattach an attached layout device.</param>
+            <returns>True if attachable, false if not.</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.GetAccessMode(System.Object)">
+            <summary>
+            Get access mode.
+            This method is used to request the current access mode. 
+            </summary>
+            <param name="CallerObject">The caller object</param>
+            <returns>Access mode for the given caller object</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.SetAccessMode(System.Object,Sias.Core.Interfaces.SAccessMode,System.Int32)">
+            <summary>
+            Set access mode.
+            This method prepares the ID-Trax module to allow the requested access.
+            </summary>
+            <param name="CallerObject">The object calling the method</param>
+            <param name="AccessMode">Requested access mode</param>
+            <param name="TimeOut">Allowed timeout</param>
+            <returns>The resulted access mode</returns>
+            <remarks>
+            <b>Remarks:</b>
+             - How should we handle a timeout error?
+             - If another thread is active in the devices read function, we will wait until 
+               this thread is finished or the timeout is reached.
+            </remarks>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.MaxSlot">
+            <summary>
+            Number of slots property.
+            
+            This property defines how many strips can be placed on the ID-Trax device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.Slot">
+            <summary>
+            Slot array property.
+            
+            This layout property defines the list of slots of the ID-Trax device. 
+            Each slot can typically get one ID-trax strip.
+            This property will only be valid, if a layout is attached (\b see \ref AttachLayoutData).
+            </summary>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.StripInfo">
+            <summary>
+            Strip information array property.
+            
+            This property returns the strip information array. This array keeps one strip information 
+            block for each strip slot of the ID-Trax device.
+            The strip information blocks are managing the barcodes of the tubes placed on the strips. 
+            </summary>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.StripInfoOK">
+            <summary>
+            Check if the slot information blocks are ok.
+            
+            This property checks the slot information blocks. If no strip information blocks are defined or 
+            if number of slots are changed, the method generates an slot information array.
+            Normally this method should NEVER return false!
+            </summary>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.BlockMoves">
+            <summary>
+            Block movements flag property.
+            
+            This flag defines if the ID-Trax is allowed to be moved or not.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.LayoutDisplayMode">
+            <summary>Get/Set device visualization mode.</summary>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.LayoutDisplayModeString">
+            <summary>Get/Set device visualization mode.</summary>
+        </member>
+        <member name="T:Sias.IDTrax.SIDTraxDevice.SStripInfo">
+            <summary>
+            This sub class manages the strip information (all barcodes belonging to an ID-Trax strip). 
+            </summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.SStripInfo._RawCode">
+            <summary>Raw barcode array.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.SStripInfo._First">
+            <summary>First used/read position index.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.SStripInfo._Last">
+            <summary>Last used/read position index.</summary>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.SStripInfo.#ctor(System.Byte,System.Byte)">
+            <summary>
+            Strip information constructor.
+            
+            This constructor creates a strip information class with raw barcode buffers 
+            for Tubes [First to Last]
+            </summary>
+            <param name="First">Index of first tube to manage</param>
+            <param name="Last">Index of last tube to manage</param>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.SStripInfo.GetRawCode(System.Int32)">
+            <summary>
+            Get raw barcode of tube defined by the given index.
+            
+            If the index is lower then First or higher then Last the method returns an empty string.
+            </summary>
+            <param name="inx">Index of the tube</param>
+            <returns>barcode corresponding with the given index</returns>
+        </member>
+        <member name="M:Sias.IDTrax.SIDTraxDevice.SStripInfo.SetRawCode(System.Int32,System.String)">
+            <summary>
+            Set raw barcode of tube defined by the given index.
+            
+            If the index is lower then First or higher then Last, the barcode will not be set.
+            </summary>
+            <param name="inx">Index of the tube</param>
+            <param name="RawCode">new barcode for given index</param>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.SStripInfo.First">
+            <summary>
+            First used/read position index property.
+            </summary>
+        </member>
+        <member name="P:Sias.IDTrax.SIDTraxDevice.SStripInfo.Last">
+            <summary>
+            Last used/read position index property.
+            </summary>
+        </member>
+        <member name="T:Sias.IDTrax.SIDTraxDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::IDTrax::SIDTraxDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ErrorCodes.InitError">
+            <summary>0x1301: Unable to initialize the device. No block and no index position found.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ErrorCodes.MoveError">
+            <summary>0x1302: IDTrax movement blocked. One IDTrax device is unable to reach the destination position.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ErrorCodes.BcrOutputLineError">
+            <summary>0x1303: BC-Reader Result line input error, the BCR result line indicates an available barcode at init position.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ErrorCodes.InvalidIDTraxModule">
+            <summary>0x1304: Invalid IDTrax device. Unable to initialize the device hardware.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ErrorCodes.NotInitError">
+            <summary>0x13F1: Tried to use MoveRack or ReadRack command while the module is not initialized.</summary>
+        </member>
+        <member name="F:Sias.IDTrax.SIDTraxDevice.ErrorCodes.ReadingTimeout">
+            <summary>0x1350: The module gets a read timeout while scanning for barcodes. 
+            The timeout is at least 20 seconds but will be increased to at least 2 seconds 
+            if a barcode gets available
+            </summary>
+        </member>
+    </members>
+</doc>

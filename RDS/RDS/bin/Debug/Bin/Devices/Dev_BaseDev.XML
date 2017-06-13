@@ -1,0 +1,2179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_BaseDev</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.BaseDev.SBaseRobotDevice">
+            <summary>
+             This abstract class is the base of all robot objects.
+             </summary>
+            <remarks></remarks>
+            <example></example>
+            <details>
+             \ingroup	Dev_BaseDev
+             
+             This abstract class is the base for all Nelson robots. It provides the general
+             properties and methods needed for all Nelson robots.
+             
+             
+             A Robot consists of 
+              - a set of arm devices (derived from SBaseArmDevice) and
+              - a set of standard devices (derived from SBaseDevice).
+              .
+             
+             In addition it can have additional configuration properties for general setup data.
+             <div class="dynheader">%SBaseRobotDevice class diagram</div>
+            	<div class="dynsection">
+             \image html "SBaseRobotDevice.png"
+             </div>
+            </details>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseDevice">
+            <summary>
+            This abstract class is the base for all devices.
+            </summary>
+            <details>
+            \ingroup	Dev_BaseDev
+            
+            This device is the base for all Nelson devices. Each device needs to be 
+            derivated from this class or one of its derivations.
+            The class is implemented in \ref Dev_BaseDev. It implements
+             - a configuration property for the device name
+             - a property representing the device state
+             - a ThreadLock property for device locking
+             - methods for locking/unlocking devices
+             - a static property for the device layout
+             - a static method for travel height calculation and
+             - some static methods for device type handling
+             .
+            
+            <div class="dynheader">%SBaseDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SBaseDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.MainDeviceOnly(Sias.Core.Attributes.SPropertyAttributes)">
+            <summary>
+            Main device only property provider
+            This property provider can be used to enable/disable properties
+            depending on the IsSubDevice flag of a device. This is used e.g.
+            to suppress the device names of sub devices, because the names of 
+            this devices depend on the name of its parent.
+            </summary>
+            <param name="attr">Property attribute parameter</param>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice.UnitNames">
+            <summary>
+            Name of the known units.
+            <see cref="T:Sias.BaseDev.MotorUnitsEnum"/>
+            <see cref="T:Sias.BaseDev.PipPumpUnitsEnum"/>
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice.__Layout">
+            <summary>Static Layout object (see Layout member).</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetTravelHeight(Sias.Core.SRectangle)">
+            <summary>
+            Get the highest travel height of a given area of a Layout.
+            </summary>
+            <param name="MoveRange">rectangle of the crossed worktable area</param>
+            <returns>Travel height</returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice._DeviceMode">
+            <summary>Device mode field</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice._ExecutionType">
+            <summary>Device execution type field.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.#ctor(System.String)">
+            <summary>
+            Constructor with XML configuration string parameter.
+            </summary>
+            <param name="Config">XML Configuration string</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.WriteProperty(System.Int32,System.Xml.XmlTextWriter,System.String)">
+            <summary>
+            Write property <paramref name="Name"/> to <paramref name="writer"/> (XML config string).\n
+            
+            This method is overwritten to avoid setting the device name if it is identical
+            to the new device name. This is because of devices with sub devices will change 
+            beneath its own device name property also the device names of all sub devices.
+            </summary>
+            <param name="Level">Nested object level</param>
+            <param name="writer">XML text writer object</param>
+            <param name="Name">Property name</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.WriteXMLString(System.Int32,System.Xml.XmlTextWriter)">
+            <summary>
+            Write object to <paramref name="writer"/> (XML config string). \n
+            
+            This method is overwritten to avoid setting the device name for sub devices.
+            Sub devices typically get their device name from their parents.
+            </summary>
+            <param name="Level">Nested object level</param>
+            <param name="writer">XML text writer object</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.ReadProperty(System.Int32,System.Xml.XmlTextReader)">
+            <summary>
+            Read property from XmlTextReader (XML configuration string). \n
+            
+            This method is overwritten to make sure the names of the sub devices are set correctly, 
+            as the sub device names will not be read from xml string.
+            </summary>
+            <param name="Level">Nested object level</param>
+            <param name="reader">XML text reader object</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.ReadDeviceTypes">
+            <summary>
+            Read a list of all device assemblies
+            
+            Read a list of all assemblies matching "Dev_*.dll" placed in the same folder as 
+            the base device assembly. The included types of this assemblies get registered 
+            using STypeManager.RegisterTypesOfAssembly;
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetSubDeviceTypes(System.Type,System.Type[])">
+            <summary>
+            Get object type list.
+            This method creates a list of all types derived from the given filter type,
+            but not included in the excluded type or (optionally) derived from one of 
+            the excluded types.
+            </summary>
+            <param name="FilterType"></param>
+            <param name="ExcludedTypes"></param>
+            <returns>a list of the requested types</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetSubDeviceTypes(System.Type)">
+            <summary>
+            Get all devices derived from the given FilterType.
+            </summary>
+            <param name="FilterType">Filter type parameter</param>
+            <returns>a list of the requested types</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetDeviceTypes">
+            <summary>
+            Get all known device types (All types derived from SBaseDevice).
+            </summary>
+            <returns>a list of the requested types</returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice._BaseFlags">
+            <summary>Base flags variable.</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice._DeviceState">
+            <summary>Private device state member.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Virtual init method. This method will be overridden by the derivated devices.
+            </summary>
+            <param name="InitOptions">Initialization options (Init level (PreInit, Init, PostInit, UserInit) and Init Group 0..7)</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetExecutionFilter(Sias.BaseDev.SBaseDevice)">
+            <summary>
+            This static method is called to get the execution filter of a specific 
+            device. It calls the ExecutionFilterRequest Event and returns the resulting 
+            SDeviceExecutionFilter class.
+            </summary>
+            <param name="Dev">The device requesting its execution filter</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetExecutionFilter(System.Byte)">
+            <summary>
+            This static method is called to get the execution filter of a specific execution
+            group. It calls the ExecutionFilterRequest Event and returns the resulting 
+            SDeviceExecutionFilter class.
+            </summary>
+            <param name="ExecutionGroup">CAN Execution group</param>
+            <returns>The Device execution filter for the given execution group</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.WaitForExecutionFilter(System.Byte)">
+            <summary>
+            This static method waits until the given execution group is allowed to 
+            be executed.
+            </summary>
+            <param name="ExecutionGroup">The execution group to check</param>
+            <returns>True if the execution group is allowed to get executed, otherwise false </returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.WaitForExecutionFilter(Sias.BaseDev.SDeviceExecutionType)">
+            <summary>
+            Wait until the device execution filter allows to execute the given execution filter.
+            </summary>
+            <param name="DeviceExecutionType">The device execution type to wait for</param>
+            <returns>true if the execution type is allowed, false if not</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.WaitForExecutionFilter">
+            <summary>
+            Wait until the device execution filter allows to execute the default 
+            device type of the device.
+            </summary>
+            <returns>true if the execution is allowed, false if not</returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseDevice._DeviceLock">
+            <summary>Device lock field.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.Lock(System.Int32)">
+            <summary>
+            This method tries to lock the device for the current thread. 
+            If the device is locked for another thread the method waits until either 
+            the device is released or the given timeout elapsed. If the device is not
+            released in the given timeout, the function returns false.
+            </summary>
+            <param name="MaxWait_ms">Maximum time to wait for release</param>
+            <returns>true if the device is locked successfully</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.Lock">
+            <summary>
+            Lock device for the current thread.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.Unlock">
+            <summary>
+            Unlock the device.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.AddDeviceToDeviceList(Sias.BaseDev.SBaseDevice,System.Collections.Generic.List{Sias.BaseDev.SBaseDevice})">
+            <summary>
+            Trace device lock state of the device including all of its sub devices.
+            </summary>
+            <param name="dev">The base device to add to device list</param>
+            <param name="BaseList">the base device list where the device should get added</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.GetSubDevices">
+            <summary>
+            Get a list of all devices concerned to the given 
+            </summary>
+            <returns>A list of all sub devices (including the device itself)</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDevice.TraceDeviceLock(System.String)">
+            <summary>
+            Trace device lock state of the device including all of its subdevices.
+            </summary>
+            <param name="LogCategory">The trace category</param>
+            <returns>true if the device or any of its sub devices is locked.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.Layout">
+            <summary>
+            This static member is used as device - layout connection.
+            If devices need to access the layout they use this for 
+            getting a layout object. So it needs to be assigned prior
+            using this kind of devices.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.DeviceMode">
+            <summary>
+            Device mode
+            
+            The devic emode is used to define special modes on device execution.
+            For example it may avoid blocking movements by coverdevices in case the
+            devices are in teahcing mode.\n
+            \b important:   It is recommended to use the constante from 
+                                \nlink{Sias.BaseDev,SDeviceModeConstants} 
+                            class to access this property.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.DeviceName">
+            <summary>
+            The name of the device.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.ExecutionType">
+            <summary>Device execution type value property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.DeviceExecutionTypeValue">
+            <summary>Device execution type value property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.BaseFlags">
+            <summary>Base flags of the device.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.IsSubdevice">
+            <summary>Check whether the device is a sub device of another device or not.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.DeviceState">
+            <summary>Get device state.</summary>
+        </member>
+        <member name="E:Sias.BaseDev.SBaseDevice.ExecutionFilterRequest">
+            <summary>
+            Execution filter request event.
+            
+            \b see \ref RequestExecutionFilterHandler
+            </summary>
+        </member>
+        <member name="E:Sias.BaseDev.SBaseDevice.ExecutionFilterChanged">
+            <summary>
+            Execution filter changed event.
+            
+            \b see \ref ExecutionFilterChangedHandler
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.ExecutionFilter">
+            <summary>
+            Get/Set the ExecutionRestriction of the SBaseDevice.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDevice.DeviceLock">
+            <summary>Device lock property.</summary>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseDevice.RequestExecutionFilterHandler">
+            <summary>
+            Request execution filter delegate.
+            
+            This delegate is called if a device requests the execution filter. \n
+            It can get subscribed by devices to restrict the execution of other devices 
+            (e.g. cover sensors).
+            </summary>
+            <param name="DeviceOrExecGroup">The device or execution group requesting the execution filter</param>
+            <param name="Restriction">The actual execution filter value (always starting with 
+                                      SDeviceExecutionFilter.AllDeviceExecution)</param>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseDevice.ExecutionFilterChangedHandler">
+            <summary>
+            Execution filter changed delegate.
+            
+            This event has to be called if a device changes the execution filter for 
+            other devices or execution groups. In general this event should only be called 
+            by subscriber objects of the ExecutionFilterRequest event.
+            
+            Devices can subscribe this  event to get informed about a execution filter
+            change. So if necessary a device may interrupt its actual command/action.
+            </summary>
+            <param name="Changer">The object changing the execution filter</param>
+            <param name="NewRestriction">The new execution filter value</param>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice._WorkTableReference1">
+            <summary>Device collection variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice._WorkTableReference2">
+            <summary>Device collection variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice._RobotArms">
+            <summary>Arm device collection variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice._BaseDevices">
+            <summary>Device collection variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice._SlotOffsetList">
+            <summary>Slot patch list field</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.SetArmIDs">
+            <summary>
+            Set the robots arm identifiers (index +1)
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.#ctor(System.String)">
+            <summary>
+            XML Configuration constructor
+            </summary>
+            <param name="Config">XMl configuration string</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.#ctor(Sias.BaseDev.SBaseArmDeviceCollection,Sias.BaseDev.SBaseDeviceCollection,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            Robot generation with data
+            </summary>
+            <param name="RobotArms">A collection of robot arms</param>
+            <param name="BaseDevices">A collection of devices</param>
+            <param name="Reference1">first reference point</param>
+            <param name="Reference2">second reference point</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.Finalize">
+            <summary>
+            Releases unmanaged resources and performs other cleanup operations before 
+            the <b>SBaseRobotDevice</b> is reclaimed by garbage collection.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device (or its derivations).
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.CreateFromXMLString(System.String)">
+            <summary>
+            static method to create an object by using an xml string
+            The root name of the xml string needs to define the type name 
+            of the object to create.
+            </summary>
+            <param name="xmlInput">XML configuration string of the object</param>
+            <returns>The generated object</returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice._AttachedLayout">
+            <summary>Attached layout field</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.AdjustSlot(Sias.Core.Interfaces.ISlot,Sias.Core.SGripperPosition,Sias.Core.SGripperPosition)">
+            <summary>
+            Change slot adjustment
+            </summary>
+            <param name="slot">The slot to adjust</param>
+            <param name="Offset">The new slot offsets (null for no new slot offsets)</param>
+            <param name="OldOfs">The old slot offsets (null for no old slot offsets)</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.SetSlotOffset(System.String,Sias.Core.SGripperPosition)">
+            <summary>
+            Set robot depending slot offset
+            </summary>
+            <param name="SlotID">Identifier(name) of slot in layout</param>
+            <param name="Offset">New slot correction value</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetSlotOffset(System.String)">
+            <summary>
+            Get robot depending slot offset
+            </summary>
+            <param name="SlotID">Identifier(name) of slot in layout</param>
+            <returns>The robot depending slot offset</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.RemoveSlotOffset(System.String)">
+            <summary>
+            Remove a slot offset from slot offset list
+            </summary>
+            <param name="SlotID">Identifier(name) of slot in layout</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetSlotOffsetIDs">
+            <summary>
+            Get a list of all slot IDs with individual slot offset
+            </summary>
+            <returns>A list of all slot IDs with robot dependend slot offset</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.ResetSlotOffsets(Sias.Core.Interfaces.ILayout)">
+            <summary>
+            Reset robot depending slot offsets on layout
+            
+            This method will reset the robot depending slot offsets of the given layout.
+            </summary>
+            <param name="layout">The layout instance to get patched</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.SetSlotOffsets(Sias.Core.Interfaces.ILayout)">
+            <summary>
+            Set the robot depending slot offsets on layout
+            </summary>
+            <param name="layout">The layout instance to get patched</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.SetAttachedRobot(Sias.Core.Interfaces.ILayout,Sias.BaseDev.SBaseRobotDevice)">
+            <summary>
+            Set the layouts attached robot
+            
+            As this layout member is not available on ILayout interface and may be not 
+            implemented in each layout implementation we will access it by 
+            </summary>
+            <param name="layout"></param>
+            <param name="robot"></param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetAttachedRobot(Sias.Core.Interfaces.ILayout)">
+            <summary>
+            
+            </summary>
+            <param name="layout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.ReleaseLayoutData(Sias.Core.Interfaces.ILayout)">
+            <summary>
+            This method releases the layout data of given layout (only internal use)
+            </summary>
+            <param name="layout">The layout to release</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.ReleaseLayout">
+            <summary>
+            Release the layout of a robot
+            
+            This method releases (unattach) the layout from robot.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.AttachLayout(Sias.Core.Interfaces.ILayout)">
+            <summary>
+            Attach layout
+            
+            This method is designed to attach an layout t o the robot. 
+            </summary>
+            <details>
+            Therefore it will
+             - Set the worktable offset and the scaling vector in dependence of the
+               Reference and scaling point.
+             - try to attach a layout device to each accessible device
+             - Set SBaseDevice.Layout to the new layout
+             - Set robot dependend AdjustmentOffset on slots
+            </details>
+            <remarks>
+            No multi threading support!
+            </remarks>
+            <param name="NewLayout">The layout to attach</param>
+            <returns>true is successfully attached, false if not</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetArm(System.Int32)">
+            <summary>
+            Get the arm object at the given index
+            </summary>
+            <param name="i">Arm device index</param>
+            <returns>The requested arm device</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetArmDevice(System.String)">
+            <summary>
+            Get first device with the given device name
+            </summary>
+            <param name="ArmName">Name of the device</param>
+            <returns>The requested device; null if not found</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetArmDevice(System.Type)">
+            <summary>
+            Get first device with the given device type
+            </summary>
+            <param name="ArmType">Type of the device</param>
+            <returns>The requested device; null if not found</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.AddArm(Sias.BaseDev.SBaseArmDevice)">
+            <summary>
+            Add another arm device to the robot
+            </summary>
+            <param name="NewArm">Arm device to add</param>
+            <returns>No of arm devices</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.RemoveArm(Sias.BaseDev.SBaseArmDevice)">
+            <summary>
+            Remove arm from robot arm list
+            </summary>
+            <param name="AvlArm">The arm to remove</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetDevice(System.Int32)">
+            <summary>
+            Get the device at the given device index
+            </summary>
+            <param name="i">Index of the device</param>
+            <returns>The requested device</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetDevice(System.String)">
+            <summary>
+            Get first device with the given device name
+            </summary>
+            <param name="DeviceName">Name of the device</param>
+            <returns>The requested device; null if not found</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetDevice(System.Type)">
+            <summary>
+            Get first device with the given device type
+            </summary>
+            <param name="DeviceType">Type of the device</param>
+            <returns>The requested device; null if not found</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetDevices(System.Type)">
+            <summary>
+            Get first device with the given device type
+            </summary>
+            <param name="DeviceType">Type of the device</param>
+            <returns>The requested device; null if not found</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.AddDevice(Sias.BaseDev.SBaseDevice)">
+            <summary>
+            Add device to robot device list
+            </summary>
+            <param name="NewDev">Device to add</param>
+            <returns>no of devices</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.RemoveDevice(Sias.BaseDev.SBaseDevice)">
+            <summary>
+            Remove device from robot device list
+            </summary>
+            <param name="AvlDev">The device to remove</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetArmMethods">
+            <summary>
+            return a collection of all arm method blocks
+            </summary>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+            <returns>A collection of all supported arm method blocks</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseRobotDevice.GetArmMethods(System.Type)">
+            <summary>
+            Get all supported arm methods block of the given method block type.
+            </summary>
+            <param name="MethodsClassType">The method block to get</param>
+            <returns>A collection of all supported method blocks of the given type</returns>
+        </member>
+        <member name="E:Sias.BaseDev.SBaseRobotDevice.OnLayoutAttached">
+            <summary>
+            Layout attached event.
+            
+            This event is called in after a layout got attached to a robot. It can get 
+            subscribed by devices to get informed about a new layout attaachment even 
+            without beeing an accessible device.
+            </summary>
+        </member>
+        <member name="E:Sias.BaseDev.SBaseRobotDevice.OnLayoutRelease">
+            <summary>
+            Layout released event.
+            
+            This event is called in before a layout got released from a robot. It can get 
+            subscribed by devices to get informed about layout releasement even without 
+            beeing an accessible device.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.WorkTableReference1">
+            <summary>
+            First worktable reference position
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.WorkTableReference2">
+            <summary>
+            Second worktable reference position
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.RobotArms">
+            <summary>
+            Arm device collection
+            
+            This collection keeps all arms belonging to the robot
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.BaseDevices">
+            <summary>
+            Device collection variable
+            
+            This collection keeps a list of all devices connected to the 
+            robot except the arm devices.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.SlotOffsetList">
+            <summary>Slot patch list property</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.DeviceName">
+            <summary>
+            Robot Device name property
+            
+            This overwritten method takes care that all sub devices will have 
+            a device name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.DeviceState">
+            <summary>
+            Get state of the robot and all of its known sub devices
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.BaseFlags">
+            <summary>
+            Get the base flags of the robot device including all of its sub devices
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.AttachedLayout">
+            <summary>
+            Attached layout property
+            
+            This property returns the last layout attached to this robot.
+            null means there is actually no layout attahhed to the robot.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseRobotDevice.IsLayoutAttached">
+            <summary>
+            Is layout attached flag property
+            
+            This flag represents if a layout is attached to this robot.
+            Important:  This property reflects ony if AttachLayout has been called
+                        for this robot since creation/loading. In case another layout 
+                        gets loaded without getting attached again will not get recognized.
+            </summary>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseRobotDevice.LayoutAttachedDelegate">
+            <summary>
+            Delegate definition for layout attached event
+            
+            This delegate is used in case the layout attached event is called. 
+            It can get subscribed by devices to get informed about a new layout attaachment
+            even without beeing an accessible device.
+            </summary>
+            <param name="Robot">The concerned robot</param>
+            <param name="Layout">The attached layout</param>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseRobotDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::BaseDev::SBaseRobotDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice.ErrorCodes.NoDeviceAttachError">
+            <summary>0x40000101: No attachable device(s) found for layout device(s)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseRobotDevice.ErrorCodes.MoreThenOneAttachError">
+            <summary>0x40000102: Device attachment not unequivocally for layout device</summary>
+        </member>
+        <member name="T:Sias.BaseDev.ArmChangingEventHandler">
+            <summary>
+            Arm changed event handler
+            This event handler will be called immediately before an arm of an arm method 
+            block (SBaseArmMethods) gets changed. It can be used to make sure the depending 
+            data gets updated.
+            </summary>
+            <param name="Methods">The concerned arm method block changing its arm</param>
+            <param name="NewArm">The new arm device</param>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseArmMethods">
+            <summary>
+            Base arm methods class
+            
+            This class is the base for all arm methods classes. \n
+            Arm Method classes are used to define sets of methods directly concerned to an arm.
+            This classes are needed to have less duplicate code. So different arm devices can 
+            use the same methods.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmMethods._MethodReplacer">
+            <summary>method replacer field</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmMethods.GetMethodReplacer">
+            <summary>
+            Get Method replacer
+            
+            This method returns the method replacer of the dynamic class. 
+            It is required for the IDynamicClass interface.
+            If not method replacer is instanced yet a new method replacer 
+            is created.
+            </summary>
+            <returns>The method replacer of the dynamic class.</returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmMethods._Arm">
+            <summary>Connected arm device field</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmMethods.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SPipettingMethods</b> class.
+            </summary>
+        </member>
+        <member name="E:Sias.BaseDev.SBaseArmMethods.ArmChanging">
+            <summary>
+            Arm changing event.
+            
+            This event gets called before the arm of a arm method block gets changed.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmMethods.Arm">
+            <summary>
+            Connected arm device property
+            
+            This property defines the connected arm device. This Arm is used to
+            move the arm device as well as to access the list of Y/Z devices.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmMethods.MethodsSupported">
+            <summary>
+            Method supported property
+            
+            This property is used to verify the method block. 
+            If the methods of the method block can be executed with the actually defined
+            parameters the property returns true, other wise false.
+            
+            This property can be used e.g. to determinate if the connected arm
+            has the needed Y/Z devices to execute the methods of the method block.
+            </summary>
+            <value>True if execution possible otherwise false</value>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseArmMethodsCollection">
+            <summary>
+            Base arm method block collection.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmMethodsCollection.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmMethodsCollection.GetIndexOfType(System.Type)">
+            <summary>
+            Get index of (first) arm method instalce of given type.
+            
+            In general each method block type shoudl be only once in the arm method list. 
+            So typically the first one shoudl be the only one.
+            </summary>
+            <param name="MethodType">The arm method class type</param>
+            <returns>The Index of the first arm method class with the given type if found. -1 if not found.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmMethodsCollection.Item(System.Int32)">
+            <summary>
+            Get/Set the SBaseArmMethods at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseArmMethods</param>
+            <returns>An SBaseArmMethods at each valid index.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmMethodsCollection.Item(System.Type)">
+            <summary>
+            Get/Set the SPosition at the specified index in the collection. 
+            </summary>
+            <value/>
+            <param name="MethodType">methods class type</param>
+            <returns>The first method class instance of the given type or null if not available.</returns>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseArmDevice">
+            <summary>
+            Abstract class defining the base of all Arm devices.
+            </summary>
+            <remarks></remarks>
+            <example></example>
+            <details>
+            \ingroup    Dev_BaseDev
+            This abstract class is the base for all Nelson arm devices. It defines the basic 
+            properties and methods for arm devices. 
+            The class is implemented in \ref Dev_BaseDev. It implements
+             - properties for X-Motor configuration including XMotor-Robot coordinate translation
+             - properties defining the X, Y and Z move ranges (not coordinates).
+             - an additional travel offset property 
+             - a list of included Y/Z devices 
+             - methods for X arm lock ranges and arm priorities (use for collision avoidance)
+             - a unique Arm ID property used to identify the arm position and
+             - methods for X \ref MotorRobotConversion
+             . 
+            The most important arm devices are 
+             - SPipArmDevice \n
+            	Arm with up to 8 pipetting Y/Z devices. Mostly used for liquid transfer.
+             - SGripArmDevice \n
+            	Arm with a gripper Y/Z device. Mostly used for plate transfers. With 
+            	special gripper tools it also can transfer other components like tubes 
+            	or slides.
+            <div class="dynheader">%SBaseArmDevice class diagram</div>
+            	<div class="dynsection">
+            \image html "SBaseArmDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._XMax">
+            <summary>
+            Maximum X move range variable
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._YMax">
+            <summary>
+            Maximum Y move range variable
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._AdditionalTravelOffset">
+            <summary>
+            Additional travel height field.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._XMotor">
+            <summary>
+            X-Motor device variable
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._XFactor">
+            <summary>
+            X-Motor position factor variable. 
+            
+            Mostly all devices are scaled to mm, so typically the X scaling 
+            factor will only be used to reverse the X motor move direction.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._XOffset">
+            <summary>
+            X motor position offset variable
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._YZDevices">
+            <summary>
+            YZ-Device array variable
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.SetYZDeviceIDs">
+            <summary>
+            Set the robots arm identifiers (index +1)
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.#ctor">
+            <summary>
+            Default constructor
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.#ctor(System.Double,Sias.BaseDev.SBaseDevice,System.Double,System.Int32,Sias.BaseDev.SBaseYZDeviceCollection)">
+            <summary>
+            Manual generation constructor
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="AdditionalTravelOffset">Additional travel height</param>
+            <param name="XMotor">X-Motor device</param>
+            <param name="XFactor">X-Motor scaling factor</param>
+            <param name="XOffset">X-Motor scaling offset</param>
+            <param name="YZDevices">YZ-Device array</param>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._ArmID">
+            <summary>Arm identification number field</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.XWorktablePos(System.Double)">
+            <summary>
+            Calculate X desk position from a given X motor position.
+            </summary>
+            <param name="XMotPos">X motor position</param>
+            <returns>X desk position</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.XMotorPos(System.Double)">
+            <summary>
+            Calculate X motor position from a given X desk position.
+            </summary>
+            <param name="XWorktablePos">X desk position</param>
+            <returns>X motor position</returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmMethodCollection">
+            <summary>
+            Arm method collection
+            
+            This protected member keeps the actual arm methods. This is to avoid each time recreation
+            of Arm method classes. The GetArmMethods methods should take care to check this member 
+            before creating and adding new arm method classes.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.GetArmMethods">
+            <summary>
+            return a collection of all arm method blocks
+            </summary>
+            <returns>A collection of all supported arm method blocks</returns>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDevice.GetArmMethods(System.Type)">
+            <summary>
+            Get a specific arm methods block. This method has to be overwritten by
+            all arms supporting any new method block against its base class.
+            </summary>
+            <param name="MethodsClassType"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._LockXMin">
+            <summary>Locked arm range (min) field</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._LockXMax">
+            <summary>Locked arm range (max) field</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice._priority">
+            <summary>Arm priority</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.XMax">
+            <summary>
+            Maximum X move range
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.YMax">
+            <summary>
+            Maximum Y move range
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.AdditionalTravelOffset">
+            <summary>
+            Additional travel height. This member defines an additional Z offset added to 
+            the travel height got from a layout to make sure the device does not touch.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.XMotor">
+            <summary>
+            X-Motor device
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.XFactor">
+            <summary>
+            X-Motor position factor. 
+            
+            Mostly all devices are scaled to mm, so typically the X scaling 
+            factor will only be used to reverse the X motor move direction.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.XOffset">
+            <summary>
+            X motor position offset
+            
+            With this property you can define an axis offset. This can be useful e.g. if
+            the move range of the motor has an offset to the desk. 
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.YZDevices">
+            <summary>
+            YZ-Device array 
+            
+            This property keeps the YZ devices of the arm device.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.DeviceName">
+            <summary>
+            Device name
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.DeviceState">
+            <summary>
+            Get state of the arm device and all of its sub devices.
+            <see cref="T:Sias.BaseDev.SDeviceState"/>
+            </summary>
+            <value></value>
+            <returns>State of the device also </returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.BaseFlags">
+            <summary>
+            Get the base flags of the arm device including all of its sub devices.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.ArmID">
+            <summary>
+            Arm identification number property
+            The arm identification defines an unique arm ID. It is the index of the arm 
+            in the robots arm list.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.XRange_Min">
+            <summary>
+            Minimum reachable desk position for the arm
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.XRange_Max">
+            <summary>
+            Maximum reachable desk position for the arm
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.LockXMin">
+            <summary>Locked arm range (min) property</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.LockXMax">
+            <summary>Locked arm range (max) property</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.Priority">
+            <summary>Arm priority</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.LockedPriority">
+            <summary>
+            This property can be used to lock/unlock the arm. A locked arm will be not moved by another
+            arm. It is important to lock an arm to avoid that it is moved away. On the other side it is 
+            important to unlock it, when the action is finished to avoid unnecessary waits of other arms.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDevice.MakeAccessPriority">
+            <summary>
+            This Property is used for temporary increasing the priority of an arm when it is used to create the 
+            access for another task. This is used to avoid dead locks when one arm requests access, where
+            another arm needs to be used to give this access.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue">
+            <summary>
+            This static class includes default arm priority constants.
+            
+            The arm priorities are used to define with arm is allowed to do its job in case 
+            of the arms are trying to access an overlapping area.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.Locked">
+            <summary>Arm is locked, auto movement not allowed</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.MakeAccess">
+            <summary>
+            Arm is used for making access, only locked arm can avoid that the
+            arm will move
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.VeryHigh">
+            <summary>Very high priority, only locked arms can force a movement</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.High">
+            <summary>high priority</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.Normal">
+            <summary>Normal priority</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.Low">
+            <summary>Low priority</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.VeryLow">
+            <summary>Very low priority</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseArmDevice.ArmPriorityValue.Free">
+            <summary>no priority, because arm is actually unused</summary>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseArmDeviceCollection">
+            <summary>
+            Base arm collection
+            
+            The base arm collection is a collection of arms derived from SBaseArmDevice.
+            </summary>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseDeviceCollection">
+            <summary>
+            Base device collection.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseDeviceCollection.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDeviceCollection.Item(System.Int32)">
+            <summary>
+            Get/Set the SBaseDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseDevice</param>
+            <returns>An SBaseDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDeviceCollection.Item(System.String)">
+            <summary>
+            Get/Set the SPosition at the specified index in the collection. 
+            </summary>
+            <param name="device_name">Device name</param>
+            <returns>The Base device with the given name.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseDeviceCollection.DeviceState">
+            <summary>Get a state summary of all devices in the collection.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseArmDeviceCollection.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDeviceCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the SBaseArmDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseArmDevice</param>
+            <returns>An SBaseArmDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseArmDeviceCollection.Item(System.String)">
+            <summary>
+            Gets or sets the SPosition at the specified index in the collection. 
+            </summary>
+            <param name="device_name">Device name</param>
+            <returns>The Base Arm device with the given name.</returns>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseYZDevice">
+            <summary>
+            This abstract class is the base for all YZ devices.
+            </summary>
+            <details>
+             \ingroup	Dev_BaseDev
+            
+            This device is the base for all Nelson Y/Z devices. It is directly derivated 
+            from the base device. 
+            
+            The class is implemented in \ref Dev_BaseDev. It implements
+             - properties for Y- and Z-Motor configuration including Motor-Robot coordinate translation
+             - properties defining the Y and Z move ranges (not coordinates).
+             - properties defining the possible Y/Z coordinate move ranges
+             - a unique Y/Z Device ID property used to identify the Y/Z and arm position and
+             - methods for Y/Z \ref MotorRobotConversion
+             . 
+            A Y/Z device is part of an arm device (\ref SBaseArmDevice). In the sias standard 
+            robot you can find two different Y/Z device types:
+             - PipYZDevice \n
+            	Is a Pipetting Y/Z device witch includes a Y motor, a Z motor and a pipetting 
+                pump device connected to a tip or a tip adapter. This device is used to transfer 
+            	liquids.
+             - GrpYZDevice \n
+            	Is a Gripper Y/Z device witch includes a Y motor, a Z motor, a Grip motor and 
+            	optionally a rotation motor. This device is used to transfer lab ware.
+            
+            <div class="dynheader">%SBaseYZDevice class diagram</div>
+            <div class="dynsection">
+             \image html "SBaseYZDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._YMotor">
+            <summary>Y Motor device variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._YFactor">
+            <summary>Y factor variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._YOffset">
+            <summary>Y offset variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._YMax">
+            <summary>Maximum Y motor move range field [mm]</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._ZMotor">
+            <summary>Z Motor device variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._ZFactor">
+            <summary>Z factor variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._ZOffset">
+            <summary>Z Offset variable</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._ZMax">
+            <summary>Maximum Z move range variable</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.#ctor(System.String)">
+            <summary>
+            Constructor with XML configuration string parameter
+            </summary>
+            <param name="Config">XML Configuration string</param>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.#ctor(Sias.BaseDev.SBaseDevice,System.Double,System.Int32,Sias.BaseDev.SBaseDevice,System.Double,System.Int32)">
+            <summary>
+            YZ device generation with data
+            </summary>
+            <param name="YMotor">Y Motor device</param>
+            <param name="YFactor">Y Factor</param>
+            <param name="YOffset">Y Offset</param>
+            <param name="ZMotor">Z Motor device</param>
+            <param name="ZFactor">Z Factor</param>
+            <param name="ZOffset">Z Offset</param>
+        </member>
+        <member name="F:Sias.BaseDev.SBaseYZDevice._YZDeviceID">
+            <summary>Y/Z Device id field</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.YWorktablePos(System.Double)">
+            <summary>
+            Calculate Y desk position from a given Y motor position
+            </summary>
+            <param name="YMotPos">Y motor position</param>
+            <returns>Y desk position</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.YMotorPos(System.Double)">
+            <summary>
+            Calculate Y motor position from a given Y desk position
+            </summary>
+            <param name="YWorktablePos">Y desk position</param>
+            <returns>Y motor position</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.ZWorktablePos(System.Double)">
+            <summary>
+            Calculate Z desk position from a given Z motor position
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.ZMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z desk position
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDevice.AddArmMethods(Sias.BaseDev.SBaseArmMethodsCollection,Sias.BaseDev.SBaseArmDevice)">
+            <summary>
+            Add supported arm methods to given arm method collection a collection.
+            </summary>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+            <returns>A collection of all supported arm method blocks</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YMotor">
+            <summary>
+            Y Motor device
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YFactor">
+            <summary>
+            Y motor rescaling factor. This factor allows to rescale the y motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YOffset">
+            <summary>
+            Y motor offset
+            This parameter gives an additional offset of the y motor device.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YMax">
+            <summary>Maximum Y motor move range in [mm]</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.ZMotor">
+            <summary>Z Motor device</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.ZFactor">
+            <summary>
+            Z motor rescaling factor. This factor allows to rescale the Z motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.ZOffset">
+            <summary>Z Offset</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.ZMax">
+            <summary>
+            Maximum Z motor move range in [mm]
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.DeviceName">
+            <summary>
+            Device name
+            
+            This derivation of this method defines the names of the sub devices 
+            depending on the name of the YZ Device
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.DeviceState">
+            <summary>
+            Get state of the YZ Device and all of its known sub devices
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.BaseFlags">
+            <summary>
+            Get the base flags of the YZ Device including all of its sub devices
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YZDeviceID">
+            <summary>
+            Y/Z Device id property
+            
+            The Y/Z device id is a unique id for each Y/Z device on the robot. It is defined
+            by 100 * ArmID + Y/Z device index + 1.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YRange_Min">
+            <summary>
+            Minimum reachable Y worktable position for this Y/Z device
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YRange_Max">
+            <summary>
+            Maximum reachable Y worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.YSafetyMargin">
+            <summary>
+            Y safety margin property (virtual)
+            
+            This property is used to define a Y safety margin for other tips. Depending
+            on the Y/Z device condition it may be that it neighbors need to keep a higher 
+            distance as the origin init offset. As long as this feature is not needed the 
+            Value can be left to 0.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.ZRange_Min">
+            <summary>
+            Minimum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDevice.ZRange_Max">
+            <summary>
+            Maximum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseYZDeviceCollection">
+            <summary>
+            Base Y/Z device collection
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseYZDeviceCollection.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDeviceCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the SBaseYZDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseYZDevice</param>
+            <returns>An SBaseYZDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseYZDeviceCollection.Item(System.String)">
+            <summary>
+            Gets or sets the SPosition at the specified index in the collection. 
+            </summary>
+            <value></value>
+            <param name="device_name">Device name</param>
+            <returns>The Base YZ device with the given name.</returns>
+        </member>
+        <member name="T:Sias.BaseDev.Int16HexConverter">
+            <summary>
+            Provides a type converter to convert 16-bit signed integer objects to and 
+            from hexadecimal strings.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.Int16HexConverter.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="M:Sias.BaseDev.Int16HexConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            Converts the specified object to another type. 
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <param name="culture">A CultureInfo that specifies the culture to represent the number. </param>
+            <param name="value">The object to convert. </param>
+            <param name="destinationType">The type to convert the object to. </param>
+            <returns>An Object that represents the converted value. </returns>
+        </member>
+        <member name="M:Sias.BaseDev.Int16HexConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Converts the given object to the converter's native type. 
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <param name="culture">A CultureInfo that specifies the culture to represent the number. </param>
+            <param name="value">The object to convert. </param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.BaseDev.CanAddressConverter">
+            <summary>
+            Provides a type converter to convert 16-bit signed integer objects to and 
+            from can address definition strings.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.CanAddressConverter.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="M:Sias.BaseDev.CanAddressConverter.GetStandardValuesSupported(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            Overloaded. Returns whether this object supports a standard set of values 
+            that can be picked from a list.
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.CanAddressConverter.GetStandardValuesExclusive(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            Overloaded. Returns whether the collection of standard values returned from
+            GetStandardValues is an exclusive list.  
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.CanAddressConverter.GetStandardValues(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            Overloaded. Returns a collection of standard values for the data type this type converter is 
+            designed for. 
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.CanAddressConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            Converts the specified object to another type. 
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <param name="culture">A CultureInfo that specifies the culture to represent the number. </param>
+            <param name="value">The object to convert. </param>
+            <param name="destinationType">The type to convert the object to. </param>
+            <returns>An Object that represents the converted value. </returns>
+        </member>
+        <member name="M:Sias.BaseDev.CanAddressConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Converts the given object to the converter's native type. 
+            </summary>
+            <param name="context">An ITypeDescriptorContext that provides a format context. </param>
+            <param name="culture">A CultureInfo that specifies the culture to represent the number. </param>
+            <param name="value">The object to convert. </param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.BaseDev.SFlags">
+            <summary>
+            Basic flag class. 
+            
+            This class allows to manage flag variables.
+            Flags are data types, where each bit has a single meaning of 
+            true or false.
+            The maximum no of flags in the SFlags class is limited to 32.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SFlags._Flags">
+            <summary>
+            Flag variable: each bit represents a flag (0/1 or true/false).
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SFlags.#ctor">
+            <summary>
+            Default constructor: reset all flags.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SFlags.#ctor(System.Int32)">
+            <summary>
+            Create flags using a flag map.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SFlags.ToString">
+            <summary>
+            Retrieves a string that indicates the current object.
+            </summary>
+            <returns>The string format of the object.</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SFlags.op_Addition(Sias.BaseDev.SFlags,Sias.BaseDev.SFlags)">
+            <summary>
+            overload operator +
+            
+            This operator returns a new SFlags object, where all
+            flags are set, that where either set at a or b.
+            </summary>
+            <param name="a">First SFlag object</param>
+            <param name="b">Second SFlag object</param>
+            <returns>Sum SFlag object</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SFlags.op_Subtraction(Sias.BaseDev.SFlags,Sias.BaseDev.SFlags)">
+            <summary>
+            overload operator -
+            
+            This operator returns a new SFlags object, where all
+            flags are set which are set in a but not in b.
+            </summary>
+            <param name="a">First SFlag object</param>
+            <param name="b">Second SFlag object</param>
+            <returns>resulting SFlags</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SFlags.Flags">
+            <summary>
+            flag map variable.
+            
+            Each bit in this integer variable represents one flag of 
+            SFlags object.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SFlags.Item(System.Int32)">
+            <summary>
+            SFlag Indexer.
+            
+            The indexer returns a boolean value depending of the 
+            value of the given flag bit.
+            </summary>
+            <param name="Bit">Bit index</param>
+            <returns>Flag value</returns>
+        </member>
+        <member name="T:Sias.BaseDev.SBaseFlags">
+            <summary>
+            Device base flags class each device has a set of basic 
+            flags. 
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseFlags.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SBaseFlags.#ctor(System.Int32)">
+            <summary>
+            Constructor with given flags.
+            </summary>
+        </member>
+        <member name="P:Sias.BaseDev.SBaseFlags.IsSubdevice">
+            <summary>
+            Base flag 0: The device is a sub device.
+            </summary>
+        </member>
+        <member name="T:Sias.BaseDev.SDeviceState">
+            <summary>
+            Device state.
+            
+            The class includes the device state constants
+            
+            The state management is designed in a way that a set bit means there 
+            is anything the software needs to take care about. 
+            E.g. The init state is defined by a "not init" flag. This bit is set when 
+            the device is not init. That means the software needs to take care that the 
+            device gets init before any other usage.
+            
+            For easier management with the sias CAN devices the lowest 8 bits of the 
+            device state are defined in the same order as the corresponding sias CAN 
+            module state bits (\b see MODULE_STATE_FLAGS). 
+            
+            If a device has sub devices the device state includes the device states of 
+            all included sub devices.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.ModuleStateMask">
+            <summary>Device Module state bits (directly coming from Hardware Devices)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.NotInitMask">
+            <summary>Bit0: Module not initialized </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.PreparedMask">
+            <summary>Bit1: Command prepared at Module </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.ActiveMask">
+            <summary>Bit2: Module is active (Command executing)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.HasErrorMask">
+            <summary>Bit3: Module has an error</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.HasWarningMask">
+            <summary>Bit4: Module has a warning</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.IsMovingMask">
+            <summary>Bit5: Module is moving (TurnTables, Centrifuges)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.DetectedMask">
+            <summary>Bit6: Module has detected</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.DataAvailMask">
+            <summary>Bit7: Module has data available</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.ExtendedModuleStateMask">
+            <summary>Extended Module state bits</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.NotConnectedMask">
+            <summary>Bit8: Device is connected</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.DriverStateMask">
+            <summary>Device driver state flags</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.NoDriverMask">
+            <summary>No device driver loaded</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.AttachStateMask">
+            <summary>Device attachment state flags (Accessible devices only)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.NotAttachedMask">
+            <summary>layout device data not attached yet</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.AttachErrorMask">
+            <summary>Error when trying to attach layout device data</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.AttachWarningMask">
+            <summary>Warning when trying to attach layout device data (e.g. name does not fit)=</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.ConfigStateMask">
+            <summary>Device configurations state flags</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.NotConfiguredMask">
+            <summary>layout device data not attached yet</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.ConfigErrorMask">
+            <summary>Device configuration is invalid</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceState.ConfigWarningMask">
+            <summary>Device configuration warning</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.#ctor(System.UInt32)">
+            <summary>Construct device state by a given integer state value</summary>
+            <param name="DeviceStateValue">Device state value </param>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.#ctor(Sias.BaseDev.SDeviceState)">
+            <summary>Copy constructor.</summary>
+            <param name="DeviceState">origin object</param>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.op_BitwiseAnd(Sias.BaseDev.SDeviceState,Sias.BaseDev.SDeviceState)">
+            <summary>Operator: (SDeviceState &amp; SDeviceState).</summary>
+            <param name="a">First operant</param>
+            <param name="b">Second operant</param>
+            <returns>result of a &amp; b</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.op_BitwiseAnd(Sias.BaseDev.SDeviceState,System.UInt32)">
+            <summary>Operator: (SDeviceState &amp; unsigned integer).</summary>
+            <param name="a">First operant</param>
+            <param name="b">Second operant</param>
+            <returns>result of a &amp;  b</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.op_BitwiseOr(Sias.BaseDev.SDeviceState,Sias.BaseDev.SDeviceState)">
+            <summary>Operator: (SDeviceState | SDeviceState).</summary>
+            <param name="a">First operant</param>
+            <param name="b">Second operant</param>
+            <returns>result of a | b</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.op_BitwiseOr(Sias.BaseDev.SDeviceState,System.UInt32)">
+            <summary>Operator: (SDeviceState | unsigned integer).</summary>
+            <param name="a">First operant</param>
+            <param name="b">Second operant</param>
+            <returns>result of a | b</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.op_OnesComplement(Sias.BaseDev.SDeviceState)">
+            <summary>Operator: ~SDeviceState</summary>
+            <param name="a">First operant</param>
+            <returns>result of ~a</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceState.op_Implicit(System.UInt32)~Sias.BaseDev.SDeviceState">
+            <summary>
+            implicit conversion unsigned integer to SDeviceState.
+            </summary>
+            <param name="a">Device state value</param>
+            <returns>SDeviceState representing the defined device state value</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.StateValue">
+            <summary>Device state value.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.NotInit">
+            <summary>\copydoc NotInitMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.Prepared">
+            <summary>\copydoc PreparedMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.Active">
+            <summary>\copydoc ActiveMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.HasError">
+            <summary>\copydoc HasErrorMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.HasWarning">
+            <summary>\copydoc HasWarningMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.IsMoving">
+            <summary>\copydoc IsMovingMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.Detected">
+            <summary>\copydoc DetectedMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.DataAvail">
+            <summary>\copydoc DataAvailMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.NotConnected">
+            <summary>\copydoc NotConnectedMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.NoDriver">
+            <summary>\copydoc NoDriverMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.NotAttached">
+            <summary>\copydoc ConfigErrorMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.AttachError">
+            <summary>\copydoc AttachErrorMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.AttachWarning">
+            <summary>\copydoc AttachErrorMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.NotConfigured">
+            <summary>\copydoc NotConfiguredMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.ConfigError">
+            <summary>\copydoc ConfigErrorMask</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceState.ConfigWarning">
+            <summary>\copydoc ConfigWarningMask</summary>
+        </member>
+        <member name="T:Sias.BaseDev.SDeviceInitOptions">
+            <summary>
+            This class is used as parameter for the device init methods.
+            It defines four initialization levels:
+             - PreInit:  Prepares the devices for initialization
+             - Init:	 Initializes the device
+             - PostInit: Post initialization steps
+             - UserInit: Special initializations (no automatic execution)
+             .
+            Each initialization level has 8 groups (for CAN devices this groups are
+            identical to the device execution groups). This groups allow the usage of
+            the init methods also in a multi threading environment.
+            </summary>
+            <remarks></remarks>
+            <example></example>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions.Level_PreInit">
+            <summary>Level index for Pre-Init:	0</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions.Level_Init">
+            <summary>Level index for Init:		1</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions.Level_PostInit">
+            <summary>Level index for Post-Init: 2</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions.Level_UserInit">
+            <summary>Level index for User-Init: 3</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions.NoOfLevels">
+            <summary>No of init level:			4</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions.NoOfGroups">
+            <summary>No of Groups = 8</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceInitOptions._InitOptionvalue">
+            <summary>Device initialization option value field.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.IsGroupValid(System.Int32)">
+            <summary>
+            Check if the given group is valid (allowed).
+            </summary>
+            <param name="GroupNo">Group number to check</param>
+            <returns>True if the group is valid, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.IsLevelValid(System.Int32)">
+            <summary>
+            Check if the given level is valid (allowed).
+            </summary>
+            <param name="Level">Level to check</param>
+            <returns>True if level is valid, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.LevelPart(System.Int32)">
+            <summary>
+            calculate the level part of the init options for the given level.
+            </summary>
+            <param name="Level">Init level</param>
+            <returns>The level part of the init options</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.GroupPart(System.Int32)">
+            <summary>
+            calculate the group part of the init options for the given group.
+            </summary>
+            <param name="Group">Init Group</param>
+            <returns>The group part of the init options</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.#ctor(System.UInt32)">
+            <summary>
+            Initializes a new instance of the <b>SDeviceInitOptions</b> class..
+            </summary>
+            <param name="InitOptValue"></param>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.InitSingleLevelsOfGroup(System.Int32,System.Int32)">
+            <summary>Init all automatic levels of a single group</summary>
+            <param name="Level">Init Level: 0=PreInit, 1=Init, 2=PostInit, 3=UserInit</param>
+            <param name="GroupNo">Init/Execution Group</param>
+            <returns>An init options instance</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.InitAllLevelsOfGroup(System.Int32)">
+            <summary>Init all automatic levels of a single group.</summary>
+            <param name="GroupNo">Init/Execution Group</param>
+            <returns>An init options instance</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.PreInitOfGroup(System.Int32)">
+            <summary>Pre-Init of a single group.</summary>
+            <param name="GroupNo">Init Group</param>
+            <returns>An init options instance</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.InitOfGroup(System.Int32)">
+            <summary>Init of a single group.</summary>
+            <param name="GroupNo">Init Group</param>
+            <returns>An init options instance</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.PostInitOfGroup(System.Int32)">
+            <summary>Post Init of a single group.</summary>
+            <param name="GroupNo">Init Group</param>
+            <returns>An init options instance</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.UserInitOfGroup(System.Int32)">
+            <summary>Post Init of a single group.</summary>
+            <param name="GroupNo">Init Group</param>
+            <returns>An init options instance</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.SingleLevelWithSameGroup(System.Int32)">
+            <summary>
+            Return a new Init Options object with the same groups, but only a single init level.
+            </summary>
+            <param name="Level">Init level</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.Options(System.Boolean,System.Boolean)">
+            <summary>
+            Set additional options to the init options.
+            </summary>
+            <param name="SkipOptional">true if wanting to skip optional devices</param>
+            <param name="SkipAlreadyInit">true if wanting to skip already init devices</param>
+            <returns>The updated device init options</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.DoLevelInit(System.Int32)">
+            <summary>
+            Check if the given level is part of the init options.
+            </summary>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.SingleGroupWithSameLevels(System.Int32)">
+            <summary>
+            Return a new Init Options object with the same levels, but only a single init group.
+            </summary>
+            <param name="Group">Init group</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.IsGroupUsed(System.Int32)">
+            <summary>
+            Check if the given group is used.
+            </summary>
+            <param name="GroupNo">Init group</param>
+            <returns>true if the steps needs to be done, false if not</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceInitOptions.IsExecutionGroupUsed(System.Byte)">
+            <summary>
+            Check if the given execution group has do be init.
+            </summary>
+            <param name="ExecutionGroup">Execution group (typically used at CAN Devices!)</param>
+            <returns>True if the given execution group has do be init, false if not</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.InitOptionvalue">
+            <summary>Device initialization option value property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.InitAllLevelsOfAllGroups">
+            <summary>Init all automatic levels of all groups.</summary>
+            <value>An init options instance</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.PreInitOfAllGroups">
+            <summary>Pre-Init of all groups.</summary>
+            <value>An init options instance</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.InitOfAllGroups">
+            <summary>Pre-Init of all groups.</summary>
+            <value>An init options instance</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.PostInitOfAllGroups">
+            <summary>Pre-Init of all groups.</summary>
+            <value>An init options instance</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.UserInitOfAllGroups">
+            <summary>Pre-Init of all groups.</summary>
+            <value>An init options instance</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.PreInitWithSameGroup">
+            <summary>Return a new Init Options object at init level with the same groups.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.InitWithSameGroup">
+            <summary>Return a new Init Options object at init level with the same groups.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.PostInitWithSameGroup">
+            <summary>Return a new Init Options object at init level with the same groups.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.SkipOptional">
+            <summary>
+            Skip optional devices.
+            </summary>
+            <value></value>
+            <returns>The updated device init options</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.SkipAlreadyInit">
+            <summary>
+            Skip already init devices.
+            </summary>
+            <value></value>
+            <returns>The updated device init options</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.DoPreInit">
+            <summary>Check if Pre-Init is requested.</summary>
+            <value>true if Pre-Init is requested, false if not</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.DoInit">
+            <summary>Check if Init is requested.</summary>
+            <value>true if User-Init is requested, false if not</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.DoPostInit">
+            <summary>Check if Post-Init is requested.</summary>
+            <value>true if User-Init is requested, false if not</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.DoUserInit">
+            <summary>Check if User-Init is requested.</summary>
+            <value>true if User-Init is requested, false if not</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.SkipOptionalDevices">
+            <summary>
+            Do not init devices defined in a robot but unavailable on the CAN bus.
+            This option only works, if the device availability can be detected without
+            getting a device access error.
+            </summary>
+            <remarks>
+            This option gets typically only recognized on robot level. That means mostly 
+            it is ignored when used on non robot devices.
+            </remarks>
+            <value>true if optional devices should be skipped, false if not</value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceInitOptions.SkipAlreadyInitDevices">
+            <summary>
+            Do not init devices already init.
+            Important: Handle this option with care. It may happen, that a device 
+                       is expected to be on a certain position for other devices.
+            </summary>
+            <remarks>
+            This option gets typically only recognized on robot level. That means mostly 
+            it is ignored when used on non robot devices.
+            </remarks>
+            <value>true if already init devices should be skipped, false if not</value>
+        </member>
+        <member name="T:Sias.BaseDev.MotorUnitsEnum">
+            <summary>
+            Motor units enumerator.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.MotorUnitsEnum.Unit_mm">
+            <summary>Unit: mm</summary>
+        </member>
+        <member name="F:Sias.BaseDev.MotorUnitsEnum.Unit_deg">
+            <summary>Unit: °</summary>
+        </member>
+        <member name="T:Sias.BaseDev.PipPumpUnitsEnum">
+            <summary>
+            pipetting pump units enumerator.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.PipPumpUnitsEnum.Unit_ul">
+            <summary>Unit: µl</summary>
+        </member>
+        <member name="F:Sias.BaseDev.PipPumpUnitsEnum.Unit_ml">
+            <summary>Unit: ml</summary>
+        </member>
+        <member name="T:Sias.BaseDev.SExecutionFilterFlags">
+            <summary>
+            Execution filter flags.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup0">
+            <summary>0x0001: Execute Execution Group 0 devices (First Pip. Arm)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup1">
+            <summary>0x0002: Execute Execution Group 1 devices (Second Pip. Arm)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup2">
+            <summary>0x0004: Execute Execution Group 2 devices (Gripper Arm)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup3">
+            <summary>0x0008: Execute Execution Group 3 devices (Reserved Arm)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup4">
+            <summary>0x0010: Execute Execution Group 4 devices (Plate Modules)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup5">
+            <summary>0x0020: Execute Execution Group 5 devices (User Modules 1)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup6">
+            <summary>0x0040: Execute Execution Group 6 devices (User Modules 2)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.ExecutionGroup7">
+            <summary>0x0080: Execute Execution Group 7 devices (Single executed)</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.NonMovingDevices">
+            <summary>0x0100: Execution Group 0: First Pip. Arm</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.NonCriticalDevices">
+            <summary>0x0200: Execution Group 1: Second Pip. Arm</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.NormalDevices">
+            <summary>0x0400: Execution Group 2: Gripper Arm</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.CriticalDevices">
+            <summary>0x0800: Execution Group 3: Reserved Arm</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.UserGroup1">
+            <summary>0x1000: Execution Group 4: Plate Modules</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.UserGroup2">
+            <summary>0x2000: Execution Group 5: User Modules 1</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.UserGroup3">
+            <summary>0x4000: Execution Group 6: User Modules 2</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SExecutionFilterFlags.UserGroup4">
+            <summary>0x8000: Execution Group 7: Single executed</summary>
+        </member>
+        <member name="T:Sias.BaseDev.SDeviceExecutionType">
+            <summary>
+            Device execution type.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.NonMovingDevice">
+            <summary>1: Non moving devices</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.NonCriticalDevice">
+            <summary>2: Non critical device</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.NormalDevice">
+            <summary>3: Normal device</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.CriticalDevice">
+            <summary>4: Critical device</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.UserGroup1Device">
+            <summary>5: User group 1 device</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.UserGroup2Device">
+            <summary>6: User group 2 device</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.UserGroup3Device">
+            <summary>7: User group 3 device</summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionType.UserGroup4Device">
+            <summary>8: User group 4 device</summary>
+        </member>
+        <member name="T:Sias.BaseDev.SDeviceModeConstants">
+            <summary>
+            Device mode constants.
+            
+            The device mode constants are used to define the device mode. 
+            The device mode is used to define special conditions on device functions.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceModeConstants.NormalMode">
+            <summary>0: Normal device mode. 
+            
+             Devices are working as defined for normal processes
+             </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceModeConstants.TeachingMode">
+            <summary>1: Teachin device mode. 
+            
+             Devices are working in teaching mode
+             </summary>
+            <remarks>
+            Teaching mode may have limited safety (e.g. moving motors on open covers)
+            </remarks>
+        </member>
+        <member name="T:Sias.BaseDev.SDeviceExecutionFilter">
+            <summary>
+            Execution filter class.
+            
+            This class represents a device execution filter. The device execution filter 
+            is used to define which device and execution groups are allowed to be executed.
+            </summary>
+        </member>
+        <member name="F:Sias.BaseDev.SDeviceExecutionFilter._FilterValue">
+            <summary>Execution filter value field.</summary>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceExecutionFilter.#ctor(System.UInt16)">
+            <summary>
+            Initializes a new instance of the <b>SExecutionRestriction</b> class.
+            </summary>
+            <param name="filterValue"></param>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceExecutionFilter.IsExecutionGroupAllowed(System.Byte)">
+            <summary>
+            Check if the execution of the given execution group is allowed.
+            </summary>
+            <param name="ExecutionGroup">The execution group to check</param>
+            <returns>True if the execution of the execution group is allowed, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.BaseDev.SDeviceExecutionFilter.IsDeviceTypeAllowed(Sias.BaseDev.SDeviceExecutionType)">
+            <summary>
+            Check if the given device execution type is allowed.
+            </summary>
+            <param name="DeviceType"></param>
+            <returns>True if device execution type is allowed, otherwise false.</returns>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.FilterValue">
+            <summary>Execution filter value property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.FilterFlags">
+            <summary>Execution filter flags property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.AllDeviceExecution">
+            <summary>
+            Gets a not restricted execution filter class.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.NoDeviceExecution">
+            <summary>
+            Gets a fully restricted execution filter class (no device execution allowed).
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsNonMovingDeviceAllowed">
+            <summary>Non moving device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsNonCriticalDeviceAllowed">
+            <summary>Non critical device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsNormalDeviceAllowed">
+            <summary>Normal device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsCriticalDeviceAllowed">
+            <summary>Critical device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsUserGroup1DeviceAllowed">
+            <summary>User group 1 device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsUserGroup2DeviceAllowed">
+            <summary>User group 2 device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsUserGroup3DeviceAllowed">
+            <summary>User group 3 device execution allowed flag property.</summary>
+        </member>
+        <member name="P:Sias.BaseDev.SDeviceExecutionFilter.IsUserGroup4DeviceAllowed">
+            <summary>User group 4 device execution allowed flag property.</summary>
+        </member>
+    </members>
+</doc>

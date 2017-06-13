@@ -1,0 +1,1517 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_GripArm</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.GripArm.SGripArmDevice">
+            <summary>
+            Gripper arm device class
+            
+            The gripper arm device is a complex device representing a robot arm with a gripper 
+            Y/Z device.
+            </summary>
+            <details>
+            \ingroup	Dev_GripArm
+            
+            A gripper arm has a X Motor and at least one gripper Y/Z module, 
+            with Y-, Z-, Gripper- and rotation motors. \n
+            
+            The item handling is done by the \ref SHandlingMethods "handling methods"
+            subclass. 
+            
+            <div class="dynheader">%SGripArmDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SGripArmDevice.png"
+            </div>
+            
+            </details>
+            <remarks>
+            In general the gripper arm is provided to support more then one gripper Y/Z device.
+            As we never had a device like this yet, this is not tested!
+            </remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripArmDevice.#ctor">
+            <summary>
+            Default constructor
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>		
+        </member>
+        <member name="M:Sias.GripArm.SGripArmDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.GripArm.SGripArmDevice.#ctor(Sias.RobotDev.SArmDeviceFlags,System.Double,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.GripArm.SGripYZDeviceCollection,Sias.GripArm.SHandlingMethods)">
+            <summary>
+            Manual generation constructor
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Flags">Arm device flags</param>
+            <param name="AdditionalTravelOffset">Additional travel offset</param>
+            <param name="XMotor">X-Motor of the arm</param>
+            <param name="XFactor">Scaling factor of the X-Motor</param>
+            <param name="XOffset">Offset for the X-Motor</param>
+            <param name="YZDevices">Array of gripper Y/Z devices</param>
+            <param name="HandlingMethods">Handling methods and parameter</param>
+        </member>
+        <member name="M:Sias.GripArm.SGripArmDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Initialize the gripper arm.
+            This initializes also all sub devices of the arm.
+            </summary>
+            <param name="InitOptions">
+            This should allow initialize only parts, but is not supported yet. 
+            To keep applications compatible with older versions it is recommended
+            to pass 0xFFFFFFFF for the init options. This forces an initialization 
+            of the complete arm.
+            </param>
+        </member>
+        <member name="P:Sias.GripArm.SGripArmDevice.YZDevices">
+            <summary>
+            Array with all connected Gripper Y/Z Devices.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripArmDevice.Handling">
+            <summary>Handling methods and parameters property</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripArmDevice.DeviceName">
+            <summary>
+            Name of the Arm device
+            
+            Changing the name of the arm device results in changing the 
+            names of all connected sub devices. 
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.GripArm.SGripYZDevice">
+            <summary>
+            Gripper Y/Z device class.
+            
+            The gripper Y/Z device is a complex device representing the part of the gripper arm
+            connected to the Y traverse.
+            </summary>
+            <details>
+            \ingroup	Dev_GripArm
+            
+            It includes Y-, Z-, Gripper- and rotation motors. \n
+            
+            The gripper Y/Z device is derived from a standard Y/Z device. In addition to 
+            the Y/Z device members the gripper Y/Z class implements 
+             - ...
+             .
+            <div class="dynheader">%SGripArmDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SGripYZDevice.png"
+            </div>
+            
+            </details>
+            <remarks>
+            The Gripper Y/Z device move methods will not take care about the Gripper tool X and Y 
+            offsets, but it cares about the Z offset. This is important for the travel height!
+            </remarks>
+        </member>
+        <member name="T:Sias.GripArm.IGripYZDevice">
+            <summary>
+            Gripper Y/Z device interface.
+            
+            A gripper Y/Z device is a complex device used to transfer Items. It includes 
+            all needed stuff for transferring objects with rotation option.
+            This interface is defined for usage in the \nlink{Sias.GripArm,SHandlingMethods}
+            arm methods class.
+            Important classes implementing IGripYZDevice: 
+             - \nlink{Sias.GripArm,SGripYZDevice}
+             - \nlink{Sias.CombiArm,SCombiYZDevice}
+             .
+            </summary>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.CheckZRange(System.Double)">
+            <summary>
+            This method checks and optionally limits the Z range without giving an error.
+            In case of changing the position a warning is logged.
+            </summary>
+            <param name="WorkPos">Absolute destination worktable position</param>
+            <returns>Optionally limited absolute destination worktable position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.ZWorktablePos(System.Double)">
+            <summary>
+            Calculate Z desk position from a given Z motor position
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.ZMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z desk position
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.PrepareZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.YWorktablePos(System.Double)">
+            <summary>
+            Calculate Y desk position from a given Y motor position
+            </summary>
+            <param name="YMotPos">Y motor position</param>
+            <returns>Y desk position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.YMotorPos(System.Double)">
+            <summary>
+            Calculate Y motor position from a given Y desk position
+            </summary>
+            <param name="YWorktablePos">Y desk position</param>
+            <returns>Y motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.PrepareYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Y motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="YWorktablePos">Worktable Y position</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.RMotorPos(System.Double)">
+            <summary>
+            Convert rotation worktable coordinate to a rotation motor position.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <returns>Rotation motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.RWorktablePos(System.Double)">
+            <summary>
+            Convert a rotation motor position to a rotation worktable coordinate.
+            </summary>
+            <param name="RMotorPos">Rotation motor position</param>
+            <returns>Rotation worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.GMotorPos(System.Double)">
+            <summary>
+            Convert gripper worktable coordinate to a gripper motor position.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <returns>Gripper motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.GWorktablePos(System.Double)">
+            <summary>
+            Convert a gripper motor position to a gripper worktable coordinate.
+            </summary>
+            <param name="GMotorPos">Gripper motor position</param>
+            <returns>Gripper worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.PrepareRMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move gripper R motor to a rotation worktable coordinate.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <param name="Options">Moving options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS})</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.PrepareGMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move Gripper G motor to a Gripper worktable coordinate.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <param name="Options">Moving options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS})</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.CloseGripper(System.Double)">
+            <summary>
+            Close handler.
+            The method closes the handler. An upcoming error will be ignored.
+            </summary>
+            <param name="Close">Open value [mm]</param>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.OpenGripper(System.Double)">
+            <summary>
+            Open handler.
+            The method opens the handler. An upcoming error will be ignored.
+            </summary>
+            <param name="Open">Open value [mm]</param>
+        </member>
+        <member name="M:Sias.GripArm.IGripYZDevice.PlateCheck(System.Double,System.Double)">
+            <summary>
+            Plate check.
+            The method checks if the handler finds a plate. If finding a plate the method 
+            returns the optimal close value else it returns the open value.
+            </summary>
+            <param name="Open">Gripper open value</param>
+            <param name="Close">Expected Gripper close value </param>
+            <returns>Gripper close value </returns>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.YMotor">
+            <summary>
+            Y Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.YOffset">
+            <summary>Y Offset</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZMotor">
+            <summary>
+            Z Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZFactor">
+            <summary>
+            Z motor rescaling factor. This factor allows to rescale the Z motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZOffset">
+            <summary>Z Offset</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZMax">
+            <summary>
+            Maximum Z motor move range [mm].
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.TravelSafetyMargin">
+            <summary>
+            Safety margin for travel calculations.
+            
+            This property defines a safety margin for the Y/Z device. This safety margin 
+            is a circle around the middle of the Y/Z device which can be covered by the 
+            Y/Z device. It is used to calculate an extended move rectangle for calculating 
+            the travel height.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RMax">
+            <summary>This property defines the maximum angle in worktable coordinates</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RInitOffset">
+            <summary>
+            Rotate motor init offset property.
+            The Rotate motor init offset is used after init the rotate motor, but 
+            before reinit the Z motor and init the Y motor.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RMotor">
+            <summary>Rotation motor</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RFactor">
+            <summary>Rotation motor scaling factor property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ROffset">
+            <summary>Rotation motor scaling offset property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GMax">
+            <summary>This property defines the maximum angle in worktable coordinates</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GMotor">
+            <summary>Gripper motor field.</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GFactor">
+            <summary>Gripper motor scaling factor property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GOffset">
+            <summary>Gripper motor scaling offset property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GInitOffset">
+            <summary>
+            Gripper motor init offset property.
+            
+            The gripper motor init offset is used before gripper init to optionally open 
+            the gripper. This shoucan drop an available item before init the gripper. \n
+            
+            </summary>
+            <remarks>
+            Note: Initializing the gripper motor with an gripped item would result in incorrect 
+                  gripper motor positions!
+            </remarks>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GripCheckOffset">
+            <summary>
+            Grip check offset property.
+            This offset defines the additional close offset to check if the gripping
+            was successfully or not. It needs to be high enough to get the motor blocked.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GripperTool">
+            <summary>
+            Actual gripper tool property.
+            
+            This property defines the actual gripper tool, mostly this gripper tool is fix connected 
+            to the gripper Y/Z device. Typically the gripper tool will change/define the position offsets 
+            for gripping components. As the gripper tool can also pick other gripper tools this may again
+            change the position offsets.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.DeviceName">
+            <summary>
+            Device name
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.YRange_Min">
+            <summary>
+            Minimum reachable Y worktable position for this Y/Z device
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.YRange_Max">
+            <summary>
+            Maximum reachable Y worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.YSafetyMargin">
+            <summary>
+            Y safety margin property (virtual)
+            
+            This property is used to define a Y safety margin for other tips. Depending
+            on the Y/Z device condition it may be that it neighbors need to keep a higher 
+            distance as the origin init offset. As long as this feature is not needed the 
+            Value can be left to 0.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.YWorktablePosition">
+            <summary>
+            Y worktable position from device.
+            
+            This property returns the last known Y motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZRange_Min">
+            <summary>
+            Minimum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZRange_Max">
+            <summary>
+            Maximum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.ZWorktablePosition">
+            <summary>
+            Z Worktable position from device.
+            
+            This property returns the last known Z motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual rotation worktable coordinate 
+            from the rotation motor device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RRange_Min">
+            <summary>
+            Minimum reachable R worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.RRange_Max">
+            <summary>
+            Maximum reachable R worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual gripper worktable coordinate
+            from the gripper motor device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GRange_Min">
+            <summary>
+            Minimum reachable G worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.GRange_Max">
+            <summary>
+            Maximum reachable G worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.IGripYZDevice.CurrentItem">
+            <summary>
+            Current item property.
+            This property gets/sets the current item gripped with this gripper Y/Z device. If no 
+            item is gripped the property should be (set to) null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._RMotor">
+            <summary>Rotation motor field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._RFactor">
+            <summary>Rotation motor scaling factor field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._ROffset">
+            <summary>Rotation motor scaling offset field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._RInitOffset">
+            <summary>Rotate motor init offset field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._GMotor">
+            <summary>Gripper motor field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._GFactor">
+            <summary>Gripper motor scaling factor field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._GOffset">
+            <summary>Gripper motor scaling offset field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._GInitOffset">
+            <summary>Rotate motor init offset field</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._GripCheckOffset">
+            <summary>Grip check offset field.</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._GripperTool">
+            <summary>Actual gripper tool field.</summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.#ctor(Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.GripArm.SGripperTool)">
+            <summary>
+            Manual generation constructor.
+            
+            This constructor creates a device by using the requested parameters.
+            </summary>
+            <param name="YMotor">Y Motor device</param>
+            <param name="YFactor">Y Factor</param>
+            <param name="YOffset">Y Offset</param>
+            <param name="ZMotor">Z Motor device</param>
+            <param name="ZFactor">Z Factor</param>
+            <param name="ZOffset">Z Offset</param>
+            <param name="RMotor">Rotation Motor device</param>
+            <param name="RFactor">Rotation Factor</param>
+            <param name="ROffset">Rotation Offset</param>
+            <param name="GMotor">Gripper Motor device</param>
+            <param name="GFactor">Gripper  Factor</param>
+            <param name="GOffset">Gripper  Offset</param>
+            <param name="GrpTool">Actual Gripper tool</param>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice._CurrentItem">
+            <summary>Current item field.</summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Init gripper Y/Z device.
+            
+            This first calls the base initialization method initializing the Z, X and Y motor. Then it 
+            initializes the gripper and rotation motor.
+            </summary>
+            <param name="InitOptions">Not used yet</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.PrepareTravelMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare travel move.
+            This method checks if a travel move is needed and if so, it prepares the travel 
+            move. Then the execution group of all concerned modules will be returned to be used
+            in an external execute call.
+            </summary>
+            <param name="ZTravelWorktablePos">Travel height (as Worktable coordinate)</param>
+            <param name="Speed">Z move speed</param>
+            <param name="Ramp">Z move ramp</param>
+            <returns>Execution group of the prepared modules, 0 if no move needed</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.ZWorktablePos(System.Double)">
+            <summary>
+            Calculate Z desk position from a given Z motor position.
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.ZMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z desk position.
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.RMotorPos(System.Double)">
+            <summary>
+            Convert rotation worktable coordinate to a rotation motor position.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <returns>Rotation motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.RWorktablePos(System.Double)">
+            <summary>
+            Convert a rotation motor position to a rotation worktable coordinate.
+            </summary>
+            <param name="RMotorPos">Rotation motor position</param>
+            <returns>Rotation worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.GMotorPos(System.Double)">
+            <summary>
+            Convert gripper worktable coordinate to a gripper motor position.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <returns>Gripper motor position</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.GWorktablePos(System.Double)">
+            <summary>
+            Convert a gripper motor position to a gripper worktable coordinate.
+            </summary>
+            <param name="GMotorPos">Gripper motor position</param>
+            <returns>Gripper worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.PrepareRMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move gripper R motor to a rotation worktable coordinate.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <param name="Options">Moving options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS})</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: RMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.PrepareGMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move Gripper G motor to a Gripper worktable coordinate.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <param name="Options">Moving options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS}))</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.CloseGripper(System.Double)">
+            <summary>
+            Close handler.
+            
+            The method closes the handler. An upcoming error will be ignored.
+            </summary>
+            <param name="Close">Open value [mm]</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.OpenGripper(System.Double)">
+            <summary>
+            Open handler.
+            The method opens the handler. An upcoming error will be ignored.
+            </summary>
+            <param name="Open">Open value [mm]</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.PlateCheck(System.Double,System.Double)">
+            <summary>
+            Plate check.
+            
+            The method checks if the handler finds a plate. If finding a plate the method 
+            returns the optimal close value otherwise it returns the open value.
+            </summary>
+            <param name="Open">Gripper open value</param>
+            <param name="Close">Expected Gripper close value </param>
+            <returns>Gripper close value</returns>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.AddArmMethods(Sias.BaseDev.SBaseArmMethodsCollection,Sias.BaseDev.SBaseArmDevice)">
+            <summary>
+            Add supported arm methods to given arm method collection a collection.
+            </summary>
+            <param name="ArmMethods"></param>
+            <param name="Arm"></param>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+            <returns>A collection of all supported arm method blocks</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.XRotateOffset(System.Double)">
+            <summary>
+            Additional X-Offset (typically coming from gripper tool offsets) depending on 
+            the gripper rotation.
+            </summary>
+            <param name="RPos">Rotation angle</param>
+            <returns>The X-Offset for the given rotation</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDevice.YRotateOffset(System.Double)">
+            <summary>
+            Additional Y-Offset (typically coming from gripper tool offsets) depending on 
+            the gripper rotation.
+            </summary>
+            <param name="RPos">Rotation angle</param>
+            <returns>The Y-Offset for the given rotation</returns>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RMax">
+            <summary>
+            This property defines the maximum angle in worktable coordinates
+            
+            INPORTANT: If an rotation offset is used this value can be higher then 360°.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RMotor">
+            <summary>Rotation motor property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RFactor">
+            <summary>Rotation motor scaling factor property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.ROffset">
+            <summary>Rotation motor scaling offset property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RInitOffset">
+            <summary>
+            Rotate motor init offset property.
+            
+            The Rotate motor init offset is used after init the rotate motor, but 
+            before reinit the Z motor and init the Y motor.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GMax">
+            <summary>This property defines the maximum angle in worktable coordinates</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GMotor">
+            <summary>Gripper motor field.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GFactor">
+            <summary>Gripper motor scaling factor property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GOffset">
+            <summary>Gripper motor scaling offset property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GInitOffset">
+            <summary>
+            Gripper motor init offset property.
+            
+            The gripper motor init offset is used before gripper init to optionally open 
+            the gripper. This shoucan drop an available item before init the gripper. \n
+            
+            </summary>
+            <remarks>
+            Note: Initializing the gripper motor with an gripped item would result in incorrect 
+                  gripper motor positions!
+            </remarks>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GripCheckOffset">
+            <summary>
+            Grip check offset property.
+            This offset defines the additional close offset to check if the gripping
+            was successfully or not. It needs to be high enough to get the motor blocked.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GripperTool">
+            <summary>
+            Actual gripper tool property.
+            
+            This property defines the actual gripper tool, mostly this gripper tool is fix connected 
+            to the gripper Y/Z device. Typically the gripper tool will change/define the position offsets 
+            for gripping components. As the gripper tool can also pick other gripper tools this may again
+            change the position offsets.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Gripper Y/Z Device property.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.DeviceName">
+            <summary>
+            Name of the Arm device.
+            
+            Changing the name of the arm device results in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.DeviceState">
+            <summary>
+            Returns a summary of the device states of all connected devices.
+            </summary>
+            <returns>Summary of device states</returns>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.ExecutionGroup">
+            <summary>
+            This property returns or sets the execution group of all sub modules connected to 
+            this gripper Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual rotation worktable coordinate 
+            from the rotation motor device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RRange_Min">
+            <summary>
+            Minimum reachable R worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.RRange_Max">
+            <summary>
+            Maximum reachable R worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual gripper worktable coordinate
+            from the gripper motor device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GRange_Min">
+            <summary>
+            Minimum reachable G worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.GRange_Max">
+            <summary>
+            Maximum reachable G worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.YSafetyMargin">
+            <summary>
+            Y safety margin property
+            
+            Gripper Y/Z devices may need an Y safety margin depending on the rotation and 
+            the gripper value.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDevice.CurrentItem">
+            <summary>
+            Current item property.
+            This property gets/sets the current item gripped with this gripper Y/Z device. If no 
+            item is gripped the property should be (set to) null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.GripArm.SGripYZDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::GripArm::SGripYZDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripYZDevice.ErrorCodes.NoPlateFound">
+            <summary>0x2014: No plate found! The gripper motor did not get blocked at plate check.</summary>
+        </member>
+        <member name="T:Sias.GripArm.SGripYZDeviceCollection">
+            <summary>collection</summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripYZDeviceCollection.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDeviceCollection.Item(System.Int32)">
+            <summary>
+            Get/Set the SBaseYZDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseYZDevice</param>
+            <returns>An SBaseYZDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.GripArm.SGripYZDeviceCollection.Item(System.String)">
+            <summary>
+            Get/Set the SPosition at the specified index in the collection. 
+            </summary>
+            <param name="device_name">Name of included gripper Y/Z device</param>
+            <returns>An SPosition at each valid index.</returns>
+        </member>
+        <member name="T:Sias.GripArm.SGripperTool">
+            <summary>
+            Gripper tool class
+            
+            The gripper tools class contains the configuration properties and position translation
+            calculations of gripper tools. It is used by gripper arms or gripper Y/Z devices.
+            </summary>
+            <details>
+            \ingroup	Dev_GripArm
+            
+             - ...
+             .
+            ToDo: Document details of the gripper tool class including the Gripper offsets with 
+                  a simple image.
+            
+            <div class="dynheader">%SGripArmDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SGripperTool.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.GripArm.SGripperTool._XOffset">
+            <summary>X-Offset field.</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripperTool._YOffset">
+            <summary>Y-Offset field.</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripperTool._ZOffset">
+            <summary>Z-Offset field.</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripperTool._RotateOffset">
+            <summary>Rotate Offset field.</summary>
+        </member>
+        <member name="F:Sias.GripArm.SGripperTool._GripOffset">
+            <summary>Grip Offset field.</summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripperTool.#ctor">
+            <summary>
+            Default constructor 
+            </summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripperTool.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.GripArm.SGripperTool.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Data creation constructor
+            </summary>
+            <param name="XOffset">X-Offset of the gripper tool</param>
+            <param name="YOffset">Y-Offset of the gripper tool</param>
+            <param name="ZOffset">Z-Offset of the gripper tool</param>
+            <param name="RotateOffset">Rotate offset of the gripper tool</param>
+            <param name="GripOffset">Grip offset of the gripper tool</param>
+        </member>
+        <member name="F:Sias.GripArm.SGripperTool._SubGripperTool">
+            <summary>Sub gripper tool field</summary>
+        </member>
+        <member name="M:Sias.GripArm.SGripperTool.XRotateOffset(System.Double)">
+            <summary>
+            Rotation depending X-Offset
+            </summary>
+            <param name="RPos">rotation angle</param>
+            <returns>X-Offset for this rotation angle</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripperTool.YRotateOffset(System.Double)">
+            <summary>
+            Rotation depending Y-Offset
+            </summary>
+            <param name="RPos">rotation angle</param>
+            <returns>Y-Offset for this rotation angle</returns>
+        </member>
+        <member name="M:Sias.GripArm.SGripperTool.TranslatedGripperPosition(Sias.Core.SGripperPosition)">
+            <summary>
+            Translate gripper coordinates to gripper tool coordinates.
+            
+            This method translates coordinates. That means it recognizes the additional offsets needed so 
+            that the gripper tool reference point is at the position defined by the gripper coordinates.
+            </summary>
+            <param name="GrpPos">Gripper coordinates</param>
+            <returns>Gripper tool coordinates</returns>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.CfgXOffset">
+            <summary>
+            X-Offset property.
+            
+            This offset defines the X distance between the middle of the Gripper tool and the 
+            rotation point of the gripper at an angle of 0°
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.CfgYOffset">
+            <summary>
+            Y-Offset property.
+            
+            This offset defines the Y distance between the middle of the Gripper tool and the 
+            rotation point of the gripper at an angle of 0°
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.CfgZOffset">
+            <summary>
+            Z-Offset property.
+            
+            This offset defines the height correction between the bottom of the Gripper tool and the 
+            bottom the gripper.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.CfgRotateOffset">
+            <summary>
+            Rotate Offset property.
+            
+            This offset defines an rotation offset between the gripper tool and the gripper.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.CfgGripOffset">
+            <summary>
+            Grip Offset property.
+            
+            This offset defines an grip offset between the gripper tool and the gripper.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.SubGripperTool">
+            <summary>
+            Sub gripper tool property.
+            This property defines a sub gripper tool. That means a gripper tool picked by the actual 
+            gripper tool. As the sub gripper tool can have another sub gripper tools, you can define
+            complete tool chains.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.XOffset">
+            <summary>
+            X-Offset optionally including the sub gripper tool offsets
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.YOffset">
+            <summary>
+            Y-Offset optionally including the sub gripper tool offsets
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.ZOffset">
+            <summary>
+            Z-Offset optionally including the sub gripper tool offsets
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.RotateOffset">
+            <summary>
+            Rotation offset optionally including the sub gripper tool offsets
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.GripArm.SGripperTool.GripOffset">
+            <summary>
+            Grip offset optionally including the sub gripper tool offsets
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.GripArm.SHandlingMethods">
+            <summary>
+            Handling methods class.
+            
+            This class contains the item handling methods. Typically this methods will be wrapped 
+            by the arm using them. That means an arm which is able to do item handling typically 
+            has a reference to handling methods class.
+            </summary>
+            <details>
+            \ingroup	Dev_GripArm
+            
+            To make the item handling methods working, the connected arms needs to have at least
+            one gripper Y/Z device implementing the \nlink{Sias,GripArm.IGripYZDevice} interface.
+            
+            The item handling methods class implements 
+             - a method to select the gripper Y/Z device (mostly not needed);
+             - a method with the special init needs for gripper Y/Z devices;
+             - low level methods for Z movements based on gripper or tool reference;
+             - low level methods for opening, closing the gripper;
+             - a low level plate check method
+             - high level methods for getting and putting items;
+             - a high level methods for moving items and
+             - a high level method for moving an item with incubation start\n
+               This will start an internal timer after the item is placed at the destination 
+               slot. When trying to get the item it will first wit until the timer is elapsed.
+             .
+            
+            The handling methods can not be used if not connected to an arm device including at 
+            least one valid gripping Y/Z device.
+            </details>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.#ctor">
+            <summary>
+            Default constructor
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>		
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.#ctor(Sias.RobotDev.SArmDevice)">
+            <summary>
+            Manual generation constructor
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="ConnectedArm">The connected arm device</param>
+        </member>
+        <member name="F:Sias.GripArm.SHandlingMethods._YZDev">
+            <summary>Current selected Y/Z device field</summary>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.SelectGripper(System.Int32)">
+            <summary>
+            Select the active gripper.
+            This function selects one of the available gripper Y/Z devices as active gripper 
+            Y/Z device.
+            </summary>
+            <remarks>
+             -  No collision checks concerning other Y/Z devices are implemented now.
+             -  The new selected gripper is using the same gripper tool. Mostly the
+                gripper tool needs to be changed also if another gripper gets connected.
+             -  As we do not have a gripper arm with more the one Y/Z devices, the whole 
+                Gripper Y/Z device selection stuff is mostly untested!
+             .
+            </remarks>
+            <param name="Index">Gripper Y/Z Device index</param>
+            <returns>true if selection successful, false if not initialized Gripper arm</returns>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Initialize an arm including gripper Y/Z devices.
+            
+            This initializes also all sub devices of the arm.
+            </summary>
+            <param name="InitOptions">The Init option is used to restrict initialization</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveZ(System.Double)">
+            <summary>
+            Move Gripper to Z height. Take care, this does not consider any Gripper tool offsets.
+            </summary>
+            <param name="Z">New Z position of the gripper</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.ZMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveToolZ(System.Double)">
+            <summary>
+            Move Gripper tool to Z height.
+            
+            This method moves the gripper tool to the specified position. This 
+            considers also the gripper tool offsets.
+            </summary>
+            <param name="Z">New Z position of the gripper tool</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.ZMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.PrepareYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Y Motors
+            
+            Prepare all Y motor to allow the selected gripper Y/Z device moving to the 
+            defined destination
+            </summary>
+            <param name="YWorktablePos">New Y motor worktable position</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+            <returns>The execution group of all prepared modules</returns>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveGripper(System.Double,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+            Move Gripper to new position.
+            
+            This method moves the selected gripper to the specified position. For the Z movement 
+            it supports three different modes depending on the current and the given Z position:
+             - negative Z:  Make gripper move at travel height given from layout.
+             - Z above ZMotor.Pos: Execute Z move before gripper move
+             - Z below ZMotor.Pos: Execute gripper move before Z move
+             .
+            This guarantees always a movement at the highest possible Z value.
+            </summary>
+            <param name="X">New gripper X position</param>
+            <param name="Y">New gripper Y position</param>
+            <param name="R">New gripper rotation</param>
+            <param name="Z">New gripper Z position</param>
+            <param name="Slow">Speed divider</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>\b Important: 
+            This method will change the arm priority to be locked. Take care to release
+            the arm priority if the tasked you have to do on the defined destination is
+            finished.
+            </remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveGripper(Sias.Core.SGripperPosition,System.Int32)">
+            <summary>
+            Move Gripper to new position.
+            
+            This method moves the selected gripper to the specified position. For the Z movement 
+            it supports three different modes depending on the current and the given Z position:
+             - negative Z:  Make gripper move at travel height given from layout.
+             - Z above ZMotor.Pos: Execute Z move before gripper move
+             - Z below ZMotor.Pos: Execute gripper move before Z move
+             .
+            The real movement will be done by \code
+            	MoveGripper(GrpPos.X, GrpPos.Y, GrpPos.Orientation, GrpPos.Z, Slow);
+            \endcode
+            IMPORTANT:  The speed definition in the gripper position options will be 
+                        ignored if slow is defined (greater then 0)
+            </summary>
+            <param name="GrpPos">New Gripper position (including move options)</param>
+            <param name="Slow">Speed divider</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>\b Important: 
+            This method will change the arm priority to be locked. Take care to release
+            the arm priority if the tasked you have to do on the defined destination is
+            finished.
+            </remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveGripperTool(Sias.Core.SGripperPosition,System.Int32)">
+            <summary>
+            Move Gripper to new position.
+            
+            This method moves the selected gripper to the defined gripper tool position. 
+            Depending on the gripper options the movement will be done either on maximum 
+            height, on travel height or on a specific Z position. 
+            This method is identical to MoveGripper(GrpPos, Slow) expect that it 
+            considers the current tool offsets in addition.
+            The real movement will be done by \code
+            	MoveGripper(YZDev.GripperTool.TranslatedGripperPosition(GrpPos), Slow);
+            \endcode
+            IMPORTANT:  The speed definition in the gripper position options will be 
+                        ignored if slow is defined (greater then 0)
+            </summary>
+            <param name="GrpPos">New Gripper tool position (including move options)</param>
+            <param name="Slow">Speed divider</param>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.CloseGripper(System.Double)">
+            <summary>
+            Close gripper to requested close value.
+            </summary>
+            <param name="Close">Close value</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.CloseGripper">
+            <summary>
+            Close gripper to the current items gripper close position.
+            </summary>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.OpenGripper(System.Double)">
+            <summary>
+            Open gripper to requested open value.
+            </summary>
+            <param name="Open">Open value</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.OpenGripper">
+            <summary>
+            Open gripper to the current items gripper open position.
+            </summary>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.PlateCheck(System.Double,System.Double)">
+            <summary>
+            Check for available plate (item).
+            
+            The method checks if the handler finds a plate. If finding a plate the method 
+            returns the optimal close value else it returns the open value. \n
+            This method calls IGripYZDevice.PlateCheck. \n
+            It considers the gripper tools grip offset!
+            </summary>
+            <param name="Open">Open value</param>
+            <param name="Close">Close value</param>
+            <returns>Final gripper position</returns>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.PreCheckSlot(Sias.Core.Interfaces.ISlot,System.Int32)">
+            <summary>
+            Prepare the slot for loading / unloading.
+            
+            This method prepares a slot for loading or unloading. Therefore
+            it waits until the slot timer is elapsed. Then it requests access from 
+            the slot. \n
+            As the slot requests access from all connected components, this  
+            also gives access to any concerned device.
+            </summary>
+            <param name="Slot">The slot to prepare</param>
+            <param name="Timeout">Maximum timeout to get access (excluding slot timer times)</param>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.PostCheckSlot(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            Post check slot.
+            
+            This method releases transfer access at the given slot.
+            </summary>
+            <param name="Slot">Slot to release access</param>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.GetGripperPath(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get gripper path from current item and translate it to 
+            a gripper tool compatible gripper path.
+            </summary>
+            <param name="Item">Item to translate</param>
+            <returns>Gripper path of the given Item</returns>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveGripperPath(Sias.Core.SGripperPositionCollection,System.Boolean)">
+            <summary>
+            Move gripper along a given gripper path.
+            
+            The method is based on the current item of the active Y/Z device.
+            </summary>
+            <param name="GrpPos">Gripper path</param>
+            <param name="Direction">true = to position, false = from position</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>\b Important: 
+            This method will change the arm priority to be locked. Take care to release
+            the arm priority if the tasked you have to do on the defined destination is
+            finished.
+            </remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.GetItem(Sias.Core.Interfaces.IItem,System.Int32)">
+            <summary>
+            This method gets an item from its current slot.
+            The method tries to get access to the source slot (Item.CurrentSlot). If the  
+            access is not guaranteed within the defined timeout a RE_NO_ACCESS error will be generated.
+            
+            \b Important:   The current slot will not be changed/removed. This needs to be 
+            			    done at the calling method.
+            </summary>
+            <param name="Item">The item to get from its (former defined) current slot</param>
+            <param name="AccessTimeOut_ms">Access request timeout [ms]</param>		
+            <remarks>The arm gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>The arm priority gets locked and restored in this method.</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.PutItem(Sias.Core.Interfaces.IItem,System.Int32)">
+            <summary>
+            This method puts an item to the current slot.
+            
+            The method tries to get access to the destination slot (Item.CurrentSlot). If the  
+            access is not guaranteed within the defined timeout a RE_NO_ACCESS error will be generated.
+            
+            <b>Important:</b> The items current slot property needs to be set before the method is called.
+            </summary>
+            <param name="Item">The item to put on its (former defined) current slot</param>
+            <param name="AccessTimeOut_ms">Access request timeout [ms]</param>
+            <remarks>The arm gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>The arm priority gets locked and restored in this method.</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.MoveItem(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot,System.Int32)">
+            <summary>
+            This method moves an item to a new slot.
+            </summary>
+            <param name="Item">Item to move</param>
+            <param name="Slot">Destination slot</param>
+            <param name="AccessTimeOut_ms">Timeout for getting access [ms]</param>
+            <remarks>The arm gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>The arm priority gets locked and restored in this method.</remarks>
+        </member>
+        <member name="M:Sias.GripArm.SHandlingMethods.Incubate(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot,System.Double,System.Int32)">
+            <summary>
+            This method moves an item to a new slot and set the incubation timer of the new slot.
+            </summary>
+            <param name="Item">Item to move</param>
+            <param name="Slot">Slot to place the item</param>
+            <param name="IncTime">Incubation time [ms]</param>
+            <param name="AccessTimeOut_ms">Access timeout (maximum wait time to get access to the item slots) [ms]</param>
+        </member>
+        <member name="P:Sias.GripArm.SHandlingMethods.YZDev">
+            <summary>Current selected Y/Z device (\b see \nlink{Sias::GripArm,SHandlingMethods.SelectGripper})</summary>
+        </member>
+        <member name="P:Sias.GripArm.SHandlingMethods.MethodsSupported">
+            <summary>
+            Method supported property
+            
+            This property is used to verify the method block. 
+            In case of the gripper arm handling methods it verifies if the 
+            arm is valid and at least one gripper Y/Z device is available.
+            </summary>
+            <value>True if execution possible otherwise false</value>
+        </member>
+        <member name="T:Sias.GripArm.SHandlingMethods.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::GripArm::SHandlingMethods errors.
+            </summary>
+        </member>
+        <member name="F:Sias.GripArm.SHandlingMethods.ErrorCodes.AccessRefused">
+            <summary>0x2100: Access refused when trying to access slot</summary>
+        </member>
+        <member name="F:Sias.GripArm.SHandlingMethods.ErrorCodes.InvalidItemSlot">
+            <summary>0x2101: Invalid Item slot </summary>
+        </member>
+        <member name="F:Sias.GripArm.SHandlingMethods.ErrorCodes.InvalidDestinationSlot">
+            <summary>0x2102: Invalid destination slot </summary>
+        </member>
+        <member name="F:Sias.GripArm.SHandlingMethods.ErrorCodes.ItemNotAccepted">
+            <summary>0x2103: Item not accepted by slot </summary>
+        </member>
+        <member name="F:Sias.GripArm.SHandlingMethods.ErrorCodes.SlotAlreadyOccupied">
+            <summary>0x2104: Item not accepted by slot </summary>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.InitRequired(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Check if the default execution group gives an init request with the given init options.
+            </summary>
+            <param name="InitOptions">Init options</param>
+            <returns>True if we have to init, false if not</returns>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+             <summary>
+             Init Y/Z device.
+            
+             Initialization sequence: \n
+              - init Z motor (this move it up)
+              - init Y motors 
+             </summary>
+             <param name="InitOptions">
+             This should allow the Initialization only parts, but is not supported yet. 
+             To keep applications compatible with older versions it is recommended
+             to pass 0xFFFFFFFF for the init options. This forces an Initialization 
+             of the complete arm.
+             </param>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.PrepareRelativeYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare relative Y motor move.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="YWorktablePos">Relative Y position in worktable coordinates [mm]</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.PrepareTravelMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor travel move if necessary.
+            This method makes sure, that the Z motor moves at least to the defined travel height.
+            If the Z motor is above the defined travel height it will not move.
+            </summary>
+            <param name="ZTravelWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.PrepareRelativeZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare relative Z motor move.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Relative Z position in worktable coordinates [mm]</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.PrepareZScanMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor scan move to an absolute worktable position.
+            The scan move gets the submerge way after detection. As we have no 
+            way to have an acceleration on addition this will always use the modules 
+            default acceleration!
+            Take care there are no position validation checks. If there is another 
+            component blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Submerge">Submerge steps after detection [mm]</param>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.PrepareZBlockMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor block move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="BlockMode">Block mode, this defines the moving force. In a normal 
+            						configured system that means 1=strong, 2=middle, 3=weak</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.GripArm._unused_IGripYZDevice.SetLDSensitivity(System.Byte)">
+            <summary>
+            Set liquid detector sensitivity mode.
+            The standard liquid detection systems have 4 different sensitivities.
+             - 1 - sensitivity for fixed tips in tubes
+             - 2 - sensitivity for fixed tips in MTPs
+             - 3 - sensitivity for disposable tips in tubes
+             - 4 - sensitivity for disposable tips in MTPs
+             .
+            Of course this sensitivities modes may be different on non standard robots.
+            </summary>
+            <param name="Sens">New liquid detector sensitivity mode</param>
+            <returns>True if the new sensitivity mode was accepted</returns>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Y/Z device property</summary>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.YFactor">
+            <summary>
+            Y motor rescaling factor. This factor allows to rescale the Y motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.YMax">
+            <summary>
+            Maximum Y motor move range [mm].
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.DeviceState">
+            <summary>
+            Get state of the YZ Device and all of its known sub devices
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.BaseFlags">
+            <summary>
+            Get the base flags of the YZ Device including all of its sub devices
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.ExecutionGroup">
+            <summary>
+            Execution group property.
+            
+            This property can be used to get/set the execution group of all sub devices of the 
+            Arm. Setting the execution group results in the same execution group for all 
+            sub devices. Getting it will result in a binary of all sub device execution groups.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.YWorktablePositionFromDevice">
+            <summary>
+            Z worktable position from device.
+            
+            This property requests the current motor position from the Z motor device and 
+            translates it to worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.GripArm._unused_IGripYZDevice.ZWorktablePositionFromDevice">
+            <summary>
+            Z Worktable position from device.
+            
+            This property requests the current motor position from the Z motor device and 
+            translates it to worktable coordinates.
+            </summary>
+        </member>
+    </members>
+</doc>

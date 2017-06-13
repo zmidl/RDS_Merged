@@ -1,0 +1,1059 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_Robot</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.RobotDev.SArmDeviceFlags">
+            <summary>
+            Common Arm device flags (actually only for test).
+            
+            Actually we have not defined special configuration arm options yet, 
+            but there are defined some options for testing the configuration 
+            property grid.
+            </summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDeviceFlags.NoArmFlag">
+            <summary>no flag variable (not Browsable)</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDeviceFlags.AllowRelaxedItemMove">
+            <summary>Relaxed Item move flag</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDeviceFlags.AllowRelaxedWashMove">
+            <summary>Allow relaxed wash station move</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDeviceFlags.AutoLimitLockRange">
+            <summary>Limit the locked arm range to destination after X movements</summary>
+        </member>
+        <member name="T:Sias.RobotDev.SArmDevice">
+            <summary>
+            Arm device.
+            
+            The arm device implements the basic needs of arms. It holds a X motor and a collection 
+            of connected Y/Z devices. In addition it has some common option flags which are mostly 
+            not used yet.
+            </summary>
+            <details>
+            \ingroup    Dev_Robot
+            
+            In general all sias arms are derivated from SArmDevice. The implemented 
+            X motor is a sias CAN module motor (\b see \nlink{Sias::Motor,SMotorDevice}.
+            The Y/Z devices are based on sias Y/Z devices (\b see SYZDevice}.
+            
+            <div class="dynheader">%SArmDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SArmDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.NoMoveValue">
+            <summary>internal value for Xmotor not required to move</summary>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.GetArmEviroment">
+            <summary>
+            Get Arm environment.
+            This method collects the environment of the arm:
+             - Get the robot from the parent member
+             - Get the list of arms of the robot
+             - Create a x position collection for all arms
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice._Flags">
+            <summary>General arm device flags variable</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice._XInitOffset">
+            <summary>X motor init offset field</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice._YInitOffset">
+            <summary>Y motor init offset field</summary>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.#ctor">
+            <summary>
+            Default constructor.
+            This constructor creates a device with all configuration members to 
+            their default values.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.#ctor(Sias.RobotDev.SArmDeviceFlags,System.Double,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.RobotDev.SYZDeviceCollection)">
+            <summary>
+            Manual generation constructor.
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Flags">Arm device flags</param>
+            <param name="AdditionalTravelOffset">Additional travel height</param>
+            <param name="XMotor">X-Motor of the arm</param>
+            <param name="XFactor">Scaling factor of the X-Motor</param>
+            <param name="XOffset">Offset for the X-Motor</param>
+            <param name="YZDevices">Array of gripper Y/Z devices</param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.Finalize">
+            <summary>
+            Releases unmanaged resources and performs other cleanup operations before 
+            the <b>SArmDevice</b> is reclaimed by garbage collection.
+            </summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice._NoTravelMove">
+            <summary>No travel move flag</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice._MinTravelHeight">
+            <summary>Minimum travel height field</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice._OldPriority">
+            <summary>Priority backup array field</summary>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.ArmLockBackup">
+            <summary>
+            Backup arm lock (Priority).
+            
+            This should be called before usage of any routine locking the arm.
+             - PrepMoveWithLock(...)
+             - PrepXMove(...)
+             - LockArmRange(...)
+             - MoveWithArmRangeLock(...), used also in 
+             - MoveXY(...)
+             - MoveXYRange(...)
+             - MoveYZDeviceToXY(...)
+             .
+            After the arm is no longer needed to be locked, ArmLockRestore() should be 
+            called. 
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.ArmLockRestore">
+            <summary>
+            Restore arm lock (Priority).
+            
+            See ArmLockBackup() for details.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.InitRequired(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Check if the arms default execution group is selected at the
+            given init options,
+            </summary>
+            <param name="InitOptions">Init options</param>
+            <returns>True if we have to init, false if not</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Init Arm.
+            
+            Initialization sequence: \n
+             - move all Z motors up
+             - move X motor to its init offset
+             - init Y motors (motor by motor)
+             - init X motor
+            </summary>
+            <param name="InitOptions">
+            This should allow init only parts, but is not supported yet. 
+            To keep applications compatible with older versions it is recommended
+            to pass 0xFFFFFFFF for the init options. This forces an Initialization 
+            of the complete arm.
+            </param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.PrepareTravelMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare travel move.
+            This method prepares travel moves for all Y/Z devices of the arm.
+            It returns the execution group(s) of all prepared modules, but it 
+            does not start the movement. This allows to move up all axis at the 
+            same time.
+            </summary>
+            <param name="TravelHeight">The Travel height in worktable coordinates</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+            <returns>the execution group of all prepared devices</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.PrepareTravelMove(System.Double,System.Double[])">
+            <summary>
+            Prepare travel move.
+            
+            This method prepares travel moves for all Y/Z devices of the arm.
+            It returns the execution group(s) of all prepared modules, but it 
+            does not start the movement. This allows to move up all axis at the 
+            same time.
+            </summary>
+            <param name="XPos">New X position (for calculating the travel height)</param>
+            <param name="YPos">New Y positions (for calculating the travel height)</param>
+            <returns>Execution group of all prepared modules</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.PrepareTravelMove(System.Double)">
+            <summary>
+            Prepare travel move.
+            This method prepares a travel move to a new X position. when not 
+            moving the Y motors. This method creates a Y position array of the 
+            current positions and then calls PrepareTravelMove(XPos, YPosArr).
+            </summary>
+            <param name="XPos">New X position (for calculating the travel height)</param>
+            <returns>Execution group of all prepared modules</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.MoveToZTravel(System.Double)">
+            <summary>
+            Move to given travel height.
+            
+            The Z motors will only move if the height is lower then the expected 
+            travel height axis with higher positions will not move.
+            </summary>
+            <param name="TravelHeight">The minimum needed travel height</param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.iLockArmRange(Sias.RobotDev.SArmDevice.SArmEnviroment@,System.Double,System.Double)">
+            <summary>
+            Lock arm range (internal).
+            
+            This internal method locks a given arm range. It checks the priorities of all 
+            concerned arms. Depending on the priorities it either waits or it calculates the
+            new x positions for the other arms. Then the actual arms will bet locked, which 
+            avoids movements forced through other arm collisions. (With other words, no other
+            arms can force this arms to move away until the locked priority will be reset.
+            To Unlock the lock priority please use LockedPriority=false;
+            </summary>
+            <param name="Env">arm environment</param>
+            <param name="XPos1">Start of X range</param>
+            <param name="XPos2">End of X range</param>
+            ToDo: Optimize lock range (expanding and auto shrinking)
+            ToDo: Handle priority unlocking !
+            ToDo: Check/optimize priority lock design.
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.NeedToWaitForArm(Sias.RobotDev.SArmDevice,System.Boolean,System.Boolean)">
+            <summary>
+            Check if arm move is required/allowed
+            This method checks if the defined arm is required and allowed to move away.
+            </summary>
+            <param name="Arm">The arm to check</param>
+            <param name="NeedMove">True if the arm requires to move to avoid crash</param>
+            <param name="InLRange">True if we would touch the arms locked range</param>
+            <returns>true if we have to wait for this arm otherwise false.</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.iPrepMoves(Sias.RobotDev.SArmDevice.SArmEnviroment@,System.Double,System.Double[],System.Byte)">
+            <summary>
+            This method prepares the X/Y-move calculated by a previous iLockArmRange().
+            It executes the needed travel moves and 
+            </summary>
+            <param name="Env"></param>
+            <param name="XPos"></param>
+            <param name="YPos"></param>
+            <param name="eg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.PrepMoveWithLock(System.Double,System.Double[],System.Double,System.Double)">
+            <summary>
+            Move arm with arm range locking.
+            
+            This method locks a defined X section for a given arm. Then it moves to the
+            defined position. If other arms will be inside of the defined X area the 
+            priority defines which arm(s) keep access. If the actual arm is allowed
+            to move, it gets a locked priority and moves the other arms away.
+            </summary>
+            <param name="XPos">Arm destination position</param>
+            <param name="YPos">Y-Positions form movement</param>
+            <param name="XPos1">Start of X area</param>
+            <param name="XPos2">End of X area</param>
+            <returns>True if movement is done and the arm range is locked</returns>
+            TODO: optimize movements in case of no X/Y movement is needed
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.PrepXMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepared X move
+            
+            This method prepares a X arm movement. If the movement is allowed, it locks the 
+            needed move range. Optionally it prepares the needed movements for other 
+            arms including the needed travel moves.
+            </summary>
+            <param name="XPos">X position to move to</param>
+            <param name="Speed">X motor move speed (0 for default speed)</param>
+            <param name="Ramp">X motor move ramp (0 for default ramp)</param>
+            <returns>The execution group of all prepared modules</returns>
+            TODO: optimize movements in case of no X movement is needed
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.LockArmRange(System.Double,System.Double)">
+            <summary>
+            This method will only lock the specified arm range, but does not move the arm.
+            </summary>
+            <param name="XPos1">First limit of arm range</param>
+            <param name="XPos2">Second limit of arm range</param>
+            <returns>True </returns>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.MoveXY(System.Double,System.Double[])">
+            <summary>
+            This method moves the arm to the given positions. Therefore it checks 
+            other arms for collisions and locks the arm for accessing.
+            </summary>
+            <param name="XPos">X position to move to</param>
+            <param name="YPos">Y positions to move to</param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.MoveXY(System.Double,System.Double,System.Double)">
+            <summary>
+            This method moves the arm to the given positions. Therefore it checks 
+            other arms for collisions and locks the arm for accessing.
+            </summary>
+            <param name="XPos">X position to move to</param>
+            <param name="YPos">First Y position to move to</param>
+            <param name="YOffset">Y distance for other Y devices</param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.MoveYZDeviceToXY(System.Int32,System.Double,System.Double)">
+            <summary>
+            This method moves one Y/Z device to the given positions. 
+            It takes care that all other Y/Z devices move to positions not disturbing 
+            the movement. In addition it takes care to avoid collisions with other (known) arms.
+            </summary>
+            <param name="YZ_DeviceIndex">Y/Z device index</param>
+            <param name="XPos">X position to move to</param>
+            <param name="YPos">First Y position to move to</param>
+        </member>
+        <member name="M:Sias.RobotDev.SArmDevice.MoveXYRange(System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move tips anywhere in the defined range.
+            
+            This method moves the arm to the given positions. Therefore it checks 
+            other arms for collisions and locks the arm for accessing.
+            In difference to the "normal" MoveXY it moves to anywhere in the given 
+            area.
+            </summary>
+            <param name="XMin">Minimum position of X range</param>
+            <param name="XMax">Maximum position of X range</param>
+            <param name="YMin">Minimum positions of the Y ranges</param>
+            <param name="YMax">Maximum positions of the Y ranges</param>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.Flags">
+            <summary>General arm device flags property</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.FlagValue">
+            <summary>Flag value (only for XML I/O) property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the arm property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.XMax">
+            <summary>Maximum X move range</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.XInitOffset">
+            <summary>
+            X motor init offset property.
+            The X motor init offset is used before the Y motors are initialized.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.XMotor">
+            <summary>X-Motor as SMotorDevice (CAN Device)</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.YInitOffset">
+            <summary>
+            Y motor init offset property.
+            The X motor init offset is used before the Y motors are init.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.YZDevices">
+            <summary>Y/Z device array as SYZDevice[]</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.ExecutionGroup">
+            <summary>
+            Execution group property.
+            This property can be used to get/set the execution group of all sub devices of the 
+            Arm. Setting the execution group results in the same execution group for all 
+            sub devices. Getting it results in a binary of all sub device execution groups.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.XWorktablePosition">
+            <summary>
+            Last known arm X desk position.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.XWorktablePosFromDevice">
+            <summary>
+            Request current arm X desk position.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.YDskMin">
+            <summary>
+            Actual minimum used Y position of the arm
+            
+            The minimum Y position is the Y position of the first Y/Z device of the arm.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.YDskMax">
+            <summary>
+            Actual maximum used Y position of the arm
+            
+            The maximum Y position is the Y position of the last Y/Z device of the arm.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.TravelSafetyMarginYMin">
+            <summary>
+            Travel safety margin YMin.
+            
+            This safety margin defines the additional Y offset at the first Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.TravelSafetyMarginYMax">
+            <summary>
+            Travel safety margin YMax.
+            
+            This safety margin defines the additional Y offset at the last Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.TravelSafetyMarginX">
+            <summary>
+            Travel safety margin X.
+            
+            This safety margin defines the additional X offset needed to avoid a crash. 
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.NoTravelMove">
+            <summary>
+            No travel move flag.
+            This flag is used to force a movement without moving the Z motor to a save height.
+            \b WARNING: Take care setting this flag to true may damage the device, if not used 
+                        under well known conditions !!
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.MinTravelHeight">
+            <summary>
+            Minimum travel height
+            
+            This property may be used to define a minimum for the travel height. 
+            In case the travel height coming from layout is below the defined height
+            the minimum travel height is used instead.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmDevice.OldPriority">
+            <summary>Priority backup array property</summary>
+        </member>
+        <member name="T:Sias.RobotDev.SArmDevice.SArmEnviroment">
+            <summary>
+            Arm environment class.
+            
+            The arm environment class keeps information about the environment where the 
+            arm is integrated. It is sued by the collision detection routines.
+            </summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.Robot">
+            <summary>The Robot where the arm belongs to</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.Arm">
+            <summary>The list of all arms of the robot</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.NewX">
+            <summary>A collection of X positions</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.eg">
+            <summary>The execution group to execute</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.ArmInx">
+            <summary>The index of the arm at the arm collection</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.Speed">
+            <summary>Maximum X move Speed (for all arm moving arms)</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.Accel">
+            <summary>Maximum X move ramp (for all arm moving arms)</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SArmDevice.SArmEnviroment.IsOk">
+            <summary>OK flag: true if environment is usable</summary>
+        </member>
+        <member name="T:Sias.RobotDev.IGripperSupport">
+            <summary>
+            This interface is designed for an external move tool.
+            
+            Y/Z devices supporting gripping need to implement this interface to get accessible 
+            for an external move tool.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.IGripperSupport.GMotorPos(System.Double)">
+            <summary>
+            Convert gripper worktable coordinate to a gripper motor position.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <returns>Gripper motor position</returns>
+        </member>
+        <member name="M:Sias.RobotDev.IGripperSupport.GWorktablePos(System.Double)">
+            <summary>
+            Convert a gripper motor position to a gripper worktable coordinate.
+            </summary>
+            <param name="GMotorPos">Gripper motor position</param>
+            <returns>Gripper worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.RobotDev.IGripperSupport.PrepareGMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move Gripper G motor to a Gripper worktable coordinate.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <param name="Options">Moving options (\b see eCOMMAND_MODE_FLAGS)</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="P:Sias.RobotDev.IGripperSupport.GMotor">
+            <summary>Gripper motor property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.IGripperSupport.GWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.IGripperSupport.GWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual gripper worktable coordinate
+            from the gripper motor device.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.IGripperSupport.GRange_Min">
+            <summary>
+            Minimum reachable G worktable position for this Y/Z device.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.IGripperSupport.GRange_Max">
+            <summary>
+            Maximum reachable G worktable position for this Y/Z device.
+            </summary>
+        </member>
+        <member name="T:Sias.RobotDev.IRotationSupport">
+            <summary>
+            This interface is designed for an external move tool.
+            Y/Z devices supporting gripping need to implement this interface to get accessible 
+            for an external move tool.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.IRotationSupport.RMotorPos(System.Double)">
+            <summary>
+            Convert Rotation worktable coordinate to a rotation motor position.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <returns>Rotation motor position</returns>
+        </member>
+        <member name="M:Sias.RobotDev.IRotationSupport.RWorktablePos(System.Double)">
+            <summary>
+            Convert a rotation motor position to a rotation worktable coordinate.
+            </summary>
+            <param name="RMotorPos">Rotation motor position</param>
+            <returns>Rotation worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.RobotDev.IRotationSupport.PrepareRMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move Gripper R motor to a Rotation worktable coordinate.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <param name="Options">Moving options (\b see eCOMMAND_MODE_FLAGS)</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+        </member>
+        <member name="M:Sias.RobotDev.IRotationSupport.XRotateOffset(System.Double)">
+            <summary>
+            Rotation depending X-offset.
+            </summary>
+            <param name="RPos">rotation angle</param>
+            <returns>x offset for this rotation angle</returns>
+        </member>
+        <member name="M:Sias.RobotDev.IRotationSupport.YRotateOffset(System.Double)">
+            <summary>
+            Rotation depending Y-offset.
+            </summary>
+            <param name="RPos">rotation angle</param>
+            <returns>x offset for this rotation angle</returns>
+        </member>
+        <member name="P:Sias.RobotDev.IRotationSupport.RMotor">
+            <summary>Rotation motor property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.IRotationSupport.RWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.IRotationSupport.RWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual rotation worktable coordinate 
+            from the rotation motor device.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.IRotationSupport.RRange_Min">
+            <summary>
+            Minimum reachable R worktable position for this Y/Z device.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.IRotationSupport.RRange_Max">
+            <summary>
+            Maximum reachable R worktable position for this Y/Z device.
+            </summary>
+        </member>
+        <member name="T:Sias.RobotDev.SYZDevice">
+            <summary>
+            General Y/Z device
+            
+            The Y/Z device is typically part of an \ref SArmDevice . 
+            It includes at least a Y and a Z motor. 
+            </summary>
+            \ingroup    Dev_Robot
+            
+            In general all sias Y/Z devices are derivated from SYZDevice. The implemented 
+            Y and Z motors are sias CAN module motors (/b see \nlink{Sias::Motor,SMotorDevice}
+            <details>
+            <div class="dynheader">%SYZDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SYZDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.RobotDev.SYZDevice._TravelSafetyMargin">
+            <summary>
+            Travel safety margin variable.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.#ctor">
+            <summary>
+            Default constructor.
+            This constructor creates a device with all configuration members to 
+            its their default values.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.#ctor(Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32)">
+            <summary>
+            Manual generation constructor.
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="YMotor">Y motor</param>
+            <param name="YFactor">Y motor scaling factor (mostly 1 or -1)</param>
+            <param name="YOffset">Y motor offset</param>
+            <param name="ZMotor">Z motor</param>
+            <param name="ZFactor">Z motor scaling factor (mostly 1 or -1)</param>
+            <param name="ZOffset">Z motor offset</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.InitRequired(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Check if the default execution group gives an init request with the given init options.
+            </summary>
+            <param name="InitOptions">Init options</param>
+            <returns>True if we have to init, false if not</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+             <summary>
+             Init Y/Z device.
+            
+             Initialization sequence: \n
+              - init Z motor (this move it up)
+              - init Y motors 
+             </summary>
+             <param name="InitOptions">
+             This should allow the Initialization only parts, but is not supported yet. 
+             To keep applications compatible with older versions it is recommended
+             to pass 0xFFFFFFFF for the init options. This forces an Initialization 
+             of the complete arm.
+             </param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Y motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="YWorktablePos">Worktable Y position</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareRelativeYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare relative Y motor move.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="YWorktablePos">Relative Y position in worktable coordinates [mm]</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.CheckZRange(System.Double)">
+            <summary>
+            This method checks and optionally limits the Z range without giving an error.
+            In case of changing the position a warning is logged.
+            </summary>
+            <param name="WorkPos">Absolute destination worktable position</param>
+            <returns>Optionally limited absolute destination worktable position</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareTravelMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor travel move if necessary.
+            This method makes sure, that the Z motor moves at least to the defined travel height.
+            If the Z motor is above the defined travel height it will not move.
+            </summary>
+            <param name="ZTravelWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareRelativeZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare relative Z motor move.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Relative Z position in worktable coordinates [mm]</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareZScanMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor scan move to an absolute worktable position.
+            The scan move gets the submerge way after detection. As we have no 
+            way to have an acceleration on addition this will always use the modules 
+            default acceleration!
+            Take care there are no position validation checks. If there is another 
+            component blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Submerge">Submerge steps after detection [mm]</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.PrepareZBlockMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor block move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="BlockMode">Block mode, this defines the moving force. In a normal 
+            						configured system that means 1=strong, 2=middle, 3=weak</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDevice.SetLDSensitivity(System.Byte)">
+            <summary>
+            Set liquid detector sensitivity mode.
+            The standard liquid detection systems have 4 different sensitivities.
+             - 1 - sensitivity for fixed tips in tubes
+             - 2 - sensitivity for fixed tips in MTPs
+             - 3 - sensitivity for disposable tips in tubes
+             - 4 - sensitivity for disposable tips in MTPs
+             .
+            Of course this sensitivities modes may be different on non standard robots.
+            </summary>
+            <param name="Sens">New liquid detector sensitivity mode</param>
+            <returns>True if the new sensitivity mode was accepted</returns>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Y/Z device property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.YMax">
+            <summary>
+            Maximum Y motor move range [mm].
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.ZMax">
+            <summary>
+            Maximum Z motor move range [mm].
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.YMotor">
+            <summary>
+            Y Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.ZMotor">
+            <summary>
+            Z Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.TravelSafetyMargin">
+            <summary>
+            Safety margin for travel calculations.
+            
+            This property defines a safety margin for the Y/Z device. This safety margin 
+            is a circle around the middle of the Y/Z device which can be covered by the 
+            Y/Z device. It is used to calculate an extended move rectangle for calculating 
+            the travel height.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.ExecutionGroup">
+            <summary>
+            Execution group property.
+            
+            This property can be used to get/set the execution group of all sub devices of the 
+            Arm. Setting the execution group results in the same execution group for all 
+            sub devices. Getting it will result in a binary of all sub device execution groups.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.YWorktablePosition">
+            <summary>
+            Y worktable position from device.
+            
+            This property returns the last known Y motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.YWorktablePositionFromDevice">
+            <summary>
+            Z worktable position from device.
+            
+            This property requests the current motor position from the Z motor device and 
+            translates it to worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.ZWorktablePosition">
+            <summary>
+            Z Worktable position from device.
+            
+            This property returns the last known Z motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDevice.ZWorktablePositionFromDevice">
+            <summary>
+            Z Worktable position from device.
+            
+            This property requests the current motor position from the Z motor device and 
+            translates it to worktable coordinates.
+            </summary>
+        </member>
+        <member name="T:Sias.RobotDev.SYZDeviceCollection">
+            <summary>
+            collection
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SYZDeviceCollection.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDeviceCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the SBaseYZDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseYZDevice</param>
+            <returns>An SBaseYZDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.RobotDev.SYZDeviceCollection.Item(System.String)">
+            <summary>
+            Gets or sets the SPosition at the specified index in the collection. 
+            </summary>
+            <value></value>
+            <param name="device_name">Device name</param>
+            <returns>The Y/Z device with the given name.</returns>
+        </member>
+        <member name="T:Sias.RobotDev.SRobotDevice">
+            <summary>
+            Robot device.
+            
+            The robot device is a collection of arms and a collection of other devices. In 
+            addition it has a reference to the CAN interface class.
+            </summary>
+            <details>
+            \ingroup    Dev_Robot
+            
+            <div class="dynheader">%SRobotDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SRobotDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.RobotDev.SRobotDevice._Flags">
+            <summary>Robot flag variable</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SRobotDevice._CanNet">
+            <summary>Name of the used CAN Net</summary>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.#ctor">
+            <summary>
+            Default constructor.
+            This constructor creates a device with all configuration members to 
+            their default values.
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.#ctor(System.Int32,System.String,Sias.BaseDev.SBaseArmDeviceCollection,Sias.BaseDev.SBaseDeviceCollection,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            Manual generation constructor.
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Flags">Robot flags</param>
+            <param name="CanNet">CAN net name </param>
+            <param name="RobotArm">Collection of connected robot arms</param>
+            <param name="CanDevice">Collection of connected no arm devices</param>
+            <param name="Reference1">First reference point</param>
+            <param name="Reference2">Second reference point</param>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.ReadXMLString(System.Int32,System.Xml.XmlTextReader)">
+            <summary>
+            Read object properties from XmlTextReader (XML configuration string).
+            </summary>
+            <param name="Level">Nested object level</param>
+            <param name="reader">XML text reader object</param>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.GetArm(System.Int32)">
+            <summary>
+            Get the arm object at the given index.
+            </summary>
+            <param name="i">Arm device index</param>
+            <returns>The requested arm device</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.StartConnect(System.String)">
+            <summary>
+            Connect to Can Net.
+            This function connects to the CAN net \a CanNet. To identify the 
+            application, it gives uses client name \a CName. A connection can only 
+            be established, if the CanIO.DLL has the same interface version with the 
+            same or a higher interface revision as the header files when compiling 
+            the CAN device driver. \n
+            Call \ref Disconnect to disconnect again.
+            \b Example:	
+            \code
+                 Ok = MyRobot.Connect("MyApp"); 
+            \endcode
+            </summary>
+            <param name="CName">String with the client name</param>
+            <returns>True if connection successfully, false if not.</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.WaitUntilConnected">
+            <summary>
+            Waits until connection is established (module requests finished).
+            </summary>
+            <returns>True if connection established successfully, false is not.</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.Disconnect">
+            <summary>
+            Robot disconnection.
+            This method is used to disconnect from the robot. 
+            </summary>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+             <summary>
+             Init complete robot with all connected devices.
+            
+             Initialization sequence:
+              - Init all left orientated arms (home at left side)
+              - Init all right orientated arms (home at right side)
+              - Init all connected non arm devices
+              .
+             </summary>
+             <param name="InitOptions">
+             This should allow init only parts, but is not supported yet. 
+             To keep applications compatible with older versions it is recommended
+             to pass 0xFFFFFFFF for the init options. This forces an initialization 
+             of the complete arm.
+             </param>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.TraceThreadLocks(System.String)">
+            <summary>
+            Trace device lock state of the device including all of its subdevices.
+            </summary>
+            <param name="LogCategory">The trace category</param>
+            <returns>true if the device or any of its sub devices is locked.</returns>
+        </member>
+        <member name="M:Sias.RobotDev.SRobotDevice.ReleaseThreadLocks(System.Boolean,System.String@)">
+            <summary>
+            Release thread locks
+            
+            This method can be used on end of a thread to make sure all thread locks locked 
+            for the active thread are released.
+            </summary>
+            <param name="TryRelease">true for releasing locked thread locks, false to keep them locked</param>
+            <param name="Info">Information string containing details on all locked thread locks</param>
+            <returns>true if any device of the robot or any execution group is locked.</returns>
+        </member>
+        <member name="P:Sias.RobotDev.SRobotDevice.Flags">
+            <summary>Robot flag property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SRobotDevice.CanNet">
+            <summary>Name of the used CAN Net</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SRobotDevice.ExecutionGroup">
+            <summary>
+            Execution group property.
+            
+            This property can be used to get/set the execution group of all sub devices of the 
+            Robot. Getting it results in a binary of all sub device execution groups.
+            
+            <b>IMPORTANT:</b> Setting the execution group results in the same execution group for all 
+            sub devices. As this is in general not wanted the setting is protected.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SRobotDevice.IsConnected">
+            <summary>Robot connected member property</summary>
+        </member>
+        <member name="P:Sias.RobotDev.SRobotDevice.RobotError">
+            <summary>Robot error (based on \nlink{Sias::CanDev,SCanIO.RobotError}) property</summary>
+        </member>
+        <member name="T:Sias.RobotDev.SRobotDevice.RobotFlags">
+            <summary>
+            Robot flag enumerator.
+            
+            This enumerator defines the actual robot flags. 
+            </summary>
+        </member>
+        <member name="F:Sias.RobotDev.SRobotDevice.RobotFlags.FirstFlag">
+            <summary>First robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SRobotDevice.RobotFlags.SecondFlag">
+            <summary>Second robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="F:Sias.RobotDev.SRobotDevice.RobotFlags.ThirdFlag">
+            <summary>Third robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="T:Sias.RobotDev.SArmMethods">
+            <summary>
+            Arm methods class
+            
+            This class is the base class for all arm method blocks connected to 
+            SArmdevices or its derivates.
+            </summary>
+            <details>
+            \ingroup    Dev_Robot
+            
+            <div class="dynheader">%SArmMethods class diagram</div>
+            <div class="dynsection">
+            \image html "SArmMethods.png"
+            </div>
+            </details>
+        </member>
+        <member name="M:Sias.RobotDev.SArmMethods.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SPipettingMethods</b> class.
+            </summary>
+        </member>
+        <member name="P:Sias.RobotDev.SArmMethods.Arm">
+            <summary>
+            Connected arm device property
+            
+            This property defines the connected arm device. This Arm is used to
+            move the arm device as well as to access the list of Y/Z devices.
+            </summary>
+        </member>
+    </members>
+</doc>

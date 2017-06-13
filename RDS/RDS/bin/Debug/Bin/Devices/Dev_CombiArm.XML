@@ -1,0 +1,605 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_CombiArm</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.CombiArm.SCombiYZDevice">
+            <summary>
+            Pipetting/Gripper Combi Y/Z device class.
+            
+            The Pipetting/Gripper Combi  Y/Z device is a complex device used for pipetting and item
+            transfer. It is a special Y/Z device with an additional Z motor.
+            </summary>
+            <details>
+            \ingroup	Dev_CombiArm
+            
+            It includes a Y-, Z-, GripperZ- and gripper motor as well as a pipetting pump.\n
+            
+            The Pipetting/Gripper Combi  Y/Z device is derived from a standard Y/Z device. 
+            In addition to the Y/Z device members the gripper Y/Z class implements 
+             - ...
+             .
+            <div class="dynheader">%SCombiYZDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SCombiYZDevice.png"
+            </div>
+            
+            </details>
+            <remarks>
+            The Gripper Y/Z device move methods will not take care about the Gripper tool X and Y 
+            offsets, but it cares about the Z offset. This is important for the travel height!
+            </remarks>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripperYOffset">
+            <summary>Y offset variable</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripperZMotor">
+            <summary>Gripper Z Motor device variable</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripperZFactor">
+            <summary>Z factor variable</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripperZOffset">
+            <summary>Gripper Z Offset variable</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripperZMax">
+            <summary>Maximum Gripper Z move range variable</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._RInitOffset">
+            <summary>Rotate motor init offset field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._RMotor">
+            <summary>Rotation motor field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._RFactor">
+            <summary>Rotation motor scaling factor field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._ROffset">
+            <summary>Rotation motor scaling offset field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GMotor">
+            <summary>Gripper motor field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GFactor">
+            <summary>Gripper motor scaling factor field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GOffset">
+            <summary>Gripper motor scaling offset field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GInitOffset">
+            <summary>Rotate motor init offset field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripCheckOffset">
+            <summary>Grip check offset field.</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._GripperTool">
+            <summary>Actual gripper tool field.</summary>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.#ctor(System.String,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.PipPump.SPipPumpDevice,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.GripArm.SGripperTool)">
+            <summary>
+            Manual generation constructor.
+            
+            This constructor creates a device by using the requested parameters.
+            </summary>
+            <param name="AdapterName">Tip adapter type name</param>
+            <param name="YMotor">Y Motor device</param>
+            <param name="YFactor">Y Factor</param>
+            <param name="YOffset">Y Offset</param>
+            <param name="ZMotor">Z Motor device</param>
+            <param name="ZFactor">Z Factor</param>
+            <param name="ZOffset">Z Offset</param>
+            <param name="PipPump">Pipetting Pump</param>
+            <param name="GZMotor">Gripper Z Motor device</param>
+            <param name="GZFactor">Gripper Z Factor</param>
+            <param name="GZOffset">Gripper Z Offset</param>
+            <param name="GMotor">Gripper Motor device</param>
+            <param name="GFactor">Gripper Factor</param>
+            <param name="GOffset">Gripper Offset</param>
+            <param name="GrpTool">Actual Gripper tool</param>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice._CurrentItem">
+            <summary>Current item field.</summary>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Init gripper Y/Z device.
+            This first calls the base initialization method initializing the Z, X and Y motor. Then it 
+            initializes the gripper and rotation motor.
+            </summary>
+            <param name="InitOptions">Not used yet</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GripperZMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.PrepareTravelMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor travel move if necessary.
+            This method makes sure, that the Z motor moves at least to the defined travel height.
+            If the Z motor is above the defined travel height it will not move.
+            </summary>
+            <param name="ZTravelWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.GripperZWorktablePos(System.Double)">
+            <summary>
+            Calculate Z desk position from a given Z motor position.
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.GripperZMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z desk position.
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.RMotorPos(System.Double)">
+            <summary>
+            Convert rotation worktable coordinate to a rotation motor position.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <returns>Rotation motor position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.RWorktablePos(System.Double)">
+            <summary>
+            Convert a rotation motor position to a rotation worktable coordinate.
+            </summary>
+            <param name="RMotorPos">Rotation motor position</param>
+            <returns>Rotation worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.GMotorPos(System.Double)">
+            <summary>
+            Convert gripper worktable coordinate to a gripper motor position.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <returns>Gripper motor position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.GWorktablePos(System.Double)">
+            <summary>
+            Convert a gripper motor position to a gripper worktable coordinate.
+            </summary>
+            <param name="GMotorPos">Gripper motor position</param>
+            <returns>Gripper worktable coordinate</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.PrepareRMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move gripper R motor to a rotation worktable coordinate.
+            </summary>
+            <param name="RWorktablePos">Rotation worktable coordinate</param>
+            <param name="Options">Moving options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS})</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: RMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.PrepareGMove(System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move Gripper G motor to a Gripper worktable coordinate.
+            </summary>
+            <param name="GWorktablePos">Gripper worktable coordinate</param>
+            <param name="Options">Moving options (\b see \nlink{Sias::CanDev,COMMAND_MODE_FLAGS})</param>
+            <param name="Speed">Move speed</param>
+            <param name="Ramp">Move Ramp</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.CloseGripper(System.Double)">
+            <summary>
+            Close handler.
+            The method closes the handler. An upcoming error will be ignored.
+            </summary>
+            <param name="Close">Open value [mm]</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.OpenGripper(System.Double)">
+            <summary>
+            Open handler.
+            The method opens the handler. An upcoming error will be ignored.
+            </summary>
+            <param name="Open">Open value [mm]</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.PlateCheck(System.Double,System.Double)">
+            <summary>
+            Plate check.
+            
+            The method checks if the handler finds a plate. If finding a plate the method 
+            returns the optimal close value else it returns the open value.
+            </summary>
+            <param name="Open">Gripper open value</param>
+            <param name="Close">Expected Gripper close value </param>
+            <returns>Gripper close value </returns>
+            <remarks>The device gets locked/unlocked in this method. Timeout: GMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.XRotateOffset(System.Double)">
+            <summary>
+            Additional X-Offset (typically coming from gripper tool offsets) depending on 
+            the gripper rotation.
+            </summary>
+            <param name="RPos">Rotation angle</param>
+            <returns>The X-Offset for the given rotation</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.YRotateOffset(System.Double)">
+            <summary>
+            Additional Y-Offset (typically coming from gripper tool offsets) depending on 
+            the gripper rotation.
+            </summary>
+            <param name="RPos">Rotation angle</param>
+            <returns>The Y-Offset for the given rotation</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#PrepareYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Y motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="YWorktablePos">Worktable Y position</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#CheckZRange(System.Double)">
+            <summary>
+            This method checks and optionally limits the Z range without giving an error.
+            In case of changing the position a warning is logged.
+            </summary>
+            <param name="WorkPos">Absolute destination worktable position</param>
+            <returns>Optionally limited absolute destination worktable position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#ZWorktablePos(System.Double)">
+            <summary>
+            Calculate Z desk position from a given Z motor position.
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#ZMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z desk position.
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#PrepareZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripperYOffset">
+            <summary>
+            Y motor offset
+            
+            This parameter gives an additional offset of the y motor device.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripperZMotor">
+            <summary>Gripper Z Motor property</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripperZFactor">
+            <summary>
+            Z motor rescaling factor. This factor allows to rescale the Z motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripperZOffset">
+            <summary>Gripper Z Offset</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripperZMax">
+            <summary>
+            Maximum Gripper Z motor move range in [mm]
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RMax">
+            <summary>This property defines the maximum angle in worktable coordinates</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RInitOffset">
+            <summary>
+            Rotate motor init offset property.
+            The Rotate motor init offset is used after init the rotate motor, but 
+            before reinit the Z motor and init the Y motor.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RMotor">
+            <summary>Rotation motor property.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RFactor">
+            <summary>Rotation motor scaling factor property.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.ROffset">
+            <summary>Rotation motor scaling offset property.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GMax">
+            <summary>This property defines the maximum angle in worktable coordinates</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GMotor">
+            <summary>Gripper motor field.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GFactor">
+            <summary>Gripper motor scaling factor property.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GOffset">
+            <summary>Gripper motor scaling offset property.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GInitOffset">
+            <summary>
+            Gripper motor init offset property.
+            
+            The gripper motor init offset is used before gripper init to optionally open 
+            the gripper. This shoucan drop an available item before init the gripper. \n
+            
+            </summary>
+            <remarks>
+            Note: Initializing the gripper motor with an gripped item would result in incorrect 
+                  gripper motor positions!
+            </remarks>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripCheckOffset">
+            <summary>
+            Grip check offset property.
+            This offset defines the additional close offset to check if the gripping
+            was successfully or not. It needs to be high enough to get the motor blocked.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GripperTool">
+            <summary>
+            Actual gripper tool property.
+            
+            This property defines the actual gripper tool, mostly this gripper tool is fix connected 
+            to the gripper Y/Z device. Typically the gripper tool will change/define the position offsets 
+            for gripping components. As the GripperTool can also pick other gripper tools this may again
+            change the position offsets.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Gripper Y/Z Device property.</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.DeviceName">
+            <summary>
+            Name of the Arm device.
+            
+            Changing the name of the arm device results in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.DeviceState">
+            <summary>
+            Returns a summary of the device states of all connected devices.
+            </summary>
+            <returns>Summary of device states</returns>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.ExecutionGroup">
+            <summary>
+            This property returns or sets the execution group of all sub modules connected to 
+            this gripper Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual rotation worktable coordinate 
+            from the rotation motor device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RRange_Min">
+            <summary>
+            Minimum reachable R worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.RRange_Max">
+            <summary>
+            Maximum reachable R worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GWorktablePosition">
+            <summary>
+            This read only property returns the last known rotation worktable coordinate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GWorktablePositionFromDevice">
+            <summary>
+            This read only property requests and returns the actual gripper worktable coordinate
+            from the gripper motor device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GRange_Min">
+            <summary>
+            Minimum reachable G worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.GRange_Max">
+            <summary>
+            Maximum reachable G worktable position for this Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.YSafetyMargin">
+            <summary>
+            Y safety margin property
+            
+            Gripper Y/Z devices may need an Y safety margin depending on the rotation and 
+            the gripper value.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.CurrentItem">
+            <summary>
+            Current item property.
+            This property gets/sets the current item gripped with this gripper Y/Z device. If no 
+            item is gripped the property should be (set to) null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#YOffset">
+            <summary>
+            Y motor offset
+            This parameter gives an additional offset of the y motor device.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#ZMotor">
+            <summary>Z Motor device</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#ZFactor">
+            <summary>
+            Z motor rescaling factor. This factor allows to rescale the Z motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#ZOffset">
+            <summary>Z Offset</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiYZDevice.Sias#GripArm#IGripYZDevice#ZMax">
+            <summary>
+            Maximum Z motor move range in [mm]
+            </summary>
+        </member>
+        <member name="T:Sias.CombiArm.SCombiYZDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::GripArm::SGripYZDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiYZDevice.ErrorCodes.NoPlateFound">
+            <summary>0x2014: No plate found! The gripper motor did not get blocked at plate check.</summary>
+        </member>
+        <member name="T:Sias.CombiArm.SCombiArmDevice">
+            <summary>
+            Combination arm device class.
+            
+            The combination arm device is a complex device representing a mixture between 
+            pipetting arm and handler arm. 
+            </summary>
+            <details>
+            \ingroup    Dev_CombiArm
+            
+            A combination arm has an X motor and at least one pipetting and one gripper Y/Z 
+            sub device.
+            
+            In addition to the arm device's members the combination arm implements 
+             - a pipetting methods property including 
+               - a configuration property for its default wash station
+               - a configuration property for the default aspiration offset
+               - an OK-tip-map property defining the actually usable pipetting devices
+               - a set of low level routines for moving tips, picking liquid ... 
+               - a set of high level tool box functions for easier programming special 
+                 aspirate or dispense methods
+               - a set of high level methods like Aspirate, Dispense, Flush, ... working
+                 directly using layout objects (mostly cavities).
+               .
+             - and a handling methods property including
+               - configuration properties for connected gripper Y/Z device,
+               - methods for getting dropping and moving items
+               . 
+             .
+            
+            \image html "SCombiArmDevice.png"
+            
+            TODO: Add support for restricted areas 
+            </details>
+            <remarks>
+            \b Remark:
+            To make sure that the tips are out of the range of accessible
+            objects before releasing the access mode it is needed to define a gripper 
+            path. 
+            </remarks>
+            <example></example>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiArmDevice._Pipetting">
+            <summary>Pipetting methods and Parameters field</summary>
+        </member>
+        <member name="F:Sias.CombiArm.SCombiArmDevice._Handling">
+            <summary>Handling methods and parameters field</summary>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiArmDevice.#ctor">
+            <summary>
+            Default constructor.
+            
+            Creates a new instance of the <b>SCombiArmDevice</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiArmDevice.#ctor(System.String)">
+            <summary>
+            XML Configuration constructor.
+            </summary>
+            <param name="Config"></param>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiArmDevice.#ctor(Sias.RobotDev.SArmDeviceFlags,System.Double,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.RobotDev.SYZDeviceCollection,Sias.PipArm.SPipettingMethods,Sias.GripArm.SHandlingMethods)">
+            <summary>
+            Creates a new instance of the <b>SCombiArmDevice</b> class by defining 
+            the configuration data.
+            </summary>
+            <param name="Flags">Arm flags</param>
+            <param name="ZTravel">Travel height</param>
+            <param name="XMotor">X Motor</param>
+            <param name="XFactor">X Motor Factor</param>
+            <param name="XOffset">X Motor Offset</param>
+            <param name="YZDevices">Pipetting Y/Z device collection</param>
+            <param name="PipettingMethods">Pipetting methods and parameter</param>
+            <param name="HandlingMethods">Handling method block</param>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiArmDevice.GetArmMethods">
+            <summary>
+            Return a collection of all arm method blocks.
+            </summary>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+            <returns>A collection of all supported arm method blocks</returns>
+        </member>
+        <member name="M:Sias.CombiArm.SCombiArmDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Initialize the pipetting arm device.
+            </summary>
+            <param name="InitOptions">Pipetting options</param>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiArmDevice.Pipetting">
+            <summary>Pipetting methods and Parameters property</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiArmDevice.Handling">
+            <summary>Handling methods and parameters property</summary>
+        </member>
+        <member name="P:Sias.CombiArm.SCombiArmDevice.DeviceName">
+             <summary>
+             Name of the pipetting arm device.
+            
+             Changing the name of the pipetting arm device results in changing the 
+             names of all connected sub devices. 
+             </summary>
+             <value></value>
+        </member>
+    </members>
+</doc>

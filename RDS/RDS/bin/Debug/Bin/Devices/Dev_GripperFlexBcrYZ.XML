@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_GripperFlexBcrYZ</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig">
+            <summary>
+            Barcode read position configuration
+            
+            This class represents one barcode read setup. Depending on a specific 
+            barcode motor it defines the Read Offset, Barcode Orientation, Height 
+            Move Vector, and the barcode scan speed.
+            </summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig._BarcodeMotorPosition">
+            <summary>Position of the barcode Motor for this config field</summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig._BarcodeReadOffset">
+            <summary>Barcode read offset field</summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig._BarcodeReadOrientation">
+            <summary>Barcode read orientation field</summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig._HeightMoveVector">
+            <summary>Barcode read offset field</summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig._BarcodeScanSpeed">
+            <summary>Barcode scan speed field</summary>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SBarcodeReadPositionConfig</b> class.
+            </summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig.BarcodeMotorPosition">
+            <summary>Position of the barcode Motor for this config property</summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig.BarcodeReadOffset">
+            <summary>
+            Barcode read offset property.
+            
+            The barcode read offset defines the position where the barcode should be placed 
+            relatively to the Y/Z device reference position.
+            </summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig.BarcodeReadOrientation">
+            <summary>
+            Barcode read orientation property.
+            
+            The barcode orientation is read orientation if the Y/Z device is on orientation 0. 
+            It is a kind of orientation offset for the barcode reader. If the barcode reader 
+            Y/Z device has a rotation option the orientation can be adjusted to the orientation 
+            of the barcode.\n
+            \b Important:   To read a barcode with orientation 0 the barcode reader needs to be 
+                            positioned to an orientation of 180°
+            </summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig.HeightMoveVector">
+            <summary>
+            Barcode height move vector property.
+            
+            This vector is used to calculate the barcode read movement. It is multiplied 
+            by the height of the barcode to define the barcode read move. \n
+             - ReadStart = BarcodeReadPosition - (BarcodeHeight/2)*HeightMoveVector \n
+             - ReadEnd   = BarcodeReadPosition + (BarcodeHeight/2)*HeightMoveVector \n
+            \b Important:   On rotation barcode devices X and Y are getting translated by 
+                            the orientation.
+            </summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfig.BarcodeScanSpeed">
+            <summary>Barcode scan speed property</summary>
+        </member>
+        <member name="T:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfigCollection">
+            <summary>
+            Barcode read position configuration collection
+            
+            This collection defines a collection of barcode read position 
+            configurations.
+            </summary>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfigCollection.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SBarcodeReadPositionConfigCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the SPosition at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SPosition</param>
+            <returns>An SPosition at each valid index.</returns>
+        </member>
+        <member name="T:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice">
+            <summary>
+            Gripper barcode Y/Z device class.
+            
+            The gripper barcode Y/Z device is a gripper Y/Z device (\b see <see cref="T:Sias.GripArm.SGripYZDevice"/>) 
+            with an additional added barcode reader. In addition to the handling arm methods it supports 
+            barcode reading arm methods.
+            </summary>
+            <details>
+            \ingroup	Dev_GripperFlexBcrYZ
+            
+            The gripper barcode Y/Z device is derived from a gripper Y/Z device. In addition the 
+            gripper barcode Y/Z device implements the IBarcodeYZDevice interface with 
+             - a configuration property for the connected barcode reader;
+             - a configuration property for the barcode read position;
+             - a configuration property for the barcode height move vector;
+             - a configuration property for the barcode read orientation and
+             - a configuration property for the barcode read move speed.
+             .
+            As the device implements IBarcodeYZDevice it can be used with the barcode reading arm 
+            method class. So the AddArmMethods method adds a SBarcodeMethods class to the arms
+            Arm method block list.
+            
+            <div class="dynheader">%SGripperFlexBcrYZDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SGripperFlexBcrYZDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice._BarcodeMotor">
+            <summary>Barcode positioning motor field</summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice._ReadPositionConfig">
+            <summary>Barcdoe read position configurations field</summary>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.#ctor(Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.GripArm.SGripperTool,Sias.BCReader.SBCReaderDevice,Sias.Core.SPosition,System.Double,Sias.Motor.SMotorDevice)">
+            <summary>
+            Manual generation constructor.
+            This constructor creates a device by using the requested parameters.
+            </summary>
+            <param name="YMotor">Y Motor device</param>
+            <param name="YFactor">Y Factor</param>
+            <param name="YOffset">Y Offset</param>
+            <param name="ZMotor">Z Motor device</param>
+            <param name="ZFactor">Z Factor</param>
+            <param name="ZOffset">Z Offset</param>
+            <param name="RMotor">Rotation Motor device</param>
+            <param name="RFactor">Rotation Factor</param>
+            <param name="ROffset">Rotation Offset</param>
+            <param name="GMotor">Gripper Motor device</param>
+            <param name="GFactor">Gripper  Factor</param>
+            <param name="GOffset">Gripper  Offset</param>
+            <param name="GrpTool">Actual Gripper tool</param>
+            <param name="bCReader">Barcode reader device</param>
+            <param name="barcodeReadOffset">Barcode read offset (relative to Y/Z reference)</param>
+            <param name="barcodeReadOrientation">Barcode reader read orientation</param>
+            <param name="bcMotor">The barcode motor</param>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Init gripper Y/Z device.
+            
+            This first calls the base initialization method initializing the Z, X and Y motor. Then it 
+            initializes the gripper and rotation motor.
+            </summary>
+            <param name="InitOptions">Not used yet</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: BCReader.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.SetReadMode(System.Int32)">
+            <summary>
+            Set Read mode
+            
+            this methode sets a new read mode by moveing the defined barcode 
+            motor to the defined position and make the configuration set active.
+            </summary>
+            <param name="BarcodeReadModeIndex">New read mode index (index to ReadPositionConfig collection)</param>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.BarcodeMotor">
+            <summary>
+            Barcode positioning motor property
+            
+            This motor is used to change the barcode read position.
+            It is possible to have a shared motor (same address as for 
+            another axis) for this.
+            </summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.ReadPositionConfig">
+            <summary>Barcdoe read position configurations property</summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Gripper Y/Z Device property.</summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.DeviceName">
+            <summary>
+            Name of the Arm device.
+            
+            Changing the name of the arm device results in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.DeviceState">
+            <summary>
+            Returns a summary of the device states of all connected devices.
+            </summary>
+            <returns>Summary of device states</returns>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.ExecutionGroup">
+            <summary>
+            This property returns or sets the execution group of all sub modules connected to 
+            this gripper Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::GripperFlexBcrYZ::SGripperFlexBcrYZDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDevice.ErrorCodes.IncorrectReadModeIndex">
+            <summary>0x2030: Incorrect barcode read mode index.</summary>
+        </member>
+        <member name="T:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDeviceCollection">
+            <summary>Gripper barcode Y/Z device collection</summary>
+        </member>
+        <member name="M:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDeviceCollection.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDeviceCollection.Item(System.Int32)">
+            <summary>
+            Get/Set the SBaseYZDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseYZDevice</param>
+            <returns>An SBaseYZDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.GripperFlexBcrYZ.SGripperFlexBcrYZDeviceCollection.Item(System.String)">
+            <summary>
+            Get/Set the SPosition at the specified index in the collection. 
+            </summary>
+            <param name="device_name">Name of included gripper Y/Z device</param>
+            <returns>An SPosition at each valid index.</returns>
+        </member>
+    </members>
+</doc>

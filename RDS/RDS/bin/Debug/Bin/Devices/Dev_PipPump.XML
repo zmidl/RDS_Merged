@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_PipPump</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.PipPump.SPipPumpDevice">
+            <summary>
+            Pipetting pump device class
+            </summary>
+            <details>
+            \ingroup    Dev_PipPump
+            
+            The pip pump device is a single device representing exactly one logical module on a 
+            sias instrument. A pipetting pump is a device allowing to pick and dispense liquids
+            from or to liquid containers. \n
+            The pipetting pump class includes 
+             - configuration properties for default speeds and ramps,
+             - a configuration property for the maximum liquid volume,
+             - configuration properties for the pump scaling,
+             - properties for the last known or actual liquid volumes,
+             - methods to convert volumes (in [µl]) to pipetting pump units, 
+             - methods for picking and dispensing liquids,
+             - methods for flushing (washing) and for emptying the tips
+             .
+            
+            The pipetting pump device expects a connected CAN device implementing the pipetting 
+            pump module interface message like
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Init}: Init the pipetting pump
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Pick}: Pick liquid
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Disp}: Dispense liquid
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Flush}: Flush tips
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_Empty}: Empty tips 
+             - \nlink{Sias::CanDev::SCanMsg,CanMsg_SetValve}: Set valve index
+            
+            <div class="dynheader">%SPipPumpDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SPipPumpDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._ASpeed">
+            <summary>Default aspiration speed variable [units/s]</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._ARamp">
+            <summary>Default aspiration ramp variable [100 units/s²]</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._DSpeed">
+            <summary>Default dispense speed variable [unts/s]</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._DRamp">
+            <summary>Default dispense ramp variable [100 units/s²]</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._MaxVol">
+            <summary>Maximum volume configuration variable [µl]</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._Scaling">
+            <summary>Pump scaling variable [µl/unit]</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice._MultiplexModeValue">
+            <summary>Multiplex mode value field</summary>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.#ctor">
+            <summary>
+            Default constructor
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.#ctor(System.Int16,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Manual generation constructor
+            
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Adr">Address of motor module</param>
+            <param name="ASpeed">Default aspiration speed [units/s]</param>
+            <param name="ARamp">Default aspiration ramp [100 units/s²]</param>
+            <param name="DSpeed">Default dispense speed [units/s]</param>
+            <param name="DRamp">Default dispense ramp [100 units/s²]</param>
+            <param name="MaxVol">Maximum volume [µl]</param>
+            <param name="scaling">Pump scaling [units/µl]</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ReplaceUnit(Sias.Core.Attributes.SPropertyAttributes)">
+            <summary>
+            Replace unit property attribute provider.
+            This online attribute provider replaces units "&lt;unit&gt;" by the devices unit name
+            and "^2" by "²"
+            </summary>
+            <param name="attr">Property attribute data</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ToPump(System.Double)">
+            <summary>
+            Convert volume in [µl] to pump units. Mostly 1 unit = 1/10 µl.
+            </summary>
+            <param name="val">Volume value [µl]</param>
+            <returns>The given volume in pump units</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ToPos(System.Int32)">
+            <summary>
+            Convert pump units to real volume [µl]. Mostly 1 µl = 10 units.
+            </summary>
+            <param name="val">Volume value [units/s]</param>
+            <returns>The given volume in µl/s</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ToPumpAspSpeed(System.Double)">
+            <summary>
+            Convert aspiration speed to pump units
+            </summary>
+            <param name="val">Aspiration speed [µl/s]</param>
+            <returns>Aspiration speed [100 units/s]</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ToPumpAspRamp(System.Double)">
+            <summary>
+            Convert aspiration ramp to pump units
+            </summary>
+            <param name="val">Aspiration ramp [µl/s²]</param>
+            <returns>Aspiration ramp [100 units/s²]</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ToPumpDspSpeed(System.Double)">
+            <summary>
+            Convert dispense speed to pump units
+            </summary>
+            <param name="val">Dispense speed [µl/s]</param>
+            <returns>Dispense speed [units/s]</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.ToPumpDspRamp(System.Double)">
+            <summary>
+            Convert dispense ramp to pump units
+            </summary>
+            <param name="val">Dispense ramp [µl/s²]</param>
+            <returns>Dispense ramp [100 units/s²]</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SMotor devices.
+            </summary>
+            <details>
+            Possible Module types:
+             - 0x0010 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_DC_PUMP_V1")	
+                        Old sias DC pipetting pump
+             - 0x0011 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_MCB_DC_PUMP")	
+                        %Sias DC pipetting pump
+             - 0x0018 (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_STEPPUMP")		
+                        Stepper pump (Diluter)
+             - 0x001A (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_VP910X_PUMP")   
+                        VP9101 OEM Pump (Diluter)
+             - 0x001C (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_STRATEC_PUMP")	
+                        Stratec/Cavro OEM Pump (Diluter)
+             - 0x001D (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BASE_PUMP")		
+                        Base Pump (no module yet)
+             .
+            Handled errors: 
+             - 0x01 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INIT_ERROR") 
+                at Error1: Initialization failed \n
+            	This code will only be given from an incorrect stratec/cavro 
+            	pump firmware prior Version 0.44b1. In reality its a RS232 
+            	command mode range error.
+             - 0x02 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_MOVE_ERROR")	
+                    at Error1: Movement blocked \n
+             - 0x04 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_INVALID_MOD")	
+                    at Error1: Invalid module \n
+            	    On OEM pumps (Stratec /Cavro) if the pump not found.
+             - 0x0B (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_WRONG_VALVE")	
+                    at Error2: Incorrect valve position for command. \n
+            		The actual command can't be used at the actual valve position.
+             - 0x10 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_RANGE_ERROR")	
+                    at Error1: Parameter value out of range. \n
+             - 0x30 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_ILLEGAL_VINX") 
+                    at Error1: Incorrect valve index. \n
+             - 0x51 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_CMD_ERROR1")	
+                    at Error2: OEM Pump error. \n
+            		The OEM Pump (Stratec/Cavro) reported an error \n
+             - 0x80 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_NO_ANSWER")	
+                    at Error1: OEM Pump communication error. \n
+             .
+            </details>
+            <param name="ForceHandling">true to force the handler to handle the error</param>
+            <param name="AddInfo">additional error information's</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.PrepareTurnValve(System.UInt16)">
+            <summary>
+            Prepare turn valve action.\n
+            
+            Important: Even if working with sias pipetting pumps, it is necessary to 
+            use the valve setting to tell the pump what the software is doing. This
+            makes it possible for the pump tracking the real liquid on the tip and 
+            in addition the same software can be used for either sias pipetting 
+            pumps and also for "normal" diluters.
+            </summary>
+            <param name="ValveIndex">Valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.PreparePick(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare pick liquid action.
+            
+            A pick liquid action will pick liquid. Depending on the type of pipetting
+            pump and on the actual valve index the pump may move or may do only a volume
+            recalculation.
+            </summary>
+            <param name="Vol">Volume to pick [µl]</param>
+            <param name="VSpeed">Aspiration speed [µl/s]</param>
+            <param name="Ramp">Aspiration ramp [µl/s²]</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.PrepareDisp(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare dispense liquid action.
+            A dispense liquid action will dispense liquid. Depending on the type of pipetting
+            pump and on the actual valve index the pump may move or may do only a volume
+            recalculation.
+            </summary>
+            <param name="Vol">Volume to dispense [µl]</param>
+            <param name="VSpeed">Dispense speed [µl/s]</param>
+            <param name="Ramp">Dispense ramp [µl/s²]</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.PrepareEmptyTip(System.Double,System.Double)">
+            <summary>
+            Prepare empty tip action.
+            A empty tip action will dispense all remaining liquid from tip. This action
+            will work only correctly, if the software handled the valve indexes correctly.
+            </summary>
+            <param name="VSpeed">Dispense speed [µl/s]</param>
+            <param name="Ramp">Dispense ramp [µl/s²]</param>
+        </member>
+        <member name="M:Sias.PipPump.SPipPumpDevice.PrepareFlush(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare flush action.
+            A flush action will pump system liquid through the tip. After
+            the flush action, the tip is marked as empty.
+            </summary>
+            <param name="Vol">Volume to dispense [µl]</param>
+            <param name="VSpeed">Flush speed [µl/s]</param>
+            <param name="Ramp">Flush ramp [µl/s²]</param>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.ASpeed">
+            <summary>Default aspiration speed property [units/s]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.Default_ASpeed">
+            <summary>Default aspiration speed property [µl/s]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.ARamp">
+            <summary>Default aspiration ramp property [100 units/s²]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.Default_ARamp">
+            <summary>Default aspiration ramp property [µl/s²]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.DSpeed">
+            <summary>Default dispense speed property [unts/s]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.Default_DSpeed">
+            <summary>Default dispense speed property [µl/s]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.DRamp">
+            <summary>Default dispense ramp property [100 units/s²]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.Default_DRamp">
+            <summary>Default dispense ramp property [µl/s²]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.MaxVol">
+            <summary>Maximum volume configuration property [µl]</summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.Scaling">
+            <summary>Pump scaling property [µl/unit] (mostly 0.1 µl/unit) </summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.MultiplexMode">
+            <summary>
+            Multiplex mode property
+            
+            The multiplex mode defines if the pump is a single pump module or if it is 
+            "only" a channel of multiplex pump.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.MultiplexModeValue">
+            <summary>
+            Multiplex mode value property
+            
+            The multiplex mode defines if the pump is a single pump module or if it is 
+            "only" a channel of multiplex pump.
+            </summary>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.Volume">
+            <summary>Last known tip volume [µl]</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.PipPump.SPipPumpDevice.VolumeFromDevice">
+            <summary>
+            Actual tip volume [µl]
+            
+            The volume will be requested from the device directly. Mostly it is not needed to 
+            request the volume from the device, as the last known volume will be up to date 
+            as long as the pump is not active.\n
+            We recommend to use the Volume property as long as the pump is not active.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.PipPump.SPipPumpDevice.MultiplexModeValues">
+            <summary>
+            Multiplex mode values
+            
+            This enumerator defines valid multiplex mode values.
+            </summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.MultiplexModeValues.SinglePump">
+            <summary>0: No multiplexed pump (default)</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.MultiplexModeValues.ChannelOfPump1">
+            <summary>1: Channel of first physical Pump</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.MultiplexModeValues.ChannelOfPump2">
+            <summary>2: Channel of second physical Pump</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.MultiplexModeValues.ChannelOfPump3">
+            <summary>3: Channel of third physical Pump</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.MultiplexModeValues.ChannelOfPump4">
+            <summary>4: Channel of fourth physical Pump</summary>
+        </member>
+        <member name="T:Sias.PipPump.SPipPumpDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::PipPump::SPipPumpDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.InitError">
+            <summary>0x1301: Unable to initialize pipetting pump.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.MoveError">
+            <summary>0x1302: %Motor movement blocked. %Motor is unable to reach the destination position.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.DeviceHardwareError">
+            <summary>0x1304: Unable to initialize the device hardware.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ParameterValueError">
+            <summary>0x130B: Incorrect parameter value error</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ParameterRangeError">
+            <summary>0x1310: Parameter Range error</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.InvalidRS232Mode">
+            <summary>0x1390: Invalid RS232 command mode </summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.IllegalValveIndex">
+            <summary>0x1330: Unable to find a valid level sensor configuration.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.NoExternalAnswer">
+            <summary>0x1380: No answer from external module</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalInitError">
+            <summary>0x11301: Unable to initialize external pump module.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalInvalidCommand">
+            <summary>0x11302: External pump reported an invalid command error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalInvalidOperant">
+            <summary>0x11303: External pump reported an invalid operant error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalIncorrectSequence">
+            <summary>0x11304: External pump reported an incorrect sequence error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalUnknownError5">
+            <summary>0x11305: External pump reported an unknown error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalEepromError">
+            <summary>0x11306: External pump reported an EEPROM failure error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalNotInit">
+            <summary>0x11307: External pump reported an device not init error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalFailure8">
+            <summary>0x11308: External pump reported an internal failure error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalPlungerOverload">
+            <summary>0x11309: External pump reported an plunger overload error .</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalValveOverload">
+            <summary>0x1130A: External pump reported an valve overload error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalPlungerMoveNotAllowed">
+            <summary>0x1130B: External pump reported an plunger move not allowed error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalFailureC">
+            <summary>0x1130C: External pump reported an internal failure error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalPlungerMoveError">
+            <summary>0x1130D: External pump reported an terminated plunger move error.</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalADConverter">
+            <summary>0x1130E: External pump reported an A/D converter / overpressure error .</summary>
+        </member>
+        <member name="F:Sias.PipPump.SPipPumpDevice.ErrorCodes.ExternalCommandOverflow">
+            <summary>0x1130F: External pump reported an command overflow error.</summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,734 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_BarcodeYZ</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.BarcodeYZ.IBarcodeYZDevice">
+            <summary>
+            Barcode Y/Z device interface.
+            
+            A barcode Y/Z device is a device used for reading barcodes. It includes 
+            all needed stuff for barcode reading and moving to the layout components 
+            barcode positions.
+            This interface is defined for usage in the \nlink{Sias.BarcodeYZ,SBarcodeMethods}
+            arm methods class.
+            Important classes implementing IBarcodeYZDevice: 
+             - \nlink{Sias::BarcodeYZ,SBarcodeYZDevice}
+             - \nlink{Sias::GripperBarcodeYZ,SGripperBarcodeYZDevice}
+             .
+            </summary>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.ZBarcodeWorktablePos(System.Double)">
+            <summary>
+            Calculate barcode read worktable Z position from actual Z motor position
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.ZBarcodeMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z borcode read worktable position
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.PrepareZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.YWorktablePos(System.Double)">
+            <summary>
+            Calculate Y desk position from a given Y motor position
+            </summary>
+            <param name="YMotPos">Y motor position</param>
+            <returns>Y desk position</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.YMotorPos(System.Double)">
+            <summary>
+            Calculate Y motor position from a given Y desk position
+            </summary>
+            <param name="YWorktablePos">Y desk position</param>
+            <returns>Y motor position</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.PrepareYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Y motor move to an absolute worktable position.
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="YWorktablePos">Worktable Y position</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.XBarcodeRotateOffset(System.Double,Sias.Core.SPosition)">
+            <summary>
+            Rotation depending X-Offset of the barcode read position.
+            
+            If the barcode reader Y/Z device gets turned the barcode read position 
+            may change depending on the orientation. This member returns X part of 
+            the orientation specific barcode read position.
+            </summary>
+            <param name="readOrientation">Barcode read orientation</param>
+            <param name="Offset">Additional X/Y offset</param>
+            <returns>The X-Offset for the given rotation</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.IBarcodeYZDevice.YBarcodeRotateOffset(System.Double,Sias.Core.SPosition)">
+            <summary>
+            Rotation depending Y-Offset of the barcode read position.
+            
+            If the barcode reader Y/Z device gets turned the barcode read position 
+            may change depending on the orientation. This member returns Y part of 
+            the orientation specific barcode read position.
+            </summary>
+            <param name="readOrientation">Barcode read orientation</param>
+            <param name="Offset">Additional X/Y offset</param>
+            <returns>The Y-Offset for the given rotation</returns>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.YMotor">
+            <summary>
+            Y Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.YOffset">
+            <summary>Y Offset</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZMotor">
+            <summary>
+            Z Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZFactor">
+            <summary>
+            Z motor rescaling factor. This factor allows to rescale the Z motor
+            positions. Normally this is only used to revert the motor.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZOffset">
+            <summary>Z Offset</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZMax">
+            <summary>
+            Maximum Z motor move range [mm].
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.TravelSafetyMargin">
+            <summary>
+            Safety margin for travel calculations.
+            
+            This property defines a safety margin for the Y/Z device. This safety margin 
+            is a circle around the middle of the Y/Z device which can be covered by the 
+            Y/Z device. It is used to calculate an extended move rectangle for calculating 
+            the travel height.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.BCReader">
+            <summary>
+            Y Motor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.BarcodeReadOffset">
+            <summary>
+            Get/Sets the BarcodeReadOffset
+            
+            The barcode read offset defines the position where the barcode should be placed 
+            relatively to the Y/Z device reference position. Take care as mostly the Y/Z device
+            reference is not equal to the barcode reader windows this is typically not the barcode
+            reader read distance.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.HeightMoveVector">
+            <summary>
+            Barcode height move vector property.
+            
+            This vector is used to calculate the barcode read movement. It is multiplied 
+            by the height of the barcode to define the barcode read move. \n
+             - ReadStart = BarcodeReadPosition - (BarcodeHeight/2)*HeightMoveVector \n
+             - ReadEnd   = BarcodeReadPosition + (BarcodeHeight/2)*HeightMoveVector \n
+            \b Important:   On rotation barcode devices X and Y are getting translated by 
+                            the orientation.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.BarcodeReadOrientation">
+            <summary>
+            Get the BarcodeReadOrientation
+            
+            The barcode orientation is read orientation if the Y/Z device is on orientation 0. 
+            It is a kind of orientation offset for the barcode reader. If the barcode reader 
+            Y/Z device has a rotation option the orientation can be adjusted to the orientation 
+            of the barcode.\n
+            \b Important:   To read a barcode with orientation 0 the barcode reader needs to be 
+                            positioned to an orientation of 180°
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.BarcodeScanSpeed">
+            <summary>
+            Move speed for reading barcodes
+            
+            This speed is used for the barcode read movement (along the barcode height).
+            The real motor speeds are calculated by multiplying the speed with the 
+            HeightMoveVector.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.DeviceName">
+            <summary>
+            Device name
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.YRange_Min">
+            <summary>
+            Minimum reachable Y worktable position for this Y/Z device
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.YRange_Max">
+            <summary>
+            Maximum reachable Y worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.YSafetyMargin">
+            <summary>
+            Y safety margin property (virtual)
+            
+            This property is used to define a Y safety margin for other tips. Depending
+            on the Y/Z device condition it may be that it neighbors need to keep a higher 
+            distance as the origin init offset. As long as this feature is not needed the 
+            Value can be left to 0.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.YWorktablePosition">
+            <summary>
+            Y worktable position from device.
+            
+            This property returns the last known Y motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZRange_Min">
+            <summary>
+            Minimum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZRange_Max">
+            <summary>
+            Maximum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.BarcodeYZ.IBarcodeYZDevice.ZWorktablePosition">
+            <summary>
+            Z Worktable position from device.
+            
+            This property returns the last known Z motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="T:Sias.BarcodeYZ.SBarcodeMethods">
+            <summary>
+            Barcode reading arm methods class.
+            
+            This class contains the barcode reading methods for movable barcode readers. The barcode 
+            reading methods require at least one Y/Z device implementing the IBarcodeYZDevice interface.
+            Typically the specific arm device will add a Barcode reading arm methods class instance to 
+            the concerned arm method list.
+            </summary>
+            <details>
+            \ingroup	Dev_BarcodeYZ
+            
+            To make the barcode reading methods working, the connected arms needs to have at least
+            one barcode Y/Z device implementing the \nlink{Sias,BarcodeYZ.IBarcodeYZDevice} interface.
+            
+            The barcode reading methods class implements 
+            - a method to select the barcode Y/Z device (mostly not needed).
+            - low level methods for X/Y/Z movements based on barcode reading position,
+            - high level methods for reading layout items or layout slots and
+            - a high level method for reading a barcode based on its absolute coordinates.
+            .
+            
+            The barcode reading methods can not be used if not connected to an arm device including at 
+            least one valid gripping Y/Z device. In general an instance of the barcode reading method 
+            class gets added to the arms arm method list by any barcode Y/Z device (a device implementing 
+            the \nlink{Sias,BarcodeYZ.IBarcodeYZDevice} interface).
+            </details>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.#ctor">
+            <summary>
+            Default constructor
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>		
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.#ctor(Sias.RobotDev.SArmDevice)">
+            <summary>
+            Manual generation constructor
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="ConnectedArm">The connected arm device</param>
+        </member>
+        <member name="F:Sias.BarcodeYZ.SBarcodeMethods._YZDev">
+            <summary>Current selected Y/Z device field</summary>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.NormAngle(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="angle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.BestAngle(System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="angle"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.GetSlotOrientation(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            
+            </summary>
+            <param name="slot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.GetSlotType(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            
+            </summary>
+            <param name="slot"></param>
+            <returns>
+             - 1 for rectangle slots
+             - 2 for round slots
+             - 0 if unknown.
+            </returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.GetSlotLength(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            
+            </summary>
+            <param name="slot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.GetSlotWidth(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            
+            </summary>
+            <param name="slot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.IsType(Sias.Core.SCustomPropertyCollection,System.String,System.Type)">
+            <summary>
+            Check if the specified custom property exists and has the specified type.
+            </summary>
+            <param name="prop">Custom property collection to search check</param>
+            <param name="key">Name of the property to check</param>
+            <param name="DataType">The expected data type</param>
+            <returns>True if the custom property exists and is of expected type, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.SelectBarcodeYZDevice(System.Int32)">
+            <summary>
+            Select the active barcode Y/Z device.
+            
+            This function selects one of the available barcode Y/Z devices as 
+            active barcode Y/Z device.
+            </summary>
+            <param name="Index">Y/Z Device index</param>
+            <returns>true if selection successful, false if Y/Z device is no barcode Y/Z device</returns>
+            <remarks>
+             -  No collision checks concerning other Y/Z devices are implemented now.
+             -  As there is mostly only one barcode Y/Z device at an arm this method
+            	is mostly not used/needed.
+             .
+            </remarks>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.MoveBarcodeZ(System.Double)">
+            <summary>
+            Move barcode read position to defined Z height.
+            </summary>
+            <param name="Z">New barcode read Z position</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: YZDev.ZMotor.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.PrepareYMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare all Y motors to allow the selected barcode Y/Z device moving to the 
+            defined destination.
+            </summary>
+            <param name="YWorktablePos">New Y motor worktable position</param>
+            <param name="Speed">Y moving speed [mm/s]</param>
+            <param name="Ramp">Y moving acceleration [mm/s²]</param>
+            <returns>The execution group of all prepared modules</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.MoveBarcodeReader(Sias.Core.SPosition,Sias.Core.SPosition,System.Double,Sias.Core.SPosition)">
+            <summary>
+            Move barcode reader to a barcode read position
+            
+            This method moves the selected barcode reader to the specified barcode position.
+            If the barcode Y/Z device supports rotation it takes also care about the optimal reachable 
+            orientation for barcode reading.
+            </summary>
+            <param name="BarcodeReadPos">New barcode read position</param>
+            <param name="AdditionReadOffset">Additional read offset (relative to read position)</param>
+            <param name="orientation">Barcode orientation</param>
+            <param name="Speeds">Move speeds for X/Y and Z</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>\b Important: 
+            This method will change the arm priority to be locked. Take care to release
+            the arm priority if the tasked you have to do on the defined destination is
+            finished.
+            </remarks>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.MoveBarcodeReaderDirect(Sias.Core.SPosition,Sias.Core.SPosition,System.Double,Sias.Core.SPosition)">
+            <summary>
+            Move barcode reader to a new barcode read position
+            
+            This method moves the selected barcode reader to the specified barcode read position.
+            Important: This method does not recognize any travel heights. The move will be done 
+            directly in parallel for ALL concerned axis.
+            </summary>
+            <param name="BarcodeReadPos">New barcode read position</param>
+            <param name="AdditionReadOffset">Additional read offset (relative to read position)</param>
+            <param name="orientation">barcode orientation</param>
+            <param name="Speeds">Move speeds for X/Y and Z</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>\b Important: 
+            This method will change the arm priority to be locked. Take care to release
+            the arm priority if the tasked you have to do on the defined destination is
+            finished.
+            </remarks>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.ReadBarcode(Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            Read barcode at defined barcode read position.
+            
+            This method tries to read a barcode at the define barcode read position with the 
+            defined orientation. In case of the needed Y/Z orientation is not supported the 
+            method tries to use the closest possible orientation.\n
+            For reading the method 
+             - moves to the lower end of the barcode (barcode position - barcode height)
+             - turns on the barcode reader
+             - moves to the upper end of the barcode (barcode position + barcode height)
+             - gets and filters the barcode
+             - makes sure the barcode reader is off again.
+             .
+            </summary>
+            <param name="BCPos">Barcode read position</param>
+            <param name="BarcodeOrientation"></param>
+            <param name="BarcodeHeight"></param>
+            <remarks>The arm gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+            <remarks>The arm priority gets locked and restored in this method.</remarks>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.ReadBarcode(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Read barcode of item
+            
+            This method tries to read the barcode of an item. The barcode position, orientation 
+            and height will be determinated from data and custom properties of the given item.
+            The read barcode gets returned. In addition the barcode is written to the items 
+            "Barcode" custom property.
+            </summary>
+            <details>
+             - The barcode position is read from SPosition custom property \b "BarcodePosition".
+            	If this property is not defined the reference point is defined as barcode read
+            	position.
+             - The barcode Orientation if read from double custom property \b "BarcodeOrientation".
+            	If this property is not defined the method tries to determinate the orientation
+            	by comparing the barcode position with the gripper position (more or less the 
+                centre).\n
+            	\b Important:	This determination is not working for conditions. If the determination 
+            					fails it is needed to define the "BarcodeOrientation" custom property.
+             - The barcode height if read from double custom property \b "BarcodeHeight".
+            	If this property is not given a barcode height of 10 mm is used.
+             .
+            </details>
+            <param name="item">The item to read the barcode.</param>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeMethods.ReadBarcode(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            Read barcode of slot
+            
+            This method tries to read the barcode of a slot. The barcode position, orientation 
+            and height will be determinated from the given slots data and custom properties.
+            The read barcode gets returned. In addition the barcode is written to the slots 
+            "Barcode" custom property.
+            </summary>
+            <details>
+             - The barcode position is read from SPosition custom property \b "BarcodePosition".
+            	If this property is not defined the reference point is defined as barcode read
+            	position.
+             - The barcode Orientation if read from double custom property \b "BarcodeOrientation.
+            	If this property is not defined the method tries to determinate the orientation
+            	by calling the following slot methods and properties by reflection:
+            	 - double GetOrientation(); to get the actual orientation of the slot.
+            	 - double Width;			to get the width (y) of a rectangular slot
+            	 - double Length;			to get the length (x) of a rectangular slot
+            	 - double Diameter;			to get the diameter of a circular slot
+            	 .
+            	If (some of) this methods and properties are not implemented in the ISlot object 
+            	the automatic orientation detection will fail.
+             - The barcode height if read from double custom property \b "BarcodeHeight".
+            	If this property is not given a barcode height of 10 mm is used.
+             .
+            </details>
+            <param name="slot">The slot to read the barcode.</param>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeMethods.YZDev">
+            <summary>Current selected Y/Z device (\b see \nlink{Sias::BarcodeYZ,SBarcodeMethods.SelectBarcodeYZDevice})</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeMethods.MethodsSupported">
+            <summary>
+            Method supported property
+            
+            This property is used to verify the method block. 
+            In case of the gripper arm handling methods it verifies if the 
+            arm is valid and at least one gripper Y/Z device is available.
+            </summary>
+            <value>True if execution possible otherwise false</value>
+        </member>
+        <member name="T:Sias.BarcodeYZ.SBarcodeMethods.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::BarcodeYZ::SBarcodeMethods errors.
+            </summary>
+        </member>
+        <member name="T:Sias.BarcodeYZ.SBarcodeYZDevice">
+            <summary>
+            Barcode Y/Z device class.
+            
+            The barcode Y/Z device is a complex device representing a Y/Z device including a barcode 
+            reader. In general this device is only useable as part of an robot arm.
+            </summary>
+            <details>
+            \ingroup	Dev_BarcodeYZ
+            
+            The gripper barcode Y/Z device is derived from a standard Y/Z device. In addition the 
+            standard Y/Z device implements the IBarcodeYZDevice interface with 
+             - a configuration property for the connected barcode reader;
+             - a configuration property for the barcode read position;
+             - a configuration property for the barcode height move vector;
+             - a configuration property for the barcode read orientation and
+             - a configuration property for the barcode read move speed.
+             .
+            As the device implements IBarcodeYZDevice it can be used with the barcode reading arm 
+            method class. So the AddArmMethods method adds a SBarcodeMethods class to the arms
+            Arm method block list.
+            
+            <div class="dynheader">%SBarcodeYZDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SBarcodeYZ.png"
+            </div>
+            
+            </details>
+        </member>
+        <member name="F:Sias.BarcodeYZ.SBarcodeYZDevice._BCReader">
+            <summary>Barcode reader field</summary>
+        </member>
+        <member name="F:Sias.BarcodeYZ.SBarcodeYZDevice._BarcodeReadOffset">
+            <summary>Barcode read offset field</summary>
+        </member>
+        <member name="F:Sias.BarcodeYZ.SBarcodeYZDevice._BarcodeReadOrientation">
+            <summary>Barcode read orientation field</summary>
+        </member>
+        <member name="F:Sias.BarcodeYZ.SBarcodeYZDevice._HeightMoveVector">
+            <summary>Barcode read offset field</summary>
+        </member>
+        <member name="F:Sias.BarcodeYZ.SBarcodeYZDevice._BarcodeScanSpeed">
+            <summary>Barcode scan speed field</summary>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.#ctor(Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.BCReader.SBCReaderDevice,Sias.Core.SPosition,System.Double)">
+            <summary>
+            Manual generation constructor.
+            This constructor creates a device by using the requested parameters.
+            </summary>
+            <param name="YMotor">Y Motor device</param>
+            <param name="YFactor">Y Factor</param>
+            <param name="YOffset">Y Offset</param>
+            <param name="ZMotor">Z Motor device</param>
+            <param name="ZFactor">Z Factor</param>
+            <param name="ZOffset">Z Offset</param>
+            <param name="bCReader">Barcode reader device</param>
+            <param name="barcodeReadOffset">Barcode read offset (relative to Y/Z reference)</param>
+            <param name="barcodeReadOrientation">Barcode reader read orientation</param>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Init gripper Y/Z device.
+            This first calls the base initialization method initializing the Z, X and Y motor. Then it 
+            initializes the gripper and rotation motor.
+            </summary>
+            <param name="InitOptions">Not used yet</param>
+            <remarks>The device gets locked/unlocked in this method. Timeout: BCReader.ActionLockTimeout</remarks>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.ZBarcodeWorktablePos(System.Double)">
+            <summary>
+            Calculate Z desk position from a given Z motor position.
+            </summary>
+            <param name="ZMotPos">Z motor position</param>
+            <returns>Z desk position</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.ZBarcodeMotorPos(System.Double)">
+            <summary>
+            Calculate Z motor position from a given Z desk position.
+            </summary>
+            <param name="ZWorktablePos">Z desk position</param>
+            <returns>Z motor position</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.AddArmMethods(Sias.BaseDev.SBaseArmMethodsCollection,Sias.BaseDev.SBaseArmDevice)">
+            <summary>
+            Add supported arm methods to given arm method collection a collection.
+            </summary>
+            <param name="ArmMethods"></param>
+            <param name="Arm"></param>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+            <returns>A collection of all supported arm method blocks</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.XBarcodeRotateOffset(System.Double,Sias.Core.SPosition)">
+            <summary>
+            Rotation depending X-Offset of the barcode read position.
+            
+            If the barcode reader Y/Z device gets turned the barcode read position 
+            may change depending on the orientation. This member returns X part of 
+            the orientation specific barcode read position.
+            </summary>
+            <param name="readOrientation">Barcode read orientation</param>
+            <param name="Offset">Additional X/Y offset</param>
+            <returns>The X-Offset for the given rotation</returns>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDevice.YBarcodeRotateOffset(System.Double,Sias.Core.SPosition)">
+            <summary>
+            Rotation depending Y-Offset of the barcode read position.
+            
+            If the barcode reader Y/Z device gets turned the barcode read position 
+            may change depending on the orientation. This member returns Y part of 
+            the orientation specific barcode read position.
+            </summary>
+            <param name="readOrientation">Barcode read orientation</param>
+            <param name="Offset">Additional X/Y offset</param>
+            <returns>The Y-Offset for the given rotation</returns>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.BCReader">
+            <summary>Barcode reader property.</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.BarcodeReadOffset">
+            <summary>
+            Barcode read offset property.
+            
+            The barcode read offset defines the position where the barcode should be placed 
+            relatively to the Y/Z device reference position.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.BarcodeReadOrientation">
+            <summary>
+            Barcode read orientation property.
+            
+            The barcode orientation is read orientation if the Y/Z device is on orientation 0. 
+            It is a kind of orientation offset for the barcode reader. If the barcode reader 
+            Y/Z device has a rotation option the orientation can be adjusted to the orientation 
+            of the barcode.\n
+            \b Important:   To read a barcode with orientation 0 the barcode reader needs to be 
+                            positioned to an orientation of 180°
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.HeightMoveVector">
+            <summary>
+            Barcode height move vector property.
+            
+            This vector is used to calculate the barcode read movement. It is multiplied 
+            by the height of the barcode to define the barcode read move. \n
+             - ReadStart = BarcodeReadPosition - (BarcodeHeight/2)*HeightMoveVector \n
+             - ReadEnd   = BarcodeReadPosition + (BarcodeHeight/2)*HeightMoveVector \n
+            \b Important:   On rotation barcode devices X and Y are getting translated by 
+                            the orientation.
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.BarcodeScanSpeed">
+            <summary>Barcode scan speed property</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Gripper Y/Z Device property.</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.DeviceName">
+            <summary>
+            Name of the Arm device.
+            
+            Changing the name of the arm device results in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.DeviceState">
+            <summary>
+            Returns a summary of the device states of all connected devices.
+            </summary>
+            <returns>Summary of device states</returns>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDevice.ExecutionGroup">
+            <summary>
+            This property returns or sets the execution group of all sub modules connected to 
+            this gripper Y/Z device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Sias.BarcodeYZ.SBarcodeYZDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::BarcodeYZ::SBarcodeYZDevice errors.
+            </summary>
+        </member>
+        <member name="T:Sias.BarcodeYZ.SBarcodeYZDeviceCollection">
+            <summary>Barcode Y/Z device collection</summary>
+        </member>
+        <member name="M:Sias.BarcodeYZ.SBarcodeYZDeviceCollection.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDeviceCollection.Item(System.Int32)">
+            <summary>
+            Get/Set the SBaseYZDevice at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the SBaseYZDevice</param>
+            <returns>An SBaseYZDevice at each valid index.</returns>
+        </member>
+        <member name="P:Sias.BarcodeYZ.SBarcodeYZDeviceCollection.Item(System.String)">
+            <summary>
+            Get/Set the SPosition at the specified index in the collection. 
+            </summary>
+            <param name="device_name">Name of included gripper Y/Z device</param>
+            <returns>An SPosition at each valid index.</returns>
+        </member>
+    </members>
+</doc>

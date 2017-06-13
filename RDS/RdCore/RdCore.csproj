@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{92E632A0-CD46-40C5-BE11-10B623A50B44}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RdCore</RootNamespace>
+    <AssemblyName>RdCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Core">
+      <HintPath>..\RDS\bin\Debug\Bin\Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DatabaseManager">
+      <HintPath>..\RDS\bin\Debug\Bin\DatabaseManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DetectionManager">
+      <HintPath>..\RDS\bin\Debug\Bin\DetectionManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DeviceManager">
+      <HintPath>..\RDS\bin\Debug\Bin\DeviceManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_BaseDev">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\Dev_BaseDev.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_BCReader">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\Dev_BCReader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DEV_CanDev">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\DEV_CanDev.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_DropStation">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\Dev_DropStation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_PipArm">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\Dev_PipArm.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_ReSaTrax">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\Dev_ReSaTrax.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_Robot">
+      <HintPath>..\RDS\bin\Debug\Bin\Devices\Dev_Robot.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Layout">
+      <HintPath>..\RDS\bin\Debug\Bin\Layout.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LayoutDB">
+      <HintPath>..\RDS\bin\Debug\Bin\LayoutDB.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LayoutManager">
+      <HintPath>..\RDS\bin\Debug\Bin\LayoutManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LiquidManager">
+      <HintPath>..\RDS\bin\Debug\Bin\LiquidManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TipManager">
+      <HintPath>..\RDS\bin\Debug\Bin\TipManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enum\PopupType.cs" />
+    <Compile Include="Enum\RdAction.cs" />
+    <Compile Include="ProcessWorkbench.cs" />
+    <Compile Include="RdAspTemp.cs" />
+    <Compile Include="RdDspTemp.cs" />
+    <Compile Include="Reader\Rendu.Entity.Reader.cs" />
+    <Compile Include="Reader\Rendu.RdsModule.cs" />
+    <Compile Include="Reader\Rendu.Serialize.cs" />
+    <Compile Include="Reader\Rendu.ShareDll.cs" />
+    <Compile Include="RunSequenceHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sias.Config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

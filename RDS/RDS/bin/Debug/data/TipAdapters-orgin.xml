@@ -1,0 +1,260 @@
+<TipData Type="Sias.TipManager.STipManager+TipData">
+  <TipTypes>
+    <Count>10</Count>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Washable Tip</Name>
+      <MaxVolume>2000</MaxVolume>
+      <PickUpStart>0</PickUpStart>
+      <PickUpBorder>0</PickUpBorder>
+      <PickUpMax>0</PickUpMax>
+      <ZExtension>113.8</ZExtension>
+      <Collar>0</Collar>
+      <Body>0</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>True</Washable>
+      <Removable>False</Removable>
+      <Image_Empty>AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABVTeXN0ZW0uRHJhd2luZy5CaXRtYXABAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAMwUAAAKJUE5HDQoaCgAAAA1JSERSAAAAIAAAACAIBgAAAHN6evQAAAAEZ0FNQQAAsY8L/GEFAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAS+SURBVFhH5VdNaNRHFJ/duEnWxHytxnyQZPO5+dzdfGzzDQUFLRT0otRTPAqKrfViD6VeNJdC6aF4EOqlkIsgCrGnIqW9FSo01lYoSCnizdjSmiLq8/cbZ5bZ/8w/3krBBz/+szNv3nvz5jdvZtX/Sl4odZAwP/9bMc63CFHqbdMdJ7UAdVw0AbECm0XgnPlZKdY5FIRAe5MTzLCVLLCaTCZ/wRfDPhKJxAN8PwPmgLJgsGhs0r4fBDqPm8EynCDaABrFz7IjaWxsrEBVVVV53OjcwJerdp1bHMdYpaDzXERJnir11wwmvxpW0traKmNjY7K8vBxEoVCQjo4OHSD1kYanW0r949okENAl+vQEg+ejyo+AhZ07ZXJyMug0hNnZWTmKrDyJ2DI4b9yFhQqRCfIn0nukVNLGFxYWpIQ2AyoWixpsz8zMyNzcnNY5iyxtIQtRO8D2zo20XVDq7+jkBzU18u74uHaYz+dlHG0XTD/HTg0MBJ1/pNQz2K4gZ5xwf+SrVMoz8gf69sPB4OCg9PX1SW9vrwbbA+j/EPsfcn66oQEfzaPbdLCdkPVamWldB+msEYs71dWS7+6WbqCrq0uD7bOZjKdLXBwaksXFRUkheGP7MBAr+riRyZZQ11taPKMbO3ZIbu9eaW9v13gfhIvqEJ/09JTtMEu0Ddyiozi5D8jExISeND8/r/d1HSl0DRM/IYhsW5t8Wl/vjXEbTnZ2al7wRFhb5nj+CwSrJguOLig2arJdEw77eyud9hz9lkx6fTx6K8gOOcGFTE1Nle2xYNEHENwG1nOtZCeQB2Q4STeEff4GJ8F1FsUmVnisuVl6kPr+/n5dtJhBcoD2uLX0AXxAh1FhedTVzgbAyTTC1WSzWZ3yHwKng6Dz/bt3a06QlAxgdHRU22DtoD3aoA+AXPPkBBAMgBngZBq/WlsbDGAdgVlS2gyMjIxUBMCF0AcQLMV8B0gzUugGYLcgB6PXYpxbrIEnDIDBco7NgN0CZoY+gOC1PAxIOp1+bgOYnp7WRMrjLIdIiMvK67uMU8HiNIQ5DN69QzKoFfQBvEeHIdE3H9nPCTxCJQTwbV2d5+h3nJZDMMhvdOxzZJHp5zG0tgicsOe0D/BtEZQrgE4hJ+xD6r4P1IA72O8iCMl0l/bsCQbxBfq5ept+ZpK2AT5oYoXnU6pTqWcHsPqNXbs8wz+jFBfAB3sPEPtQdB4HasJl9NvV19fV2dWv0tF2chtlSjYCx+0uSPgW9nZ4eFhyuZzeZ4vDyFooiC9BPOrCLvEQ4HsyXo4otfJjxAjxKx4ly0gjWc10kuHcZ4JtEu4oAuHbITr3TCKBR5AOgEc9XqCRheZ9dzJxDyR8B7V8aWnJe4xYsI9jKyBeKIiPlfrOuAkLlILObwIFXLl2Ly1YXFy4Y3EvItgPHz8M8uXqOb+r1D1sGJpKMk1NOt2uoxB49DpbMnIAc6JvQvjg/w7/jw8GvRcxFL/Gl4ThydDXNJFOpV4M4hRkAZKPBGN7BPd9Q02t1jHYBN0voRG1ew1jvmBg1VFaw9dlK9ssn7F/ShwwWF42+s5HR/k/h7OosEDhCmF+xgmrGNnMFy5110ybVyzLuScM4rXO31BR6iXyBDoEzWmuCgAAAABJRU5ErkJgggs=</Image_Empty>
+      <Image_Pickable>AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABVTeXN0ZW0uRHJhd2luZy5CaXRtYXABAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAMwUAAAKJUE5HDQoaCgAAAA1JSERSAAAAIAAAACAIBgAAAHN6evQAAAAEZ0FNQQAAsY8L/GEFAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAS+SURBVFhH5VdNaNRHFJ/duEnWxHytxnyQZPO5+dzdfGzzDQUFLRT0otRTPAqKrfViD6VeNJdC6aF4EOqlkIsgCrGnIqW9FSo01lYoSCnizdjSmiLq8/cbZ5bZ/8w/3krBBz/+szNv3nvz5jdvZtX/Sl4odZAwP/9bMc63CFHqbdMdJ7UAdVw0AbECm0XgnPlZKdY5FIRAe5MTzLCVLLCaTCZ/wRfDPhKJxAN8PwPmgLJgsGhs0r4fBDqPm8EynCDaABrFz7IjaWxsrEBVVVV53OjcwJerdp1bHMdYpaDzXERJnir11wwmvxpW0traKmNjY7K8vBxEoVCQjo4OHSD1kYanW0r949okENAl+vQEg+ejyo+AhZ07ZXJyMug0hNnZWTmKrDyJ2DI4b9yFhQqRCfIn0nukVNLGFxYWpIQ2AyoWixpsz8zMyNzcnNY5iyxtIQtRO8D2zo20XVDq7+jkBzU18u74uHaYz+dlHG0XTD/HTg0MBJ1/pNQz2K4gZ5xwf+SrVMoz8gf69sPB4OCg9PX1SW9vrwbbA+j/EPsfcn66oQEfzaPbdLCdkPVamWldB+msEYs71dWS7+6WbqCrq0uD7bOZjKdLXBwaksXFRUkheGP7MBAr+riRyZZQ11taPKMbO3ZIbu9eaW9v13gfhIvqEJ/09JTtMEu0Ddyiozi5D8jExISeND8/r/d1HSl0DRM/IYhsW5t8Wl/vjXEbTnZ2al7wRFhb5nj+CwSrJguOLig2arJdEw77eyud9hz9lkx6fTx6K8gOOcGFTE1Nle2xYNEHENwG1nOtZCeQB2Q4STeEff4GJ8F1FsUmVnisuVl6kPr+/n5dtJhBcoD2uLX0AXxAh1FhedTVzgbAyTTC1WSzWZ3yHwKng6Dz/bt3a06QlAxgdHRU22DtoD3aoA+AXPPkBBAMgBngZBq/WlsbDGAdgVlS2gyMjIxUBMCF0AcQLMV8B0gzUugGYLcgB6PXYpxbrIEnDIDBco7NgN0CZoY+gOC1PAxIOp1+bgOYnp7WRMrjLIdIiMvK67uMU8HiNIQ5DN69QzKoFfQBvEeHIdE3H9nPCTxCJQTwbV2d5+h3nJZDMMhvdOxzZJHp5zG0tgicsOe0D/BtEZQrgE4hJ+xD6r4P1IA72O8iCMl0l/bsCQbxBfq5ept+ZpK2AT5oYoXnU6pTqWcHsPqNXbs8wz+jFBfAB3sPEPtQdB4HasJl9NvV19fV2dWv0tF2chtlSjYCx+0uSPgW9nZ4eFhyuZzeZ4vDyFooiC9BPOrCLvEQ4HsyXo4otfJjxAjxKx4ly0gjWc10kuHcZ4JtEu4oAuHbITr3TCKBR5AOgEc9XqCRheZ9dzJxDyR8B7V8aWnJe4xYsI9jKyBeKIiPlfrOuAkLlILObwIFXLl2Ly1YXFy4Y3EvItgPHz8M8uXqOb+r1D1sGJpKMk1NOt2uoxB49DpbMnIAc6JvQvjg/w7/jw8GvRcxFL/Gl4ThydDXNJFOpV4M4hRkAZKPBGN7BPd9Q02t1jHYBN0voRG1ew1jvmBg1VFaw9dlK9ssn7F/ShwwWF42+s5HR/k/h7OosEDhCmF+xgmrGNnMFy5110ybVyzLuScM4rXO31BR6iXyBDoEzWmuCgAAAABJRU5ErkJgggs=</Image_Pickable>
+      <Image_NotPickable>AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABVTeXN0ZW0uRHJhd2luZy5CaXRtYXABAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAMwUAAAKJUE5HDQoaCgAAAA1JSERSAAAAIAAAACAIBgAAAHN6evQAAAAEZ0FNQQAAsY8L/GEFAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAS+SURBVFhH5VdNaNRHFJ/duEnWxHytxnyQZPO5+dzdfGzzDQUFLRT0otRTPAqKrfViD6VeNJdC6aF4EOqlkIsgCrGnIqW9FSo01lYoSCnizdjSmiLq8/cbZ5bZ/8w/3krBBz/+szNv3nvz5jdvZtX/Sl4odZAwP/9bMc63CFHqbdMdJ7UAdVw0AbECm0XgnPlZKdY5FIRAe5MTzLCVLLCaTCZ/wRfDPhKJxAN8PwPmgLJgsGhs0r4fBDqPm8EynCDaABrFz7IjaWxsrEBVVVV53OjcwJerdp1bHMdYpaDzXERJnir11wwmvxpW0traKmNjY7K8vBxEoVCQjo4OHSD1kYanW0r949okENAl+vQEg+ejyo+AhZ07ZXJyMug0hNnZWTmKrDyJ2DI4b9yFhQqRCfIn0nukVNLGFxYWpIQ2AyoWixpsz8zMyNzcnNY5iyxtIQtRO8D2zo20XVDq7+jkBzU18u74uHaYz+dlHG0XTD/HTg0MBJ1/pNQz2K4gZ5xwf+SrVMoz8gf69sPB4OCg9PX1SW9vrwbbA+j/EPsfcn66oQEfzaPbdLCdkPVamWldB+msEYs71dWS7+6WbqCrq0uD7bOZjKdLXBwaksXFRUkheGP7MBAr+riRyZZQ11taPKMbO3ZIbu9eaW9v13gfhIvqEJ/09JTtMEu0Ddyiozi5D8jExISeND8/r/d1HSl0DRM/IYhsW5t8Wl/vjXEbTnZ2al7wRFhb5nj+CwSrJguOLig2arJdEw77eyud9hz9lkx6fTx6K8gOOcGFTE1Nle2xYNEHENwG1nOtZCeQB2Q4STeEff4GJ8F1FsUmVnisuVl6kPr+/n5dtJhBcoD2uLX0AXxAh1FhedTVzgbAyTTC1WSzWZ3yHwKng6Dz/bt3a06QlAxgdHRU22DtoD3aoA+AXPPkBBAMgBngZBq/WlsbDGAdgVlS2gyMjIxUBMCF0AcQLMV8B0gzUugGYLcgB6PXYpxbrIEnDIDBco7NgN0CZoY+gOC1PAxIOp1+bgOYnp7WRMrjLIdIiMvK67uMU8HiNIQ5DN69QzKoFfQBvEeHIdE3H9nPCTxCJQTwbV2d5+h3nJZDMMhvdOxzZJHp5zG0tgicsOe0D/BtEZQrgE4hJ+xD6r4P1IA72O8iCMl0l/bsCQbxBfq5ept+ZpK2AT5oYoXnU6pTqWcHsPqNXbs8wz+jFBfAB3sPEPtQdB4HasJl9NvV19fV2dWv0tF2chtlSjYCx+0uSPgW9nZ4eFhyuZzeZ4vDyFooiC9BPOrCLvEQ4HsyXo4otfJjxAjxKx4ly0gjWc10kuHcZ4JtEu4oAuHbITr3TCKBR5AOgEc9XqCRheZ9dzJxDyR8B7V8aWnJe4xYsI9jKyBeKIiPlfrOuAkLlILObwIFXLl2Ly1YXFy4Y3EvItgPHz8M8uXqOb+r1D1sGJpKMk1NOt2uoxB49DpbMnIAc6JvQvjg/w7/jw8GvRcxFL/Gl4ThydDXNJFOpV4M4hRkAZKPBGN7BPd9Q02t1jHYBN0voRG1ew1jvmBg1VFaw9dlK9ssn7F/ShwwWF42+s5HR/k/h7OosEDhCmF+xgmrGNnMFy5110ybVyzLuScM4rXO31BR6iXyBDoEzWmuCgAAAABJRU5ErkJgggs=</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABVTeXN0ZW0uRHJhd2luZy5CaXRtYXABAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAMwUAAAKJUE5HDQoaCgAAAA1JSERSAAAAIAAAACAIBgAAAHN6evQAAAAEZ0FNQQAAsY8L/GEFAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAS+SURBVFhH5VdNaNRHFJ/duEnWxHytxnyQZPO5+dzdfGzzDQUFLRT0otRTPAqKrfViD6VeNJdC6aF4EOqlkIsgCrGnIqW9FSo01lYoSCnizdjSmiLq8/cbZ5bZ/8w/3krBBz/+szNv3nvz5jdvZtX/Sl4odZAwP/9bMc63CFHqbdMdJ7UAdVw0AbECm0XgnPlZKdY5FIRAe5MTzLCVLLCaTCZ/wRfDPhKJxAN8PwPmgLJgsGhs0r4fBDqPm8EynCDaABrFz7IjaWxsrEBVVVV53OjcwJerdp1bHMdYpaDzXERJnir11wwmvxpW0traKmNjY7K8vBxEoVCQjo4OHSD1kYanW0r949okENAl+vQEg+ejyo+AhZ07ZXJyMug0hNnZWTmKrDyJ2DI4b9yFhQqRCfIn0nukVNLGFxYWpIQ2AyoWixpsz8zMyNzcnNY5iyxtIQtRO8D2zo20XVDq7+jkBzU18u74uHaYz+dlHG0XTD/HTg0MBJ1/pNQz2K4gZ5xwf+SrVMoz8gf69sPB4OCg9PX1SW9vrwbbA+j/EPsfcn66oQEfzaPbdLCdkPVamWldB+msEYs71dWS7+6WbqCrq0uD7bOZjKdLXBwaksXFRUkheGP7MBAr+riRyZZQ11taPKMbO3ZIbu9eaW9v13gfhIvqEJ/09JTtMEu0Ddyiozi5D8jExISeND8/r/d1HSl0DRM/IYhsW5t8Wl/vjXEbTnZ2al7wRFhb5nj+CwSrJguOLig2arJdEw77eyud9hz9lkx6fTx6K8gOOcGFTE1Nle2xYNEHENwG1nOtZCeQB2Q4STeEff4GJ8F1FsUmVnisuVl6kPr+/n5dtJhBcoD2uLX0AXxAh1FhedTVzgbAyTTC1WSzWZ3yHwKng6Dz/bt3a06QlAxgdHRU22DtoD3aoA+AXPPkBBAMgBngZBq/WlsbDGAdgVlS2gyMjIxUBMCF0AcQLMV8B0gzUugGYLcgB6PXYpxbrIEnDIDBco7NgN0CZoY+gOC1PAxIOp1+bgOYnp7WRMrjLIdIiMvK67uMU8HiNIQ5DN69QzKoFfQBvEeHIdE3H9nPCTxCJQTwbV2d5+h3nJZDMMhvdOxzZJHp5zG0tgicsOe0D/BtEZQrgE4hJ+xD6r4P1IA72O8iCMl0l/bsCQbxBfq5ept+ZpK2AT5oYoXnU6pTqWcHsPqNXbs8wz+jFBfAB3sPEPtQdB4HasJl9NvV19fV2dWv0tF2chtlSjYCx+0uSPgW9nZ4eFhyuZzeZ4vDyFooiC9BPOrCLvEQ4HsyXo4otfJjxAjxKx4ly0gjWc10kuHcZ4JtEu4oAuHbITr3TCKBR5AOgEc9XqCRheZ9dzJxDyR8B7V8aWnJe4xYsI9jKyBeKIiPlfrOuAkLlILObwIFXLl2Ly1YXFy4Y3EvItgPHz8M8uXqOb+r1D1sGJpKMk1NOt2uoxB49DpbMnIAc6JvQvjg/w7/jw8GvRcxFL/Gl4ThydDXNJFOpV4M4hRkAZKPBGN7BPd9Q02t1jHYBN0voRG1ew1jvmBg1VFaw9dlK9ssn7F/ShwwWF42+s5HR/k/h7OosEDhCmF+xgmrGNnMFy5110ybVyzLuScM4rXO31BR6iXyBDoEzWmuCgAAAABJRU5ErkJgggs=</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Piercing Tip</Name>
+      <MaxVolume>2000</MaxVolume>
+      <PickUpStart>0</PickUpStart>
+      <PickUpBorder>0</PickUpBorder>
+      <PickUpMax>0</PickUpMax>
+      <ZExtension>184.5</ZExtension>
+      <Collar>0</Collar>
+      <Body>0</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>True</Washable>
+      <Removable>False</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin Universal 1000</Name>
+      <MaxVolume>1000</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>24</PickUpMax>
+      <ZExtension>83.11</ZExtension>
+      <Collar>22.86</Collar>
+      <Body>68</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin Universal 20</Name>
+      <MaxVolume>20</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>13.5</PickUpMax>
+      <ZExtension>29.31</ZExtension>
+      <Collar>12.7</Collar>
+      <Body>24.36</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Hamilton 300</Name>
+      <MaxVolume>300</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>5</PickUpBorder>
+      <PickUpMax>10</PickUpMax>
+      <ZExtension>59.9</ZExtension>
+      <Collar>8</Collar>
+      <Body>51.9</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin Universal 400</Name>
+      <MaxVolume>400</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>13.5</PickUpMax>
+      <ZExtension>53.6</ZExtension>
+      <Collar>12.7</Collar>
+      <Body>48.65</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin Universal 300</Name>
+      <MaxVolume>300</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>13.5</PickUpMax>
+      <ZExtension>53.6</ZExtension>
+      <Collar>12.7</Collar>
+      <Body>48.65</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin Universal 1100</Name>
+      <MaxVolume>1100</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>24</PickUpMax>
+      <ZExtension>83.11</ZExtension>
+      <Collar>22.86</Collar>
+      <Body>68</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin Universal 30</Name>
+      <MaxVolume>30</MaxVolume>
+      <PickUpStart>5</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>13.5</PickUpMax>
+      <ZExtension>29.31</ZExtension>
+      <Collar>12.7</Collar>
+      <Body>24.36</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+    <STipType Type="Sias.TipManager.STipType">
+      <Name>Rainin 5000</Name>
+      <MaxVolume>5000</MaxVolume>
+      <PickUpStart>1</PickUpStart>
+      <PickUpBorder>6</PickUpBorder>
+      <PickUpMax>27</PickUpMax>
+      <ZExtension>85.12</ZExtension>
+      <Collar>25.4</Collar>
+      <Body>74.42</Body>
+      <AllowDetection>True</AllowDetection>
+      <DetectionSensitivity>1</DetectionSensitivity>
+      <Washable>False</Washable>
+      <Removable>True</Removable>
+      <Image_Empty>Default</Image_Empty>
+      <Image_Pickable>Default</Image_Pickable>
+      <Image_NotPickable>Default</Image_NotPickable>
+      <Image_NotAccessible>Default</Image_NotAccessible>
+      <Image_BadTip>Default</Image_BadTip>
+    </STipType>
+  </TipTypes>
+  <TipAdapters>
+    <Count>6</Count>
+    <STipAdapter Type="Sias.TipManager.STipAdapter">
+      <Name>Washable Adapter</Name>
+      <AdapterLength>0</AdapterLength>
+      <DefaultTip>Washable Tip</DefaultTip>
+      <AcceptedTipTypeNames>
+        <Count>1</Count>
+        <String>Washable Tip</String>
+      </AcceptedTipTypeNames>
+    </STipAdapter>
+    <STipAdapter Type="Sias.TipManager.STipAdapter">
+      <Name>Piercing Adapter</Name>
+      <AdapterLength>0</AdapterLength>
+      <DefaultTip>Piercing Tip</DefaultTip>
+      <AcceptedTipTypeNames>
+        <Count>1</Count>
+        <String>Piercing Tip</String>
+      </AcceptedTipTypeNames>
+    </STipAdapter>
+    <STipAdapter Type="Sias.TipManager.STipAdapter">
+      <Name>Rainin Universal Adapter</Name>
+      <AdapterLength>33.5</AdapterLength>
+      <DefaultTip>none</DefaultTip>
+      <AcceptedTipTypeNames>
+        <Count>6</Count>
+        <String>Rainin Universal 1000</String>
+        <String>Rainin Universal 20</String>
+        <String>Rainin Universal 400</String>
+        <String>Rainin Universal 300</String>
+        <String>Rainin Universal 30</String>
+        <String>Rainin Universal 1100</String>
+      </AcceptedTipTypeNames>
+    </STipAdapter>
+    <STipAdapter Type="Sias.TipManager.STipAdapter">
+      <Name>Hamilton 96Head Adapter</Name>
+      <AdapterLength>0</AdapterLength>
+      <DefaultTip>none</DefaultTip>
+      <AcceptedTipTypeNames>
+        <Count>1</Count>
+        <String>Hamilton 300</String>
+      </AcceptedTipTypeNames>
+    </STipAdapter>
+    <STipAdapter Type="Sias.TipManager.STipAdapter">
+      <Name>Rainin 5ml Adapter</Name>
+      <AdapterLength>28.63</AdapterLength>
+      <DefaultTip>none</DefaultTip>
+      <AcceptedTipTypeNames>
+        <Count>1</Count>
+        <String>Rainin 5000</String>
+      </AcceptedTipTypeNames>
+    </STipAdapter>
+    <STipAdapter Type="Sias.TipManager.STipAdapter">
+      <Name>Rainin Long Adapter</Name>
+      <AdapterLength>60.9</AdapterLength>
+      <DefaultTip>none</DefaultTip>
+      <AcceptedTipTypeNames>
+        <Count>4</Count>
+        <String>Rainin Universal 20</String>
+        <String>Rainin Universal 30</String>
+        <String>Rainin Universal 300</String>
+        <String>Rainin Universal 400</String>
+      </AcceptedTipTypeNames>
+    </STipAdapter>
+  </TipAdapters>
+</TipData>

@@ -1,0 +1,553 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_PlateTrax</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.PlateTrax.SBarcodeErrorArgs">
+            <summary>
+            barcode error event arguments
+            </summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SBarcodeErrorArgs._Barcode">
+            <summary>new barcode field</summary>
+        </member>
+        <member name="M:Sias.PlateTrax.SBarcodeErrorArgs.#ctor(System.Int64,System.Object[],Sias.Core.SErrorOptions,Sias.Core.SErrorResult)">
+            <summary>
+            Initializes a new instance of the <b>SBarcodeErrorArgs</b> class.
+            </summary>
+            <param name="code">Error code (depends on the reported object type)</param>
+            <param name="additionalInfo">Additional error information (error parameters)</param>
+            <param name="options">The allowed error options (\b see \ref SErrorOptions)</param>
+            <param name="result">The actual error result (\b see \ref SErrorResult)</param>
+        </member>
+        <member name="P:Sias.PlateTrax.SBarcodeErrorArgs.Barcode">
+            <summary>new barcode property</summary>
+        </member>
+        <member name="T:Sias.PlateTrax.BarcodeReadError">
+            <summary>
+            Delegate that allows a class to change property attributes that
+            define a property's behavior in 
+            a <see cref="T:Sias.Core.PropertyGrid.SPropertyGrid"/>.
+            </summary>
+            <param name="Sender">The device sending the barcode error</param>
+            <param name="ErrorArgs">barcode error arguments</param>
+        </member>
+        <member name="T:Sias.PlateTrax.SPlateTraxDevice">
+            <summary>
+            PlateTrax device driver class.
+            
+            This class represents an accessible PlateTrax layout device. A plate trax 
+            device is placed anywhere in the robot layout. In general it has a fixed
+            reading orientation.
+            </summary>
+            <details>
+            \ingroup	Dev_PlateTrax
+            
+            In general the PlateTrax device configuration is split into 
+             - a device specific part (depending on the barcode reader type):
+                - \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeReadDistance}:
+                  optimal barcode reading distance for the used barcode reader.
+                - \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeScanSpeed}:
+                  the allowed moving speed for scanning the barcode.
+                .
+               The device specific properties are stored device/robot configuration.
+             - a placement specific part (where it is placed on the robot):
+                - 
+                - \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeReaderOffset}:
+                  Barcode reader offset.
+                - \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeReaderOrientation}:
+                  Barcode reader orientation.
+                - \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeReaderPitch}:
+                  Barcode read pitch.
+                - \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeReaderRoll}:
+                  Barcode reader roll.
+                .
+                The placement specific properties are stored in the layout as 
+                layout device properties. This properties are assigned on 
+                \ref sec_attachlayout "device attachment".
+              .
+            
+            As the PlateTrax device is not movable it needs to another device used
+            for moving the items to read in front of the barcode reader. Therefore
+            it expects a device supporting the \nlink{Sias::GripArm,SHandlingMethods}
+            arm method class. You can define the used arm method class by assigning 
+            the \nlink{Sias.PlateTrax,SPlateTraxDevice.Handling} property. If you do 
+            not assign it the first usable handling method class is used.
+            
+            In general the PlateTrax device supports two different barcode reading 
+            possibilities: \n
+            a) Reading item barcode of an item actually in transfer\n
+            This routines get a barcode handling method instance. It is expected that the 
+            handling methods Y/Z device has an item (\b see \nlink{Sias.GripArm,IGripYZDevice.CurrentItem}).
+            This item is used for barcode reading. \n
+            b) Reading item barcode of a item passed to the method\n
+            This routines will use the handling methods defined on the PlateTrax for 
+             - picking up the defined item
+             - reading the item barcode
+             - putting the item to original or optionally defined slot.
+             . 
+            
+            The barcode reading error handling can be done by registering the 
+            \nlink{Sias.PlateTrax,SPlateTraxDevice.BarcodeReadErrorHandler} event.
+            If the event is not registered barcode reading errors will be reported 
+            using the \ref ErrorManager.
+            
+            <div class="dynheader">%SPlateTraxDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SPlateTraxDevice.png"
+            </div>
+            
+            \b Supported \b Modules \b Types:
+             - \ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BC_READER" (0x003C)		
+                origin sias barcode reader modules.
+             - \ref Sias::CanDev::eMODULE_TYPE_CONST "MT_SERIAL_IO" (0x003E)	
+                "new" serial I/O and barcode reader modules.
+             .
+            In addition mostly all barcode reader modules will support the needed CAN messages
+            for this device driver, but it is recommended to use better fitting devices for them.
+            </details>
+            TODO: GetAccessMode/SetAccessMode design check
+            TODO: Implement and document access mode dependent device display modes (Visualizations)
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeReadDistance">
+            <summary>Barcode read distance field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeScanSpeed">
+            <summary>Barcode scan speed field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeReaderOffset">
+            <summary>Barcode reader offset field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeReaderOrientation">
+            <summary>Barcode reader orientation field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeReaderPitch">
+            <summary>Barcode read pitch angle field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeReaderRoll">
+            <summary>Barcode reader pitch angle field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._Handling">
+            <summary>Active Handling methods field</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._BarcodeReadErrorHandler">
+            <summary>Barcode read error handler field</summary>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.#ctor">
+            <summary>
+            Default constructor.
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>		
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.#ctor(System.Int16,System.String,System.String)">
+            <summary>
+            Manual generation constructor.
+            
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Adr">PlateTrax device address</param>
+            <param name="InitString">BCR initialization string (not used yet)</param>
+            <param name="Pattern">Barcode filter string</param>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.IsType(Sias.Core.SCustomPropertyCollection,System.String,System.Type)">
+            <summary>
+            Check if the specified custom property exists and has the specified type.
+            </summary>
+            <param name="prop">Custom property collection to search check</param>
+            <param name="key">Name of custom property to check</param>
+            <param name="DataType">The expected data type</param>
+            <returns>True if the custom property exists and is of expected type, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.NormAngle(System.Double)">
+            <summary>
+            Transform an angle to its normalized form (0..360°)
+            </summary>
+            <param name="angle">Origin angle</param>
+            <returns>The same angle in its normalized form</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.GetBarcodeOffset(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get barcode offset of given item
+            
+            The barcode offset defines the position of the barcode relative 
+            to the item reference. It can be defined as "BarcodePosition" custom
+            property in the item. If it is not defined the item reference is used 
+            as barcode position. Generally it is recommended to define this custom
+            property if an item should be used for barcode reading.
+            </summary>
+            <param name="item">The item to get the offset from</param>
+            <returns>The relative barcode offset</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.GetBarcodeOrientation(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get barcode orientation of given item
+            
+            The barcode orientation can be defined as "BarcodeOrientation" custom
+            property in the item. If it is not defined there the method tries to 
+            determinate the barcode orientation from item positions.
+            </summary>
+            <param name="item">The item to get the orientation from</param>
+            <returns>The relative barcode offset</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.GetBarcodeHeight(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get barcode height of given item
+            
+            The barcode height can be defined as "BarcodeHeight" custom
+            property in the item. If it is not defined a height of 10 mm 
+            is used.
+            </summary>
+            <param name="item">The item to get the height from</param>
+            <returns>The barcode height</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.BarcodeReadingVector(System.Double)">
+            <summary>
+            Calculate the barcode reading vector
+            
+            The barcode reading vector defines the vector used for the barcode 
+            read move. It is calculated from the PlateTrax orientation, pitch 
+            and roll. \n
+            This vector is to calculate the barcode scan move start and end 
+            positions. In addition it is used to calculate the motor speeds 
+            for the scan move.
+            </summary>
+            <param name="height">Height of the barcode</param>
+            <returns>The height depending vector</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.GripArm.SHandlingMethods,Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            Read barcode from current item.
+            
+            Read the barcode from the current item of the given gripper arm. 
+            Ignores the barcode information of the item but uses 
+             - <paramref name="BarcodeOffset"/> as offsets between item reference and barcode
+             - <paramref name="BarcodeOrientation"/> as barcode orientation (relative to the item orientation)
+             - <paramref name="BarcodeHeight"/> as barcode height 
+             .
+            \b Important: This method does not try to get or put the item anywhere. If the Y/Z device 
+                          of the given handling methods does not have a current item the method reports
+                          a NoValidItemAtGripper error.
+            </summary>
+            <param name="HandlingMethods">The handling methods used form item transfer.</param>
+            <param name="BarcodeOffset">Offset between item reference and barcode</param>
+            <param name="BarcodeOrientation">barcode orientation (relative to the item orientation)</param>
+            <param name="BarcodeHeight">barcode height (results in a scan move way)</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.GripArm.SHandlingMethods)">
+            <summary>
+            Read barcode from current item.
+            
+            Read the barcode from the current item of the given gripper arm. 
+            The barcode parameters (position, orientation and height) are read from the items
+            custom properties.
+            
+            \b Important: This method does not try to get or put the item anywhere. If the Y/Z device 
+                          of the given handling methods does not have a current item the method reports
+                          a NoValidItemAtGripper error.
+            </summary>
+            <param name="HandlingMethods">The handling methods used form item transfer.</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot,System.Boolean,Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            Pick Item and read barcode.
+            Pick up the specified Item and read its barcode. Ignores the barcode information of the 
+            item but uses 
+             - <paramref name="BarcodeOffset"/> as offsets between item reference and barcode
+             - <paramref name="BarcodeOrientation"/> as barcode orientation (relative to the item orientation)
+             - <paramref name="BarcodeHeight"/> as barcode height 
+             .
+            After reading the barcode the item gets placed back to the defined destination slot.
+            </summary>
+            <param name="Item">The Item for barcode reading</param>
+            <param name="Slot">The destination slot</param>
+            <param name="ReturnItemOnReadError">
+             - \b true: In case of a barcode read error the method returns the item back to its origin.
+             - \b false: In case of a barcode read error the item is moved to its destination anyway.
+            </param>
+            <param name="BarcodeOffset">Offset between item reference and barcode</param>
+            <param name="BarcodeOrientation">barcode orientation (relative to the item orientation)</param>
+            <param name="BarcodeHeight">barcode height (results in a scan move way)</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+            <remarks>The device gets locked/unlocked in this method. Timeout: 1 hour</remarks>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot,System.Boolean)">
+            <summary>
+            Pick Item and read barcode.
+            Pick up the specified Item and read its barcode (depending on the items 
+            barcode information). After reading the barcode the item gets placed back 
+            to the defined destination slot.
+            </summary>
+            <param name="Item">The Item for barcode reading</param>
+            <param name="Slot">The destination slot</param>
+            <param name="ReturnItemOnReadError">
+             - \b true: In case of a barcode read error the method returns the item back to its origin.
+             - \b false: In case of a barcode read error the item is moved to its destination anyway.
+            </param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot,Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            Pick Item and read barcode.
+            
+            Pick up the specified Item and read its barcode. Ignores the barcode information of the 
+            item but uses 
+             - <paramref name="BarcodeOffset"/> as offsets between item reference and barcode
+             - <paramref name="BarcodeOrientation"/> as barcode orientation (relative to the item orientation)
+             - <paramref name="BarcodeHeight"/> as barcode height 
+             .
+            After reading the barcode the item gets placed back to the defined destination slot.
+            </summary>
+            <param name="Item">The Item for barcode reading</param>
+            <param name="Slot">The destination slot</param>
+            <param name="BarcodeOffset">Offset between item reference and barcode</param>
+            <param name="BarcodeOrientation">barcode orientation (relative to the item orientation)</param>
+            <param name="BarcodeHeight">barcode height (results in a scan move way)</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot)">
+            <summary>
+            Pick Item and read barcode.
+            
+            Pick up the specified Item and read its barcode (depending on the items 
+            barcode information). After reading the barcode the item gets placed back 
+            to the defined destination slot.
+            </summary>
+            <param name="Item">The Item for barcode reading</param>
+            <param name="Slot">The destination slot</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.Core.Interfaces.IItem,Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            Pick Item and read barcode.
+            
+            Read the barcode from given item. uses the Barcode offset (relative to the Gripper tool Reference point) and the given barcode orientation. 
+            Pick up the specified Item and read its barcode. Ignores the barcode information of the 
+            item but uses 
+             - <paramref name="BarcodeOffset"/> as offsets between item reference and barcode
+             - <paramref name="BarcodeOrientation"/> as barcode orientation (relative to the item orientation)
+             - <paramref name="BarcodeHeight"/> as barcode height 
+             .
+            After reading the barcode the item gets placed back to its origin position.
+            </summary>
+            <param name="Item">The Item for barcode reading</param>
+            <param name="BarcodeOffset">Offset between item reference and barcode</param>
+            <param name="BarcodeOrientation">barcode orientation (relative to the item orientation)</param>
+            <param name="BarcodeHeight">barcode height (results in a scan move way)</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.ReadBarcode(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Pick Item and read barcode.
+            
+            Pick up the specified Item and read its barcode (depending on the items 
+            barcode information). After reading the barcode the item gets placed back 
+            to its origin position.
+            </summary>
+            <param name="Item">The Item for barcode reading</param>
+            <returns>The read barcode or an empty string if no barcode is read</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice._AccessMode">
+            <summary>Actual access mode of the PlateTrax.</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice.ActualLayoutDevice">
+            <summary>Actual layout device. E.g. for sending the display state to layout</summary>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.GetLayoutProperty(System.String,System.Object)">
+            <summary>
+            Get layout property
+            </summary>
+            <param name="key">layout property key</param>
+            <param name="DefaultValue">Default value</param>
+            <returns>the layout property object</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.AttachLayoutData(Sias.Core.Interfaces.ILayoutDevice)">
+            <summary>
+            Attach layout data. 
+            
+            This method tries to attach the layout data found at the given layout device 
+            to the  device. If this succeeds, it returns true. If it fails, it returns false.
+            In this case the calling method should retry until it finds a fitting layout 
+            device.
+            </summary>
+            <param name="LayoutDevice">Layout device </param>
+            <returns>True if attachable, false if not.</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.GetAccessMode(System.Object)">
+            <summary>
+            Get access mode.
+            This method is used to request the current access mode. 
+            </summary>
+            <param name="CallerObject">The caller object</param>
+            <returns>Access mode for the given caller object</returns>
+        </member>
+        <member name="M:Sias.PlateTrax.SPlateTraxDevice.SetAccessMode(System.Object,Sias.Core.Interfaces.SAccessMode,System.Int32)">
+            <summary>
+            Set access mode.
+            This method prepares the PlateTrax module to allow the requested access.
+            </summary>
+            <param name="CallerObject">The object calling the method</param>
+            <param name="AccessMode">Requested access mode</param>
+            <param name="TimeOut">Allowed timeout</param>
+            <returns>The resulted access mode</returns>
+            <remarks>
+            <b>Remarks:</b>
+             - How should we handle a timeout error?
+             - If another thread is active in the devices read function, we will wait until 
+               this thread is finished or the timeout is reached.
+            </remarks>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeReadDistance">
+            <summary>Barcode read distance property</summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeScanSpeed">
+            <summary>Barcode scan speed property</summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeReaderOffset">
+            <summary>
+            Barcode reader offset property
+            
+            The barcode reader offset defines the distance between device reference 
+            and the center of the barcode reader read windows.
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeReaderOrientation">
+            <summary>
+            Barcode reader orientation property.
+            
+            The barcode reader orientation is the orientation where the barcode reader 
+            reads the barcodes. It is defined as an offset to the device orientation.
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeReaderPitch">
+            <summary>
+            Barcode read pitch angle property
+            
+            The barcode reader pitch defines the reading pitch angle:
+             -   0° is used for barcodes on the side of objects;
+             -  90° is used for top barcodes;
+             - -90° can be used for bottom barcodes.
+             .
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeReaderRoll">
+            <summary>
+            Barcode reader roll angle property
+            
+            The barcode reader roll defines the reading roll angle:
+             -   0° is used for vertical barcodes;
+             -  90° is used for horizontal barcodes;
+             .
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.Handling">
+            <summary>
+            Active Handling methods property
+            
+            This property is used as handling methods to move the Items to the 
+            PlateTrax device. On default the first handling method block of the 
+            PlateTrax robot is used.
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.DeviceOrientation">
+            <summary>absolute device orientation property</summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.DevicePosition">
+            <summary>absolute device position property</summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.ReaderPosition">
+            <summary>
+            Barcode reader position
+            
+            Absolute reference position of the barcode reader. In general the 
+            reference position is the centre of the barcode reader window
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.ReadingOrientation">
+            <summary>
+            Reading orientation
+            
+            The barcode reading orientation defines the absolute orientation of 
+            the barcode reading vector. It depends on the device orientation and 
+            the BarcodeReaderOrientation (Offset).
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.ReadingOffset">
+            <summary>
+            Barcode reading offset property.
+            
+            The barcode reading offset defines the offset between the barcode reader position 
+            and the barcode reading position. It depends on the read distance, the barcode 
+            reader orientation and the barcode reader pitch.
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.ReadingPosition">
+            <summary>
+            Barcode reading position
+            
+            The barcode reading position is the position where the barcode should 
+            be placed for optimal reading. It is calculated from absolute barcode 
+            reader position (\b see ReaderPosition) and the barcode reading offset 
+            (\b see ReadingOffset).
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.BarcodeReadErrorHandler">
+            <summary>
+            Barcode read error handler property
+            
+            This event is called if the device is not able to read a barcode. The application may
+            return how to go on with this error. In addition to a standard error handler this event
+            is able to return a manual barcode.
+            \b Important: To use a manual entered barcode you have to return SErrorResult.Ignore 
+                          with the manual entered barcode at ErrorArgs.Barcode.
+            </summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.LayoutDisplayMode">
+            <summary>Get/Set device visualization mode.</summary>
+        </member>
+        <member name="P:Sias.PlateTrax.SPlateTraxDevice.LayoutDisplayModeString">
+            <summary>Get/Set device visualization mode.</summary>
+        </member>
+        <member name="T:Sias.PlateTrax.SPlateTraxDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::PlateTrax::SPlateTraxDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice.ErrorCodes.NoRobotError">
+            <summary>0x10000001: Unable to find a usable robot.</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice.ErrorCodes.NoHandlingMethods">
+            <summary>0x10000002: Unable to find a device for item handling.</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice.ErrorCodes.NoValidItemAtGripper">
+            <summary>0x10000003: No valid item at gripper.</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice.ErrorCodes.InvalidHandlingMethods">
+            <summary>0x10000004: Invalid item handling methods for barcode reading.</summary>
+        </member>
+        <member name="F:Sias.PlateTrax.SPlateTraxDevice.ErrorCodes.BarcodeReadError">
+            <summary>0x10000005: Barcode read error.</summary>
+        </member>
+    </members>
+</doc>

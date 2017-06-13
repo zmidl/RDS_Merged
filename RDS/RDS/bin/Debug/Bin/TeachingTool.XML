@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeachingTool</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.TeachingTool.SPositionTeachingForm">
+            <summary>
+            Teaching form
+            
+            This form is used to teach positions. It supports 
+             - X movements for any arms
+             - Y movements for any Y/Z device 
+             - Gripper movement for Y/Z devices implementing the IGripperSupport interface
+             - Rotation movement for Y/Z devices implementing the IRotationSupport interface
+            In addition it supports a coordinate transformation e.g. when used in the layout 
+            editor the user can teach layout coordinates instead of robot coordinates.
+            
+            The Idea behind the form is that it will work (display and store) with teaching coordinates 
+            (transformed robot coordinate) all the time. Only for moving the coordinates will be 
+            transformed into robot coordinates. Requested positions will be transformed into teaching 
+            coordinates immediately.
+            </summary>
+        </member>
+        <member name="F:Sias.TeachingTool.SPositionTeachingForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Sias.TeachingTool.SPositionTeachingForm.externalPosition">
+            <summary>this member keeps the external teaching position (teaching coordinates)</summary>
+        </member>
+        <member name="F:Sias.TeachingTool.SPositionTeachingForm._TeachingOffset">
+            <summary>Teaching tool offset field</summary>
+        </member>
+        <member name="F:Sias.TeachingTool.SPositionTeachingForm._TeachingFactor">
+            <summary>Teaching tool factor field</summary>
+        </member>
+        <member name="F:Sias.TeachingTool.SPositionTeachingForm._UseSafeHeight">
+            <summary>Use safe height for 'Move to position' field</summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SPositionTeachingForm</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <b>SPositionTeachingForm</b> class.
+            </summary>
+            <param name="editable">Enables or disables the desired postion fields.</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.#ctor(Sias.TeachingTool.STeachingPosition)">
+            <summary>
+            Initializes a new instance of the <b>SPositionTeachingForm</b> class.
+            </summary>
+            <param name="pos">The position to teach</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.#ctor(Sias.TeachingTool.STeachingPosition,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <b>SPositionTeachingForm</b> class.
+            </summary>
+            <param name="pos">The position to teach</param>
+            <param name="editable">Enables or disables the desired postion fields.</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.UpdateActualPosition">
+            <summary>
+            Display the actual positions in form
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.TeachingCoordinate(Sias.TeachingTool.STeachingPosition)">
+            <summary>
+            Transform robot coordinates to teaching coordinates
+            </summary>
+            <param name="RobotCoordinate">The robot coordinates to transform</param>
+            <returns>The teaching positions of the given robot positions</returns>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.RobotCoordinate(Sias.TeachingTool.STeachingPosition)">
+            <summary>
+            Transform teaching coordinates to robot coordinates
+            </summary>
+            <param name="TeachingCoordinate">The teaching coordinates to transform</param>
+            <returns>The robot positions of the given teaching positions</returns>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.GetRobotPositions">
+            <summary>
+            Get the positions of the robot axis and translate them to teaching positions
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.PosChanged(System.Double,System.Double)">
+            <summary>
+            This small method checks if a positions is really changed. 
+            This is needed because of the rounding problems of double numbers.
+            </summary>
+            <param name="a">first position to compare</param>
+            <param name="b">second position to compare</param>
+            <returns>true if the positions differ for more then 0.0001 mm/°</returns>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.MoveDevice(Sias.TeachingTool.STeachingPosition)">
+            <summary>
+            Move the teaching device to the defined teaching position.
+            </summary>
+            <param name="WhereToMove">The teaching position to move to</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.ValidateRange(System.Windows.Forms.TextBox,System.ComponentModel.CancelEventArgs,System.Double,System.Double)">
+            <summary>
+            validate the given textbox for being in the define value range
+            </summary>
+            <param name="sender">the sender text box</param>
+            <param name="e">the event arguments</param>
+            <param name="MinVal">Minimum value</param>
+            <param name="MaxVal">Maximum value</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.FillDesiredPosition(Sias.TeachingTool.STeachingPosition)">
+            <summary>
+            fill the desired position fields with the given teaching position
+            </summary>
+            <param name="pos">the teaching position values to set</param>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.armComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Called when the user selects a different arm to use for the teaching. This will
+            cause the update of the YZDevice dropdown list.
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SPositionTeachingForm.SPositionTeachingForm_Shown(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the SPositionTeachingForm's Shown event has been fired.
+            It will take care, that there is a valid robot 
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="E:Sias.TeachingTool.SPositionTeachingForm.OnStorePosition">
+            <summary>This event is called if the user presses the store button.</summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SPositionTeachingForm.Position">
+            <summary>
+            Sets the teaching position of the SPositionTeachingForm
+            
+            Setting the teaching position overwrites the actual user input fields with 
+            the values from the teaching position.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SPositionTeachingForm.TeachingOffset">
+            <summary>
+            Teaching tool offset property
+            
+            The teaching tool offset and the teaching tool factor are used to remap the 
+            teaching tool coordinates. E.g. to translate between worktable coordinates 
+            and robot coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SPositionTeachingForm.TeachingFactor">
+            <summary>
+            Teaching tool factor property
+            
+            The teaching tool factor and the teaching tool offset are used to remap the  
+            teaching tool coordinates. E.g. to translate between worktable coordinates 
+            and robot coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SPositionTeachingForm.UseSafeHeight">
+            <summary>Use safe height for 'Move to position' property</summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SPositionTeachingForm.Editable">
+            <summary>
+            Enables or disables the desired position fields in the dialog
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SPositionTeachingForm.DeviceOk">
+            <summary>
+            Gets the DeviceOk of the SPositionTeachingForm
+            </summary>
+            <value>true if device is ok, false if not</value>
+        </member>
+        <member name="T:Sias.TeachingTool.StorePositionEventHandler">
+            <summary>
+            Represents a method that will handle a StorePositionEvent
+            </summary>
+            <param name="Sender">The teaching form of the event</param>
+            <param name="args">A <see cref="T:Sias.TeachingTool.SStorePositionEventArgs"/> that contains the event data</param>
+        </member>
+        <member name="T:Sias.TeachingTool.SStorePositionEventArgs">
+            <summary>
+            This class defines the Store position event arguments:
+             - The origin position.
+             - The user position.
+             - The actual robot position.
+             .
+            All positions are defined as teaching coordinates!
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.SStorePositionEventArgs.#ctor(Sias.TeachingTool.STeachingPosition,Sias.TeachingTool.STeachingPosition,Sias.TeachingTool.STeachingPosition)">
+            <summary>
+            Initializes a new instance of the <b>SStorePositionEventArgs</b> class.
+            </summary>
+            <param name="oPos">original position</param>
+            <param name="uPos">user position</param>
+            <param name="aPos">actual position</param>
+        </member>
+        <member name="P:Sias.TeachingTool.SStorePositionEventArgs.OriginalPosition">
+            <summary>
+            Get/Set the OriginalPosition of the SStorePositionEventArgs
+            
+            The origin position is the reference point to teach, given either 
+            at creation of by assigning The teaching forms position property.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SStorePositionEventArgs.UserPosition">
+            <summary>
+            Get/Set the UserPosition of the SStorePositionEventArgs
+            
+            The user positions are the values in the upper edit filed line 
+            of the teaching form.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.SStorePositionEventArgs.ActualPosition">
+            <summary>
+            Get/Set the ActualPosition of the SStorePositionEventArgs
+            
+            The actual position is the position where the robot axis are actually located. 
+            The positions are transformed to the teaching coordinates.
+            </summary>
+        </member>
+        <member name="T:Sias.TeachingTool.STeachingPosition">
+            <summary>
+            Teaching position
+            
+            This class represents a teaching position. 
+            It keeps coordinate values for X, Y, Z, gripper(G) and rotation(R).
+            </summary>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.#ctor">
+            <summary>
+            Creates a new STeachingPosition object with default values.
+            </summary>
+            <remarks>
+            Sets all fields to 0.
+            </remarks>
+            <returns>
+            Returns a new STeachingPosition object.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.#ctor(Sias.Core.SPosition)">
+            <summary>
+            Creates a new STeachingPosition object using the given SPosition object.
+            </summary>
+            <remarks>
+            The G and R property are set to 0.
+            </remarks>
+            <returns>
+            Returns a new STeachingPosition object.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.#ctor(Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            Creates a new STeachingPosition object using the given parameters.
+            </summary>
+            <returns>
+            Returns a new STeachingPosition object.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.#ctor(Sias.Core.SGripperPosition)">
+            <summary>
+            Creates a new STeachingPosition object using the given SGripperPosition object.
+            </summary>
+            <remarks>
+            The G property is set to 0.
+            </remarks>
+            <returns>
+            Returns a new STeachingPosition object.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.#ctor(Sias.Core.SGripperPosition,System.Double)">
+            <summary>
+            Creates a new STeachingPosition object using the given parameters.
+            </summary>
+            <returns>
+            Returns a new STeachingPosition object.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new STeachingPosition object using the given parameters.
+            </summary>
+            <returns>
+            Returns a new STeachingPosition object.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.ToSPosition">
+            <summary>
+            Converts the current STeachingPosition object to a SPosition object.
+            </summary>
+            <returns>
+            Returns the STeachingPosition as a new SPosition object, 
+            ignoring the G and R property.
+            </returns>
+        </member>
+        <member name="M:Sias.TeachingTool.STeachingPosition.ToSGripperPosition">
+            <summary>
+            Converts the current STeachingPosition object to a SGripperPosition object.
+            </summary>
+            <returns>
+            Returns the STeachingPosition object as a new SGripperPosition object, 
+            ignoring the G property and setting the SGripPosOptions to 0.
+            </returns>
+        </member>
+        <member name="P:Sias.TeachingTool.STeachingPosition.G">
+            <summary>
+            Gets or sets the gripper opening coordinate of the STeachingPosition.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.STeachingPosition.R">
+            <summary>
+            Gets or sets the orientation of the STeachingPosition.
+            </summary>
+        </member>
+        <member name="T:Sias.TeachingTool.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Sias.TeachingTool.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1436 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Layout</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.Layout.TipPosition">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element that constitutes a position where a tip is placed.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Primitive">
+            <summary>
+            Represents an abstract class defining common properties and features of <see cref="T:Sias.Layout.Model"/>
+            building elements. Each object used to build a <see cref="T:Sias.Layout.Model"/> must be inherited from this class.
+            A <see cref="T:Sias.Layout.Primitive"/> is a build element of a <see cref="T:Sias.Layout.Model"/>.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.LabObject">
+            <summary>
+            Represents an abstract class defining common properties and features of <see cref="T:Sias.Layout.Primitive"/>s
+            and <see cref="T:Sias.Layout.Model"/>s. Each object used to build either a <see cref="T:Sias.Layout.Model"/>
+            or a <see cref="P:Sias.Layout.LabObject.Layout"/> must be inherited from this class.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.BaseLayout">
+            <summary>
+            Reference to the layout containing the LabObject.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.objectType">
+            <summary>
+            Determines the type of the LabObject.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.type">
+            <summary>
+            Special field identifying the LabObject type.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.typeName">
+            <summary>
+            Unique name of the LabObject type.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.typeDescription">
+            <summary>
+            Extended description of the LabObject type.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.name">
+            <summary>
+            Unique name of the primitive instance.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.description">
+            <summary>
+            Extended description of the primitive instance.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.typeCustomProperties">
+            <summary>
+            Value - name pairs containing custom properties of LabObject type.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LabObject.instanceCustomProperties">
+            <summary>
+            Value - name pairs containing custom properties of LabObject instance.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.LabObject.MergeCustomProperties">
+            <summary>
+            Merges type and instance custom properties.
+            </summary>
+            <returns>A collection of merged properties.</returns>
+        </member>
+        <member name="M:Sias.Layout.LabObject.GetPrimitiveTree">
+            <summary>
+            Returns Primitives found in the tree starting at this LabObjects.
+            </summary>
+            <returns>An ArrayList containing the Primitives found in the tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.LabObject.GetModelTree">
+            <summary>
+            Returns Models found in the tree starting at this LabObjects.
+            </summary>
+            <returns>An ArrayList containing the Models found in the tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.LabObject.Clone">
+            <summary>
+            Creates a new LabObject object that is a copy of the current instance.
+            </summary>
+            <returns>A new LabObject object that is a copy of this instance.</returns>
+        </member>
+        <member name="M:Sias.Layout.LabObject.Refresh">
+            <summary>
+            Forces the LabObject to refresh.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.LabObject.Selected">
+            <summary>
+            Gets or sets a value indicating whether the LabObject is selected.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.LabObject.TypeName">
+            <summary>
+            Gets or sets the unique name of the LabObject type.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.backgroundColors">
+            <summary>
+            Collection of colors rendered in the background of the LabObject.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.backgroundColorIndex">
+            <summary>
+            Index of the currently selected background color.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.backgroundColorStateName">
+            <summary>
+            Currently selected state name of the background color.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.backgroundImages">
+            <summary>
+            Collection of images rendered as the background of the LabObject.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.backgroundImageIndex">
+            <summary>
+            Index of the currently selected background image.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.backgroundImageStateName">
+            <summary>
+            Currently selected state name of the background image.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.position">
+            <summary>
+            Coordinates of the primitive position relative to the parent primitive.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.center">
+            <summary>
+            Coordinates of the primitive center relative to the parent primitive.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.orientation">
+            <summary>
+            Orientation of the LabObject in degrees.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.container">
+            <summary>
+            Reference to the model which is the container of this primitive.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.children">
+            <summary>
+            List of primitives this primitive is a parent of.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.onMe">
+            <summary>
+            Reference to the base primitive of the model which is placed on this primitive.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Primitive.putOn">
+            <summary>
+            Reference to the primitive this primitive is placed on.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Primitive.#ctor">
+            <summary>
+            Initializes a new instance of Primitive class.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Primitive.#ctor(Sias.Layout.ObjectType,System.String)">
+            <summary>
+            Initializes a new instance of Primitive class.
+            </summary>
+            <param name="objectType">The object type of the primitive.</param>
+            <param name="typeName">The type name of the primitive.</param>
+        </member>
+        <member name="M:Sias.Layout.Primitive.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.Primitive.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.Primitive.GetPrimitiveTree">
+            <summary>
+            Returns Primitives found in the tree starting at this Primitive.
+            </summary>
+            <returns>Returns an ArrayList containing the Primitives found in the tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.Primitive.GetModelTree">
+            <summary>
+            Returns Models found in the tree starting at this Primitive.
+            </summary>
+            <returns>An ArrayList containing the Models found in the tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.Primitive.position_OnPositionXChanging(Sias.Core.SPosition,System.Double)">
+            <summary>
+            Handles OnPositionChanging event of the position.
+            </summary>
+            <param name="position">The current value of the position.</param>
+            <param name="x">The new value of the X coordinate.</param>
+        </member>
+        <member name="M:Sias.Layout.Primitive.position_OnPositionYChanging(Sias.Core.SPosition,System.Double)">
+            <summary>
+            Handles OnPositionChanging event of the position.
+            </summary>
+            <param name="position">The current value of the position.</param>
+            <param name="y">The new value of the Y coordinate.</param>
+        </member>
+        <member name="M:Sias.Layout.Primitive.center_OnPositionXChanging(Sias.Core.SPosition,System.Double)">
+            <summary>
+            Handles OnPositionChanging event of the center.
+            </summary>
+            <param name="center">The current value of the center.</param>
+            <param name="x">The new value of the X coordinate.</param>
+        </member>
+        <member name="M:Sias.Layout.Primitive.center_OnPositionYChanging(Sias.Core.SPosition,System.Double)">
+            <summary>
+            Handles OnPositionChanging event of the center.
+            </summary>
+            <param name="center">The current value of the center.</param>
+            <param name="y">The new value of the Y coordinate.</param>
+        </member>
+        <member name="M:Sias.Layout.Primitive.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.Primitive.ValidateName(Sias.Layout.Layout,System.String,System.Boolean)">
+            <summary>
+            Checks if instance name is unique throughout model.
+            </summary>
+            <param name="layout">The layout the primitive is to be added to.</param>
+            <param name="name">The instance name to be checked.</param>
+            <param name="generateUniqueName">The flag indicating if unique name is to be generated.</param>
+            <returns>The unique instance name.</returns>
+        </member>
+        <member name="M:Sias.Layout.Primitive.AddToLayout(Sias.Layout.Layout,System.Boolean)">
+            <summary>
+            Adds primitive to layout.
+            </summary>
+            <param name="layout">Reference to the layout the primitive is added to.</param>
+            <param name="generateUniqueName">True to generate a unique name</param>
+        </member>
+        <member name="M:Sias.Layout.Primitive.RemoveFromLayout">
+            <summary>
+            Removes primitive from layout.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.BackgroundColors">
+            <summary>
+            Gets or sets the collection of colors rendered in the background of the LabObject.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.BackgroundColorIndex">
+            <summary>
+            Gets or sets the index of the currently selected background color.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.BackgroundColorStateName">
+            <summary>
+            Gets or sets the state name of the currently selected background color.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.BackgroundImages">
+            <summary>
+            Gets or sets the collection of images rendered as the background of the LabObject.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.BackgroundImageIndex">
+            <summary>
+            Gets or sets the index of the currently selected background image.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.BackgroundImageStateName">
+            <summary>
+            Gets or sets the state name of the currently selected background image.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.PositionRelative">
+            <summary>
+            Gets or sets primitive position relative to the parent primitive.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Primitive.CenterRelative">
+            <summary>
+            Gets or sets primitive center relative to the parent primitive.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.TipPosition.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.TipPosition.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.TipPosition.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="P:Sias.Layout.TipPosition.DirectState">
+            <summary>
+            Gets or sets the state of the tip position directly.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.TipPosition.State">
+            <summary>
+            Gets or sets the state of the tip position.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.TipPosition.TipRack">
+            <summary>
+            Gets the rack the <see cref="T:TipPosition"/> is placed on.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LocationMatrix.locations">
+            <summary>
+            Locations of the matrix.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.LocationMatrix.matchingLocations">
+            <summary>
+            Locations of the matching matrix.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.LocationMatrix.#ctor(System.Collections.ArrayList)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Sias.Layout.LocationMatrix"/> class.
+            </summary>
+            <param name="list">The list of locations to create a location matrix from.</param>
+        </member>
+        <member name="M:Sias.Layout.LocationMatrix.Match(Sias.Layout.LocationMatrix,System.Double)">
+            <summary>
+            Checks if two matrixes match.
+            </summary>
+            <param name="topMatrix">Matrix to match agains the current one.</param>
+            <param name="margin">Allowed matching margin.</param>
+            <returns>True if matrixes match; otherwise False.</returns>
+        </member>
+        <member name="M:Sias.Layout.LocationMatrix.TopLeft">
+            <summary>
+            Gets top-left location of the matrix.
+            </summary>
+            <returns>The top-left location of the matrix.</returns>
+        </member>
+        <member name="P:Sias.Layout.LocationMatrix.IsMatrix">
+            <summary>
+            True is the location matrix has been created; otherwise False.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.LocationMatrix.Locations">
+            <summary>
+            Gets the locations of the matrix.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.LocationMatrix.MatchingLocations">
+            <summary>
+            Gets the locations of the matching matrix.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.RectBody">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a rectangular box
+            that has width, height and length. The <see cref="T:Sias.Layout.RectBody"/> is a <see cref="T:Sias.Layout.Primitive"/>
+            that constitutes the filling of a <see cref="T:Sias.Layout.Model"/>. It can be used for both round
+            and rectangular <see cref="T:Sias.Layout.Model"/>s.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Body">
+            <summary>
+            Represents an abstract class defining common properties and features of a <see cref="T:Sias.Layout.Primitive"/>
+            modeling either a round box that has height and diameter or rectangular box
+            that has width, height and length. The <see cref="T:Sias.Layout.Body"/> is a building element
+            of a <see cref="T:Sias.Layout.Model"/> that constitutes the filling of a <see cref="T:Sias.Layout.Model"/>.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Body.shape">
+            <summary>
+            Determines the shape of the model - round or rectangular.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RectBody.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectBody.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectBody.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="T:Sias.Layout.Worktable">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Layout"/> building element that models a worktable.
+            A <see cref="T:Sias.Layout.Worktable"/> is build of <see cref="T:Sias.Layout.Primitive"/>s. A <see cref="T:Sias.Layout.Worktable"/>
+            constitutes the underlying object other <see cref="T:Sias.Layout.Layout"/> elements are placed on.
+            <see cref="T:Sias.Layout.Layout"/> elements can either be placed on a <see cref="T:Sias.Layout.Worktable"/> 
+            using positions defined by <see cref="T:Sias.Layout.LocationPin"/>s or freely on the <see cref="T:Sias.Layout.Worktable"/>'s
+            <see cref="T:Sias.Layout.Base"/>.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Model">
+            <summary>
+            Represents an abstract class defining common properties and features of <see cref="T:Sias.Layout.Layout"/>
+            building elements. Each object used to build a <see cref="T:Sias.Layout.Layout"/> must be inherited from this class.
+            A <see cref="T:Sias.Layout.Model"/> is build of <see cref="T:Sias.Layout.Primitive"/>s.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Model.components">
+            <summary>
+            Contains the list of primitives the model is built of.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Model.GetPrimitiveTree">
+            <summary>
+            Returns Primitives found in the tree starting at this Model.
+            </summary>
+            <returns>Returns an ArrayList containing the Primitives found in the tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.Model.GetModelTree">
+            <summary>
+            Returns Models found in the tree starting at this Model.
+            </summary>
+            <returns>An ArrayList containing the Models found in the tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.Model.ValidateName(Sias.Layout.Layout,System.String,System.Boolean)">
+            <summary>
+            Checks if instance name is unique throughout layout.
+            </summary>
+            <param name="layout">The layout the model is to be added to.</param>
+            <param name="name">The instance name to be checked.</param>
+            <param name="generateUniqueName">The flag indicating if unique name is to be generated.</param>
+            <returns>The unique instance name.</returns>
+        </member>
+        <member name="M:Sias.Layout.Model.AddToLayout(Sias.Layout.Layout,System.Boolean)">
+            <summary>
+            Adds model to layout.
+            </summary>
+            <param name="layout">Reference to the layout the model is added to.</param>
+            <param name="generateUniqueName">True to generate a unique name</param>
+        </member>
+        <member name="M:Sias.Layout.Model.AddComponent(Sias.Layout.Primitive,Sias.Layout.Primitive,Sias.Core.SPosition,System.Boolean)">
+            <summary>
+            Adds primitive to the list of components building the model.
+            </summary>
+            <param name="parent">The parent Primitive</param>
+            <param name="primitive">The primitive to be added to the component list.</param>
+            <param name="position">The primitive position</param>
+            <param name="generateUniqueName">True for automatically generating a unique name</param>
+        </member>
+        <member name="M:Sias.Layout.Model.RemoveComponent(Sias.Layout.Primitive)">
+            <summary>
+            Removes primitive from the list of components building the model.
+            </summary>
+            <param name="primitive">The primitive to be removed from the component list.</param>
+        </member>
+        <member name="M:Sias.Layout.Model.RemoveComponents">
+            <summary>
+            Removes all primitives from the component list building the model.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Model.GetComponents(Sias.Layout.ObjectType)">
+            <summary>
+            Returns list of components of given primitive type.
+            </summary>
+            <param name="objectType">The type of the primitive to be returned.</param>
+            <returns>The list of components of given primitive type.</returns>
+        </member>
+        <member name="M:Sias.Layout.Model.RemoveFromLayout">
+            <summary>
+            Removes model from layout.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Model.GetPlacedOnMe">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.Layout.Model.GetPlacedOn">
+            <summary>
+            Returns a list of primitives the model is placed on.
+            </summary>
+            <returns>List of primitives the model is placed on.</returns>
+        </member>
+        <member name="M:Sias.Layout.Model.IsPlaced">
+            <summary>
+            Indicates if the model is placed on a primitive.
+            </summary>
+            <returns>Returns true if the model is placed on a primitive, otherwise false.</returns>
+        </member>
+        <member name="P:Sias.Layout.Model.Selected">
+            <summary>
+            Gets or sets a value indicating whether the LabObject is selected.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Model.Height">
+            <summary>
+            Gets the model's height.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Worktable.Duplicate">
+            <summary>
+            Creates a clone with all models placed on this instance.
+            </summary>
+            <returns>A clone with all models placed on this instance.</returns>
+        </member>
+        <member name="M:Sias.Layout.Worktable.IsPlaced">
+            <summary>
+            Indicates is the model is placed on a primitive.
+            </summary>
+            <returns>Returns true if the model is placed on a primitive, otherwise false.</returns>
+        </member>
+        <member name="T:Sias.Layout.ObjectType">
+            <summary>
+            Summary description for ObjectType.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Cavity">
+            <summary>
+            Represents an abstract class defining common properties and features of a <see cref="T:Sias.Layout.Primitive"/>
+            modelling either a round or rectangular hole that is able to handle liquid. The <see cref="T:Sias.Layout.Cavity"/> 
+            is a building element of a <see cref="T:Sias.Layout.Model"/> that constitutes a container of a <see cref="T:Sias.Layout.Model"/>
+            where liquids can be dispensed, kept, mixed and aspirated from.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Cavity.shape">
+            <summary>
+            Determines the shape of the model - round or rectangular.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Serializator.XmlSerializator">
+            <summary>
+            Creates XML representation of an object.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Serializator.XmlSerializator.Serialize(Sias.Layout.Primitive)">
+            <summary>
+            Creates XML representation of a Primitive type.
+            </summary>
+            <param name="primitive">Primitive to be serialized to XML.</param>
+            <returns>XmlDocument containing XML representation of the Primitive.</returns>
+        </member>
+        <member name="M:Sias.Layout.Serializator.XmlSerializator.Serialize(Sias.Layout.Model)">
+            <summary>
+            Creates XML representation of a Model type.
+            </summary>
+            <param name="model">Model to be serialized to XML.</param>
+            <returns>XmlDocument containing XML representation of the Model.</returns>
+        </member>
+        <member name="M:Sias.Layout.Serializator.XmlSerializator.Serialize(Sias.Layout.Layout)">
+            <summary>
+            Creates XML representation of a Layout.
+            </summary>
+            <param name="layout">Layout to be serialized to XML.</param>
+            <returns>XmlDocument containing XML representation of the Layout.</returns>
+        </member>
+        <member name="M:Sias.Layout.LayoutConfiguration.Lock">
+            <summary>
+            Lock layout (using sias core thread lock class)
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.LayoutConfiguration.Unlock">
+            <summary>
+            Unlock layout (using sias core thread lock class)
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.BackgroundColorCollection">
+            <summary>
+            Represents a collection of BackgroundColor objects.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.BackgroundColorCollection.#ctor">
+            <summary>
+            Initializes a new instance of the BackgroundColorCollection class.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.BackgroundColorCollection.Contains(System.String)">
+            <summary>
+            Gets a value that indicates whether the collection contains a BackgroundColor object of the specified state name.
+            </summary>
+            <param name="stateName">The state name of a BackgroundColor object to search for in the collection.</param>
+            <returns>True if the collection contains the specified object; otherwise, False.</returns>
+        </member>
+        <member name="M:Sias.Layout.BackgroundColorCollection.IndexOf(System.String)">
+            <summary>
+            Gets the index of a BackgroundColor object of the specified state name, if it exists in the collection. 
+            </summary>
+            <param name="stateName">The state name of a BackgroundColor object to get the index of.</param>
+            <returns>The index of a BackgroundColor object of the specified state name, if it is found, in the collection; otherwise, -1.</returns>
+        </member>
+        <member name="P:Sias.Layout.BackgroundColorCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the BackgroundColor object at the specified index in the collection.
+            </summary>
+            <param name="index">The index of the collection to access.</param>
+            <returns>A BackgroundColor at each valid index.</returns>
+        </member>
+        <member name="P:Sias.Layout.BackgroundColorCollection.Item(System.String)">
+            <summary>
+            Gets the BackgroundColor object of the specified state name from the collection.
+            </summary>
+            <param name="stateName">The state name of the BackgroundColor object to get.</param>
+            <returns>The BackgroundColor object of the specified state name.</returns>
+        </member>
+        <member name="T:Sias.Layout.OptionalAttribute">
+            <summary>
+            Summary description for SerializationModeAttribute.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Layout">
+            <summary>
+            Represents a setup of <see cref="T:Sias.Layout.Decktray"/>s, <see cref="T:Sias.Layout.Device"/>s
+            and <see cref="T:Sias.Layout.Item"/>s on a <see cref="P:Sias.Layout.Layout.Worktable"/> which all together build
+            the layout.
+            The layout can be created and edited and stored with the Layout Editor application.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Layout.name">
+            <summary>
+            Name of the layout.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Layout.layoutSelectMode">
+            <summary>
+            Enumerator indicating which elements of the layout can be selected.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Layout.transactions">
+            <summary>
+            Transaction list executed on the layout.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Layout.selectedLabObjects">
+            <summary>
+            Stores the selected LabObjects in this layout. The hash table is keyed with the object type.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Layout.attachedRobot">
+            <summary>
+            <summary>The robot attached to the layout instance.</summary>
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Layout.labObject_SelectedChanging(System.Object,Sias.Layout.LabObjectPropertyChangingEventArgs)">
+            <summary>
+            Handles SelectedChanging event of a LabObject.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.labObject_SelectedChanged(System.Object,Sias.Layout.LabObjectPropertyChangedEventArgs)">
+            <summary>
+            Handles SelectedChanged event of a LabObject.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.OnSelectionChanging(System.EventArgs)">
+            <summary>
+            Raises the SelectionChanging event.
+            </summary>
+            <param name="e">An EventArgs that contains the event data.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.OnSelectionChanged(System.EventArgs)">
+            <summary>
+            Raises the SelectionChanged event.
+            </summary>
+            <param name="e">An EventArgs that contains the event data.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.GetSelected">
+            <summary>
+            Gets a list of the selected LabObjects.
+            </summary>
+            <returns>The list of selected LabObjects.</returns>
+        </member>
+        <member name="M:Sias.Layout.Layout.GetSelected(Sias.Layout.ObjectType)">
+            <summary>
+            Gets a list of the selected LabObjects matching the requested object types.
+            </summary>
+            <param name="objectTypes">The object types to get.</param>
+            <returns>The list of selected LabObjects.</returns>
+        </member>
+        <member name="M:Sias.Layout.Layout.BeginTransaction">
+            <summary>
+            Begins transaction on the layout.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Layout.CommitTransaction">
+            <summary>
+            Commits transaction of the layout.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Layout.RollbackTransaction">
+            <summary>
+            Rollbacks transaction on the layout.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Layout.InsideTransaction">
+            <summary>
+            Checks if any transaction is in progress.
+            </summary>
+            <returns>True if any transaction is in progress, otherwise False.</returns>
+        </member>
+        <member name="M:Sias.Layout.Layout.Subscribe(Sias.Layout.LabObject)">
+            <summary>
+            Subscribes events from a LabObject being added to the layout.
+            </summary>
+            <param name="labObj">The LabObject added to the layout.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.Unsubscribe(Sias.Layout.LabObject)">
+            <summary>
+            Unsubscribe events from a LabObject being removed from the layout.
+            </summary>
+            <param name="labObj">The LabObject added to the layout.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.Refresh">
+            <summary>
+            Forces the layout to refresh.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Layout.GetModels">
+            <summary>
+            Gets all models used in the layout.
+            </summary>
+            <returns>List of models used in layout.</returns>
+        </member>
+        <member name="M:Sias.Layout.Layout.AddItem(Sias.Core.Interfaces.IItem,Sias.Core.Interfaces.ISlot)">
+            <summary>
+            Places an <see cref="T:Item"/> on the <see cref="T:Slot"/>.
+            </summary>
+            <param name="item">The <see cref="T:Item"/> to be placed.</param>
+            <param name="slot">The <see cref="T:Slot"/> to place the <see cref="T:Item"/> on.</param>
+        </member>
+        <member name="M:Sias.Layout.Layout.RemoveItem(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Picks an <see cref="T:Item"/> from the <see cref="T:Slot"/> it is currently placed on.
+            </summary>
+            <param name="item">The <see cref="T:Item"/> to pick.</param>
+        </member>
+        <member name="P:Sias.Layout.Layout.Worktable">
+            <summary>
+            Gets or sets the worktable of the layout.
+            </summary>
+        </member>
+        <member name="E:Sias.Layout.Layout.SelectionChanging">
+            <summary>
+            Occurs when a LabObject selection is changing.
+            </summary>
+        </member>
+        <member name="E:Sias.Layout.Layout.SelectionChanged">
+            <summary>
+            Occurs when a LabObject selection has changed.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.PropertyCategoryAttribute">
+            <summary>
+            Summary description for SerializationModeAttribute.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.LocationPin">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element that constitutes a <see cref="T:Sias.Layout.Worktable"/>'s
+            placing position that has to match a <see cref="T:Sias.Layout.Decktray"/>'s or a <see cref="T:Sias.Layout.Device"/>'s
+            <see cref="T:Sias.Layout.LocationHole"/> position. In order to properly place a <see cref="T:Sias.Layout.Decktray"/>
+            or a <see cref="T:Sias.Layout.Device"/> on a <see cref="T:Sias.Layout.Worktable"/>, the matrixes of positions
+            defined with <see cref="T:Sias.Layout.LocationPin"/>s and <see cref="T:Sias.Layout.LocationHole"/>s have to match.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.LocationPin.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.LocationPin.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.LocationPin.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.LocationPin.PlaceOnMe(Sias.Layout.Model,System.Boolean)">
+            <summary>
+            Places a model on a location pin, generates unique name if necessary.
+            </summary>
+            <param name="model">The model to be placed.</param>
+            <param name="generateUniqueName">Indicates if a unique name is to be generated.</param>
+        </member>
+        <member name="T:Sias.Layout.Stacker">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element that constitutes a stackable position
+            that has to match an <see cref="T:Sias.Layout.Item"/>'s <see cref="T:Sias.Layout.Base"/> element. In order to properly place
+            an <see cref="T:Sias.Layout.Item"/> on a <see cref="T:Sias.Layout.Stacker"/> the width and length of the <see cref="T:Sias.Layout.Stacker"/>
+            and the <see cref="T:Sias.Layout.Base"/> have to match. It is possible to place many <see cref="T:Sias.Layout.Item"/>s 
+            on a <see cref="T:Sias.Layout.Stacker"/>. The placed <see cref="T:Sias.Layout.Item"/>s don't have to be the same.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Stacker.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.Stacker.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.Stacker.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="P:Sias.Layout.Stacker.Orientation">
+            <summary>
+            Stacker orientation.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Device">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Layout"/> building element that models a device.
+            A <see cref="T:Sias.Layout.Device"/> is build of <see cref="T:Sias.Layout.Primitive"/>s. <see cref="T:Sias.Layout.Device"/>s can
+            be placed on a <see cref="T:Sias.Layout.Worktable"/> using positions defined by <see cref="T:Sias.Layout.LocationPin"/>s
+            or freely on a <see cref="T:Sias.Layout.Worktable"/>'s <see cref="T:Sias.Layout.Base"/>.
+            <see cref="T:Sias.Layout.Device"/>s may offer positions defined by <see cref="T:Sias.Layout.Slot"/>s
+            which can be used to place <see cref="T:Sias.Layout.Item"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Device.GetPlacedOn">
+            <summary>
+            Returns a list of primitives the model is placed on.
+            </summary>
+            <returns>List of primitives the model is placed on.</returns>
+        </member>
+        <member name="P:Sias.Layout.Device.Position">
+            <summary>
+            Device position.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Device.Orientation">
+            <summary>
+            Device orientation.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Item">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Layout"/> building element that models a movable object
+            that can be moved with the robot arm.
+            An <see cref="T:Sias.Layout.Item"/> is build of <see cref="T:Sias.Layout.Primitive"/>s. <see cref="T:Sias.Layout.Item"/>s can
+            be placed on a <see cref="T:Sias.Layout.Decktray"/>, <see cref="T:Sias.Layout.Device"/> or another <see cref="T:Sias.Layout.Item"/>
+            using a position defined by a <see cref="T:Sias.Layout.Slot"/>.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Item.GetCavitiesByType(System.String)">
+            <summary>
+            Returns Cavities of the given type found in the tree of Items starting at this Item.
+            </summary>
+            <param name="filter">The filter the Cavities have to match.</param>
+            <returns>A SCavityCollection containing the Cavities of the given type.</returns>
+        </member>
+        <member name="P:Sias.Layout.Item.SlotsOfItem">
+            <summary>
+            Get all slots placed on the item.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Item.EnclosingRectangle">
+            <summary>
+            Gets the enclosing rectangle of the item in absolute coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Item.TipPositions">
+            <summary>
+            Gets a collection of <see cref="T:TipPosition"/> present in this <see cref="T:Item"/>.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.CavityShapeCollection.Clone">
+            <summary>
+            Creates a new CavityShapeCollection object that is a copy of the current instance.
+            </summary>
+            <returns>A new CavityShapeCollection object that is a copy of this instance.</returns>
+        </member>
+        <member name="T:Sias.Layout.Slot">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element that constitutes a placing position
+            that has to match an <see cref="T:Sias.Layout.Item"/>'s <see cref="T:Sias.Layout.Base"/> element. In order to properly place
+            an <see cref="T:Sias.Layout.Item"/> on a <see cref="T:Sias.Layout.Slot"/> the width and length of the <see cref="T:Sias.Layout.Slot"/>
+            and the <see cref="T:Sias.Layout.Base"/> have to match.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Slot.shape">
+            <summary>
+            Determines the shape of the model - round or rectangular.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.RoundSlot">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a round placing position
+            that is able to accept round <see cref="T:Sias.Layout.Item"/>s. It can be used to build 
+            both round and rectangular <see cref="T:Sias.Layout.Model"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RoundSlot.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundSlot.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundSlot.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="P:Sias.Layout.RoundSlot.Orientation">
+            <summary>
+            Round slot orientation.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.LocationHole">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element that constitutes a <see cref="T:Sias.Layout.Decktray"/>'s
+            or a <see cref="T:Sias.Layout.Device"/>'s placing position that has to match <see cref="T:Sias.Layout.Worktable"/>'s
+            <see cref="T:Sias.Layout.LocationPin"/> position. In order to properly place a <see cref="T:Sias.Layout.Decktray"/>
+            or a <see cref="T:Sias.Layout.Device"/> on a <see cref="T:Sias.Layout.Worktable"/>, the matrixes of positions
+            defined with <see cref="T:Sias.Layout.LocationPin"/>s and <see cref="T:Sias.Layout.LocationHole"/>s have to match.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.LocationHole.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.LocationHole.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.LocationHole.PlaceMeOn(Sias.Layout.Primitive,System.Boolean)">
+            <summary>
+            Places a location hole being a component of a model on an underlaying primitive, generates unique name if necessary.
+            </summary>
+            <param name="primitive">The primitive to be placed.</param>
+            <param name="generateUniqueName">Indicates if a unique name is to be generated.</param>
+        </member>
+        <member name="M:Sias.Layout.LocationHole.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="T:Sias.Layout.Base">
+            <summary>
+            Represents an abstract class defining common properties and features of a <see cref="T:Sias.Layout.Primitive"/>
+            modelling either a round box that has height and diameter or rectangular box
+            that has width, height and length. The <see cref="T:Sias.Layout.Base"/> is a building element
+            of a <see cref="T:Sias.Layout.Model"/> that constitutes the bottom of a <see cref="T:Sias.Layout.Model"/>.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Base.shape">
+            <summary>
+            Determines the shape of the model - round or rectangular.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Shape">
+            <summary>
+            Summary description for Shape.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.RoundBase">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a round box
+            that has height and diameter. The <see cref="T:Sias.Layout.RoundBase"/> is a <see cref="T:Sias.Layout.Primitive"/>
+            that constitutes the bottom of a round <see cref="T:Sias.Layout.Model"/> and must be the very first
+            <see cref="T:Sias.Layout.Primitive"/> used to build any round <see cref="T:Sias.Layout.Model"/>.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RoundBase.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundBase.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundBase.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundBase.GetHeight">
+            <summary>
+            Returns absolute height of the base over worktable.
+            </summary>
+            <returns>The absolute height.</returns>
+        </member>
+        <member name="T:Sias.Layout.Decktray">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Layout"/> building element that models a decktray.
+            A <see cref="T:Sias.Layout.Decktray"/> is build of <see cref="T:Sias.Layout.Primitive"/>s. <see cref="T:Sias.Layout.Decktray"/>s can
+            be placed on a <see cref="T:Sias.Layout.Worktable"/> using positions defined by <see cref="T:Sias.Layout.LocationPin"/>s.
+            <see cref="T:Sias.Layout.Decktray"/>s offer positions defined by <see cref="T:Sias.Layout.Slot"/>s
+            which can be used to place <see cref="T:Sias.Layout.Item"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Decktray.Clone">
+            <summary>
+            Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>A new object that is a copy of this instance.</returns>
+        </member>
+        <member name="M:Sias.Layout.Decktray.GetCavitiesByType(System.String)">
+            <summary>
+            Returns Cavities of the given type found in the tree of Items starting at this Item.
+            </summary>
+            <param name="filter">The filter the Cavities have to match.</param>
+            <returns>A SCavityCollection containing the Cavities of the given type.</returns>
+        </member>
+        <member name="M:Sias.Layout.Decktray.GetCavityByName(System.String)">
+            <summary>
+            Returns the ICavity object that matches the given name.
+            </summary>
+            <param name="name">Name of the Cavity (should be unique)</param>
+            <returns>Selected cavity</returns>
+        </member>
+        <member name="M:Sias.Layout.Decktray.SetRestriction(Sias.Core.SRestrictionValue)">
+            <summary>
+            Set restriction value for this item object.
+            	 
+            Setting a restriction can be used to avoid the crossing of the item 
+            with the gripper or the tips. The Arm object will try to avoid crossing
+            the item.
+            </summary>
+            <param name="newRestriction">New Restriction value</param>
+            <returns>Old restriction value</returns>
+        </member>
+        <member name="M:Sias.Layout.Decktray.GetAccessMode(System.Object)">
+            <summary>
+            Get actual access mode.
+            </summary>
+            <param name="caller">The caller object</param>
+            <returns>Actual access mode</returns>
+        </member>
+        <member name="M:Sias.Layout.Decktray.SetAccessMode(System.Object,Sias.Core.Interfaces.SAccessMode,System.Int32)">
+            <summary>
+            Set new access mode.
+            
+            Take care the access mode will not change immediately, so this
+            function may take some time.
+            </summary>
+            <param name="caller">The caller object</param>
+            <param name="accessMode">New access mode <see cref="T:Sias.Core.Interfaces.SAccessMode"/> </param>
+            <param name="timeOut">Timeout [ms] for changing the access mode</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.Layout.Decktray.GetPlacedOn">
+            <summary>
+            Returns a list of primitives the model is placed on.
+            </summary>
+            <returns>List of primitives the model is placed on.</returns>
+        </member>
+        <member name="P:Sias.Layout.Decktray.AdditionalTravelHeight">
+             <summary>
+             Additional travel height. 
+            
+             This value defines an additional travel offset in case that this 
+             item is actually transferred (moved) with the gripper.
+             </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.Cavities">
+            <summary>
+            Collection of all Cavities of the Decktray.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.ConnectedDevice">
+            <summary>
+            This member defines a connected device. If no device is connected to 
+            the Decktray the member is null. This member can be set also. This is needed
+            to setup the device connection at the start of the run. Take care when 
+            changing the connected device while any run is in process.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.CurrentSlot">
+            <summary>
+            The actual slot, where the item is placed.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.CustomProperties">
+            <summary>
+            Custom properties.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.EnclosingRectangle">
+             <summary>
+             This member returns the enclosing rectangle of the IItem object.
+            
+             The enclosing rectangle defines the distances of most far item positions
+             relative to the gripper position.
+             It can be used to calculate the gripper range extensions to avoid 
+             collisions.
+             </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.GripperClose">
+            <summary>
+            Gripper position for closed gripper.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.GripperOpen">
+            <summary>
+            Gripper position for open gripper.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.GripperPosition">
+            <summary>
+            Position of a gripper arm to pickup the item.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.History">
+            <summary>
+            The History member is designed to keep the History of the item. 
+            It can be used from any method to store what has been done with the IItem.
+            E.g. a MoveItem can define that the plate has been moved to another position.
+            \b Important: If the property returns null, a method is not allowed to add history entries.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.Orientation">
+            <summary>
+            Item orientation.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.Position">
+            <summary>
+            Pipetting reference position.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.SlotsOfItem">
+            <summary>
+            Get all slots placed on the item.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Decktray.TipPositions">
+            <summary>
+            Gets a collection of <see cref="T:TipPosition"/> present in this <see cref="T:Decktray"/>.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.RectSlot">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a rectangular placing position
+            that is able to accept rectangular <see cref="T:Sias.Layout.Item"/>s. It can be used to build 
+            both round and rectangular <see cref="T:Sias.Layout.Model"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RectSlot.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectSlot.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectSlot.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="P:Sias.Layout.RectSlot.Orientation">
+            <summary>
+            Rectangular slot orientation.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Filter.emptyFilter">
+            <summary>
+            Indicates whether the filter is empty meaning that the filter matches everything.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.RoundCavity">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a round hole 
+            that is able to handle liquid. The <see cref="T:Sias.Layout.RoundCavity"/> is a <see cref="T:Sias.Layout.Primitive"/>
+            that constitutes a container of a <see cref="T:Sias.Layout.Model"/> where liquids 
+            can be dispensed, kept, mixed and aspirated from. It can be used for both round
+            and rectangular <see cref="T:Sias.Layout.Model"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RoundCavity.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundCavity.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundCavity.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="T:Sias.Layout.RoundBody">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a round box
+            that has height and diameter. The <see cref="T:Sias.Layout.RoundBody"/> is a <see cref="T:Sias.Layout.Primitive"/>
+            that constitutes the filling of a <see cref="T:Sias.Layout.Model"/>. It can be used for both round
+            and rectangular <see cref="T:Sias.Layout.Model"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RoundBody.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundBody.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RoundBody.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="T:Sias.Layout.Section">
+            <summary>
+            Summary description for Section.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Section.Clone">
+            <summary>
+            Creates a new Section object that is a copy of the current instance.
+            </summary>
+            <returns>A new Section object that is a copy of this instance.</returns>
+        </member>
+        <member name="M:Sias.Layout.Circle.Clone">
+            <summary>
+            Creates a new Circle object that is a copy of the current instance.
+            </summary>
+            <returns>A new Circle object that is a copy of this instance.</returns>
+        </member>
+        <member name="M:Sias.Layout.Rect.Clone">
+            <summary>
+            Creates a new rectangle object that is a copy of the current instance.
+            </summary>
+            <returns>A new rectangle object that is a copy of this instance.</returns>
+        </member>
+        <member name="T:Sias.Layout.RectCavity">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a rectangular hole 
+            that is able to handle liquid. The <see cref="T:Sias.Layout.RectCavity"/> is a <see cref="T:Sias.Layout.Primitive"/>
+            that constitutes a container of a <see cref="T:Sias.Layout.Model"/> where liquids 
+            can be dispensed, kept, mixed and aspirated from. It can be used for both round
+            and rectangular <see cref="T:Sias.Layout.Model"/>s.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RectCavity.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectCavity.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectCavity.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="T:Sias.Layout.RectBase">
+            <summary>
+            Represents a <see cref="T:Sias.Layout.Model"/> building element modeling a rectangular box
+            that has width, height and length. The <see cref="T:Sias.Layout.RectBase"/> is a <see cref="T:Sias.Layout.Primitive"/>
+            that constitutes the bottom of a rectangular <see cref="T:Sias.Layout.Model"/> and must be the very first
+            <see cref="T:Sias.Layout.Primitive"/> used to build any rectangular <see cref="T:Sias.Layout.Model"/>.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.RectBase.PositionToCenter(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's center based on position coordinates.
+            </summary>
+            <param name="position">The position of the primitive.</param>
+            <returns>The center coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectBase.CenterToPosition(Sias.Core.SPosition)">
+            <summary>
+            Calculates coordinates of primitive's position based on center coordinates.
+            </summary>
+            <param name="center">The center of the primitive.</param>
+            <returns>The position coordinates.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectBase.GetTreeHeight">
+            <summary>
+            Caculates the height of the primitive tree.
+            </summary>
+            <returns>The height of the primitive tree.</returns>
+        </member>
+        <member name="M:Sias.Layout.RectBase.GetHeight">
+            <summary>
+            Returns absolute height of the base over worktable.
+            </summary>
+            <returns>The absolute height.</returns>
+        </member>
+        <member name="T:Sias.Layout.PropertyCategory">
+            <summary>
+            Summary description for PropertyCategory.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.BackgroundImageCollection">
+            <summary>
+            Represents a collection of BackgroundImage objects.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.BackgroundImageCollection.#ctor">
+            <summary>
+            Initializes a new instance of the BackgroundImageCollection class.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.BackgroundImageCollection.Contains(System.String)">
+            <summary>
+            Gets a value that indicates whether the collection contains a BackgroundImage object of the specified state name.
+            </summary>
+            <param name="stateName">The state name of a BackgroundImage object to search for in the collection.</param>
+            <returns>True if the collection contains the specified object; otherwise, False.</returns>
+        </member>
+        <member name="M:Sias.Layout.BackgroundImageCollection.IndexOf(System.String)">
+            <summary>
+            Gets the index of a BackgroundImage object of the specified state name, if it exists in the collection. 
+            </summary>
+            <param name="stateName">The state name of a BackgroundImage object to get the index of.</param>
+            <returns>The index of a BackgroundImage object of the specified state name, if it is found, in the collection; otherwise, -1.</returns>
+        </member>
+        <member name="P:Sias.Layout.BackgroundImageCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the BackgroundImage object at the specified index in the collection.
+            </summary>
+            <param name="index">The index of the collection to access.</param>
+            <returns>A BackgroundImage at each valid index.</returns>
+        </member>
+        <member name="P:Sias.Layout.BackgroundImageCollection.Item(System.String)">
+            <summary>
+            Gets the BackgroundImage object of the specified state name from the collection.
+            </summary>
+            <param name="stateName">The state name of the BackgroundImage object to get.</param>
+            <returns>The BackgroundImage object of the specified state name.</returns>
+        </member>
+    </members>
+</doc>

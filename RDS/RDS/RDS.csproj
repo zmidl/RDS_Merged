@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6823F08A-C21E-4B15-9359-2D482150509D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RDS</RootNamespace>
+    <AssemblyName>RDS</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Apps\Images\Logo_Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>RDS.Apps.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CalcNext0606">
+      <HintPath>Apps\Dlls\CalcNext0606.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Bin\Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DatabaseManager">
+      <HintPath>bin\Debug\Bin\DatabaseManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DetectionManager">
+      <HintPath>bin\Debug\Bin\DetectionManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DeviceManager">
+      <HintPath>bin\Debug\Bin\DeviceManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_BaseDev">
+      <HintPath>bin\Debug\Bin\Devices\Dev_BaseDev.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_BCReader">
+      <HintPath>bin\Debug\Bin\Devices\Dev_BCReader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DEV_CanDev">
+      <HintPath>bin\Debug\Bin\Devices\DEV_CanDev.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_DropStation">
+      <HintPath>bin\Debug\Bin\Devices\Dev_DropStation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_PipArm">
+      <HintPath>bin\Debug\Bin\Devices\Dev_PipArm.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_ReSaTrax">
+      <HintPath>bin\Debug\Bin\Devices\Dev_ReSaTrax.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dev_Robot">
+      <HintPath>bin\Debug\Bin\Devices\Dev_Robot.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Layout">
+      <HintPath>bin\Debug\Bin\Layout.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LayoutDB">
+      <HintPath>bin\Debug\Bin\LayoutDB.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LayoutManager">
+      <HintPath>bin\Debug\Bin\LayoutManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LiquidManager">
+      <HintPath>bin\Debug\Bin\LiquidManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Drawing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Effects, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MWArray, Version=2.14.0.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Apps\Dlls\MWArray.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Apps\Dlls\System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="TipManager">
+      <HintPath>bin\Debug\Bin\TipManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ZMCL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ZMCL\bin\Debug\ZMCL.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="Apps\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Lis\Barcode.cs" />
+    <Compile Include="Models\ReagentItem.cs" />
+    <Compile Include="Models\ReagentSeries.cs" />
+    <Compile Include="SDK\ConsoleManager.cs" />
+    <Compile Include="SDK\Sdk.cs" />
+    <Compile Include="SDK\SdkMessage.cs" />
+    <Compile Include="SDK\WpfApplication.cs" />
+    <Compile Include="ViewModels\Behaviors\CupRackMouseUp.cs" />
+    <Compile Include="ViewModels\Behaviors\SampleRackMouseUp.cs" />
+    <Compile Include="ViewModels\Behaviors\StripMouseUp.cs" />
+    <Compile Include="ViewModels\Behaviors\TipRackMouseUp.cs" />
+    <Compile Include="ViewModels\Common\General.cs" />
+    <Compile Include="Models\SampleInformatin.cs" />
+    <Compile Include="ViewModels\Common\Converters.cs" />
+    <Compile Include="ViewModels\Common\Enumeration.cs" />
+    <Compile Include="ViewModels\Common\SingletonWindow.cs" />
+    <Compile Include="ViewModels\Common\SQLiteHelper.cs" />
+    <Compile Include="ViewModels\Common\XmlOperation.cs" />
+    <Compile Include="ViewModels\FinalViewModel.cs" />
+    <Compile Include="ViewModels\MaintenanceViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PopupWindowViewModel.cs" />
+    <Compile Include="ViewModels\SetupViewModel.cs" />
+    <Compile Include="ViewModels\StripViewModel.cs" />
+    <Compile Include="ViewModels\ViewProperties\Cell.cs" />
+    <Compile Include="ViewModels\ViewProperties\CupRack.cs" />
+    <Compile Include="ViewModels\ViewProperties\Mag.cs" />
+    <Compile Include="ViewModels\ViewProperties\Reader.cs" />
+    <Compile Include="ViewModels\ViewProperties\Reagent.cs" />
+    <Compile Include="ViewModels\ViewProperties\ReagentRack.cs" />
+    <Compile Include="ViewModels\ViewProperties\SampleTube.cs" />
+    <Compile Include="ViewModels\ViewProperties\ShakerRack.cs" />
+    <Compile Include="ViewModels\ViewProperties\Strip.cs" />
+    <Compile Include="ViewModels\ViewProperties\SampleRackDescription.cs" />
+    <Compile Include="ViewModels\ViewProperties\Tip.cs" />
+    <Compile Include="ViewModels\ViewProperties\TipRack.cs" />
+    <Compile Include="ViewModels\ViewProperties\Heating.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MonitorViewModel.cs" />
+    <Compile Include="ViewModels\SampleViewModel.cs" />
+    <Compile Include="Views\BcWindow.xaml.cs" />
+    <Compile Include="Views\FinalView.xaml.cs">
+      <DependentUpon>FinalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistroyView.xaml.cs">
+      <DependentUpon>HistroyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpView.xaml.cs">
+      <DependentUpon>HelpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Common\IExitView.cs" />
+    <Compile Include="Views\Monitor\MonitorView.xaml.cs">
+      <DependentUpon>MonitorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Monitor\ReagentView.xaml.cs">
+      <DependentUpon>ReagentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Monitor\ReportView.xaml.cs">
+      <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Monitor\SampleView.xaml.cs">
+      <DependentUpon>SampleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaintenanceView.xaml.cs">
+      <DependentUpon>MaintenanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Monitor\StripView.xaml.cs">
+      <DependentUpon>StripView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopupWindow.xaml.cs">
+      <DependentUpon>PopupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrecheckView.xaml.cs">
+      <DependentUpon>PrecheckView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SetupView.xaml.cs">
+      <DependentUpon>SetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskView.xaml.cs">
+      <DependentUpon>TaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestView.xaml.cs" />
+    <Page Include="Apps\Languages\en-US.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Apps\Languages\zh-CN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Apps\Styles\TextBlockStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BcWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FinalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HistroyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Monitor\MonitorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Monitor\ReagentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Monitor\ReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Monitor\SampleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaintenanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Apps\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\Common\RelayCommand.cs" />
+    <Compile Include="ViewModels\Common\ViewModel.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\Monitor\StripView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrecheckView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SetupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="Apps\LisFiles\Barcode_20170524.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Apps\Images\Logo_Icon.ico" />
+    <Resource Include="Apps\Images\WorkDesk.png" />
+    <Resource Include="Apps\Images\10.png" />
+    <Resource Include="Apps\Images\11.png" />
+    <Resource Include="Apps\Images\12.png" />
+    <Resource Include="Apps\Images\13.png" />
+    <Resource Include="Apps\Images\14.png" />
+    <Resource Include="Apps\Images\15.png" />
+    <Resource Include="Apps\Images\RdLogo.png" />
+    <Content Include="Apps\Dlls\mfc110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\mfc110u.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\mfcm110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\mfcm110u.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\Microsoft.Expression.Drawing.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\Microsoft.Expression.Effects.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\Microsoft.Expression.Interactions.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\msvcp110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\msvcr110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\MySql.Data.dll" />
+    <Content Include="Apps\Dlls\ShareDll.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\SQLite.Interop.dll" />
+    <Content Include="Apps\Dlls\System.Data.SQLite.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\System.Windows.Interactivity.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Apps\Dlls\vccorlib110.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Apps\Database\Rds.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Apps\App.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RdCore\RdCore.csproj">
+      <Project>{92e632a0-cd46-40c5-be11-10b623a50b44}</Project>
+      <Name>RdCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RdEntity\RdEntity.csproj">
+      <Project>{cf434d06-8cbb-43ea-b682-b1fe89edb9c4}</Project>
+      <Name>RdEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDSCL\RDSCL.csproj">
+      <Project>{cd1bb68d-e713-442a-b4e9-15461e7e2f4e}</Project>
+      <Name>RDSCL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

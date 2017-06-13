@@ -1,0 +1,63 @@
+<SCustomPropertyCollection Type="Sias.Core.SCustomPropertyCollection">
+	<Count>12</Count>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>Barcode</Name>
+		<Value></Value>
+		<PropertyTypeName>System.String</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>BarcodeHeight</Name>
+		<Value>10</Value>
+		<PropertyTypeName>System.Double</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>BarcodeOrientation</Name>
+		<Value>0</Value>
+		<PropertyTypeName>System.Double</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>BarcodePitch</Name>
+		<Value>0</Value>
+		<PropertyTypeName>System.Double</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>BarcodePosition</Name>
+		<Value>0;0;0</Value>
+		<PropertyTypeName>Sias.Core.SPosition</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>BarcodeRoll</Name>
+		<Value>0</Value>
+		<PropertyTypeName>System.Double</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>DefaultName</Name>
+		<Value></Value>
+		<PropertyTypeName>System.String</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>PickupStation</Name>
+		<Value>True</Value>
+		<PropertyTypeName>System.Boolean</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>StackOffset</Name>
+		<Value>2.1</Value>
+		<PropertyTypeName>System.Double</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>Washstation</Name>
+		<Value>True</Value>
+		<PropertyTypeName>System.Boolean</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>Wash</Name>
+		<Value>True</Value>
+		<PropertyTypeName>System.Boolean</PropertyTypeName>
+	</SCustomProperty>
+	<SCustomProperty Type="Sias.Core.SCustomProperty">
+		<Name>Waste</Name>
+		<Value>True</Value>
+		<PropertyTypeName>System.Boolean</PropertyTypeName>
+	</SCustomProperty>
+</SCustomPropertyCollection>

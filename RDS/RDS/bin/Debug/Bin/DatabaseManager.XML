@@ -1,0 +1,605 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DatabaseManager</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.DatabaseManager.SConnectionBuilderDialog">
+            <summary>
+            
+            </summary>
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SConnectionBuilderDialog.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SConnectionBuilderDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SConnectionBuilderDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.DatabaseManager.SConnectionBuilderDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Sias.DatabaseManager.SDatabaseManager">
+            <summary>
+            Database manager
+            
+            TODO: Add class documentation
+            </summary>
+        </member>
+        <member name="T:Sias.DatabaseManager.Interfaces.IDatabaseManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabaseManager.Connect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabaseManager.Disconnect">
+            <summary>Closes the connections to all databases.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabaseManager.ExecuteReader(System.String)">
+            <summary>Sends the query to the primary database and builds an OdbcDataReader.</summary>
+            <remarks>
+            While the OdbcDataReader is used, the associated OdbcConnection is busy serving the OdbcDataReader. While 
+            in this state, no other operations can be performed on the OdbcConnection other than closing it. This is 
+            the case until the Close method of the OdbcDataReader is called.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>An OdbcDataReader object.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabaseManager.ExecuteScalar(System.String)">
+            <summary>
+            Executes the given query on the primary database and returns the first column of the first row in the
+            result set returned by the query. Additional columns or rows are ignored.
+            </summary>
+            <remarks>
+            Use the ExecuteScalar method to retrieve a single value (for example, an aggregate value) from a
+            data source. This requires less code than using the ExecuteReader method, and then performing
+            the operations required to generate the single value from the data returned by an OdbcDataReader.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>The first column of the first row of the result set or a NULL reference if the result set is empty.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabaseManager.ExecuteNonQuery(System.String)">
+            <summary>Executes a given SQL statement against the primary database and returns the number of rows affected.</summary>
+            <remarks>
+            You can use ExecuteNonQuery to perform catalog operations (for example, querying the structure of a database
+            or creating database objects such as tables); or to change the data in a database, without using a DataSet, 
+            by executing UPDATE, INSERT, or DELETE statements.
+            
+            You can also use ExecuteNonQuery to execute multiple SQL statements if the underlying ODBC driver supports 
+            this functionality. In this case, the return value is the number of rows affected by all statements in the command.
+            
+            Although ExecuteNonQuery returns no rows, any output parameters or return values mapped to parameters are 
+            populated with data.
+            
+            For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. 
+            For all other types of statements, the return value is -1. If a rollback occurs, the return value is also -1.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>
+            For UPDATE, INSERT and DELETE statements, the return value is the number of rows affected by the
+            command. For all other types of statements, the return value is -1.</returns>
+        </member>
+        <member name="P:Sias.DatabaseManager.Interfaces.IDatabaseManager.Database">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sias.DatabaseManager.Interfaces.IDatabaseManager.LogDB">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.error">
+            <summary>Error status of the manager</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.classLock">
+            Lock object, used to synchronize calls in a multi threading environment
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SDatabaseManager</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <b>SDatabaseManager</b> class.
+            </summary>
+            <param name="connString"></param>
+            <param name="logConnString"></param>
+            <param name="layoutConnString"></param>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.Finalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.GetManager">
+            <summary>
+            Instantiator/Factory method
+            
+            This static method gets the one and only database manager. 
+            If no database manager is available yet, a new database manager instance will get created.
+            </summary>
+            <returns>The one and only database manager</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.GetManager(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="connString"></param>
+            <param name="logConnString"></param>
+            <param name="layoutConnString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.Connect">
+            <summary>Opens connections to all databases with the property settings specified by the ConnectionString.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.Disconnect">
+            <summary>Closes the connections to all databases.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.PrepareDbForComponent(System.String)">
+            <summary>
+            Creates a database table to store the data of a component as well as sets up five stored procedures that allow the
+            components to insert, update, delete and read their data from the database. Two stored procedures for reading the data
+            will be generated, one for reading a single row using a given string as selection key and one for reading all data
+            the component has stored in its associated data table.
+            </summary>
+            <param name="prefix">Prefix used to identify the database table and stored procedures of a given component.</param>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.CleanupDbForComponent(System.String)">
+            <summary>
+            Removes all tables and stored procedures associated with a given prefix and removes the prefix from the
+            registered components table.
+            </summary>
+            <param name="prefix">Prefix used to identify the database table and stored procedures of a given component.</param>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.RegisterComponent(System.String)">
+            <summary>
+            register DB component
+            </summary>
+            <param name="prefix"></param>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.IsComponentRegistered(System.String)">
+            <summary>
+            This method checks whether or not a component with a given prefix is already registered in the database.
+            </summary>
+            <param name="prefix">DB prefix used for the component</param>
+            <returns>True, if the component is registered, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.CompressData(System.String)">
+            <summary>
+            Compress data (to zip stream)
+            </summary>
+            <param name="data">The uncompressed data</param>
+            <returns>The compressed data</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ExtractData(System.String)">
+            <summary>
+            Extract data (Decompress from zip stream)
+            </summary>
+            <param name="data">The (zipped) data to extract</param>
+            <returns>The extracted (decompressed) data</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.InsertDataForComponent(System.String,System.String,System.String)">
+            <summary>
+            Generic method to store XML data as a zipped blob into the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <param name="name">Name of the data that should be inserted into the database table</param>
+            <param name="data">XML representation of the data that should be inserted into the database table</param>
+            <returns>True, if the method succeeds. False otherwise.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.UpdateDataForComponent(System.String,System.String,System.String)">
+            <summary>
+            Generic method to update XML data as a zipped blob into the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <param name="name">Name of the data that should be updated in the database table</param>
+            <param name="data">XML representation of the data that should be updated in the database table</param>
+            <returns>True, if the method succeeds. False otherwise.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.DeleteDataForComponent(System.String,System.String)">
+            <summary>
+            Generic method to delete XML data as a zipped blob from the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <param name="name">Name of the data that should be updated in the database table</param>
+            <returns>True, if the method succeeds. False otherwise.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.DeleteAllDataForComponent(System.String)">
+            <summary>
+            Generic method to delete all data from the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <returns>True, if the method succeeds. False otherwise.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ReadDataForComponent(System.String,System.String)">
+            <summary>
+            Generic method to read the data of an object from the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <param name="name">Name of the object whose XML data should be read</param>
+            <returns>The read data or null if no data found.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ReadDataForComponent(System.String)">
+            <summary>
+            Generic method to read all data from the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <returns>A string Collection including all data.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.HasDataForComponent(System.String,System.String)">
+            <summary>
+            Generic method to check if there is data for an object from the corresponding 
+            database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <param name="name">Name of the object whose XML data should be read</param>
+            <returns>The read data or null if no data found.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ReadNamesForComponent(System.String)">
+            <summary>
+            Generic method to read all names from the corresponding database table indicated by the prefix.
+            </summary>
+            <param name="prefix">Prefix to identify the stored procedure to use</param>
+            <returns>A string Collection including all names.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ExecuteReader(System.String)">
+            <summary>Sends the query to the primary database and builds an OdbcDataReader.</summary>
+            <remarks>
+            While the OdbcDataReader is used, the associated OdbcConnection is busy serving the OdbcDataReader. While 
+            in this state, no other operations can be performed on the OdbcConnection other than closing it. This is 
+            the case until the Close method of the OdbcDataReader is called.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>An OdbcDataReader object.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ExecuteScalar(System.String)">
+            <summary>
+            Executes the given query on the primary database and returns the first column of the first row in the
+            result set returned by the query. Additional columns or rows are ignored.
+            </summary>
+            <remarks>
+            Use the ExecuteScalar method to retrieve a single value (for example, an aggregate value) from a
+            data source. This requires less code than using the ExecuteReader method, and then performing
+            the operations required to generate the single value from the data returned by an OdbcDataReader.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>The first column of the first row of the result set or a NULL reference if the result set is empty.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.ExecuteNonQuery(System.String)">
+            <summary>Executes a given SQL statement against the primary database and returns the number of rows affected.</summary>
+            <remarks>
+            You can use ExecuteNonQuery to perform catalog operations (for example, querying the structure of a database
+            or creating database objects such as tables); or to change the data in a database, without using a DataSet, 
+            by executing UPDATE, INSERT, or DELETE statements.
+            
+            You can also use ExecuteNonQuery to execute multiple SQL statements if the underlying ODBC driver supports 
+            this functionality. In this case, the return value is the number of rows affected by all statements in the command.
+            
+            Although ExecuteNonQuery returns no rows, any output parameters or return values mapped to parameters are 
+            populated with data.
+            
+            For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. 
+            For all other types of statements, the return value is -1. If a rollback occurs, the return value is also -1.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>
+            For UPDATE, INSERT and DELETE statements, the return value is the number of rows affected by the
+            command. For all other types of statements, the return value is -1.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.SafeGetBoolean(System.Data.Odbc.OdbcDataReader,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.SafeGetInt64(System.Data.Odbc.OdbcDataReader,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.SafeGetDouble(System.Data.Odbc.OdbcDataReader,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.SafeGetString(System.Data.Odbc.OdbcDataReader,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.SafeGetDateTime(System.Data.Odbc.OdbcDataReader,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabaseManager.HandleException(System.Data.Odbc.OdbcException)">
+            <summary>
+            Handles an OdbcException.
+            </summary>
+            <param name="e">The exception to handle.</param>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.Database">
+            <summary>
+            Gets the Database of the SDatabaseManager
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.LogDB">
+            <summary>
+            Gets the LogDB of the SDatabaseManager
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.LayoutDB">
+            <summary>
+            Gets the LayoutDB of the SDatabaseManager
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.Available">
+            <summary>
+            Gets the Available of the SDatabaseManager
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.Error">
+            <summary>Error status of the manager</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.UseDB">
+            <summary>
+            Get/Set the UseDB configuration flag of the SDatabaseManager.
+            </summary>
+            <details>
+            This flag is managed by the \nlink{Sias::Core,SConfigurationManager} (\b see \ref Config_UseDB).
+            </details>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.DefaultConnectionString">
+            <summary>
+            Gets the DefaultConnectionString of the SDatabaseManager managed by SConfigurationManager
+            </summary>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.DefaultLogConnectionString">
+            <summary>
+            Gets the DefaultLogConnectionString of the SDatabaseManager managed by SConfigurationManager.
+            </summary>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.DefaultLayoutConnectionString">
+            <summary>
+            Gets the DefaultLogConnectionString of the SDatabaseManager managed by SConfigurationManager
+            </summary>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.DatabaseAvailable">
+            <summary>
+            Indicates the availability of the main database.
+            </summary>
+            <value>True if the Database is used, false if not</value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.LogDbAvailable">
+            <summary>
+            Indicates the availability of the log database.
+            </summary>
+            <value>True if the log database is used, false if not</value>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabaseManager.LayoutDbAvailable">
+            <summary>
+            Indicates the availability of the layout database.
+            </summary>
+            <value>True if the layout database is used, false if not</value>
+        </member>
+        <member name="T:Sias.DatabaseManager.SDatabaseManager.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::DatabaseManager::SDatabaseManager errors.
+            </summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoError">
+            <summary>0x0000: No error occurred</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoConnectionString">
+            <summary>0x0001: No connection string for the database available</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoDatabase">
+            <summary>0x0002: Database not available</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoConnection">
+            <summary>0x0004: Connection could not be established</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoLogConnectionString">
+            <summary>0x0010: No connection string for the log database available</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoLogDatabase">
+            <summary>0x0020: Log database not available</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoLogConnection">
+            <summary>0x0040: Connection to the log database could not be established</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoLayoutConnectionString">
+            <summary>0x0100: No connection string for the layout database available</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoLayoutDatabase">
+            <summary>0x0200: Layout database not available</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoLayoutConnection">
+            <summary>0x0400: Connection to the layout database could not be established</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.NoSqlScript">
+            <summary>0x1000: SQL script needed to create the stored procedures and data table for other components is missing</summary>
+        </member>
+        <member name="F:Sias.DatabaseManager.SDatabaseManager.ErrorCodes.OdbcException">
+            <summary>0x2000: ODBC exception caught</summary>
+        </member>
+        <member name="T:Sias.DatabaseManager.SDatabase">
+            <summary>
+            Summary description for SDatabase.
+            </summary>
+        </member>
+        <member name="T:Sias.DatabaseManager.Interfaces.IDatabase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabase.Connect">
+            <summary>Opens a connection to a data source with the property settings specified by the ConnectionString.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabase.Disconnect">
+            <summary>Closes the connection to the data source.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabase.ExecuteReader(System.String)">
+            <summary>Sends the query to the connection and builds an OdbcDataReader.</summary>
+            <remarks>
+            While the OdbcDataReader is used, the associated OdbcConnection is busy serving the OdbcDataReader. While 
+            in this state, no other operations can be performed on the OdbcConnection other than closing it. This is 
+            the case until the Close method of the OdbcDataReader is called.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>An OdbcDataReader object.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabase.ExecuteNonQuery(System.String)">
+            <summary>Executes a given SQL statement against the connection and returns the number of rows affected.</summary>
+            <remarks>
+            You can use ExecuteNonQuery to perform catalog operations (for example, querying the structure of a database
+            or creating database objects such as tables); or to change the data in a database, without using a DataSet, 
+            by executing UPDATE, INSERT, or DELETE statements.
+            
+            You can also use ExecuteNonQuery to execute multiple SQL statements if the underlying ODBC driver supports 
+            this functionality. In this case, the return value is the number of rows affected by all statements in the command.
+            
+            Although ExecuteNonQuery returns no rows, any output parameters or return values mapped to parameters are 
+            populated with data.
+            
+            For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. 
+            For all other types of statements, the return value is -1. If a rollback occurs, the return value is also -1.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>
+            For UPDATE, INSERT and DELETE statements, the return value is the number of rows affected by the
+            command. For all other types of statements, the return value is -1.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.Interfaces.IDatabase.ExecuteScalar(System.String)">
+            <summary>
+            Executes the given query and returns the first column of the first row in the result set returned
+            by the query. Additional columns or rows are ignored.
+            </summary>
+            <remarks>
+            Use the ExecuteScalar method to retrieve a single value (for example, an aggregate value) from a
+            data source. This requires less code than using the ExecuteReader method, and then performing
+            the operations required to generate the single value from the data returned by an OdbcDataReader.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>The first column of the first row of the result set or a NULL reference if the result set is empty.</returns>
+        </member>
+        <member name="P:Sias.DatabaseManager.Interfaces.IDatabase.ConnectionString">
+            <summary>Connection information for the database connection.</summary>
+        </member>
+        <member name="P:Sias.DatabaseManager.Interfaces.IDatabase.Connection">
+            <summary>Database connection.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="aConnectionString"></param>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabase.Connect">
+            <summary>Opens a connection to a data source with the property settings specified by the ConnectionString.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabase.Disconnect">
+            <summary>Closes the connection to the data source.</summary>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabase.ExecuteNonQuery(System.String)">
+            <summary>Executes a given SQL statement against the connection and returns the number of rows affected.</summary>
+            <remarks>
+            You can use ExecuteNonQuery to perform catalog operations (for example, querying the structure of a database
+            or creating database objects such as tables); or to change the data in a database, without using a DataSet, 
+            by executing UPDATE, INSERT, or DELETE statements.
+            
+            You can also use ExecuteNonQuery to execute multiple SQL statements if the underlying ODBC driver supports 
+            this functionality. In this case, the return value is the number of rows affected by all statements in the command.
+            
+            Although ExecuteNonQuery returns no rows, any output parameters or return values mapped to parameters are 
+            populated with data.
+            
+            For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. 
+            For all other types of statements, the return value is -1. If a rollback occurs, the return value is also -1.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>
+            For UPDATE, INSERT and DELETE statements, the return value is the number of rows affected by the
+            command. For all other types of statements, the return value is -1.
+            In case of a non existent connection the return value is -11.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabase.ExecuteReader(System.String)">
+            <summary>Sends the query to the connection and builds an OdbcDataReader.</summary>
+            <remarks>
+            While the OdbcDataReader is used, the associated OdbcConnection is busy serving the OdbcDataReader. While 
+            in this state, no other operations can be performed on the OdbcConnection other than closing it. This is 
+            the case until the Close method of the OdbcDataReader is called.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>An OdbcDataReader object.
+            In case of a none existent connection, the return value is null.</returns>
+        </member>
+        <member name="M:Sias.DatabaseManager.SDatabase.ExecuteScalar(System.String)">
+            <summary>
+            Executes the given query and returns the first column of the first row in the result set returned
+            by the query. Additional columns or rows are ignored.
+            </summary>
+            <remarks>
+            Use the ExecuteScalar method to retrieve a single value (for example, an aggregate value) from a
+            data source. This requires less code than using the ExecuteReader method, and then performing
+            the operations required to generate the single value from the data returned by an OdbcDataReader.
+            </remarks>
+            <param name="query">Query to execute</param>
+            <returns>The first column of the first row of the result set or a NULL reference if the result set is empty.
+            In case of a none existent connection, the return value will also be null.</returns>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabase.ConnectionString">
+            <summary>Connection information for the database connection.</summary>
+        </member>
+        <member name="P:Sias.DatabaseManager.SDatabase.Connection">
+            <summary>Database connection.</summary>
+        </member>
+    </members>
+</doc>

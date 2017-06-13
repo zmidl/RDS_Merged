@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OemComponentManager</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.OemComponentManager.SDialogAttribute">
+            <summary>
+            Custom attribute used to mark System.Windows.Forms.Form classes in an external assembly
+            supplied by an OEM partner so that the marked dialog will be used instead of an
+            internal dialog supplied by the framework itself.
+            </summary>
+        </member>
+        <member name="F:Sias.OemComponentManager.SDialogAttribute.Owner">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.OemComponentManager.SDialogAttribute.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="owner"></param>
+        </member>
+        <member name="T:Sias.OemComponentManager.SOemComponentManager">
+            <summary>
+            The SOemComponentManager is responsible for providing OEM components to
+            the rest of the framework.
+            </summary>
+        </member>
+        <member name="F:Sias.OemComponentManager.SOemComponentManager.classLock">
+            <summary>
+            Lock object, used to synchronize calls in a multi threading environment
+            </summary>
+        </member>
+        <member name="M:Sias.OemComponentManager.SOemComponentManager.#ctor">
+            <summary>
+            Creates a new SOemComponentManager object
+            </summary>
+            <returns>The newly created SOemComponentManager object</returns>
+        </member>
+        <member name="M:Sias.OemComponentManager.SOemComponentManager.GetManager">
+            <summary>
+            Instantiator/Factory method
+            
+            This static method gets the one and only OEM component manager. 
+            If no OEM component manager is available yet, a new OEM component manager instance will get created.
+            </summary>
+            <returns>The one and only OEM component manager</returns>
+        </member>
+        <member name="M:Sias.OemComponentManager.SOemComponentManager.LoadOemAssembly">
+            <summary>
+            Load default OEM dialog assembly
+            
+            This private method loads the default OEM assembly defined by the DefaultOemAssembly 
+            key of the \nlink{Sias::Core,SConfigurationManager}.
+            \b Important:   OEM dialog assemblies are expected to be in the same folder as the 
+                            SOemComponentManager assembly.
+            </summary>
+        </member>
+        <member name="M:Sias.OemComponentManager.SOemComponentManager.GetDialog(System.String)">
+            <summary>
+            Get dialog (form) from OEM assembly
+            
+            Searches all loaded assemblies for a System.Windows.Forms.Form derived class marked with a
+            Sias.SOemComponentManager.SDialogAttribute attribute that matches the given string.
+            </summary>
+            <param name="attributeName">Name of the owner the requested dialog belongs to.</param>
+            <returns>The form matching the requested attribute or null if no such dialog was found.</returns>
+        </member>
+        <member name="P:Sias.OemComponentManager.SOemComponentManager.DefaultOemAssembly">
+            <summary>  
+            Gets the DefaultOemAssembly of the SOemComponentManager managed by SConfigurationManager
+            </summary>
+            <details>
+            If this configuration value is empty, no OEM assembly will be loaded and therefore no OEM
+            components will be read and used by the framework. Likewise if the indicated OEM assembly 
+            does not exist in the bin directory of the framework, it will not be loaded and no OEM
+            components will be used by the framework.
+            </details>
+        </member>
+    </members>
+</doc>

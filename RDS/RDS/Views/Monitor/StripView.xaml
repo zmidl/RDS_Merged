@@ -1,0 +1,148 @@
+﻿<UserControl 
+    x:Class="RDS.Views.Monitor.StripView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:RDS.Views.Monitor"
+    mc:Ignorable="d" 
+    xmlns:rdsc="clr-namespace:RDSCL;assembly=RDSCL"
+    xmlns:behavior="clr-namespace:RDS.ViewModels.Behaviors"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    d:DesignHeight="1000" d:DesignWidth="1900">
+
+    <Viewbox Stretch="Fill" >
+        <Grid Width="950" Height="500">
+            <Canvas Loaded="Canvas_Loaded">
+                <Grid Width="950" Canvas.Top="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource TextBlockStyle}" FontSize="40" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" Text="{Binding UsedCount, StringFormat=请放置不少于\{0\}排的六联排}"/>
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource BlueColor}" HorizontalAlignment="Right" Margin="0,0,30,0" Grid.Row="1" Grid.Column="0" Text="{Binding SelectedUsedCount,StringFormat=已放置了\{0\}排}" />
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource BlueColor}" HorizontalAlignment="Left" Margin="10,0,30,0" Grid.Row="1" Grid.Column="1" Text="{Binding UnSelectedUsedCount,StringFormat=还需放置\{0\}排}" />
+                </Grid>
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Canvas.Left="20" Canvas.Top="130">
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[0].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[0].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="0"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[1].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[1].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="1"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[2].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[2].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="2"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[3].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[3].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="3"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[4].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[4].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="4"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[5].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[5].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="5"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[0].Strips[6].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[0].Strips[6].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="6"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Canvas.Left="330" Canvas.Top="130">
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[0].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[0].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="7"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[1].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[1].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="8"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[2].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[2].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="9"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[3].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[3].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="10"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[4].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[4].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="11"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[5].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[5].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="12"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[1].Strips[6].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[1].Strips[6].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="13"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Canvas.Left="640" Canvas.Top="130">
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[0].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[0].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="14"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[1].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[1].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="15"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[2].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[2].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="16"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[3].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[3].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="17"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[4].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[4].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="18"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[5].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[5].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="19"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                    <rdsc:RD_Strip CurrentState="{Binding CupRacks[2].Strips[6].IsLoaded,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Number="{Binding CupRacks[2].Strips[6].Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="270" Margin="5,0,0,0" >
+                        <i:Interaction.Behaviors>
+                            <behavior:StripMouseUp  ViewModel="{Binding Mode=OneWay}" StripIndex="20"/>
+                        </i:Interaction.Behaviors>
+                    </rdsc:RD_Strip>
+                </StackPanel>
+                <Button Style="{StaticResource RD_ButtonBrightStyle}" Command="{Binding ExitView}" Content="确认" Width="160" Height="35" Canvas.Left="400" Canvas.Top="430"/>
+            </Canvas>
+        </Grid>
+    </Viewbox>
+</UserControl>

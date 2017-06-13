@@ -1,0 +1,76 @@
+01002017/6/11 16:16 NewLogFile for client SCanIO
+040416:16:23.001 Assembly: vshost32, ProductVersion=14.0.23107.0, Version=14.0.0.0, FileVersion=14.0.23107.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RDS.vshost.exe
+040416:16:23.004 Assembly: Microsoft.Expression.Drawing, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Drawing.dll
+040416:16:23.005 Assembly: Microsoft.Expression.Effects, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Effects.dll
+040416:16:23.005 Assembly: Microsoft.Expression.Interactions, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Interactions.dll
+400416:16:23.007 Unsigned Assembly: MWArray, Version=2.14.0.0, FileVersion=2.14.0.0 of Company The_MathWorks loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\MWArray.dll
+400416:16:23.008 Unsigned Assembly: System.Data.SQLite, Version=1.0.104.0, FileVersion=1.0.104.0 of Company https://system.data.sqlit loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\System.Data.SQLite.dll
+040416:16:23.009 Assembly: System.Windows.Interactivity, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\System.Windows.Interactivity.dll
+040416:16:23.010 Assembly: RDS, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RDS.exe
+400416:16:23.011 Unsigned Assembly: RdEntity, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RdEntity.dll
+400416:16:23.012 Unsigned Assembly: RdCore, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RdCore.dll
+100416:16:23.014 Signed Assembly Core, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Core.dll
+020416:16:23.017 No key for Assembly: SmartPropertyGrid, Version=3.0.0.45, FileVersion=3.0.0.45 of Company VisualHint loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\SmartPropertyGrid.dll
+100416:16:23.018 Signed Assembly DEV_CanDev, ProductVersion=1.4.1, Version=1.2.7.0, FileVersion=1.2.7.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dll
+040416:16:23.022 Startup:
+040416:16:23.023  - Work Path = D:\Develop\MyProject\RDS\RDS\bin\Debug
+040416:16:23.023  - StartPath = D:\Develop\MyProject\RDS\RDS\bin\Debug\
+040416:16:23.024  - Core Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\bin
+040416:16:23.042  - SetupFile = Sias.Config.xml
+040416:16:23.043 SConfigurationManager base paths:
+040416:16:23.046  - Old  Base Path = D:\Develop\MyProject\RDS\RDS\bin\Debug
+040416:16:23.047  - Bin. Base Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\
+100416:16:23.048 Signed Assembly Dev_BaseDev, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BaseDev.dll
+040416:16:23.048  - Data Base Path = D:\Develop\MyProject\RDS\RDS\bin\Debug
+040416:16:23.090  - Driver Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices
+040416:16:23.090  - Data   Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\data
+040416:16:23.091  - Layout Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\data\Layouts
+040416:16:23.091  - Device Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\data\Devices
+100416:16:23.099 Signed Assembly TipManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\TipManager.dll
+100416:16:23.107 Signed Assembly LiquidManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\LiquidManager.dll
+100416:16:23.115 Signed Assembly DetectionManager, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\DetectionManager.dll
+100416:16:23.122 Signed Assembly Dev_Robot, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Robot.dll
+100416:16:23.132 Signed Assembly Dev_PipArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_PipArm.dll
+100416:16:23.142 Signed Assembly Dev_DropStation, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_DropStation.dll
+100416:16:23.152 Signed Assembly LayoutManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\LayoutManager.dll
+100416:16:23.162 Signed Assembly DatabaseManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\DatabaseManager.dll
+100416:16:23.178 Signed Assembly Layout, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Layout.dll
+100416:16:23.188 Signed Assembly LayoutDB, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\LayoutDB.dll
+100416:16:23.517 Signed Assembly DeviceManager, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\DeviceManager.dll
+100416:16:23.533 Signed Assembly Dev_BarcodeYZ, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BarcodeYZ.dll
+100416:16:23.548 Signed Assembly Dev_BCReader, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BCReader.dll
+100416:16:23.565 Signed Assembly Dev_BottleSensor, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BottleSensor.dll
+100416:16:23.570 Signed Assembly Dev_Centrifuge, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Centrifuge.dll
+100416:16:23.570 Signed Assembly Dev_CombiArm, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_CombiArm.dll
+100416:16:23.586 Signed Assembly Dev_GripArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_GripArm.dll
+100416:16:23.601 Signed Assembly Dev_Motor, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Motor.dll
+100416:16:23.601 Signed Assembly Dev_Cover, ProductVersion=1.4.1, Version=0.9.1.0, FileVersion=0.9.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Cover.dll
+100416:16:23.617 Signed Assembly Dev_DownHolder, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_DownHolder.dll
+100416:16:23.633 Signed Assembly Dev_DynamicWasher, ProductVersion=1.4.1, Version=1.0.4.0, FileVersion=1.0.4.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_DynamicWasher.dll
+100416:16:23.648 Signed Assembly Dev_Washer, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Washer.dll
+100416:16:23.686 Signed Assembly WashManager, ProductVersion=1.4.1, Version=1.2.0.0, FileVersion=1.2.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\WashManager.dll
+100416:16:23.717 Signed Assembly Dev_GripperBarcodeYZ, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperBarcodeYZ.dll
+100416:16:23.769 Signed Assembly Dev_GripperFlexBcrYZ, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperFlexBcrYZ.dll
+100416:16:23.770 Signed Assembly Dev_HeatPos, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_HeatPos.dll
+100416:16:23.786 Signed Assembly Dev_HumidityChamber, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_HumidityChamber.dll
+100416:16:23.817 Signed Assembly Dev_IDTrax, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_IDTrax.dll
+100416:16:23.833 Signed Assembly Dev_IOPort, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_IOPort.dll
+100416:16:23.833 Signed Assembly Dev_PipPump, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_PipPump.dll
+100416:16:23.848 Signed Assembly Dev_PlateTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_PlateTrax.dll
+100416:16:23.848 Signed Assembly Dev_Reader, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Reader.dll
+100416:16:23.870 Signed Assembly Dev_ReSaTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_ReSaTrax.dll
+100416:16:23.870 Signed Assembly Dev_Scale, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Scale.dll
+100416:16:23.870 Signed Assembly Dev_Shaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Shaker.dll
+100416:16:23.886 Signed Assembly Dev_ThermoShaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_ThermoShaker.dll
+100416:16:23.902 Signed Assembly Dev_TipWasher, ProductVersion=1.4.1, Version=1.0.5.0, FileVersion=1.0.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_TipWasher.dll
+100416:16:23.902 Signed Assembly Dev_Ultrasonic, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Ultrasonic.dll
+100416:16:23.917 Signed Assembly Dev_VacuumStation, ProductVersion=1.4.1, Version=1.0.0.0, FileVersion=1.0.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_VacuumStation.dll
+100416:16:23.917 Signed Assembly Dev_WashHead, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_WashHead.dll
+100416:16:23.933 Signed Assembly UserManager, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\UserManager.dll
+040416:16:23.933 Clear Devices
+040416:16:24.102 No Object for Property DefaultWashStationName!
+040416:16:24.149 No Object for Property DefaultWashStationName!
+040416:16:24.333 No Object for Property DefaultWashStationName!
+040416:16:24.364 Clear Devices
+040416:16:24.400 No Object for Property PipettingArmName!
+400416:16:27.051 Unsigned Assembly: RDSCL, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RDSCL.dll

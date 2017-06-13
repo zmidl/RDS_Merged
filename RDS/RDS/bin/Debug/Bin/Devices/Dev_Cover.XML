@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_Cover</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.Cover.SCoverDevice">
+            <summary>
+            Cover device
+            
+            The cover device is a single device typically representing an input and/or 
+            an output port at a logical module on a sias instrument. In general the cover device 
+            supports two different modes:
+            
+            a) locking cover
+            A locking cover protects the robot access by locking the cover. That means the user 
+            is not able to open the cover as it is locked. So he can't get access.
+            
+            b) sensor protected cover
+            A sensor protected cover detects the state of the cover (open or closed) using a cover
+            sensor. If the device recognizes the opening of the cover it restricts the possible 
+            movements on the robot. Important: already started movements can't get interrupted yet.
+            
+            Of course the cover can also be used as sensor protected locking cover using a
+            cover lock together with a cover sensor. 
+            </summary>
+            <details>
+            \ingroup	Dev_Cover
+            
+            The output port is connected to a cover lock actor. This actor allows to 
+            lock the cover that it can't be opened unexpected. \n
+            The input port is connected to a cover sensor. Depending on the value of 
+            this port the robot movements can get restricted. \n
+            
+            The interface includes 
+             - the lock port number, lock value and unlock value
+             - the sensor port number with init value 
+             - a sensor request delay (to void too many requests)
+             .
+            
+            Important: The cover sensor always needs to return the lowest bit of value as 0 for 
+                       closed and 1 for open!
+            
+            <div class="dynheader">%SCoverDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SCoverDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._LockPortNumber">
+            <summary>Cover lock port number field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._LockValue">
+            <summary>Cover lock output value for locked field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._UnlockValue">
+            <summary>Cover lock port output value for unlocked field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._InitMode">
+            <summary>Cover lock init mode field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._SensorPortNumber">
+            <summary>Cover sensor port number field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._SensorInitValue">
+            <summary>Cover sensor init value field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._SensorRequestDelay">
+            <summary>Cover sensor request delay field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._CoverOpenExecutionFilter">
+            <summary>Execution filter in case of the cover is open field</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice._Value">
+            <summary>Port value field</summary>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.#ctor(System.String)">
+            <summary>
+            Constructor with XML configuration string parameter
+            </summary>
+            <param name="Config">XML Configuration string</param>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.#ctor(System.Int16,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Constructor with manual data passing
+            </summary>
+            <param name="Adr">Device Address</param>
+            <param name="lockport">Cover lock port number</param>
+            <param name="lockValue">Port value for "Cover locked"</param>
+            <param name="unlockValue">Port value for "Cover unlocked"</param>
+            <param name="sensorPortNumber">Cover sensor port number</param>
+            <param name="sensorInitValue">Cover sensor port init value</param>
+            <param name="sensorRequestDelay">Cover sensor request delay</param>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SIOPortDevice devices 
+            </summary>
+            <details>
+            Possible Module types:
+            	- 0x003C (\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_BC_READER")
+            	.
+            Handled errors: 
+            	- 0x10 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_RANGE_ERROR") at Error1
+            	.
+            </details>
+            <param name="ForceHandling">true to force the handler to handle the error</param>
+            <param name="AddInfo">additional error information</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.MessageReceivedEvent(System.Int32,Sias.CanDev.SCanMsg)">
+            <summary>
+            New message event. 
+            
+            This event handler is called each time a message is received.
+            In case of using the port as auto port it recognizes an incoming
+            port message and saves the port value. Together with the Request 
+            delay this can mostly avoid the need of polling. 
+            </summary>
+            <remarks>
+            Take care not to use too much auto ports and not try to debug this 
+            event, as the event will be called directly from the drivers 
+            background thread.
+            </remarks>
+            <param name="time">message receive time</param>
+            <param name="msg">received message</param>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.ExecutionFilterRequestEvent(System.Object,Sias.BaseDev.SDeviceExecutionFilter)">
+            <summary>
+            Execution filter request event handler
+            
+            This event is called if a device requests its execution restrictions. 
+            In case of the cover is open the execution restriction gets restricted to the
+            \ref CoverOpenRestrictionValue .
+            </summary>
+            <param name="DeviceOrExecGroup">The device requesting the execution filter</param>
+            <param name="ExecFilter">The actual known execution filter value</param>
+        </member>
+        <member name="M:Sias.Cover.SCoverDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Cover init method. 
+            </summary>
+            <param name="InitOptions">Initialization options (Init level (PreInit, Init, PostInit, UserInit) and Init Group 0..7)</param>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.Address">
+            <summary>overwritten Address configuration property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.LockPortNumber">
+            <summary>Cover lock port number property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.LockValue">
+            <summary>
+            Cover lock output value for locked property
+            
+            This value will to be send to the cover lock port to lock the cover
+            </summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.UnlockValue">
+            <summary>
+            Cover lock port output value for unlocked property
+            
+            This value will to be send to the cover lock port to unlock the cover
+            </summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.InitMode">
+            <summary>Cover lock init mode property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.SensorPortNumber">
+            <summary>Cover sensor port number property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.SensorInitValue">
+            <summary>Cover sensor init value property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.SensorRequestDelay">
+            <summary>Cover sensor request delay property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.CoverOpenExecutionFilter">
+            <summary>Execution filter in case of the cover is open property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.CoverOpenFilterValue">
+            <summary>
+            Execution filter vale in case of the cover is open property.
+            This property is mainly used for XML file storing. For usage it is 
+            recommended to use the 
+            </summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.Locked">
+            <summary>cover locked flag property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.IsOpen">
+            <summary>Cover is open flag property</summary>
+        </member>
+        <member name="P:Sias.Cover.SCoverDevice.IsClosed">
+            <summary>Cover is closed flag property</summary>
+        </member>
+        <member name="T:Sias.Cover.SCoverDevice.CoverLockInitMode">
+            <summary>
+            Cover lock init mode
+            </summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice.CoverLockInitMode.DoNotChangeLock">
+            <summary>First robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice.CoverLockInitMode.ActivateLock">
+            <summary>Second robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice.CoverLockInitMode.DeactivateLock">
+            <summary>Third robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="T:Sias.Cover.SCoverDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::IOPort::SIOPortDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.Cover.SCoverDevice.ErrorCodes.ParameterRangeError">
+            <summary>0x1310: Parameter Range error</summary>
+        </member>
+    </members>
+</doc>

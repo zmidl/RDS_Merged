@@ -1,0 +1,1073 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_WashHead</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.WashHead.SWashHeadDevice">
+            <summary>
+            Wash Head device
+            The wash head is an \ref AccessibleDevices "accessible device" representing exactly 
+            one wash head module including the needed wash station. In difference to the standard 
+            washer the wash head will need a gripper device for washing.
+            </summary>
+            <remarks></remarks>
+            <example></example>
+            <details>
+            \ingroup	Dev_WashHead
+            The interface includes 
+             - configuration properties for WashHead scaling factor and offset
+             - a layout property for the WashHead slot
+             - methods for wash volume and wash item conversions
+             - methods for starting a wash process
+             .
+            \b Important: This device only supports full featured WashHeads. This WashHeads are 
+            able to process a full wash with a single command. The WashHead type adaption is 
+            done by the modules firmware.
+            <div class="dynheader">%SWashHeadDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SWashHeadDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._Flags">
+            <summary>Robot flag variable</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._HeadOffset">
+            <summary>Wash Head pick/drop offset  field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._HeadOrientationOffset">
+            <summary>Wash head pick/drop orientation offset field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._WashOffset">
+            <summary>Head wash offset field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._WashOrientationOffset">
+            <summary>Wash orientation offset field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._DispensePump">
+            <summary>dispense (wash) pump field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._DispenseValve">
+            <summary>Dispense (wash) valve field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._AspiratePump">
+            <summary>Aspirate (suck off) pump field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._AspirateValve">
+            <summary>Aspirate (suck off) valve field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._PowerData">
+            <summary>Power data array field</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetPowerData(Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Get power data set
+            </summary>
+            <param name="PowerMode">Power mode</param>
+            <returns>The power data set of <paramref name="PowerMode"/></returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SetPowerData(Sias.WashManager.SPowerModeValue,Sias.WashHead.SWashHeadDevice.SPowerData)">
+            <summary>
+            Set power data set
+            </summary>
+            <param name="PowerMode">Power mode</param>
+            <param name="PowerData">new power data set</param>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._LiquidValves">
+            <summary>Liquid valve list field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._WashHead">
+            <summary>Wash head item layout property field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._WashHeadParkSlot">
+            <summary>Wash head park slot field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._PrimeOffset">
+            <summary>Prime position offset field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._Handling">
+            <summary>Active Handling methods field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._PrimePosition">
+            <summary>Prime position field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.Errors">
+            <summary>list of washer errors</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.AddError(System.Int64,System.Object[])">
+            <summary>
+            Add another error to washer error list
+            </summary>
+            <param name="ErrorCode">The code of the error to add</param>
+            <param name="AddInfo">Additional error information</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.ResetErrors">
+            <summary>
+            remove all errors from washer error list
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.ReportErrors(System.Object)">
+            <summary>
+            Check wash head error list and report errors
+            
+            This method checks the internal error list and reports the errors. 
+            </summary>
+            <param name="sender">the device reporting the errors</param>
+            <returns>True if the error list is empty or the error have to be ignored otherwise false</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetErrorInfos">
+            <summary>
+            Error information provider
+            
+            This method returns the default error messages for all errors which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SMotor devices 
+            </summary>
+            <details>
+            Possible Module types:
+            	- 0x0061 (\ref Sias::CanDev::eMODULE_TYPE_CONST::MT_SIAS_WASHER "MT_SIAS_WASHER")
+            	.
+            Handled errors: 
+            	- eMODULE_ERROR_CONST.ME_TIMEOUT_ERR
+            	- eMODULE_ERROR_CONST.ME_INIT_ERROR
+            	- eMODULE_ERROR_CONST.ME_INIT_ERROR2
+            	- eMODULE_ERROR_CONST.ME_NOT_ALLOWED
+            	- eMODULE_ERROR_CONST.ME_NOT_INIT
+            	- eMODULE_ERROR_CONST.ME_CMD_ERROR1 
+            	- eMODULE_ERROR_CONST.ME_WRONG_VALVE 
+            	.
+            </details>
+            <param name="ForceHandling">true to force the handler to handle the error</param>
+            <param name="AddInfo">additional error information</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.#ctor(System.String)">
+            <summary>
+            Configuration string constructor
+            </summary>
+            <param name="Config">configuration string</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.#ctor(System.Int16)">
+            <summary>
+            Data constructor
+            </summary>
+            <param name="Adr">Address of WashHead device</param>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._DoStopWashing">
+            <summary>Stop washing flag field</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.CheckPausWash">
+            <summary>
+            check for pause wash flag ans optionally wait.
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SetWashHeadPort(System.Byte,System.Int16,System.Int32)">
+            <summary>
+            Set wash head port
+            </summary>
+            <param name="Port">Wash head port number</param>
+            <param name="Value">New port value</param>
+            <param name="Time">Port pulse time (0 for infinite)</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetDispenseVolume">
+            <summary>Get atual dispense volume in [µl]</summary>
+            <returns>Actual dispense volume in [µl]</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartDispense(System.Double,Sias.WashManager.SPowerModeValue)">
+            <summary>
+            
+            </summary>
+            <param name="Volume"></param>
+            <param name="PowerMode"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.FinishDispense">
+            <summary>
+            Finish dispense 
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetAspirateTime">
+            <summary>aspirate time in [ms] property</summary>
+            <returns>actual aspirate time in [ms]</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.EnableAspirate">
+            <summary>Enable aspirate</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DisableAspirate">
+            <summary>Disable aspirate</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SetAspirate(Sias.WashManager.SPowerModeValue)">
+            <summary>
+            set Aspirate valve and pump
+            </summary>
+            <param name="PowerMode">New pump power mode</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartAspirate(System.Int16,Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Start aspirate sequence
+            </summary>
+            <param name="MaxAspTime">Maximum aspirate time (0 deactivates max time check)</param>
+            <param name="PowerMode">Starting aspiraton pump power</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.FinishAspirate(System.Int32)">
+            <summary>
+            Finish aspirate 
+            </summary>
+            <param name="MinAspTime">Minimum aspirate time</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.MakeGripperPos(Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            Create a gripper position from washposition and offset
+            </summary>
+            <param name="WashPos">Base wash position</param>
+            <param name="Pos">relative wash position offset</param>
+            <returns>Absolute gripper position (including rotation correction)</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.MoveXY(Sias.Core.SPosition,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos"></param>
+            <param name="Pos"></param>
+            <param name="Speed"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.MoveXYZ(Sias.Core.SPosition,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            Move X/Y and Z Motor paralell (only inside one wash position)
+            </summary>
+            <param name="WashPos">Wash position reference</param>
+            <param name="Pos">Position offset (Relative to wash position)</param>
+            <param name="Speed">Move speeds</param>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.LastPos">
+            <summary>temporary local variabl, only used for MoveTimeXYZ</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.MoveTimeXYZ(Sias.Core.SPosition,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos">The base wash position</param>
+            <param name="Pos">The (relative) position to move)</param>
+            <param name="Speed">Move speed</param>
+            <returns>The estimated time to move to this position (always a bit too less)</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.MoveZ(Sias.Core.SPosition,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos"></param>
+            <param name="Z"></param>
+            <param name="speed"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.MoveToWashPos(Sias.Core.SPosition)">
+            <summary>
+            Wash position anfahren (full speed with travel move)
+            </summary>
+            <param name="Pos">The wash position to move too</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoWait(System.Int16)">
+            <summary>
+            Wait for defined time
+            </summary>
+            <param name="time_ms">The time to wait in milliseconds</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoAspirateProcedure(Sias.Core.SPosition,Sias.WashManager.SWashAspirateProcedure)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos"></param>
+            <param name="AspProc"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.CalcAspirateTime(Sias.Core.SPosition,Sias.WashManager.SWashAspirateProcedure)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos"></param>
+            <param name="AspProc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoDispenseProcedure(Sias.Core.SPosition,Sias.WashManager.SWashDispenseProcedure,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos"></param>
+            <param name="DispProc"></param>
+            <param name="WashVol"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.CalcDispenseTime(Sias.Core.SPosition,Sias.WashManager.SWashDispenseProcedure,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="WashPos"></param>
+            <param name="DispProc"></param>
+            <param name="WashVol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartWashProg(System.Int32,System.Int32)">
+            <summary>
+            Start new wash program
+            
+            This will take care that all needed row cycle timrs are well prepared.
+            </summary>
+            <param name="MinCycleTime">Minnimum plate cycle time of actual wash program</param>
+            <param name="NoOfRows">No of rows (wash positions) of the wash program</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoWaitPlateCycle">
+            <summary>
+            Force row cycle management to wait on next time the row gets accessed.
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.CheckMinPlateCycleTime(System.Int32)">
+            <summary>
+            Check Min plate cycle timer and wait flag. Depending on this the method 
+            will wait until the defined minimum plate cycle time is elapsed.
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoRowProcedure(Sias.WashManager.SWashProgramData,Sias.WashManager.SWashRowProcedure,System.Int32,System.Double,System.Collections.Generic.List{Sias.Core.SPosition})">
+            <summary>
+            Execute a single row procedure
+            </summary>
+            <param name="WashProg">wash program data (for aspirate and dispense procedure)</param>
+            <param name="RowProcedure">The row proceudre to execute</param>
+            <param name="rows">The row selector bit map</param>
+            <param name="WashVol">Volume to wash</param>
+            <param name="WashPositions">Wash positions (rows)</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoEmptyProcedure(Sias.WashManager.SWashProgramData,Sias.WashManager.SWashAspirateProcedure,System.Int32,System.Collections.Generic.List{Sias.Core.SPosition})">
+            <summary>
+            
+            </summary>
+            <param name="WashProg"></param>
+            <param name="AspirateProcedure"></param>
+            <param name="rows"></param>
+            <param name="WashPositions"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DoPrimeCycle(System.Byte,System.Int32,Sias.WashManager.SPowerModeValue,System.Int16)">
+            <summary>
+            
+            </summary>
+            <param name="Liquid"></param>
+            <param name="Volume"></param>
+            <param name="PowerMode"></param>
+            <param name="Delay"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.Prime(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            
+            </summary>
+            <param name="Liquid"></param>
+            <param name="PrimeProcedure"></param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.CalcPrimePosition">
+            <summary>
+            Calculate prime position from wash head park slot, wash slot and Prime offset
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetWashHead">
+            <summary>
+            Pick wash head.
+            
+            This method picks the wash head and sets the sub tool parameters for correct movement.
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.PutWashHead">
+            <summary>
+            Drop wash head
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.WashItem(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Wash Item
+            
+            This method is used to wash an item using the wash head.
+            </summary>
+            <param name="WashProgData">The Wash program definition</param>
+            <param name="WashItem">The Item to wash</param>
+            <param name="Rows">The rows (wash positions) to wash" (</param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.WashThreadProcedure">
+            <summary>
+            Wash thread procedure
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartWash(System.Byte,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.  
+            
+            This command starts the defined wash program on the washer.
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility to the interface it will alway 
+                            result in an error!
+            </summary>
+            <param name="WashProg">The identifier of the wash program</param>
+            <param name="WashItem">The Item to wash (null for using the default plate definition)</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartWash(System.Byte,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.  
+            
+            This method starts execution of the wash program identified by <paramref name="WashProg"/>.
+            For execution the plate definition of the actual item on the washer slot is used.
+            If there is no item on washer slot the plate definition stored at the washer is used.
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility to the interface it will alway 
+                            result in an error!
+            </summary>
+            <param name="WashProg">The identifier of the wash program</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartWash(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Start WashHead command.
+            
+            This command starts the WashHead
+            </summary>
+            <param name="WashProgData">Wash program data</param>
+            <param name="WashItem">Item to wash</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartWash(Sias.WashManager.SWashProgramData,System.UInt16,System.Double)">
+            <summary>
+            Start WashHead command.
+            
+            This command starts the WashHead
+            </summary>
+            <param name="WashProgData">Wash program data</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartPrime(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            Start prime procedure
+            
+            This method starts a prime sequence for the defined liquid.
+            </summary>
+            <param name="LiquidIndex">The liquid used for priming</param>
+            <param name="PrimeProcedure">The prime procedure (cycles, volume, delay and power)</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StartPrime(System.Byte,System.Byte,System.Int16,System.Int16,Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Start prime procedure
+            
+            This method starts a prime sequence for the defined liquid.
+            </summary>
+            <param name="LiquidIndex">Index of the liquid</param>
+            <param name="Cycles">Number of prime cycles</param>
+            <param name="Volume">Prime volume (one cycle)</param>
+            <param name="Delay">Prime delay</param>
+            <param name="Power">Prime Power</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.StopWash">
+            <summary>
+            Stop washing 
+            
+            This method should interrupt washing.
+            </summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice._PauseWash">
+            <summary>Pause washing flag field</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.WaitForEndOfWashing">
+            <summary>
+            Wait until washing is finished
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.CheckWashProgram(Sias.WashManager.SWashProgramData)">
+            <summary>
+            Check wash program
+            </summary>
+            <param name="WashProgramData">The wash program data of the wash program to check</param>
+            <returns>0 if wash program if ok, the code of the first error if not</returns>
+            <remarks>
+            \b Important: This method reports errors using the error manager. 
+            To avoid may error dialogs please make sure to implement an error handling.
+            </remarks>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.DeleteWashProgram(System.Byte)">
+            <summary>
+            Delete wash program by number
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility to the interface it will alway 
+                            result in an error!
+            </summary>
+            <param name="WashProgramID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.Byte)">
+            <summary>
+            Transfer wash proecudre to washer transfer memory.
+            
+            This method send the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <param name="WashProgData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions</param>
+            <param name="WashProgramID">Wash program index to store (only flash indexes: 9..127)</param>
+            <returns>True if wash program successfully send, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem)">
+            <summary>
+            Transfer wash proecudre to washer transfer memory.
+            
+            This method send the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <param name="WashProgData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions</param>
+            <returns>True if wash program successfully send, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetWashProgramFromWasher">
+            <summary>
+            Get wash program from washer
+            
+            This method gets the actual wash program from washer (RAM section).
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <returns>The actual wash program or null if no actual wash program is stores.</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetWashProgramFromWasher(System.Byte)">
+            <summary>
+            Get wash program from washer
+            
+            This method gets the actual wash program from washer (RAM section).
+            
+            \b Improtant:   The wash head device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <param name="WashProgramID">The wash program index to load</param>
+            <returns>The requested wash program or null if no wash program is stored with this id.</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.AttachLayoutData(Sias.Core.Interfaces.ILayoutDevice)">
+            <summary>
+            Attach layout data. 
+            
+            This method tries to attach the layout data found at the given layout device 
+            to the device. If this will succeed it returns true. If it fails it returns false.
+            In this case the calling method should retry until it finds a fitting layout 
+            device.
+            </summary>
+            <param name="LayoutDevice">The layout device to attach or null to unattach an attached layout device.</param>
+            <returns>true if attachable, false if not</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.GetAccessMode(System.Object)">
+            <summary>
+            Get access mode.
+            This Method is used to request the actual access mode. 
+            </summary>
+            <param name="CallerObject">The caller object</param>
+            <returns>Access mode for the given caller object</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SetAccessMode(System.Object,Sias.Core.Interfaces.SAccessMode,System.Int32)">
+            <summary>
+            Set access mode.
+            This method prepares the washer module to allow the requested access.
+            </summary>
+            <param name="CallerObject">The object calling the method</param>
+            <param name="AccessMode">Requested access mode</param>
+            <param name="TimeOut">Allowed timeout</param>
+            <returns>The resulted access mode</returns>
+            <remarks>
+            <b>Remarks:</b>
+             - If the timeout is longer than the remaining washer time the function will 
+               not wait for the finished timeout. It will return inaccessible immediately.
+             - There is not way to stop the washer yet, so AccessMode.RequestInterruption
+               will of course not stop the washer.
+             . 
+            </remarks>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.Flags">
+            <summary>Robot flag property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.ScalingFactor">
+            <summary>
+            Get/Set the ScalingFactor of the SWasherDevice
+            
+            The scaling factor defines the time in ms needed to dispense (wash) 1 µl
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.ScalingOffset">
+            <summary>Get/Set the ScalingOffset of the SWasherDevice [ms]</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.HeadOffset">
+            <summary>
+            Wash Head pick/drop offset  property
+            
+            This property is used to define a wash head pick/drop offset. As the wash head device
+            may be used with different types of grippers it is neeed to adjust the gripper to the 
+            wash head. This offset defines the offset between the center of the gripper fingers and 
+            the center of the wash head take position.
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.HeadOrientationOffset">
+            <summary>
+            Wash head pick/drop orientation offset property
+            
+            This configuration proterty can be used to define an orientation 
+            correction for picking/dropping the wash head.
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.WashOffset">
+            <summary>
+            Head wash offset property
+            
+            This property defines the offset between the 
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.WashOrientationOffset">
+            <summary>
+            Wash orientation offset property
+            
+            This orientation offset is used to correct small orientation deviations 
+            between washable item, wash head and gripper orientation. 
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.DispensePump">
+            <summary>dispense (wash) pump property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.DispenseValve">
+            <summary>Dispense (wash) valve property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.AspiratePump">
+            <summary>Aspirate (suck off) pump property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.AspirateValve">
+            <summary>Aspirate (suck off) valve property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.NoDispensePowerData">
+            <summary>Power data block for 'NoPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.VeryLowDispensePowerData">
+            <summary>Power data block for 'VeryLowPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.LowDispensePowerData">
+            <summary>Power data block for 'LowPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.BelowMediumDispensePowerData">
+            <summary>Power data block for 'BelowMediumPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.MediumDispensePowerData">
+            <summary>Power data block for 'MediumPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.AboveMediumDispensePowerData">
+            <summary>Power data block for 'AboveMediumPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.HighDispensePowerData">
+            <summary>Power data block for 'HighPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.FullDispensePowerData">
+            <summary>Power data block for 'FullPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.LiquidValves">
+            <summary>Liquid valve list property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.WashHead">
+            <summary>Wash head item layout property property
+            
+            This layout property defines the wash head item. it will get picked with the 
+            gripper device. to wash the plate.
+            It will only be valid, if a layout is attached (\b see \ref AttachLayoutData).
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.WashHeadParkSlot">
+            <summary>Wash head park slot property
+            
+            This property defines the wash head park slot. On startup the device expected to find 
+            the wash head on the wash head park slot.
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.PrimeOffset">
+            <summary>
+            Prime position offset property
+            
+            The prime offset defines the distance between the wash head park slot on the prime position.
+            The device will calculate the direction depending on the orientation of the wash head park slot.
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.Handling">
+            <summary>
+            Active Handling methods property
+            
+            This property is used as handling methods to move the Items to the 
+            PlateTrax device. On default the first handling method block of the 
+            PlateTrax robot is used.
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.PrimePosition">
+            <summary>Prime position property
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.DoStopWashing">
+            <summary>Stop washing flag property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.ValveDispenseMode">
+            <summary>Check if valve or pump dispense mode is configured</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.ValveAspirateMode">
+            <summary>Check if valve or pump Aspirate mode is configured</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.IsWashing">
+            <summary>
+            Check if wash head is active (wash thread is running)
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.PauseWash">
+            <summary>
+            Pause washing flag 
+            
+            This property is used to pause a wash program. The washer/wash head stops moving, but 
+            the wash program did not get aborted. The program can get continued by setting the
+            PauseWash flag back to false.
+            </summary>
+            <remarks>
+            \b Important: The PausWash flag gets reset on start of a new wash program.
+            </remarks>
+        </member>
+        <member name="T:Sias.WashHead.SWashHeadDevice.SWashHeadFlags">
+            <summary>
+            Robot flag enumerator.
+            
+            This enumerator defines the actual robot flags. 
+            </summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SWashHeadFlags.UnusedFlag">
+            <summary>First robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="T:Sias.WashHead.SWashHeadDevice.SPowerData">
+            <summary>
+            Dispense power data class
+            
+            This class contains all information concerning dispense a singe 
+            dispense pump power mode. <seealso cref="T:Sias.WashManager.SPowerModeValue"/>
+            </summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SPowerData._AspiratePumpValue">
+            <summary>Aspirate (suck off) pump power value field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SPowerData._DispensePumpValue">
+            <summary>Dispense (wash) pump power value field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SPowerData._TimeFactor">
+            <summary>Dispense (wash) time factor field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SPowerData._TimeOffset">
+            <summary>Dispense (wash) time offset field</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SPowerData.Time(System.Double)">
+            <summary>
+            Calculate needed dispense time [ms] for the given volume [µl].
+            </summary>
+            <param name="Volume">The volume to calculate the needed time for.</param>
+            <returns>The timme needed to dispense the given Volume.</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SPowerData.Volume(System.Int32)">
+            <summary>
+            Calculated volume [ul] for a given dispense time
+            </summary>
+            <param name="Time">dispense pump active time</param>
+            <returns>The dispense volume</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SPowerData.#ctor(System.Int16,System.Int16,System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <b>SPowerData</b> class.
+            </summary>
+            <param name="aspiratePower">Aspirate (suck off) pump power value</param>
+            <param name="dispensePower">Dispense (wash) pump power value</param>
+            <param name="timeFactor">Dispense time / volume factor</param>
+            <param name="timeOffset">Dispense time offset</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SPowerData.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SPowerData</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SPowerData.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Sias.WashHead.SWashHeadDevice.SLiquidValve"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Sias.WashHead.SWashHeadDevice.SLiquidValve"/>.</returns>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SPowerData.AspiratePumpValue">
+            <summary>Aspirate (suck off) pump power value property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SPowerData.DispensePumpValue">
+            <summary>Dispense (wash) pump power value property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SPowerData.TimeFactor">
+            <summary>
+            Dispense (wash) time factor property
+            
+            The dispense (wash) time factor is used to calculate the needed dispense time 
+            for a given dispense (wash) volume:\n
+             - Time = \b TimeFactor * Volume + TimeOffset
+            .
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SPowerData.TimeOffset">
+            <summary>
+            Dispense (wash) time offset property
+            
+            The dispense (wash) time offset is used to calculate the needed dispense time 
+            for a given dispense (wash) volume:\n
+             - Time = TimeFactor * Volume + \b TimeOffset
+            .
+            </summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SPowerData.SPG_Summary">
+            <summary>
+            Summary property
+            
+            This special property defined and assigns string representation of the 
+            position object. This will be used with the sias property grid.
+            </summary>
+        </member>
+        <member name="T:Sias.WashHead.SWashHeadDevice.SLiquidValve">
+            <summary>
+            Liquid vlave data class
+            </summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SLiquidValve._LiquidPort">
+            <summary>Liquid port number field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SLiquidValve._CloseValue">
+            <summary>Port Value for 'closed' field</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.SLiquidValve._OpenValue">
+            <summary>Port value for 'Open' field</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.SLiquidValve.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Sias.WashHead.SWashHeadDevice.SLiquidValve"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Sias.WashHead.SWashHeadDevice.SLiquidValve"/>.</returns>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SLiquidValve.LiquidPort">
+            <summary>Liquid port number property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SLiquidValve.CloseValue">
+            <summary>Port Value for 'closed' property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SLiquidValve.OpenValue">
+            <summary>Port value for 'Open' property</summary>
+        </member>
+        <member name="P:Sias.WashHead.SWashHeadDevice.SLiquidValve.SPG_Summary">
+            <summary>
+            Summary property
+            
+            This special property defined and assigns string representation of the 
+            position object. This will be used with the sias property grid.
+            </summary>
+        </member>
+        <member name="T:Sias.WashHead.SWashHeadDevice.WashErrorInfo">
+            <summary>Wash errro information class</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.WashErrorInfo.#ctor(System.Int64,System.Object[])">
+            <summary>
+            Initializes a new instance of the <b>WashErrorInfo</b> class.
+            </summary>
+            <param name="code">error code</param>
+            <param name="info">additional information</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashHeadDevice.WashErrorInfo.GetInfoString(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="Sender"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.WashHead.SWashHeadDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::WashHead::SWashHeadDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoRobotError">
+            <summary>0x10000001: Unable to find a usable robot.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoHandlingMethods">
+            <summary>0x10000002: Unable to find a device for item handling.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidHandlingMethods">
+            <summary>0x10000004: Invalid item handling methods or invalid item handling Y/Z device.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.TimeoutError">
+            <summary>0x1350: Timeout error e.g. vacuum not reached in time</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InitError">
+            <summary>0x1301: Initialisation error</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InitError2">
+            <summary>0x1302: Initialisation error</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.DeviceAlreadyActive">
+            <summary>0x13F4: Command not allowed as moodule is already active.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.DeviceNotInit">
+            <summary>0x13F1: Command not allowed as module is not init yet.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.IncorectCommandMessageLength">
+            <summary>0x13F1: Incorrect command message length.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoWashProgram">
+            <summary>0x0B10: no valid wash program pointer</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidWashProgram">
+            <summary>0x0B11: program not valid</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidFinalAspirateIndex">
+            <summary>0x0B12: invalid empty plate aspirate index</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoWashPlate">
+            <summary>0x0B20: no valid wash plate pointer</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidWashPlate">
+            <summary>0x0B21: plate not valid</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.MissingAspirateProcedure">
+            <summary>0x0B30: no valid wash aspirate procedure pointer</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidAspirateProcedure">
+            <summary>0x0B31: invalid aspirate procedure</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidFinalAspirateProcedure">
+            <summary>0x0B32: invalid empty procedure</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoVacuumSupport">
+            <summary>0x0B33: no vacuum support for wash head</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.MissingDispenseProcedure">
+            <summary>0x0B40: no valid wash dispense procedure pointer</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidDispenseProcedure">
+            <summary>0x0B41: invalid dispense procedure</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoRowProcedure">
+            <summary>0x0B51: no row procedure dispense procedure</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidRowProcedure">
+            <summary>0x0B52: invalid row procedure</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoWashStep">
+            <summary>0x0B61: no wash step (wash step is null)</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidWashStep">
+            <summary>0x0B62: invalid wash step</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.TooManyWashPositions">
+            <summary>0x10011: Item Conversion error - Too many wash positions (rows)</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidHeightDeviation">
+            <summary>0x10012: Item Conversion warning - Invalid height deviation this washer only support one wash height per program</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.InvalidItemOrientation">
+            <summary>0x10013: Item Conversion warning - Invalid Item orientation, this washer only supports orientation of 0°, 90°, 180° and 270°</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.NoProgramNumbers">
+            <summary>0x10100: The Wash head device does not wash program calls by wash program numbers.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.WashThreadException1">
+            <summary>0x10201: The wash thread got an unexpected exception, the wash process did not finish.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.WashThreadException2">
+            <summary>0x10202: The wash thread got an unexpected exception, the wash process did not finish.</summary>
+        </member>
+        <member name="F:Sias.WashHead.SWashHeadDevice.ErrorCodes.MultiError">
+            <summary>0x20000: Multi error - reports a collection of errors</summary>
+        </member>
+        <member name="T:Sias.WashHead.SWashHeadDevice.MinPlateCyleData">
+            <summary>
+            This private class is used to store the row specific data of the min plate 
+            cycle time management. Finally we will have one for each row.
+            </summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashPositionConverter.AddWashItem(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Add another sub wash item 
+            </summary>
+            <param name="item">The wash item to add</param>
+        </member>
+        <member name="M:Sias.WashHead.SWashPositionConverter.GetWashPositions(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Convert wash Item to washers plate information data block 
+            </summary>
+            <param name="ItemToWash">The wash item to convert</param>
+            <returns></returns>
+            <remarks>
+            Important: In Cavity mode this does only support an 8 tip wash head with 9 mm distance!
+            </remarks>
+        </member>
+        <member name="T:Sias.WashHead.SWashPositionConverter.SPlateConverter">
+            <summary>Plate (Item) converter for items with orientation 0°</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashPositionConverter.SPlateConverter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashPositionConverter.SPlateConverter.GetWashPositions(Sias.Core.Interfaces.SCavityCollection,System.Boolean)">
+            <summary>
+            Get wash positions for 0° orientated washer slot
+            </summary>
+            <param name="WashCavities">The collection of cavities to get washed</param>
+            <param name="ItemTurned">false to indicate the plate orientation is identical to teh slot, true otherwise</param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.WashHead.SWashPositionConverter.SPlate090Converter">
+            <summary>Plate (Item) converter for items with orientation 90°</summary>
+        </member>
+        <member name="M:Sias.WashHead.SWashPositionConverter.SPlate090Converter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.WashHead.SWashPositionConverter.SPlate090Converter.GetWashPositions(Sias.Core.Interfaces.SCavityCollection,System.Boolean)">
+            <summary>
+            Get wash positions for 90° orientated washer slot
+            </summary>
+            <param name="WashCavities">The collection of cavities to get washed</param>
+            <param name="ItemTurned">false to indicate the plate orientation is identical to teh slot, true otherwise</param>
+            <returns>The calculated wash positions</returns>
+        </member>
+    </members>
+</doc>

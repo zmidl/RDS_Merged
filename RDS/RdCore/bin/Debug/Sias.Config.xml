@@ -1,0 +1,48 @@
+<SConfigurationManager>
+  <DevicePath>.\data\Devices</DevicePath>
+  <DeviceDriverPath>.\bin\Devices</DeviceDriverPath>
+  <DefaultRobot>Rendu.Robot.xml</DefaultRobot>
+  <LayoutPath>.\data\Layouts</LayoutPath>
+  <DefaultLayout>Rendu.Layout.xml</DefaultLayout>
+  <ActionPath>.\bin\Actions</ActionPath>
+  <ProcessDataPath>.\data\Processes</ProcessDataPath>
+  <DataPath>.\data</DataPath>
+  <DefaultTipConfig>TipAdapters.xml</DefaultTipConfig>
+  <Configuration>
+    <Count>8</Count>
+    <Inx_0>
+      <String>DefaultLiquidFile</String>
+      <String>Default.liquid.xml</String>
+    </Inx_0>
+    <Inx_1>
+      <String>UseDB</String>
+      <String>Yes</String>
+    </Inx_1>
+    <Inx_2>
+      <String>LogConnectionString</String>
+      <String>Not in use</String>
+    </Inx_2>
+    <Inx_3>
+      <String>ConnectionString</String>
+      <String>Not in use</String>
+    </Inx_3>
+    <Inx_4>
+      <String>CustomAsssemblyPath</String>
+      <StringCollection>
+        <Count>0</Count>
+      </StringCollection>
+    </Inx_4>
+    <Inx_5>
+      <String>CanLogFile</String>
+      <String>log\SCanIO_{0}.log</String>
+    </Inx_5>
+    <Inx_6>
+      <String>LayoutConnectionString</String>
+      <String>Driver={SQL Server};Server=(local)\sqlexpress;Database=layouter</String>
+    </Inx_6>
+    <Inx_7>
+      <String>DefaultOemAssembly</String>
+      <String />
+    </Inx_7>
+  </Configuration>
+</SConfigurationManager>

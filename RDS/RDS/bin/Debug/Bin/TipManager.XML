@@ -1,0 +1,865 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TipManager</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.TipManager.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Sias.TipManager.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Sias.TipManager.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Sias.TipManager.STipManagerDialog">
+            <summary>
+            This dialog class is used for editing tip adapters and tip types.
+            
+            It is working on the origin lists of the tip manager!
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManagerDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManagerDialog.title">
+            <summary>Title field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManagerDialog.isDirty">
+            <summary>Dirty flag field</summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.#ctor">
+            <summary>
+            Initializes a new instance of the <b>STipManagerDialog</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.STipManagerDialog_Load(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the STipManagerDialog's Load event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tabControl1_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tabControl1's SelectedIndexChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipAdapterList_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipAdapterList's SelectedIndexChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeList_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypeList's SelectedIndexChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.addTipTypeButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the addTipTypeButton's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.copyTipTypeButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the copyTipTypeButton's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.removeTipTypeButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the removeTipTypeButton's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.addTipAdapterButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the addTipAdapterButton's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.copyTipAdapterButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the copyTipAdapterButton's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.removeTipAdapterButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the removeTipAdapterButton's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipAdapterCompatibleTipTypeList_ItemCheck(System.Object,System.Windows.Forms.ItemCheckEventArgs)">
+            <summary>
+            This method is called when the tipAdapterCompatibleTipTypeList's ItemCheck event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.ItemCheckEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipAdapterName_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipAdapterName's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipAdapterLength_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipAdapterLength's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeName_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypeName's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeMaxVolume_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypeMaxVolume's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePickUpStart_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypePickUpStart's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePickUpBorder_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypePickUpBorder's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePickUpMax_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypePickUpMax's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeZExtension_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypeZExtension's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeAllowDetection_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypeAllowDetection's CheckedChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeRemovable_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypeRemovable's CheckedChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeWashable_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypeWashable's CheckedChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeDetectionSensitivity_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypeDetectionSensitivity's SelectedIndexChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePicture1_DoubleClick(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypePicture1's DoubleClick event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePicture2_DoubleClick(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypePicture2's DoubleClick event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePicture3_DoubleClick(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypePicture3's DoubleClick event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePicture4_DoubleClick(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypePicture4's DoubleClick event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipAdapterDefaultTip_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipAdapterDefaultTip's SelectedIndexChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipAdapterDefaultTip_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipAdapterDefaultTip's TextChanged event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.exportToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the exportToolStripMenuItem's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.importToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the importToolStripMenuItem's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypePicture5_DoubleClick(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the tipTypePicture5's DoubleClick event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeCollar_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypeCollar's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManagerDialog.tipTypeBody_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is called when the tipTypeBody's Validating event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> of the event.</param>
+        </member>
+        <member name="P:Sias.TipManager.STipManagerDialog.TipManager">
+            <summary>The actual tip manager property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipManagerDialog.Title">
+            <summary>Title property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipManagerDialog.Dirty">
+            <summary>Dirty flag property</summary>
+        </member>
+        <member name="T:Sias.TipManager.STipType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.maxVolume">
+            <summary>Maximum usable tip volume  field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.pickUpStart">
+            <summary>Start offset for picking the tip field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.pickUpBorder">
+            <summary>Offset of the tip border (for pickup) field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.pickUpMax">
+            <summary>Maximum move offset to pick field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.zExtension">
+            <summary>Extension of the adapter with this tip type field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.collar">
+            <summary>Tip Collar height field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.body">
+            <summary>Tip Body height field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.allowDetection">
+            <summary>Allow detection flag field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.detectionSensitivity">
+            <summary>Base sensitivity when using this tip type field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.washable">
+            <summary>Tip is washable flag field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipType.removable">
+            <summary>Tip is removable field</summary>
+        </member>
+        <member name="M:Sias.TipManager.STipType.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipType.#ctor(Sias.TipManager.STipType)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="oldType">Tip type used as template</param>
+        </member>
+        <member name="M:Sias.TipManager.STipType.#ctor(System.String)">
+            <summary>
+            Name constructor.
+            </summary>
+            <param name="TypeName">Name of the tip type</param>
+        </member>
+        <member name="M:Sias.TipManager.STipType.ImageToString(System.Drawing.Image)">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the given image.
+            </summary>
+            <param name="image">Image that should be converted</param>
+            <returns>A <see cref="T:System.String"/> that represents the given image.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.StringToImage(System.String)">
+            <summary>
+            Return an image created from the given string.
+            </summary>
+            <param name="s">The string representation</param>
+            <returns>An image created from the given string</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.GetImage(Sias.Core.Interfaces.STipPositionState)">
+            <summary>
+            Get the image representing the defined state
+            </summary>
+            <param name="state">Tip position state</param>
+            <returns>Image representing the tip position state</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.SetImage(Sias.Core.Interfaces.STipPositionState,System.Drawing.Image)">
+            <summary>
+            Set the image for the defined state
+            </summary>
+            <param name="state">The state to set the image</param>
+            <param name="image">The new image for this state</param>
+        </member>
+        <member name="M:Sias.TipManager.STipType.Copy">
+            <summary>
+            Create a flat copy of the tip type
+            </summary>
+            <returns>a copy of the tip type</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.ToString">
+            <summary>
+            Returns a string that represents the current STipType.
+            </summary>
+            <returns>A string that represents the current STipType.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.IsRemovable">
+            <summary>
+            Checks if tips of this type are removable
+            </summary>
+            <returns>True if it is removable, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.IsWashable">
+            <summary>
+            Checks if tips of this type are washable.
+            </summary>
+            <returns>True if it is washable, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.Sias#Core#Interfaces#ITipType#AllowDetection">
+            <summary>
+            Checks if tips of this type can be used for level detection.
+            </summary>
+            <returns>True if detection is allowed, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.Equals(System.Object)">
+            <summary>Compares an object to this STipType object</summary>
+            <param name="obj">The object to compare</param>
+            <returns>true, if the object is the same as this object</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.op_Equality(Sias.TipManager.STipType,Sias.TipManager.STipType)">
+            <summary>Compares two STipType objects for equality</summary>
+            <param name="t1">First STipType object</param>
+            <param name="t2">Second STipType object</param>
+            <returns>true if both objects contain the same values, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.op_Inequality(Sias.TipManager.STipType,Sias.TipManager.STipType)">
+            <summary>Compares two STipType objects for unequality</summary>
+            <param name="t1">First STipType object</param>
+            <param name="t2">Second STipType object</param>
+            <returns>true if both objects contain the not same values, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipType.Duplicate">
+            <summary>
+            Duplicates the current STipType object
+            </summary>
+            <returns>The duplicated STipType object</returns>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Name">
+            <summary>Tip type name property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.MaxVolume">
+            <summary>Maximum usable tip volume  property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.PickUpStart">
+            <summary>Start offset for picking the tip property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.PickUpBorder">
+            <summary>Offset of the tip border (for pickup) property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.PickUpMax">
+            <summary>Maximum move offset to pick property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.ZExtension">
+            <summary>Extension of the adapter with this tip type property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Collar">
+            <summary>Tip Collar height property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Body">
+            <summary>Tip Body height property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.AllowDetection">
+            <summary>Allow detection flag property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.DetectionSensitivity">
+            <summary>Base sensitivity when using this tip type property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Washable">
+            <summary>Tip is washable flag property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Removable">
+            <summary>Tip is removable property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Image_Empty">
+            <summary>Empty image xml representation property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Image_Pickable">
+            <summary>Pickable image xml representation property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Image_NotPickable">
+            <summary>NotPickable image xml representation property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Image_NotAccessible">
+            <summary>NotAccessible image xml representation property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipType.Image_BadTip">
+            <summary>BadTip image xml representation property</summary>
+        </member>
+        <member name="F:Sias.TipManager.SConfirmationDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.SConfirmationDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.TipManager.SConfirmationDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Sias.TipManager.STipManager">
+            <summary>
+            Tip manager class
+            
+            The TipManager is responsible for loading and storing tip adapter and tip type data
+            for the rest of the framework. It also provides an editor dialog to manipulate the 
+            tip adapter and tip type data.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this manager.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.manager">
+            <summary>
+            private member for "the one and only" tip manager
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.classLock">
+            <summary>
+            Lock object, used to synchronize calls in a multi threading environment 
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.tipData">
+            <summary>Tip data = list of tip types and list of tip adapters</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.error">
+            <summary>Error status of the manager</summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.#ctor">
+            <summary>
+            Creates a new instance of the <b>STipManager</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.GetManager">
+            <summary>
+            Instantiator/Factory method
+            
+            This static method gets the one and only tip manager. 
+            If no tip manager is available yet, a new device manager instance will get created.
+            </summary>
+            <returns>The one and only tip manager</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.GetDefaultImages(Sias.Core.Interfaces.STipPositionState)">
+            <summary>
+            Get the default image for the given tip position state
+            </summary>
+            <param name="state">The tip position state to get the image for</param>
+            <returns>The image of the tip position state</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.IsFileName(System.String)">
+            <summary>
+            Check if the given liquid name has to be loaded from file or from db
+            </summary>
+            <param name="name">layout component name</param>
+            <returns>True if name has to be loaded from file, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.LoadPath(System.String)">
+            <summary>
+            create a full load path from given file name
+            </summary>
+            <param name="FileName">The file name</param>
+            <returns>A full path to the file</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.SavePath(System.String)">
+            <summary>
+            create a full save path from given file name
+            </summary>
+            <param name="FileName">The file name</param>
+            <returns>A full path to the file</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.DoOverwrite(System.String,System.String,Sias.Core.SSaveOptions)">
+            <summary>
+            return true if and existing object is allowed to be overwritten or not.
+            </summary>
+            <param name="aKind">The type of the object (File, Liquid)</param>
+            <param name="aName">The Name of the object</param>
+            <param name="options">The save options</param>
+            <returns>True if allowed to overwritten false if not</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Load(System.String)">
+            <summary>
+            Load tip adapter and tip type information
+            </summary>
+            <param name="filename">The file or db key to load</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Load">
+            <summary>Load tip WorkAdapters from default location</summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Save(System.String,Sias.Core.SSaveOptions)">
+            <summary>
+            Save tip configuration to file or database
+            </summary>
+            <param name="filename">The name of the file to store (if no path or extension the db is used)</param>
+            <param name="options">save options</param>
+            <returns>True if saving successful, otherwise false</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Save(System.String)">
+            <summary>
+            store liquid classes at default location (with overwriting)
+            </summary>
+            <param name="filename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Save">
+            <summary>
+            store liquid classes at default location (with overwriting)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Edit(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="modal">Determines whether the editor dialog should be a modal dialog or a modeless one.</param>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.Edit">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.GetNewTipAdapter(System.String)">
+            <summary>
+            Get a new (copy of a) tip adapter 
+            </summary>
+            <param name="name">Name of the desired tip adapter</param>
+            <returns>A STipAdapter object matching the given name or 
+            null if no tip adapter with that name exists.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.GetNewTipType(System.String)">
+            <summary>
+            Get a new (copy of a) tip type 
+            </summary>
+            <param name="name">Name of the desired tip type</param>
+            <returns>A STipType object matching the given name or 
+            null if no tip type with that name exists.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.TipTypeNames">
+            <summary>
+            A list of all known tip type names
+            </summary>
+            <returns>A list of all known tip type names</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipManager.TipAdapterNames">
+            <summary>
+            A list of all known tip adapter names 
+            </summary>
+            <returns>A list of all known tip type names</returns>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.TipAdapterList">
+            <summary>
+            list of all known tip WorkAdapters
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.TipTypeList">
+            <summary>
+            list of all known tip WorkTipTypes
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.Error">
+            <summary>Error status of the manager</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.DBPrefix">
+            <summary>
+            Gets the DeviceDBPrefix of the SDeviceManager
+            </summary>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.DataAvailable">
+            <summary>
+            Returns true, if the liquid manager contains at least one liquid class.
+            </summary>
+        </member>
+        <member name="T:Sias.TipManager.STipManager.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::TipManager::STipManager errors.
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.ErrorCodes.NoError">
+            <summary>0x0000: No error occurred</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.ErrorCodes.NoTipConfiguration">
+            <summary>0x0001: No tip configuration available</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.ErrorCodes.UnableToLoadTipConfiguration">
+            <summary>0x0004: Tip configuration could not be loaded</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.ErrorCodes.UnableToSaveTipConfiguration">
+            <summary>0x0008: Tip configuration could not be saved</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.ErrorCodes.NoTipAdapters">
+            <summary>0x0010: No tip adapters found</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.ErrorCodes.NoTipTypes">
+            <summary>0x0020: No tip types found</summary>
+        </member>
+        <member name="T:Sias.TipManager.STipManager.TipData">
+            <summary>
+            This internal class keeps the tip adapter and type data which has to be 
+            stored in a tip adapter xml file.
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.TipData.tipTypes">
+            <summary>List of all known tip WorkTipTypes field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipManager.TipData.adapters">
+            <summary>List of all known tip WorkAdapters field</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.TipData.TipTypes">
+            <summary>List of all known tip WorkTipTypes property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipManager.TipData.TipAdapters">
+            <summary>List of all known tip WorkAdapters property</summary>
+        </member>
+        <member name="T:Sias.TipManager.STipAdapter">
+            <summary>
+            Tip adapter class
+            
+            This class represents the data of a tip adapter.
+            </summary>
+        </member>
+        <member name="F:Sias.TipManager.STipAdapter.adapterLength">
+            <summary>Length of the tip adapter field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipAdapter.acceptedTipTypes">
+            <summary>List of accepted tip WorkTipTypes field</summary>
+        </member>
+        <member name="F:Sias.TipManager.STipAdapter.tip">
+            <summary>(ITipAdapter) Actual tip field</summary>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.#ctor">
+            <summary>
+            Initializes a new instance of the <b>STipAdapter</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.#ctor(Sias.TipManager.STipAdapter)">
+            <summary>
+            Initializes a new instance of the <b>STipAdapter</b> class.
+            </summary>
+            <param name="oldAdapter"></param>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.AddTipType(Sias.Core.Interfaces.ITipType)">
+            <summary>
+            Add the given tip type to accepted tips
+            </summary>
+            <param name="tipType">The tip type to add</param>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.RemoveTipType(Sias.Core.Interfaces.ITipType)">
+            <summary>
+            Remove tip type from accepted tip type list
+            </summary>
+            <param name="tipType">The tip type to remove</param>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.AcceptsTipType(Sias.Core.Interfaces.ITipType)">
+            <summary>
+            Checks if the given tip type is allowed at the tip adapter
+            </summary>
+            <param name="tipType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.GetAcceptedTipTypes">
+            <summary>
+            return an array of all accepted tip WorkTipTypes
+            </summary>
+            <returns>An array of all accepted tip WorkTipTypes</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.ToString">
+            <summary>
+            Returns a string that represents the current STipAdapter.
+            </summary>
+            <returns>A string that represents the current STipAdapter.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.Duplicate">
+            <summary>
+            Duplicates the current STipAdapter object
+            </summary>
+            <returns>The duplicated STipAdapter object</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.Equals(System.Object)">
+            <summary>Compares an object to this STipAdapter object</summary>
+            <param name="obj">The object to compare</param>
+            <returns>true, if the object is the same as this object</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.op_Equality(Sias.TipManager.STipAdapter,Sias.TipManager.STipAdapter)">
+            <summary>Compares two STipAdapter objects for equality</summary>
+            <param name="t1">First STipAdapter object</param>
+            <param name="t2">Second STipAdapter object</param>
+            <returns>true if both objects contain the same values, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapter.op_Inequality(Sias.TipManager.STipAdapter,Sias.TipManager.STipAdapter)">
+            <summary>Compares two STipAdapter objects for unequality</summary>
+            <param name="t1">First STipAdapter object</param>
+            <param name="t2">Second STipAdapter object</param>
+            <returns>true if both objects contain the not same values, false otherwise.</returns>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.Name">
+            <summary>Tip adapter name property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.Length">
+            <summary>Length of the tip adapter including tip</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.AdapterLength">
+            <summary>Length of the tip adapter property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.DefaultTip">
+            <summary>Default tip type name property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.AcceptedTipTypeNames">
+            <summary>Accepted tip type names property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.AcceptedTipTypes">
+            <summary>List of accepted tip WorkTipTypes property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.Tip">
+            <summary>(ITipAdapter) Actual tip property</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapter.TipManager">
+            <summary>The actual tip manager property</summary>
+        </member>
+        <member name="T:Sias.TipManager.STipAdapterCollection">
+            <summary>
+            Tip adapter collection
+            
+            The tip adapter collection represents a list of tip WorkAdapters
+            </summary>
+        </member>
+        <member name="M:Sias.TipManager.STipAdapterCollection.#ctor">
+            <summary>Default constructor</summary>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapterCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the STipAdapter at the specified index in the collection. 
+            </summary>
+            <param name="index">Index of the STipAdapter</param>
+            <returns>A STipAdapter at each valid index.</returns>
+        </member>
+        <member name="P:Sias.TipManager.STipAdapterCollection.Item(System.String)">
+            <summary>
+            Gets the STipAdapter at the specified index in the collection. 
+            </summary>
+            <param name="name">Name of the STipAdapter</param>
+            <returns>A STipAdapter with the given name.</returns>
+        </member>
+    </members>
+</doc>

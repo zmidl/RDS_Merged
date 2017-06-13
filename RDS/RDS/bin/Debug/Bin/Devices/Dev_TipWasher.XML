@@ -1,0 +1,2399 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_TipWasher</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.TipWasher.SWashPositionConverter">
+            <summary>
+            Wash position converter
+            
+            This internal class is used to convert cavity position to wash position.
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.SWashPositionConverter.AddWashItem(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Add another sub wash item 
+            </summary>
+            <param name="item">The wash item to add</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashPositionConverter.GetWashRowCavities(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Convert wash Item to washers plate information data block 
+            </summary>
+            <param name="ItemToWash">The wash item to convert</param>
+            <returns></returns>
+            <remarks>
+            Important: In Cavity mode this does only support an 8 tip wash head with 9 mm distance!
+            </remarks>
+        </member>
+        <member name="T:Sias.TipWasher.SWashPositionConverter.SPlateConverter">
+            <summary>Plate (Item) converter for items with orientation 0°</summary>
+        </member>
+        <member name="M:Sias.TipWasher.SWashPositionConverter.SPlateConverter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.TipWasher.SWashPositionConverter.SPlateConverter.GetWashRowCavities(Sias.Core.Interfaces.SCavityCollection,System.Boolean)">
+            <summary>
+            Get wash positions for 0° orientated washer slot
+            </summary>
+            <param name="WashCavities">The collection of cavities to get washed</param>
+            <param name="ItemTurned">false to indicate the plate orientation is identical to teh slot, true otherwise</param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.TipWasher.SWashPositionConverter.SPlate090Converter">
+            <summary>Plate (Item) converter for items with orientation 90°</summary>
+        </member>
+        <member name="M:Sias.TipWasher.SWashPositionConverter.SPlate090Converter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.TipWasher.SWashPositionConverter.SPlate090Converter.GetWashRowCavities(Sias.Core.Interfaces.SCavityCollection,System.Boolean)">
+            <summary>
+            Get wash positions for 90° orientated washer slot
+            </summary>
+            <param name="WashCavities">The collection of cavities to get washed</param>
+            <param name="ItemTurned">false to indicate the plate orientation is identical to teh slot, true otherwise</param>
+            <returns>The calculated wash positions</returns>
+        </member>
+        <member name="T:Sias.TipWasher.SWashDispenseTemplate">
+            <summary>
+            This class implements the \ref PipettingTemplates "pipetting template" for the default Aspirate.
+            
+            It is used to implement the \nlink{Sias::PipArm,SPipettingMethods.Aspirate} method. 
+            </summary>
+            <details>
+            \ingroup	Dev_TipWasher
+            
+            \b Usage: \code
+              PipettingMethods.ExecuteTemplate(UsedTips, Cavities, 
+                                new SWashDispenseTemplate(tipWasher, aspirateProcedure));
+            \endcode
+            </details>
+        </member>
+        <member name="M:Sias.TipWasher.SWashDispenseTemplate.#ctor(Sias.TipWasher.STipWasherDevice,Sias.WashManager.SWashDispenseProcedure,System.Double)">
+            <summary>
+            Initializes a new instance of the <b>SAspirateTemplate</b> class.
+            </summary>
+            <param name="tipWasher">The pending tip washer device</param>
+            <param name="dispenseProcedure">wash dispense procedure parameters</param>
+            <param name="volume">dispense volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashDispenseTemplate.MoveToPipettingXY(Sias.PipArm.STipMap,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move to pipetting X/Y position for moving above the cavities.
+            
+            This method is called to move to the pipetting position (X and Y). This method is only needed 
+            to override if you have special needs for the x/y position of the cavity.
+            Conditions:
+             - The cavities are requested for pipetting access
+             - The pipetting arm has to move above the defined cavities
+             .
+            </summary>
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="XMin">Minimum of allowed X range</param>
+            <param name="XMax">Maximum of allowed X Range</param>
+            <param name="YMin">Minimums of the allowed Y Ranges</param>
+            <param name="YMax">Maximums of the allowed Y Ranges</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashDispenseTemplate.Pipetting(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection)">
+            \copybrief   Sias::PipArm::SBasePipettingTemplate::Pipetting
+            
+            This method is called when the tips are above the defined cavities.\n
+            In case of Aspirate it will 
+             - optionally take first air gap (\ref Air1) (if position is not default position)
+             - Move to the aspiration position (\ref DetPar)
+             - optionally execute mixing (\ref MixPar)
+             - pick the defined volume (\ref Volume)
+             - Retract out of the liquid
+             - optionally dispense spit back volume (\ref Spit)
+             - optionally pick second air gap (\ref Air2)
+             . 
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities (one for each available tip)</param>
+        </member>
+        <member name="T:Sias.TipWasher.SWashTemplate">
+            <summary>
+            This class implements the \ref PipettingTemplates "pipetting template" for the default Aspirate.
+            
+            It is used to implement the \nlink{Sias::PipArm,SPipettingMethods.Aspirate} method. 
+            </summary>
+            <details>
+            \ingroup	Dev_TipWasher
+            
+            \b Usage: \code
+              PipettingMethods.ExecuteTemplate(UsedTips, Cavities, 
+                                new SWashTemplate(tipWasher, aspirateProcedure));
+            \endcode
+            </details>
+        </member>
+        <member name="M:Sias.TipWasher.SWashTemplate.#ctor(Sias.TipWasher.STipWasherDevice,Sias.WashManager.SWashAspirateProcedure,Sias.WashManager.SWashDispenseProcedure,System.Double)">
+            <summary>
+            Initializes a new instance of the <b>SAspirateTemplate</b> class.
+            </summary>
+            <param name="tipWasher">The pending tip washer device</param>
+            <param name="aspirateProcedure">wash aspirate procedure parameters</param>
+            <param name="dispenseProcedure">wash dispnse procedure parameters</param>
+            <param name="volume">Dispense volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashTemplate.MoveToPipettingXY(Sias.PipArm.STipMap,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move to pipetting X/Y position for moving above the cavities.
+            
+            This method is called to move to the pipetting position (X and Y). This method is only needed 
+            to override if you have special needs for the x/y position of the cavity.
+            Conditions:
+             - The cavities are requested for pipetting access
+             - The pipetting arm has to move above the defined cavities
+             .
+            </summary>
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="XMin">Minimum of allowed X range</param>
+            <param name="XMax">Maximum of allowed X Range</param>
+            <param name="YMin">Minimums of the allowed Y Ranges</param>
+            <param name="YMax">Maximums of the allowed Y Ranges</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashTemplate.Pipetting(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection)">
+            \copybrief   Sias::PipArm::SBasePipettingTemplate::Pipetting
+            
+            This method is called when the tips are above the defined cavities.\n
+            In case of Aspirate it will 
+             - optionally take first air gap (\ref Air1) (if position is not default position)
+             - Move to the aspiration position (\ref DetPar)
+             - optionally execute mixing (\ref MixPar)
+             - pick the defined volume (\ref Volume)
+             - Retract out of the liquid
+             - optionally dispense spit back volume (\ref Spit)
+             - optionally pick second air gap (\ref Air2)
+             . 
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities (one for each available tip)</param>
+        </member>
+        <member name="T:Sias.TipWasher.STipWashPosition">
+            <summary>
+            Tip wash position class
+            
+            This internal class is used to manage a tip wash position.
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWashPosition.#ctor(Sias.RobotDev.SArmDevice,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Initializes a new instance of the <b>STipWashPosition</b> class.
+            </summary>
+            <param name="arm">The used arm</param>
+            <param name="XMin">Minimum of allowed X range</param>
+            <param name="XMax">Maximum of allowed X Range</param>
+            <param name="YMin">Minimums of the allowed Y Ranges</param>
+            <param name="YMax">Maximums of the allowed Y Ranges</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWashPosition.CalcPosition(Sias.PipArm.STipMap,Sias.Core.SPosition)">
+            <summary>
+            calculate X/Y positions
+            </summary>
+            <param name="Tips"></param>
+            <param name="Offset"></param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWashPosition.StartMove(Sias.PipArm.STipMap,Sias.Core.SPosition,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Move to start position (take care about travel height
+            </summary>
+            <param name="Tips"></param>
+            <param name="Offset"></param>
+            <param name="Cavities"></param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWashPosition.PrepStepMove(Sias.PipArm.STipMap,Sias.Core.SPosition,Sias.Core.SPosition,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Prepare step move (inside cavity) 
+            
+            This does not take core about travel heights!
+            </summary>
+            <param name="Tips"></param>
+            <param name="Offset"></param>
+            <param name="Speed"></param>
+            <param name="Cavities"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWashPosition.MoveTime(Sias.RobotDev.SArmDevice,Sias.PipArm.STipMap,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            Calculate expected move time
+            </summary>
+            <param name="Arm"></param>
+            <param name="Tips"></param>
+            <param name="Distance"></param>
+            <param name="Speed"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.TipWasher.SWashAspirateTemplate">
+            <summary>
+            This class implements the \ref PipettingTemplates "pipetting template" for the default Aspirate.
+            
+            It is used to implement the \nlink{Sias::PipArm,SPipettingMethods.Aspirate} method. 
+            </summary>
+            <details>
+            \ingroup	Dev_TipWasher
+            
+            \b Usage: \code
+              PipettingMethods.ExecuteTemplate(UsedTips, Cavities, 
+                                new SWashAspirateTemplate(tipWasher, aspirateProcedure));
+            \endcode
+            </details>
+        </member>
+        <member name="M:Sias.TipWasher.SWashAspirateTemplate.#ctor(Sias.TipWasher.STipWasherDevice,Sias.WashManager.SWashAspirateProcedure)">
+            <summary>
+            Initializes a new instance of the <b>SAspirateTemplate</b> class.
+            </summary>
+            <param name="tipWasher">The pending tip washer device</param>
+            <param name="aspirateProcedure">wash aspirate procedure parameters</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashAspirateTemplate.MoveToPipettingXY(Sias.PipArm.STipMap,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move to pipetting X/Y position for moving above the cavities.
+            
+            This method is called to move to the pipetting position (X and Y). This method is only needed 
+            to override if you have special needs for the x/y position of the cavity.
+            Conditions:
+             - The cavities are requested for pipetting access
+             - The pipetting arm has to move above the defined cavities
+             .
+            </summary>
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="XMin">Minimum of allowed X range</param>
+            <param name="XMax">Maximum of allowed X Range</param>
+            <param name="YMin">Minimums of the allowed Y Ranges</param>
+            <param name="YMax">Maximums of the allowed Y Ranges</param>
+        </member>
+        <member name="M:Sias.TipWasher.SWashAspirateTemplate.Pipetting(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection)">
+            \copybrief   Sias::PipArm::SBasePipettingTemplate::Pipetting
+            
+            This method is called when the tips are above the defined cavities.\n
+            In case of Aspirate it will 
+             - optionally take first air gap (\ref Air1) (if position is not default position)
+             - Move to the aspiration position (\ref DetPar)
+             - optionally execute mixing (\ref MixPar)
+             - pick the defined volume (\ref Volume)
+             - Retract out of the liquid
+             - optionally dispense spit back volume (\ref Spit)
+             - optionally pick second air gap (\ref Air2)
+             . 
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities (one for each available tip)</param>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice">
+            <summary>
+            Tip washer device
+            The tip washer is an \ref AccessibleDevices "accessible device" representing exactly 
+            one tip washer module including the default wash slot. In difference to the standard 
+            washer the tip washer will need a specially prepared pipetting Y/Z device for washing.
+            </summary>
+            <remarks>
+             - LiquidIndex is ignored on tip washer device.
+             - Special tip washing not implemented yet.
+             .
+            </remarks>
+            <example></example>
+            <details>
+            \ingroup	Dev_TipWasher
+            The interface includes 
+             - configuration properties for TipWasher scaling factor and offset
+             - a layout property for the TipWasher slot
+             - methods for wash volume and wash item conversions
+             - methods for starting a wash process
+             .
+            <div class="dynheader">%STipWasherDevice class diagram</div>
+            	<div class="dynsection">
+            \image html "STipWasherDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._Flags">
+            <summary>Robot flag variable</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._PipettingArmName">
+            <summary>Pipetting arm name field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._Tips">
+            <summary>Tips with tip washer channel field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._PipettingOffset">
+            <summary>Offset for pipetting field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._AdditionalWashPart">
+            <summary>Part of wash volume in % used for special wash field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._PostWashVolume">
+            <summary>The volume used for the post tip wash field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._AspirateBox">
+            <summary>Aspirate (suck off) pump and valve box field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._AspiratePump">
+            <summary>Aspirate (suck off) pump field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._AspirateValve">
+            <summary>Aspirate (suck off) valve field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._PowerData">
+            <summary>Power data array field</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetPowerData(Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Get power data set
+            </summary>
+            <param name="PowerMode">Power mode</param>
+            <returns>The power data set of <paramref name="PowerMode"/></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SetPowerData(Sias.WashManager.SPowerModeValue,Sias.TipWasher.STipWasherDevice.SPowerData)">
+            <summary>
+            Set power data set
+            </summary>
+            <param name="PowerMode">Power mode</param>
+            <param name="PowerData">new power data set</param>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._LiquidValves">
+            <summary>Liquid valve list field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._OptimizeMode">
+            <summary>Row Cavity order optimize mode field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._Pipetting">
+            <summary>Active Handling methods field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._PrimePosition">
+            <summary>Prime position field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.Errors">
+            <summary>list of washer errors</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.AddError(System.Int64,System.Object[])">
+            <summary>
+            Add another error to washer error list
+            </summary>
+            <param name="ErrorCode">The code of the error to add</param>
+            <param name="AddInfo">Additional error information</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.ResetErrors">
+            <summary>
+            remove all errors from washer error list
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.ReportErrors(System.Object)">
+            <summary>
+            Check dynamic washer error list and report errors
+            
+            This method checks the internal error list and reports the errors. 
+            </summary>
+            <param name="sender">the device reporting the errors</param>
+            <returns>True if the error list is empty or the error have to be ignored otherwise false</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetErrorInfos">
+            <summary>
+            Error information provider
+            
+            This method returns the default error messages for all errors which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SMotor devices 
+            </summary>
+            <details>
+            Possible Module types:
+            	- 0x0061 (\ref Sias::CanDev::eMODULE_TYPE_CONST::MT_SIAS_WASHER "MT_SIAS_WASHER")
+            	.
+            Handled errors: 
+            	- eMODULE_ERROR_CONST.ME_TIMEOUT_ERR
+            	- eMODULE_ERROR_CONST.ME_INIT_ERROR
+            	- eMODULE_ERROR_CONST.ME_INIT_ERROR2
+            	- eMODULE_ERROR_CONST.ME_NOT_ALLOWED
+            	- eMODULE_ERROR_CONST.ME_NOT_INIT
+            	- eMODULE_ERROR_CONST.ME_CMD_ERROR1 
+            	- eMODULE_ERROR_CONST.ME_WRONG_VALVE 
+            	.
+            </details>
+            <param name="ForceHandling">true to force the handler to handle the error</param>
+            <param name="AddInfo">additional error information</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.TW_Dict">
+            <summary>
+            This dictionary is used to store all tip washers with the 
+            concerned pipetting methods. It will get updated with 
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.ExtendMethods(Sias.PipArm.SPipettingMethods)">
+            <summary>
+            Extend Pipetting methods with tipwasher extensions
+            </summary>
+            <param name="orgMethods">The pipetting method instance to extend</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.ReleaseMethods(Sias.PipArm.SPipettingMethods)">
+            <summary>
+            Release Tipwasher extension for given pipetting methods
+            </summary>
+            <param name="orgMethods">Pipetting methods to release extension</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetTipWasher(Sias.PipArm.SPipettingMethods)">
+            <summary>
+            
+            </summary>
+            <param name="BaseObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.MoveXY(Sias.PipArm.SPipettingMethods,System.Double,System.Double[])">
+            <summary>
+            Move X/Y replacement method taking tip washers pipetting offset
+            </summary>
+            <param name="BaseObj">the base object for the replacement method</param>
+            <param name="XPos">X position to move to</param>
+            <param name="YPos">Y positions for the Y/Z devices</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.MoveXYRange(Sias.PipArm.SPipettingMethods,Sias.PipArm.STipMap,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move X/Y range replacement method taking tipwasher offsets in account
+            </summary>
+            <param name="BaseObj">the base object for the replacement method</param>
+            <param name="UsedTips">The \ref Used_Tips "tips" to optimize</param>
+            <param name="XMin">Minimum of X range</param>
+            <param name="XMax">Maximum of X Range</param>
+            <param name="YMin">Minimums of the Y Ranges</param>
+            <param name="YMax">Maximums of the Y Ranges</param>
+            ToDo: Find optimal Y positions in MoveXYRange
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WashTips(Sias.PipArm.SPipettingMethods,Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Wash tips at the given cavities.
+            </summary>
+            <param name="BaseObj">the base object for the replacement method</param>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WashCavities">Wash cavities</param>
+            <param name="WashPar">Wash parameters (Volume, speeds, ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.OnLayoutAttached(Sias.BaseDev.SBaseRobotDevice,Sias.Core.Interfaces.ILayout)">
+            <summary>
+            Layout attached event method.
+            
+            This method is called in case a layout gets attached to a robot.
+            The tipwasher device subscribes this method to make sure the concerned 
+            pipetting arm methods will be decorated to make sure the special tip 
+            washing gets activated to avoid carry over.
+            </summary>
+            <param name="Robot">The concerned robot</param>
+            <param name="Layout">The attached layout</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.#ctor(System.String)">
+            <summary>
+            Configuration string constructor
+            </summary>
+            <param name="Config">configuration string</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.#ctor(System.Int16)">
+            <summary>
+            Data constructor
+            </summary>
+            <param name="Adr">Address of TipWasher device</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.Finalize">
+            <summary>
+            Cleanup TipWasher Device 
+            
+            This is needed to make sure the 
+            Make sure the event is released Releases unmanaged resources and performs other cleanup operations before 
+            the <b>STipWasherDevice</b> is reclaimed by garbage collection.
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._DoStopWashing">
+            <summary>Stop washing flag field</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.CheckPausWash">
+            <summary>
+            check for pause wash flag ans optionally wait.
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SetTipWasherPort(System.Byte,System.Int16,System.Int32)">
+            <summary>
+            Set tip washer port
+            </summary>
+            <param name="Port">Tip washer port number</param>
+            <param name="Value">New port value</param>
+            <param name="Time">Port pulse time (0 for infinite)</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SetAspBoxPort(System.Byte,System.Int16,System.Int32)">
+            <summary>
+            Set aspiration box port
+            </summary>
+            <param name="Port">Tip washer port number</param>
+            <param name="Value">New port value</param>
+            <param name="Time">Port pulse time (0 for infinite)</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetAspirateTime">
+            <summary>aspirate time in [ms] property</summary>
+            <returns>actual aspirate time in [ms]</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.EnableAspirate">
+            <summary>Enable aspirate</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DisableAspirate">
+            <summary>Disable aspirate</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SetAspirate(Sias.WashManager.SPowerModeValue)">
+            <summary>
+            set Aspirate valve and pump
+            </summary>
+            <param name="PowerMode">New pump power mode</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartAspirate(System.Int16,Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Start aspirate sequence
+            </summary>
+            <param name="MaxAspTime">Maximum aspirate time (0 deactivates max time check)</param>
+            <param name="PowerMode">Starting aspiraton pump power</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.FinishAspirate(System.Int32)">
+            <summary>
+            Finish aspirate 
+            </summary>
+            <param name="MinAspTime">Minimum aspirate time</param>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.LastPos">
+            <summary>temporary local variable, only used for MoveTimeXYZ</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.MoveTimeXYZ(Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            
+            </summary>
+            <param name="Pos">The (relative) position to move)</param>
+            <param name="Speed">Move speed</param>
+            <returns>The estimated time to move to this position (always a bit too less)</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoWait(System.Int16)">
+            <summary>
+            Wait for defined time
+            </summary>
+            <param name="time_ms">The time to wait in milliseconds</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.CalcAspirateTime(Sias.WashManager.SWashAspirateProcedure)">
+            <summary>
+            
+            </summary>
+            <param name="AspProc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.CalcDispenseTime(Sias.WashManager.SWashDispenseProcedure,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="DispProc"></param>
+            <param name="WashVol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetPipYZDevice(System.Int32,Sias.PipArm.STipMap)">
+            <summary>
+            Helper function for easier Y/Z device access
+            </summary>
+            <param name="Tip">The index of the Y/Z device to check/get</param>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <returns>a valid pipetting Y/Z device or null if tip not used/usable for pipetting</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartWashProg(System.Int32,System.Int32)">
+            <summary>
+            Start new wash program
+            
+            This will take care that all needed row cycle timrs are well prepared.
+            </summary>
+            <param name="MinCycleTime">Minnimum plate cycle time of actual wash program</param>
+            <param name="NoOfRows">No of rows (wash positions) of the wash program</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoWaitPlateCycle">
+            <summary>
+            Force row cycle management to wait on next time the row gets accessed.
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.CheckMinPlateCycleTime(System.Int32)">
+            <summary>
+            Check Min plate cycle timer and wait flag. Depending on this the method 
+            will wait until the defined minimum plate cycle time is elapsed.
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetCavities(Sias.Core.Interfaces.SCavityCollection,System.Int32@,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Get Next cavity index (unsorted, not optimized)
+            </summary>
+            <param name="RowCavities">A list od all cavities of the row</param>
+            <param name="CavInx">The index of the next cavity in row cavity list</param>
+            <param name="Cav">The cavity collection for washing</param>
+            <returns>The next cavity index</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoWashSteps(Sias.WashManager.SWashProgramData,Sias.WashManager.SWashRowProcedure,System.Double,System.Int32,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.STipMap)">
+            <summary>
+            Execute a single wash steps 
+            </summary>
+            <param name="WashProg">Wash program</param>
+            <param name="RowProcedure">Row procedure definition</param>
+            <param name="WashVol">Wash Volume</param>
+            <param name="MaxProc">Max number of aspirate/dispense procedures to execute</param>
+            <param name="Cav">List of cavities (including cavities for unused tips!)</param>
+            <param name="UsedTips">The tips used for washing</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SimulateWashSteps(Sias.WashManager.SWashProgramData,Sias.WashManager.SWashRowProcedure,System.Double,System.Int32)">
+            <summary>
+            Simulate a singe wash stap
+            </summary>
+            <param name="WashProg">Wash program</param>
+            <param name="RowProcedure">Row procedure definition</param>
+            <param name="WashVol">Wash Volume</param>
+            <param name="MaxProc">Max number of aspirate/dispense procedures to execute</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoWashRow(System.Int32,System.Boolean,Sias.WashManager.SWashProgramData,Sias.WashManager.SWashRowProcedure,System.Double,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Execute a row wash procedure on a single row
+            </summary>
+            <param name="row">The row to wash</param>
+            <param name="simulate">true only simulates washing (wait), false realy exectes a wash</param>
+            <param name="WashProg">The wash program data</param>
+            <param name="RowProcedure">The row procedure data</param>
+            <param name="WashVol">The wash volume</param>
+            <param name="RowCavities">A list of cavities for this row</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoRowProcedure(Sias.WashManager.SWashProgramData,Sias.WashManager.SWashRowProcedure,System.Int32,System.Double,System.Collections.Generic.List{Sias.Core.Interfaces.SCavityCollection})">
+            <summary>
+            Execute a single row procedure
+            </summary>
+            <param name="WashProg">wash program data (for aspirate and dispense procedure)</param>
+            <param name="RowProcedure">The row proceudre to execute</param>
+            <param name="rows">The row selector bit map</param>
+            <param name="WashVol">Volume to wash</param>
+            <param name="WashRowCavities">The cavities collections of the rows</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoEmptyRow(System.Int32,System.Boolean,Sias.WashManager.SWashProgramData,Sias.WashManager.SWashAspirateProcedure,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Empty a single row
+            </summary>
+            <param name="row">The row to empty</param>
+            <param name="simulate">simulate only</param>
+            <param name="WashProg">The used wash program</param>
+            <param name="AspirateProcedure">The used aspiration proceudre</param>
+            <param name="RowCavities">The used row cavities</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoEmptyProcedure(Sias.WashManager.SWashProgramData,Sias.WashManager.SWashAspirateProcedure,System.Int32,System.Collections.Generic.List{Sias.Core.Interfaces.SCavityCollection})">
+            <summary>
+            Empty row procedure 
+            
+            This procedure is called on end of washer to empty the rows.
+            </summary>
+            <param name="WashProg">wash program data</param>
+            <param name="AspirateProcedure">The used aspiration procedure</param>
+            <param name="rows">The rows to empty</param>
+            <param name="WashRowCavities">The wash cavities</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DoPrimeCycle(System.Byte,System.Int32,Sias.WashManager.SPowerModeValue,System.Int16)">
+            <summary>
+            Execute prime cycle
+            
+            Priming is done like washing, but is only using the tip washer tips. The given volume 
+            is separated to be partly sucked off according the AdditioanlWashPart parameter.
+            </summary>
+            <param name="Liquid">The index of the wash liquid (actually unused)</param>
+            <param name="Volume">The Prime volume</param>
+            <param name="PowerMode">The Prime power mode (speed on tip washer)</param>
+            <param name="Delay">The Prime delay</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.Prime(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            
+            </summary>
+            <param name="Liquid"></param>
+            <param name="PrimeProcedure"></param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.PrepareRowCavities(System.Collections.Generic.List{Sias.TipWasher.STipWasherDevice.TipData},Sias.Core.Interfaces.SCavityCollection,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Prepare row cavities without optimization
+            This method prepares the sequence of the cavities in a row without optimisation.
+            Even if it does not optimize the sequecne it will take care about the accessibility
+            of the cavities. In case a cavity is not accessible by any tipwasher channel an error 
+            is reported.
+            </summary>
+            <param name="WashTips">Information about </param>
+            <param name="RowCavities">Origin row cavity list</param>
+            <param name="NotWashableCavities">list of not washable cavities</param>
+            <returns>The prepared row cavity list</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SimpleOptimizeRowCavities(System.Collections.Generic.List{Sias.TipWasher.STipWasherDevice.TipData},Sias.Core.Interfaces.SCavityCollection,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Simple optimize row cavities
+            This method does a simple optimize on the give row cavities with following side conditions
+             - The row sequence will remain as originally.
+             - If Cavities are on same x position the higher tip will gets the cavity with a Y value.
+             - Cavity accessibility will be taken in account.
+            </summary>
+            <param name="WashTips">Information about </param>
+            <param name="RowCavities">Origin row cavity list</param>
+            <param name="NotWashableCavities">list of not washable cavities</param>
+            <returns>An optimized row cavity list</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.FullOptimizeRowCavities(System.Collections.Generic.List{Sias.TipWasher.STipWasherDevice.TipData},Sias.Core.Interfaces.SCavityCollection,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Simple optimize row cavities
+            This method does a simple optimize on the give row cavities with following side conditions
+             - The row sequence will remain as originally.
+             - If Cavities are on same x position the higher tip will gets the cavity with a Y value.
+             - Cavity accessibility will be taken in account.
+            </summary>
+            <param name="WashTips">Information about </param>
+            <param name="RowCavities">Origin row cavity list</param>
+            <param name="NotWashableCavities">list of not washable cavities</param>
+            <returns>An optimized row cavity list</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.CopyCavityCollection(Sias.Core.Interfaces.SCavityCollection,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Create a new cavity collection containing exactly teh same 
+            cavities as the origin collection.
+            </summary>
+            <remarks>
+            Caused by a bug in SObject collection class of Nelson SDK 1.3.1 
+            it is not possible to use AddRange with colelctions containing 
+            null elements.
+            </remarks>
+            <param name="org">origin cavity collection</param>
+            <param name="dest">destination cavity collection</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.NewCavityCollection(Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Create a new cavity collection containing exactly teh same 
+            cavities as the origin collection.
+            </summary>
+            <param name="org"></param>
+            <returns>a new colelction with all elements of the origin colleciton</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.OptimizeWashCavities(System.Collections.Generic.List{Sias.Core.Interfaces.SCavityCollection})">
+            <summary>
+            Optimize the cavities of all rows in wash cavities list
+            </summary>
+            <param name="WashRowCavities">The origin wash cavity list to optimize</param>
+            <returns>The optimized wash cavity list (including nulls for unused tips!)</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WashItem(Sias.WashManager.SWashProgramData,System.Collections.Generic.List{Sias.Core.Interfaces.SCavityCollection},System.UInt16,System.Double)">
+            <summary>
+            Wash selected cavity lists
+            
+            This method is used to wash the selected cality lists. Each cavity list 
+            represents a row.
+            </summary>
+            <param name="WashProgData">The Wash program definition</param>
+            <param name="WashRowCavities">A list of cavity collections with the cavities to wash</param>
+            <param name="Rows">The rows (wash positions) to wash" (</param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WashItem(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Wash Item
+            
+            This method is used to wash an item using the tip washer.
+            </summary>
+            <param name="WashProgData">The Wash program definition</param>
+            <param name="washItem">The Item to wash</param>
+            <param name="Rows">The rows (wash positions) to wash" (</param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.FlushAspirateChannel(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Flush aspirate channel
+            
+            Flush pipetting pump while suck off pump and valve is activated. 
+            This is used to flush the aspirate channel of tips with tip washer 
+            channel. 
+            </summary>
+            <details>
+            The wash volume is defined by \code
+                (FlushPar.PipPar[tip].Volume * AdditionalWashPart) / 100
+            \endcode
+            </details>
+            <param name="tips">The tips used for tip flush</param>
+            <param name="FlushPar">Origin flush parameters</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WashThreadProcedure">
+            <summary>
+            Wash thread procedure
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartWash(System.Byte,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.  
+            
+            This command starts the defined wash program on the washer.
+            
+            \b Important:   The tip washer device does not support using wash programs by number!
+                            This method is only for compatibility to the interface it will alway 
+                            result in an error!
+            </summary>
+            <param name="WashProg">The identifier of the wash program</param>
+            <param name="WashItem">The Item to wash (null for using the default plate definition)</param>
+            <param name="Rows">Rows to wash (each bit represents a row)\n
+            Attention: Some Washers may not support individual row washing. In this case the
+            DynamicWasher may wash unselected rows also.
+            </param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartWash(System.Byte,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.  
+            
+            This method starts execution of the wash program identified by <paramref name="WashProg"/>.
+            For execution the plate definition of the actual item on the washer slot is used.
+            If there is no item on washer slot the plate definition stored at the washer is used.
+            
+            \b Important:   The tip washer device does not support using wash programs by number!
+                            This method is only for compatibility to the interface it will alway 
+                            result in an error!
+            </summary>
+            <param name="WashProg">The identifier of the wash program</param>
+            <param name="Rows">Rows to wash (each bit represents a row)\n
+            Attention: Some Washers may not support individual row washing. In this case the
+            DynamicWasher may wash unselected rows also.
+            </param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartWash(Sias.WashManager.SWashProgramData,System.Collections.Generic.List{Sias.Core.Interfaces.SCavityCollection},System.UInt16,System.Double)">
+            <summary>
+            Start TipWasher command.
+            This command starts the TipWasher
+            </summary>
+            <param name="WashProgData">Wash program data</param>
+            <param name="WashRowCavities">A cavity collection for each row</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartWash(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Start TipWasher command.
+            
+            This command starts the TipWasher
+            </summary>
+            <param name="WashProgData">Wash program data</param>
+            <param name="WashItem">Item to wash</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartWash(Sias.WashManager.SWashProgramData,System.UInt16,System.Double)">
+            <summary>
+            Start TipWasher command.
+            
+            This command starts the TipWasher.
+            </summary>
+            <remarks>
+            Take care: This method is implemented in tip washer device only for compatibility with the 
+            IWasher interface. Calling this on a tip washer will result in a NoDefaultWashItem error.
+            </remarks>
+            <param name="WashProgData">Wash program data</param>
+            <param name="Rows">Rows to wash (each bit represents a row)</param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartPrime(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            Start prime procedure
+            
+            This method starts a prime sequence for the defined liquid.
+            </summary>
+            <param name="LiquidIndex">The liquid used for priming</param>
+            <param name="PrimeProcedure">The prime procedure (cycles, volume, delay and power)</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StartPrime(System.Byte,System.Byte,System.Int16,System.Int16,Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Start prime procedure
+            
+            This method starts a prime sequence for the defined liquid.
+            </summary>
+            <param name="LiquidIndex">Index of the liquid</param>
+            <param name="Cycles">Number of prime cycles</param>
+            <param name="Volume">Prime volume (one cycle)</param>
+            <param name="Delay">Prime delay</param>
+            <param name="Power">Prime Power</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.StopWash">
+            <summary>
+            Stop washing 
+            
+            This method should interrupt washing.
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice._PauseWash">
+            <summary>Pause washing flag field</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WaitForEndOfWashing">
+            <summary>
+            Wait unitl washing is finished
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.CheckWashProgram(Sias.WashManager.SWashProgramData)">
+            <summary>
+            Check wash program
+            </summary>
+            <param name="WashProgramData">The wash program data of the wash program to check</param>
+            <returns>0 if wash program if ok, the code of the first error if not</returns>
+            <remarks>
+            \b Important: This method reports errors using the error manager. 
+            To avoid may error dialogs please make sure to implement an error handling.
+            </remarks>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.DeleteWashProgram(System.Byte)">
+            <summary>
+            Delete wash program
+            
+            \b Improtant:   The tip washer device does not support using wash programs by number!
+                            This method is only for compatibility to the interface it will alway 
+                            result in an error!
+            </summary>
+            <param name="WashProgramID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.Byte)">
+            <summary>
+            Transfer wash proecudre to washer transfer memory.
+            
+            This method send the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            
+            \b Improtant:   The tip washer device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <param name="WashProgData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions</param>
+            <param name="WashProgramID">Wash program index to store (only flash indexes: 9..127)</param>
+            <returns>True if wash program successfully send, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem)">
+            <summary>
+            Transfer wash proecudre to washer transfer memory.
+            
+            This method send the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            
+            \b Improtant:   The tip washer device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <param name="WashProgData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions</param>
+            <returns>True if wash program successfully send, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetWashProgramFromWasher">
+            <summary>
+            Get wash program from washer
+            
+            This method gets the actual wash program from washer (RAM section).
+            
+            \b Improtant:   The tip washer device does not support using wash programs by number!
+                            This method is only for compatibility!
+            </summary>
+            <returns>The actual wash program or null if no actual wash program is stores.</returns>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.GetWashProgramFromWasher(System.Byte)">
+            <summary>
+            Get wash program from washer
+            
+            This method gets the actual wash program from washer (RAM section).
+            
+            \b Improtant:   The tip washer device does not support using wash program by number!
+                            This method is only for compatibility!
+            </summary>
+            <param name="WashProgramID">The wash program index to load</param>
+            <returns>The requested wash program or null if no wash program is stored with this id.</returns>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.Flags">
+            <summary>Robot flag property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.PipettingArmName">
+            <summary>
+            Pipetting arm name property
+            
+            This property is only repuired in case there is more then one 
+            pipetting arm on the robot. In this case it is important to define
+            which arm contain the tip washer channel(s).
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.Tips">
+            <summary>Tips with tip washer channel property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.PipettingOffset">
+            <summary>Offset for pipetting property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.AdditionalWashPart">
+            <summary>Part of wash volume in % used for special wash property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.PostWashVolume">
+            <summary>The volume used for the post tip wash property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.AspirateBox">
+            <summary>Aspirate (suck off) pump and valve box property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.AspiratePump">
+            <summary>Aspirate (suck off) pump property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.AspirateValve">
+            <summary>Aspirate (suck off) valve property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.NoDispensePowerData">
+            <summary>Power data block for 'NoPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.VeryLowDispensePowerData">
+            <summary>Power data block for 'VeryLowPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.LowDispensePowerData">
+            <summary>Power data block for 'LowPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.BelowMediumDispensePowerData">
+            <summary>Power data block for 'BelowMediumPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.MediumDispensePowerData">
+            <summary>Power data block for 'MediumPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.AboveMediumDispensePowerData">
+            <summary>Power data block for 'AboveMediumPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.HighDispensePowerData">
+            <summary>Power data block for 'HighPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.FullDispensePowerData">
+            <summary>Power data block for 'FullPower' dispense power mode.</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.LiquidValves">
+            <summary>Liquid valve list property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.OptimizeMode">
+            <summary>Row Cavity order optimize mode property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.DeviceName">
+            <summary>
+            Name of aspiration box device
+            
+            Changing the name of the tip washer device will result in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.BaseRobot">
+            <summary>
+            Base robot of the tip washer device property
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.Pipetting">
+            <summary>
+            Active pipetting methods property
+            
+            This property is used as piptting methods for the tipwasher. 
+            On default the first pipetting methods of the concerned robot are used.
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.PrimePosition">
+            <summary>Prime position property (unused!)
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.Parent">
+            <summary>Parent object</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.DoStopWashing">
+            <summary>Stop washing flag property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.ValveAspirateMode">
+            <summary>Check if valve or pump Aspirate mode is configured</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.IsWashing">
+            <summary>
+            Check if wash head is active (wash thread is running)
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.PauseWash">
+            <summary>
+            Pause washing flag 
+            
+            This property is used to pause a wash program. The washer/wash head stops moving, but 
+            the wash program did not get aborted. The program can get continued by setting the
+            PauseWash flag back to false.
+            </summary>
+            <remarks>
+            \b Important: The PausWash flag gets reset on start of a new wash program.
+            </remarks>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.STipWasherFlags">
+            <summary>
+            Robot flag enumerator.
+            
+            This enumerator defines the actual robot flags. 
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.STipWasherFlags.UnusedFlag">
+            <summary>First robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.SPowerData">
+            <summary>
+            Dispense power data class
+            
+            This class contains all information concerning dispense a singe 
+            dispense pump power mode. <seealso cref="T:Sias.WashManager.SPowerModeValue"/>
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SPowerData._AspiratePumpValue">
+            <summary>Aspirate (suck off) pump power value field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SPowerData._DispenseSpeed">
+            <summary>Dispense speed field</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SPowerData.#ctor(System.Int16,System.Double)">
+            <summary>
+            Initializes a new instance of the <b>SPowerData</b> class.
+            </summary>
+            <param name="aspiratePower">Aspirate (suck off) pump power value</param>
+            <param name="dispenseSpeed">Dispense speed</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SPowerData.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SPowerData</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SPowerData.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Sias.TipWasher.STipWasherDevice.SPowerData"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Sias.TipWasher.STipWasherDevice.SPowerData"/>.</returns>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SPowerData.AspiratePumpValue">
+            <summary>Aspirate (suck off) pump power value property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SPowerData.DispenseSpeed">
+            <summary>Dispense speed property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SPowerData.SPG_Summary">
+            <summary>
+            Summary property
+            
+            This special property defined and assigns string representation of the 
+            position object. This will be used with the sias property grid.
+            </summary>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.SLiquidValve">
+            <summary>
+            Liquid vlave data class
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SLiquidValve._LiquidPort">
+            <summary>Liquid port number field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SLiquidValve._CloseValue">
+            <summary>Port Value for 'closed' field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SLiquidValve._OpenValue">
+            <summary>Port value for 'Open' field</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.SLiquidValve.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Sias.TipWasher.STipWasherDevice.SLiquidValve"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Sias.TipWasher.STipWasherDevice.SLiquidValve"/>.</returns>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SLiquidValve.LiquidPort">
+            <summary>Liquid port number property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SLiquidValve.CloseValue">
+            <summary>Port Value for 'closed' property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SLiquidValve.OpenValue">
+            <summary>Port value for 'Open' property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.STipWasherDevice.SLiquidValve.SPG_Summary">
+            <summary>
+            Summary property
+            
+            This special property defined and assigns string representation of the 
+            position object. This will be used with the sias property grid.
+            </summary>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.SCavityOptimizeMode">
+            <summary>row cavity optimize mode</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SCavityOptimizeMode.NoOptimize">
+            <summary>Use cavity order exactly as given</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SCavityOptimizeMode.SimpleOptimize">
+            <summary>Use Cavity order as given but optimize the tip usage.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.SCavityOptimizeMode.FullOptimize">
+            <summary>Optimize tip usage and allow changing the cavity sequence.</summary>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.WashErrorInfo">
+            <summary>Wash errro information class</summary>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WashErrorInfo.#ctor(System.Int64,System.Object[])">
+            <summary>
+            Initializes a new instance of the <b>WashErrorInfo</b> class.
+            </summary>
+            <param name="code">error code</param>
+            <param name="info">additional information</param>
+        </member>
+        <member name="M:Sias.TipWasher.STipWasherDevice.WashErrorInfo.GetInfoString(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="Sender"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::DynamicWasher::SDynamicWasherDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoRobotError">
+            <summary>0x10000001: Unable to find a usable robot.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoPipettingMethods">
+            <summary>0x10000002: Unable to find a device for item handling.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidPipettingMethods">
+            <summary>0x10000004: Invalid item pipetting methods or invalid pipetting Y/Z device.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.PipeettingArmLocked">
+            <summary>0x10000005: Pipetting arm is locked when trying to start wash.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.TimeoutError">
+            <summary>0x1350: Timeout error e.g. vacuum not reached in time</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InitError">
+            <summary>0x1301: Initialization error</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InitError2">
+            <summary>0x1302: Initialization error</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.DeviceAlreadyActive">
+            <summary>0x13F4: Command not allowed as moodule is already active.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.DeviceNotInit">
+            <summary>0x13F1: Command not allowed as module is not init yet.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.IncorectCommandMessageLength">
+            <summary>0x13F1: Incorrect command message length.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoWashProgram">
+            <summary>0x0B10: no valid wash program pointer</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidWashProgram">
+            <summary>0x0B11: program not valid</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidFinalAspirateIndex">
+            <summary>0x0B12: invalid empty plate aspirate index</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoWashPlate">
+            <summary>0x0B20: no valid wash plate pointer</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidWashPlate">
+            <summary>0x0B21: plate not valid</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.MissingAspirateProcedure">
+            <summary>0x0B30: no valid wash aspirate procedure pointer</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidAspirateProcedure">
+            <summary>0x0B31: invalid aspirate procedure</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidFinalAspirateProcedure">
+            <summary>0x0B32: invalid empty procedure</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoVacuumSupport">
+            <summary>0x0B33: no vacuum support for tip washer</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.MissingDispenseProcedure">
+            <summary>0x0B40: no valid wash dispense procedure pointer</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidDispenseProcedure">
+            <summary>0x0B41: invalid dispense procedure</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoRowProcedure">
+            <summary>0x0B51: no row procedure dispense procedure</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidRowProcedure">
+            <summary>0x0B52: invalid row procedure</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoWashStep">
+            <summary>0x0B61: no wash step (wash step is null)</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidWashStep">
+            <summary>0x0B62: invalid wash step</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.TooManyWashPositions">
+            <summary>0x10011: Item Conversion error - Too many wash positions (rows)</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.InvalidItemOrientation">
+            <summary>0x10013: Item Conversion warning - Invalid Item orientation, this washer only supports orientation of 0°, 90°, 180° and 270°</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoProgramNumbers">
+            <summary>0x10100: The tip washer device does not support wash program calls by wash program numbers.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NoDefaultWashItem">
+            <summary>0x10101: The tip washer device does not support washing without wash item.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.WashThreadException1">
+            <summary>0x10201: The wash thread got an unexpected exception, the wash process did not finish.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.WashThreadException2">
+            <summary>0x10202: The wash thread got an unexpected exception, the wash process did not finish.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.NotWashableCavitiesError">
+            <summary>0x10203: At least one given cavity is not washable with actual tipwasher configuration.</summary>
+        </member>
+        <member name="F:Sias.TipWasher.STipWasherDevice.ErrorCodes.MultiError">
+            <summary>0x20000: Multi error - reports a collection of errors</summary>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.MinPlateCyleData">
+            <summary>
+            This private class is used to store the row specific data of the min plate 
+            cycle time management. Finally we will have one for each row.
+            </summary>
+        </member>
+        <member name="T:Sias.TipWasher.STipWasherDevice.TipData">
+            <summary>
+            temporary class with tip information of tipwasher tips
+            </summary>
+        </member>
+        <member name="T:Sias.TipWasher.__STipWashArmMethods">
+            <summary>
+            Tip arm pipetting methods decorator class.
+            
+            This class is a decorator class for pipetting method class. It calls the origin
+            pipetting methods instance for all methods except the one concerning wash.\n
+            For washing it uses a special methd making sure the tip washer suck off channel will
+            be cleaned also.
+            </summary>
+            <details>
+            \ingroup	Dev_TipWasher
+            
+            Detail on the pipetting methods can be found at the Sias.PipArm.SPipettingMethods 
+            Documentation.\n
+            
+            Take care:  As not all members of the SPipettingMethods class are virtual the usage 
+                        of this decorator as SPipettingMethods instance may be mot 100% compatible.
+            </details>
+        </member>
+        <member name="F:Sias.TipWasher.__STipWashArmMethods._BasePipettingClass">
+            <summary>Base pipetting class field</summary>
+        </member>
+        <member name="F:Sias.TipWasher.__STipWashArmMethods.__TipWasher">
+            <summary>The tipwasher device used for special wash field</summary>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.#ctor">
+            <summary>
+            Initializes a new instance of the <b>STipWashArmMethods</b> class.
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.#ctor(Sias.PipArm.SPipettingMethods,Sias.TipWasher.STipWasherDevice)">
+            <summary>
+            Initializes a new instance of the <b>SPipettingMethods</b> class.
+            </summary>
+            <param name="basePipettingClass">The origin pipetting methods</param>
+            <param name="tipWasher">The concerned tip washer</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DisableNextZErrors(Sias.PipArm.STipMap)">
+            <summary>Disable error for the next Z movements</summary>
+            <param name="UseTips">The \ref Used_Tips "tips" where to disable the error</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.InitPipettingPumps(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Initialize all pipetting pumps at the given waste cavities.
+            </summary>
+            <param name="InitOptions">Init options (only the group is checked)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZ(Sias.PipArm.STipMap,System.Double,System.Double,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable height and wait until the 
+            moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable position (all the same)</param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+            <param name="Ramp">The moving ramp (all the same, 0=default motor ramp)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZ(Sias.PipArm.STipMap,System.Double,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable height and wait until the 
+            moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable position (all the same)</param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZ(Sias.PipArm.STipMap,System.Double[],System.Double,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable heights and wait until the 
+            moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable positions (one for each available tip)</param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+            <param name="Ramp">The moving ramp (all the same, 0=default motor ramp)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZ(Sias.PipArm.STipMap,System.Double[],System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable heights and wait until the 
+            moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable positions (one for each available tip)</param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.BlockMoveZ(Sias.PipArm.STipMap,System.Double,System.Byte,System.Double,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable height using a block move.
+            Then the method waits until the moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable position (all the same)</param>
+            <param name="BlockMode">Block move mode: 
+             - 0: normal move  (full power)
+             - 1: block move 1 (full power, reduced block recognition time)
+             - 2: block move 2 (medium power, reduced block recognition time)
+             - 3: block move 3 (low power, reduced block recognition time)
+            </param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+            <param name="Ramp">The moving ramp (all the same, 0=default motor ramp)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.BlockMoveZ(Sias.PipArm.STipMap,System.Double,System.Byte,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable height using a block move.
+            Then the method waits until the moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable position (all the same)</param>
+            <param name="BlockMode">Block move mode: 
+             - 0: normal move  (full power)
+             - 1: block move 1 (full power, reduced block recognition time)
+             - 2: block move 2 (medium power, reduced block recognition time)
+             - 3: block move 3 (low power, reduced block recognition time)
+             .
+            </param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.BlockMoveZ(Sias.PipArm.STipMap,System.Double[],System.Byte,System.Double,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable heights using a block move.
+            Then the method waits until the moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable positions (one for each available tip)</param>
+            <param name="BlockMode">Block move mode: 
+             - 0: normal move  (full power)
+             - 1: block move 1 (full power, reduced block recognition time)
+             - 2: block move 2 (medium power, reduced block recognition time)
+             - 3: block move 3 (low power, reduced block recognition time)
+             .
+            </param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+            <param name="Ramp">The moving ramp (all the same, 0=default motor ramp)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.BlockMoveZ(Sias.PipArm.STipMap,System.Double[],System.Byte,System.Double)">
+            <summary>
+            Move the Z motors to the specified worktable heights using a block move.
+            Then the method waits until the moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The destination worktable positions (one for each available tip)</param>
+            <param name="BlockMode">Block move mode: 
+             - 0: normal move  (full power)
+             - 1: block move 1 (full power, reduced block recognition time)
+             - 2: block move 2 (medium power, reduced block recognition time)
+             - 3: block move 3 (low power, reduced block recognition time)
+             .
+            </param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZRel(Sias.PipArm.STipMap,System.Double,System.Double)">
+            <summary>
+            Move the Z motors relative to the specified worktable height.
+            Then the method waits until the moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The relative worktable height distance (all the same)</param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZRel(Sias.PipArm.STipMap,System.Double[],System.Double)">
+            <summary>
+            Move the Z motors relative to the specified worktable height.
+            Then the method waits until the moves are finished.
+            </summary>
+            <param name="UseTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Z">The relative worktable height distances (one for each available tip)</param>
+            <param name="Speed">The moving speed (all the same, 0=default motor speed)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveZTravel(System.Double)">
+            <summary>
+            Make sure the tips are at least at the defined worktable travel height.
+            
+            Take Care: Only tips lower than the defined height will be moved!
+            </summary>
+            <param name="ZTravel">Travel height (worktable coordinate)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.LowestZ(Sias.PipArm.STipMap,System.Double)">
+            <summary>
+            Returns the height of the lowest of the defined tips.
+            </summary>
+            <param name="CheckTips">The \ref Used_Tips "tips" to check</param>
+            <param name="Zmin">Minimum Height to return</param>
+            <returns>Height of the lowest tip</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveToLowestTip(Sias.PipArm.STipMap,Sias.PipArm.STipMap,System.Double)">
+            <summary>
+            This method moves all tips defined by \a MoveTips to the same height as the lowest of the 
+            tips returned by LowestZ().
+            </summary>
+            <param name="CheckTips">Selects the \ref Used_Tips "tips" to check</param>
+            <param name="MoveTips">Selects the \ref Used_Tips "tips" to move</param>
+            <param name="Zmin">Minimum Z value</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.LiquidTips(Sias.PipArm.STipMap,System.Double[])">
+            <summary>
+            Returns a tip map of all Z axes with detection flag set. In addition the method 
+            fills the given liquid position array with the worktable positions of all not moving
+            Z axes.
+            </summary>
+            <param name="ChkTips">The \ref Used_Tips "tips" to check (only those who have detected)</param>
+            <param name="LiqPos">Return array for the positions (null for none)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveXY(System.Double,System.Double[])">
+            <summary>
+            Move tips to defined positions.
+            </summary>
+            <param name="XPos">X position to move to</param>
+            <param name="YPos">Y positions for the Y/Z devices</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveXYRange(Sias.PipArm.STipMap,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move tips to any position at the defined range.
+            
+            If all tips are in the defined ranges the tips will not move.\n
+            If the tips have to move, the method tries to get a maximum of space to the range 
+            borders.
+            Take Care:	This function will not work fine for overlapping tip ranges. 
+            			For overlapping tip ranges the pended tips should have an 
+            			equidistant position over the whole overlapping range !
+            </summary>
+            <param name="UsedTips">The \ref Used_Tips "tips" to optimize</param>
+            <param name="XMin">Minimum of X range</param>
+            <param name="XMax">Maximum of X Range</param>
+            <param name="YMin">Minimums of the Y Ranges</param>
+            <param name="YMax">Maximums of the Y Ranges</param>
+            ToDo: Find optimal Y positions in MoveXYRange
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.GetPipettingGroups(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Calculate pipetting groups 
+            
+            This method is used to calculate the tip pipetting groups. A Tip pipetting
+            Group is a tip map of tips which are allowed to pick liquid in parallel.\n
+            In non multiplex systems all tips are allowed to pick at the same time 
+            (parallel), so the method returns always a pipetting group list with exactly 
+            one pipetting group containing all used tips.
+            In multiplex systems the method will collect tips in different pump groups 
+            to work in parallel but separates tips of the same pump group to different 
+            pipetting tip groups.\n
+            Setting PipPar.ForceParallelPipetting to true allows usage of tips in the
+            same pump group also in the same pipetting group as long as the pipetting 
+            parameters (Volume, Speed and Ramp) are compatible.
+            </summary>
+            <param name="Tips">The tips used for pipetting</param>
+            <param name="PipPar">The used pipetting parameters</param>
+            <returns>List of pipetting group tip maps.</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.TurnValves(Sias.PipArm.STipMap,System.UInt16)">
+            <summary>
+            Turn the valves (set the valve indexes) of the defined tips.
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" to change</param>
+            <param name="VInx">New valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.PickLiquid(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,System.UInt16,System.Double[],System.Double[])">
+            <summary>
+            Pick (aspirate) liquid.
+            
+            This methods picks liquid starting at actual height. While picking liquid the 
+            tips went down depending on <paramref name="TWay"/>.
+            </summary>
+            <remarks>
+            \b Important:   Take care about the tracking on multiplex systems! Tips in the same bottle and 
+                            the same pump group may have an incorrect tracking in case this method is called 
+                            directly. Try using PickLiq instead.
+            </remarks>
+            <param name="Tips">The \ref Used_Tips "tips" to pick liquid</param>
+            <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (Z positioning ignored)</param>
+            <param name="VInx">Valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+            <param name="TWay">Tracking way (how far moving down while aspiration)</param>
+            <param name="TSpeed">Tracking speed (how fast moving down while aspiration)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.PickLiquid(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,System.UInt16)">
+            <summary>
+            Pick (aspirate) liquid without tracking.
+            
+            This method aspirates liquid at the defined position. While aspiration the
+            tip height will not change.
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" to pick liquid</param>
+            <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (Z positioning ignored)</param>
+            <param name="VInx">Valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DispLiquid(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,System.UInt16,System.Double[],System.Double[])">
+            <summary>
+            Dispense liquid.
+            
+            This methods dispense liquid starting at actual height. While dispensing liquid the 
+            tips went up depending on <paramref name="TWay"/>.
+            </summary>
+            <remarks>
+            \b Important:   Take care about the tracking on multiplex systems! Tips in the same bottle and 
+                            the same pump group may have an incorrect tracking in case this method is called 
+                            directly. Try using DispLiq instead.
+            </remarks>
+            <param name="Tips">The \ref Used_Tips "tips" to dispense liquid</param>
+            <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (Z positioning ignored)</param>
+            <param name="VInx">Valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+            <param name="TWay">Tracking way (how far moving up while dispensing)</param>
+            <param name="TSpeed">Tracking speed (how fast moving up while dispensing)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DispLiquid(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,System.UInt16)">
+            <summary>
+            Dispense liquid without tracking.
+            
+            This method dispenses liquid at the defined position. While dispensing the
+            tip height will not change.
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" to dispense liquid</param>
+            <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (Z positioning ignored)</param>
+            <param name="VInx">Valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.EmptyTips(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,System.UInt16)">
+            <summary>
+            Dispense liquid.
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" to empty</param>
+            <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (Volume and Z positioning ignored)</param>
+            <param name="VInx">Valve index (\b see \ref Sias::CanDev::eVALVE_INDEX_CONST)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Flush(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Flush with the defined tips without changing the valve index.
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" used for flushing</param>
+            <param name="FlushPar">The flush parameters including volume, speed and ramp</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.FlushSyringe(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Flush with the defined tips with value index \ref Sias::CanDev::eVALVE_INDEX_CONST "VI_TIP1_SYR".
+            All un\ref Pipetting_PipPar "Pipetting parameters"  are set to \ref Sias::CanDev::eVALVE_INDEX_CONST "VI_SYS_SYR".
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" used for flushing</param>
+            <param name="FlushPar">The flush parameters including volume, speed and ramp</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.FlushPeripump(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Flush with the defined tips with value index \ref Sias::CanDev::eVALVE_INDEX_CONST "VI_TIP1_PUMP".
+            All un\ref Pipetting_PipPar "Pipetting parameters"  are set to \ref Sias::CanDev::eVALVE_INDEX_CONST "VI_SYS_PUMP".
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" used for flushing</param>
+            <param name="FlushPar">The flush parameters including volume, speed and ramp</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.WasteCavities(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get waste cavities from the given wash station.
+            
+            This method is used to get the waste cavities from a wash station. In general 
+            the wash cavities should be marked with a custom attribute "waste". If this 
+            attribute is not found the method tries to find the correct cavities using 
+            the cavity names (the name needs to include ":Waste")
+            </summary>
+            <param name="WashStation">The wash station.</param>
+            <returns>A cavity collection with the wash cavities</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.WashCavities(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get wash cavities from the given wash station.
+            
+            This method is used to get the wash cavities from a wash station. In general 
+            the wash cavities should be marked with a custom attribute "Wash". If this 
+            attribute is not found the method tries to find the correct cavities using 
+            the cavity names (the name needs to include ":Wash")
+            </summary>
+            <param name="WashStation">The wash station.</param>
+            <returns>A cavity collection with the wash cavities</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveToZPipPos(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,Sias.Core.Interfaces.SCavityCollection,System.Double[])">
+            <summary>
+            Move to pipetting Z position.
+            
+            This method interprets the Z positioning mode and the Z offset from the SPipettingPar
+            class to find the expected pipetting position. 
+            If the Z positioning mode is DefaultPosition the method supports two different modes:
+             a) If a default position is given (DefaultZPos != null) the method moves relative 
+               to the given default positon.\n
+             b) If no Default position is given (DefaultZPos == null) the method moves relative 
+               to the actual position (==> no move if offset is 0). \n
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" to move</param>
+            <param name="PipPar">The pipetting parameter (defining the move mode and offsets)</param>
+            <param name="Cav">The cavity collection (defining the cavity position)</param>
+            <param name="DefaultZPos">Default Z positions (null = actual position)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DetectLiquid(Sias.PipArm.STipMap,System.Double[],System.Double[],System.Double,System.Double)">
+            <summary>
+            Start a detection (scan) move on the defined tips.
+            
+            The methods defines the scan move in a way that the axis moves below the defined 
+            maximum heights (ZMax).
+            
+            Sequence:
+             - Optionally move all tips to their start positions (ZStart) using the default speed
+             - Start a detection (scan) move to the maximum height (ZMax) using the default LiquidScanSpeed
+             .
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="ZStart">Scan start positions</param>
+            <param name="ZMax">Scan move destination positions (lowest allowed height)</param>
+            <param name="Sub">Submerge way [mm](how deep to dip into the liquid) </param>
+            <param name="LiquidScanSpeed">Scan move speed [mm/s]</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.StartDetectMoves(Sias.PipArm.STipMap,System.Double[],System.Double,System.Double,System.Boolean,System.Boolean)">
+             <summary>
+             Start a detection (scan) move on the defined tips.
+            
+             The methods defines the scan move in a way that the axis moves below the defined 
+             maximum heights (ZMax).
+             Sequence:
+              - Optionally move all tips to their start positions (ZStart) using the default speed
+              - Start a detection (scan) move to the maximum height (ZMax) using the default LiquidScanSpeed
+              .
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="ZMax">Scan move destination positions (lowest allowed height)</param>
+             <param name="Sub">Submerge way [mm](how deep to dip into the liquid) </param>
+             <param name="LiquidScanSpeed">Scan move speed [mm/s]</param>
+             <param name="DoEvenOdd">True if even/odd tips should be executed independently</param>
+             <param name="DoSingle">True if each tip will be executed independently</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.TipOK(System.Int32,Sias.Core.Interfaces.ICavity)">
+            <summary>
+            Calculate whether it is possible to access the pipetting area of the given 
+            cavity with the tip of the given tip index. 
+            </summary>
+            <param name="Tip">Tip index of the tip to check</param>
+            <param name="Cavity">Cavities to check</param>
+            <returns>True if cavity is accessible; false if not</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.ScanLiquid(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar,System.Double[],System.Double[])">
+            <summary>
+            Scan for liquid.
+            
+            This method scans for liquid. Therefore it uses the given cavities for getting the 
+            heights and volumes. It supports also more then one tip using the same cavity.
+            </summary>
+            <param name="Tips">The \ref Used_Tips "tips" to scan for liquid</param>
+            <param name="Cavities">A cavity for each tip</param>
+            <param name="DetPar">\ref DetectionPar</param>
+            <param name="Vol">Minimum volume expected</param>
+            <param name="IsVol">Return array for the detected volumes</param>
+            <returns>The \ref Used_Tips "tips" detected enough liquid</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.SetLQMode(Sias.PipArm.STipMap,Sias.PipArm.SDetectionPar)">
+            <summary>
+            Set level sensor mode.
+            </summary>
+            <param name="UsedTips">The \ref Used_Tips "tips" used for liquid scanning</param>
+            <param name="DetPar">\ref DetectionPar</param>
+            <returns>The \ref Used_Tips "tips" not able to set LQ mode</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveAspPos(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar,Sias.PipArm.SPipettingPar,System.Double[])">
+            <summary>
+            Move to aspiration position.
+            
+            This method moves to the aspiration position.
+            </summary>
+            <details>
+            The aspiration position depends 
+            on the level detection mode (DetPar) and on the pipetting parameters Z positioning 
+            mode (DetVol.ZMode):
+             - ZMode=DefaultPosition with successful liquid Detection \n
+            	The default position will be the liquid position. It is recommended to have 
+            	DetVol.ZOffset[] to the same value as DetPar.Submerge. This will result in
+            	having no additional move after a successful detection.
+             - ZMode=DefaultPosition with failed liquid Detection (no detection)\n
+                The default position will be the position for volume=0. As this is mostly
+            	below the cavities maximum height it is limited to the cavities maximum height.
+             - ZMode=DefaultPosition without liquid Detection \n
+            	The default position is DefaultAspirationOffset above the maximum cavity height.
+             - ZMode=RelativeToTravelHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.TravelHeight + DetVol.ZOffset.
+             - ZMode=RelativeToScanHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.ScanHeight + DetVol.ZOffset.
+             - ZMode=RelativeToDispenseHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.DispenseHeight + DetVol.ZOffset.
+             - ZMode=RelativeToMaxHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.MaxHeight + DetVol.ZOffset.
+             - ZMode=RelativeToLiquidPosition \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.HeightFromVolume(Cavities.Volume) + DetVol.ZOffset. DetVol.ZOffset is
+                in this case more or less the submerge. \n
+            	<b>IMPORTANT:</b> If not using DetPar.SetVolumeToCavity=true the cavity volume may 
+                differ from a detected volume!
+             .
+            
+            <b>IMPORTANT:</b>independent of all calculation described above, the position will be
+            			limited to a range between Cavities.ScanHeight and Cavities[Tip].MaxHeight.
+            </details>
+            <param name="UsedTips">The \ref Used_Tips "tips" to move</param>
+            <param name="Cavities">The used cavities</param>
+            <param name="DetPar">\ref DetectionPar</param>
+            <param name="DetVol">Detection volume and pipetting parameters</param>
+            <param name="IsVol">Return array for cavity volumes</param>
+            <returns>The \ref Used_Tips "tips" using tracking at aspiration</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.MoveDspPos(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar,Sias.PipArm.SPipettingPar,System.Double[])">
+            <summary>
+            Move to dispense position.
+            
+            This method moves to the dispense position. 
+            </summary>
+            <details>
+            The dispense position depends on the level detection mode (DetPar) and on the pipetting 
+            parameters Z positioning 
+            mode (DetVol.ZMode):
+             - ZMode=DefaultPosition with successful liquid Detection \n
+            	The tip will not move! ==> submerge below liquid level.
+             - ZMode=DefaultPosition without or with failed liquid Detection (no detection)\n
+                The default position is the dispense position (see RelativeToDispenseHeight)
+             - ZMode=RelativeToTravelHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.TravelHeight + DetVol.ZOffset.
+             - ZMode=RelativeToScanHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.ScanHeight + DetVol.ZOffset.
+             - ZMode=RelativeToDispenseHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.DispenseHeight + DetVol.ZOffset.
+             - ZMode=RelativeToMaxHeight \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.MaxHeight + DetVol.ZOffset.
+             - ZMode=RelativeToLiquidPosition \n
+            	The aspiration position will be independent of an optional former detection 
+            	at Cavities.HeightFromVolume(Cavities.Volume) + DetVol.ZOffset. DetVol.ZOffset is
+                in this case more or less the submerge. \n
+            	IMPORTANT: If not using DetPar.SetVolumeToCavity=true the cavity volume may 
+                differ from a detected volume!
+             .
+            
+            IMPORTANT:	independent of all calculation described above, the position will be
+            			limited to Cavities[Tip].MaxHeight.
+            </details>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">The used Cavities</param>
+            <param name="DetPar">\ref DetectionPar</param>
+            <param name="DetVol">Detection volume and pipetting parameters</param>
+            <param name="IsVol">Return array for cavity volumes</param>
+            <returns>The \ref Used_Tips "tips" using tracking at aspiration</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.CalculateTracking(Sias.PipArm.STipMap,Sias.Core.Interfaces.ICavity,Sias.PipArm.SPipettingPar,System.Double,System.Double[],System.Double[],System.Boolean)">
+            <summary>
+            Calculate tracking.
+            
+            As it is not possible to have a dynamic speed, the tracking needs to use the highest needed
+            speed for the whole tracking. The highest speed is at that time, when ALL \ref Pipetting_PipPar "Pipetting parameters"  are pipetting 
+            at the same time. This is at the start of the pipetting.
+            </summary>
+            <details>
+            Calculation sequence:
+             -# VolSum     = Sum of all volumes to aspirate or dispense
+             -# SpeedSum   = Sum of all pipetting speeds
+             -# TMin       = Minimum of all pipetting times (Volume / Speed)
+            	(The minimum gets limited by getable volume in addition (getable Volume / SpeedSum)) \n
+             -# Volume(TMin) = SpeedSum * TMin  (Volume of First pipetting section)
+             -# Way(TMin)    = HeightForVolume(IsVol +- Volume(TMin)) - HeightForVolume(IsVol)
+             -# TrackWay     = HeightForVolume(IsVol +- VolSum) - HeightForVolume(IsVol)
+             -# TrackSpeed   = TrackWay * SpeedSum / VolSum
+            </details>
+            <param name="Tips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavity">Used Cavities</param>
+            <param name="PipPar">Pipetting parameter</param>
+            <param name="IsVol">Actual volume in Cavities</param>
+            <param name="TWay">Tracking way return array</param>
+            <param name="TSpeed">Tracking speed return array</param>
+            <param name="IsTrackingForPick">true: calculate tracking for pick, false: calculate tracking for dispense</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.PickLiq(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar,Sias.PipArm.STipMap,System.Double[])">
+             <summary>
+             Picks up liquid.
+            
+             This method picks up liquid from the actual Z positions. It takes care about the tracking.
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="Cavities">Used Cavities</param>
+             <param name="PipPar">Pipetting parameter</param>
+             <param name="TTips">The tracking tips</param>
+             <param name="IsVol">Actual volume in Cavities</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.PickAir(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+             <summary>
+             This method picks up air.
+            
+             Therefore the tips have to be out of any liquid when calling this method.
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="AirPar">Air gap aspiration parameters (using only volume, speed and ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.PickSys(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar)">
+             <summary>
+             Pick system liquid.
+            
+             Take care: This method will not work as expected on a disposable tip system!
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="PipPar">Aspiration parameters (only using volume, speed and ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DispLiq(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar,Sias.PipArm.STipMap,System.Double[])">
+             <summary>
+             Dispense liquid to cavities.
+            
+             This method dispenses the liquid at the actual Z positions, but optionally takes care about the tracking.
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="Cavities">Used Cavities</param>
+             <param name="PipPar">Pipetting parameter</param>
+             <param name="TTips">The tracking tips</param>
+             <param name="IsVol">Actual volumes in Cavities. This volumes get updated in method</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.SpitBack(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar,Sias.PipArm.STipMap,System.Double[])">
+             <summary>
+             Spit back to cavities.
+            
+             This method dispenses the liquid at the actual Z positions, but optionally takes care about the tracking.
+             In difference to DispLiq this method creates a SpitBack instead of an dispense history entry.
+             \b Important:   If spit back is used the liquid of the origin cavity may get pipetting error 
+                             or warning states found on pickup. So this will remain in the cavity also for 
+                             all following actions!
+             </summary>
+             <remarks>
+             \b Important: This method ignores ZMode and ZOffset defined with the PipPar parameter
+             </remarks>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="Cavities">Used cavities</param>
+             <param name="PipPar">Pipetting parameter</param>
+             <param name="TTips">The tracking tips</param>
+             <param name="IsVol">Actual volumes in cavities. This volumes get updated in method</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.RetractAndSpitBack(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar,Sias.PipArm.SPipettingPar,Sias.PipArm.SPipettingPar,Sias.PipArm.STipMap,System.Double[])">
+            <summary>
+             Retract and Spit back
+            
+             This method retracts and spits back. Depending on the spit back position retract will
+             be done either before or after spitting back.
+             </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities</param>
+            <param name="DetPar">\ref DetectionPar (Should be identical to the ones used with the corresponding MoveAspPos)</param>
+            <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (used for dispense and re-aspirate in case of clot errors)</param>
+            <param name="Spit">\ref Pipetting_PipPar "Pipetting parameters" Pipetting parameter</param>
+            <param name="TTips">The tracking tips</param>
+            <param name="IsVol">Actual volumes in cavities. This volumes get updated in method</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Retract(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar,Sias.PipArm.SPipettingPar,System.Double[])">
+             <summary>
+             This method is used to retract out of the liquid.
+            
+             For correct working it is important to have the correct volume given with the IsVol parameter.
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="Cavities">Used Cavities</param>
+             <param name="DetPar">\ref DetectionPar (Should be identical to the ones used with the corresponding MoveAspPos)</param>
+             <param name="PipPar">\ref Pipetting_PipPar "Pipetting parameters" (used for dispense and re-aspirate in case of clot errors)</param>
+             <param name="IsVol">Actual cavity volumes</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.OutMove(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar,System.Double[])">
+             <summary>
+             This method is used to make sure the tips are out of the liquid.
+            
+             In General this is done after a dispense. 
+             Important: This method will only work fine if the cavity volume is well known!
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="Cavities">Used Cavities</param>
+             <param name="DetPar">\ref DetectionPar (here only used for retract speed and way)</param>
+             <param name="IsVol">Actual cavity volumes</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Mixing(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SMixPar,Sias.PipArm.STipMap,System.Double[])">
+             <summary>
+             This high level tool box method executes the defined mixing cycles.
+            
+             <b>Attention:</b> The aspiration and dispense volume must not be different!
+             </summary>
+             <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+             <param name="Cavities">The used cavities</param>
+             <param name="MixPar">The mixing parameters</param>
+             <param name="TTips">Tracking tips</param>
+             <param name="IsVol">Actual volume</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.ExecuteTemplate(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SBasePipettingTemplate)">
+            <summary>
+            Pipetting template execution
+            
+            This method is used to execute a pipetting template.
+            It takes care about
+             - Cavities not accessible in one pipetting step and
+             - Requesting pipetting access to the concerned cavities.
+             .
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities (one for each available tip)</param>
+            <param name="Template">The pipetting principle</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Aspirate(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar,Sias.PipArm.SPipettingPar,Sias.PipArm.SPipettingPar,Sias.PipArm.SPipettingPar,Sias.PipArm.SMixPar,Sias.PipArm.SDetectionPar)">
+            <summary>
+            High level aspirate method.
+            
+            This method aspirates with the given tips from the given cavities. 
+            </summary>
+            <details>
+            It takes care about
+             - Cavities not accessible in one pipetting step.
+             - Taking a separation air gap before picking liquid
+             - Moving to aspiration position with optional liquid detection
+             - An optional premixing before aspiration
+             - Picking up the liquids with optional tracking
+             - Retract (moving out) from the liquid with optionally clot detection
+             - Optional spitting back liquid to the cavities
+             - Taking a transportation air gap before the next X/Y movement.
+             .
+            </details>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities (one for each available tip)</param>
+            <param name="Air1">Separation air gap parameters (before taking liquid)</param>
+            <param name="Vol">Liquid pipetting parameters</param>
+            <param name="Air2">Transportation air gap parameters (before next X/Y move)</param>
+            <param name="Spit">Spit back volumes (null for no spit back)</param>
+            <param name="MixPar">Mixing parameters (null for no mixing)</param>
+            <param name="DetPar">\ref DetectionPar</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Dispense(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar,Sias.PipArm.SMixPar,Sias.PipArm.SDetectionPar,Sias.PipArm.SPipettingPar)">
+            <summary>
+            High level dispense method.
+            
+            This method dispenses with the given tips to the given cavities. 
+            </summary>
+            <details>
+            It takes care about
+             - Cavities not accessible in one pipetting step.
+             - Moving to dispense position with optional liquid detection
+             - Dispensing to the destination cavities with optional tracking
+             - Retract 
+             - An optional post mixing after dispense
+             - Taking a transportation air gap before the next X/Y movement.
+             .
+            </details>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used cavities (one for each available tip)</param>
+            <param name="DspVol">Dispense volume (including air gaps you have to dispense)</param>
+            <param name="MixPar">Mixing parameters (null for no mixing)</param>
+            <param name="DetPar">\ref DetectionPar</param>
+            <param name="Air2">Transportation air gap parameters (before next x/y move)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DetectVolume(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SDetectionPar)">
+            <summary>
+            Detect liquid volume in cavities.
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="Cavities">Used Cavities</param>
+            <param name="DetPar">\ref DetectionPar</param>
+            <returns>Liquid volumes of the Cavities</returns>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.EmptyTips(Sias.PipArm.STipMap,Sias.PipArm.SPipettingPar,Sias.Core.Interfaces.IItem)">
+            <summary>
+            This method is used to remove all known liquid from the tips.
+            
+            When using pipetting pumps it is possible to dispense more liquid then aspirated. To keep
+            the method (and all the liquid state handling) working correctly, it is very important only 
+            to dispense what you have aspirated. That means if you want to dispense system liquid you 
+            should call PickSys before dispensing. A pipetting pump will not move there, but it will
+            update its state.
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="DspPar">Dispense parameter (using speed and ramp)</param>
+            <param name="WastePos">Wash/Waste station</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.WashTips(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Wash tips at the given cavities.
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WashCavities">Wash cavities</param>
+            <param name="WashPar">Wash parameters (Volume, speeds, ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Wash(Sias.PipArm.STipMap,Sias.Core.Interfaces.IItem,Sias.PipArm.SPipettingPar,System.Double)">
+            <summary>
+            Wash tips at given wash station.
+            
+            if <paramref name="WashAtWastePart"/> is greater then 0 in addition to the wash at the wash cavities
+            the method performs a wash at the waste station with the defined volume part but the same pipetting
+            parameters. 
+            </summary>
+            <remarks>
+            The wash volume used at the wash station will not be effected by <paramref name="WashAtWastePart"/>.
+            </remarks>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WashPos">Wash station</param>
+            <param name="WashPar">
+            Wash parameters (volume, speeds, ramps)\n
+            \b Important:   WashPar.ZMode and WashPar.ZOffset are not recognized yet. Please keep ZMode 
+                            at DefaultPosition and the Z Offsets at 0 to make sure the software keeps 
+                            compatible in case we will recognize ZMode and ZOffset at one of the next 
+                            SDK version.
+            </param>
+            <param name="WashAtWastePart">
+            The part of the wash volume flushed on the waste station in [%].
+            A value of 0 deactivates WashAtWaste. A value of 100 uses the same volume for used for 
+            washing also at the waste station.
+            </param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Wash(Sias.PipArm.STipMap,Sias.Core.Interfaces.IItem,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Wash tips at given wash station.
+            </summary>
+            <remarks>No wash at waste part is defined!</remarks>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WashPos">Wash station</param>
+            <param name="WashPar">Wash parameters (volume, speeds, ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Waste(Sias.PipArm.STipMap,Sias.Core.Interfaces.IItem,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Waste liquid to waste station.
+            
+            This method moves to the waste station defined by <paramref name="WastePos"/> to dispense the 
+            liquid defined by <paramref name="WastePar"/> with the tips defined by <paramref name="UsedTips"/>.
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WastePos">Wash/waste station</param>
+            <param name="WastePar">Waste Parameters (volumes, speeds, ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.Waste(Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Waste liquid to waste cavities.
+            
+            This method moves to the waste station defined by <paramref name="WasteCavities"/> to dispense the 
+            liquid defined by <paramref name="WastePar"/> with the tips defined by <paramref name="UsedTips"/>.
+            </summary>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WasteCavities">List of cavities to put the waste</param>
+            <param name="WastePar">Waste Parameters (volumes, speeds, ramps)</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.DropTips(Sias.PipArm.STipMap,Sias.PipArm.SDropTipsPar,Sias.DropStation.SDropStation)">
+            <summary>
+            Drop tips from the specified adapter(s) at the specified drop station.
+            </summary>
+            <param name="Tips">Adapters, where to drop the \ref Used_Tips "tips"</param>
+            <param name="DropPar">Drop parameters like error handling modes, tip check modes, move power mode, speeds and ramps</param>
+            <param name="DropStation">Drop station</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.GetTips(Sias.PipArm.STipMap,Sias.Core.Interfaces.STipTypeCollection,Sias.PipArm.SGetTipsPar)">
+            <summary>
+            Get (pickup) disposable tips.
+            
+            This method is used to pickup disposable tips. Depending on the allowed 
+            <paramref name="TipTypes"/> and the tip types allowed for the configured 
+            tip adapters it may pick different tip types with a single call.
+            </summary>
+            <param name="Tips">The tip adapters we want to pick \ref Used_Tips "tips"</param>
+            <param name="TipTypes">The tip types we want to get</param>
+            <param name="GetPar">Get tips parameters (Error handling, Speeds, ramps, ...)</param>
+            <remarks>
+            \b Important: GetTips does not support tip check before or tip check after get yet 
+                         (see SGetTipsPar.TipCheckBeforePick, SGetTipsPar.TipCheckAfterPick).
+            </remarks>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.GetTips(Sias.PipArm.STipMap,Sias.Core.Interfaces.ITipType,Sias.PipArm.SGetTipsPar)">
+            <summary>
+            This method is designed to pickup disposable tips.
+            </summary>
+            <param name="Tips">The tip adapters we want to pick \ref Used_Tips "tips"</param>
+            <param name="TipType">The tip type we want to get</param>
+            <param name="GetPar">Get tips parameters (Error handling, Speeds, ramps, ...),</param>
+        </member>
+        <member name="M:Sias.TipWasher.__STipWashArmMethods.GetTips(Sias.PipArm.STipMap,Sias.PipArm.SGetTipsPar)">
+            <summary>
+            This method is designed to pickup disposable tips.
+            </summary>
+            <param name="Tips">The tip adapters we want to pick \ref Used_Tips "tips"</param>
+            <param name="GetPar">Get tips parameters (Error handling, Speeds, ramps, ...),</param>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.BasePipettingClass">
+            <summary>Base pipetting class property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.TipWasher">
+            <summary>The tipwasher device used for special wash property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.Arm">
+            <summary>
+            Connected arm device property
+            
+            This property defines the connected arm device. This Arm is used to
+            move the arm device as well as to access the list of Y/Z devices.
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.AllTips">
+            <summary>
+            Gets the AllTips of the STipWashArmMethods
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.OkTips">
+            <summary>
+             Ok tips: The actually usable tips.
+             This member defines the actually usable tips. In case of any pipetting problem solved 
+             with the skip option the concerned tip(s) are marked as "not usable" until the next 
+             DropTips or Wash. This is done using the Ok Tip map.\n
+             It is recommended, to set the Ok Tip map to all usable tips at the start of any pipetting 
+             sequence.
+             </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.DefaultWashStation">
+            <summary>
+            Get/Set default wash station property.
+            This property defines the default wash station. 
+            The default wash station is used if no other wash station is defined.
+            If the Default wash station is never assigned, it will be retrieved at the 
+            first access in the following way:
+             - Get a list of the layouts wash stations
+             - try finding the DefaultWashStationName on this list
+             - if not found try getting Item DefaultWashStationName.
+             - if not found try getting Item "Washstation".
+             - if not found try getting Item "WashStation".
+             - if not found try getting Item "Washstation1".
+             - if not found try getting Item "WashStation1".
+             .
+            Each arm defines a default wash station. 
+            If the default wash station is not defined, the driver tries to find a default one.
+            </summary>
+            <value></value>
+            TODO: optionally optimize default wash station by recognizing the (X) position.
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.BaseObject">
+            <summary>
+            Base object member (only used for IDecorator interface)
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.DefaultAspirationOffset">
+            <summary>
+            Default aspiration offset property.
+            
+            This property defines an offset to the cavities maximum height 
+            where the aspiration is done in case of the software did not 
+            define another offset or if liquid detection failed with the 
+            option "Goto ZMax and aspirate" (ignore).
+            </summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.DefaultWashStationName">
+            <summary>Default wash station name property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.PumpGroups">
+            <summary>pump groups property</summary>
+        </member>
+        <member name="P:Sias.TipWasher.__STipWashArmMethods.MethodsSupported">
+            <summary>
+            Methods supported property.
+            
+            This property is used to verify the method block. 
+            In case of the pipetting methods, it verifies if the arm is valid and 
+            at least one pipetting Y/Z device is available.
+            </summary>
+            <value>True if execution possible otherwise false</value>
+        </member>
+        <member name="T:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher">
+            <summary>
+            This class replaces some methods in origin pipetting methods so 
+            the special activities for teh tipwasher are recognized.
+            </summary>
+        </member>
+        <member name="F:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.TW_Dict">
+            <summary>
+            This dictionaly is used to store all tipwashers their 
+            </summary>
+        </member>
+        <member name="M:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.ExtendMethods(Sias.PipArm.SPipettingMethods,Sias.TipWasher.STipWasherDevice)">
+            <summary>
+            
+            </summary>
+            <param name="orgMethods"></param>
+            <param name="tipWasher"></param>
+        </member>
+        <member name="M:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.ReleaseMethods(Sias.PipArm.SPipettingMethods,Sias.TipWasher.STipWasherDevice)">
+            <summary>
+            
+            </summary>
+            <param name="orgMethods"></param>
+            <param name="tipWasher"></param>
+        </member>
+        <member name="M:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.GetTipWasher(Sias.PipArm.SPipettingMethods)">
+            <summary>
+            
+            </summary>
+            <param name="BaseObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.MoveXY(Sias.PipArm.SPipettingMethods,System.Double,System.Double[])">
+            <summary>
+            Move X/Y replacement method taking tipwasher offset in accound
+            </summary>
+            <param name="BaseObj">the cabase object for the replacement method</param>
+            <param name="XPos">X position to move to</param>
+            <param name="YPos">Y positions for the Y/Z devices</param>
+        </member>
+        <member name="M:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.MoveXYRange(Sias.PipArm.SPipettingMethods,Sias.PipArm.STipMap,System.Double,System.Double,System.Double[],System.Double[])">
+            <summary>
+            Move X/Y range replacement method taking tipwasher offsets in account
+            </summary>
+            <param name="BaseObj">the base object for the replacement method</param>
+            <param name="UsedTips">The \ref Used_Tips "tips" to optimize</param>
+            <param name="XMin">Minimum of X range</param>
+            <param name="XMax">Maximum of X Range</param>
+            <param name="YMin">Minimums of the Y Ranges</param>
+            <param name="YMax">Maximums of the Y Ranges</param>
+            ToDo: Find optimal Y positions in MoveXYRange
+        </member>
+        <member name="M:Sias.TipWasher.__SPipettingMethodExtenderForTipwasher.WashTips(Sias.PipArm.SPipettingMethods,Sias.PipArm.STipMap,Sias.Core.Interfaces.SCavityCollection,Sias.PipArm.SPipettingPar)">
+            <summary>
+            Wash tips at the given cavities.
+            </summary>
+            <param name="BaseObj">the base object for the replacement method</param>
+            <param name="UsedTips">The used \ref Used_Tips "tips"</param>
+            <param name="WashCavities">Wash cavities</param>
+            <param name="WashPar">Wash parameters (Volume, speeds, ramps)</param>
+        </member>
+    </members>
+</doc>

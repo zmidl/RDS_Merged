@@ -1,0 +1,1873 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WashManager</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.WashManager.SWashDispenseProcedure">
+            <summary>Data collection containing all parameters needed to 
+            execute a dispense sequence.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedure.#ctor">
+            <summary>Default constructor of a new dispense procedure
+            without any information inside.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedure.#ctor(System.String)">
+            <summary>Constructor of a new dispense procedure
+            without any information inside.
+            </summary>
+            <param name="name">Name of the dispense procedure as unique identifier</param>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedure.Similar(Sias.WashManager.SWashDispenseProcedure)">
+            <summary>Compares this dispense procedure with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            whereas also members of the base class are compared.
+            </summary>
+            <param name="testObject">dispense procedure to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.Name">
+            <summary>Name of the dispense procedure.
+            
+            (The property ObjectName of SObject is used behind this property.)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.CustomizationFilter">
+            <summary>Name of an optionally used  filter to customize the amount of procedure parameters.
+            
+            Without a name, the default setting will be used.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.Options">
+            <summary>Options for a dispense procedure
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.StartPower">
+            <summary>Power mode of the pump at start of a dispense procedure.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.StartPosition">
+            <summary>Position where procedure has to start.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.DelayAfterMove">
+            <summary>Time between start of dispense and start of first movement in milliseconds
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.AspiratePower">
+            <summary>Power mode of the aspirate pump while dispense.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedure.DispenseSteps">
+            <summary>Collection of dispense steps
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashDispenseProcedure.OptionValue">
+            <summary>
+            Dispense procedure option values\n
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashDispenseProcedure.OptionValue.IsInvalid">
+            <summary>This Option bit marks the procedure as invalid. </summary>
+            <remarks>This is mainly used for firmware compatibility. In wash program editor it will typically not be used.</remarks>
+        </member>
+        <member name="F:Sias.WashManager.SWashDispenseProcedure.OptionValue.AspirateWhileDispense">
+            <summary>
+            Aspirate while dispense
+            
+            This option activates the aspirate pumpe while executing the dispense procedure. 
+            Important: This flag will be overwritten by the same flags of the dispense wash 
+            steps while step execution.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashDispenseProcedures">
+            <summary>Collection of dispense procedures.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedures.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedures.Add(Sias.WashManager.SWashDispenseProcedure)">
+            <summary>Adds a SWashDispenseProcedure object to the collection
+            
+            An already existing dispense procedure with the same name will be overwritten.
+            </summary>
+            <param name="dispenseProcedure">The SWashDispenseProcedure object to be inserted</param>
+            <returns>Index of the newly inserted procedure</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedures.Find(System.String)">
+            <summary>Find an dispense procedure based on their name.
+            </summary>
+            <param name="name">Name of the dispense procedure</param>
+            <returns>The dispense procedure looked for</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashDispenseProcedures.FindPosition(System.String)">
+            <summary>Find list index of an dispense procedure based on their name.
+            </summary>
+            <param name="name">Name of the dispense procedure</param>
+            <returns>The list index of the dispense procedure looked for</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedures.Item(System.String)">
+            <summary>String Indexer. Gets or sets the SWashDispenseProcedure object with the given name.
+            
+            If the procedure is not found in the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="name">Name of the SWashDispenseProcedure</param>
+            <returns>The SWashDispenseProcedure with the given name or null if the name is not known</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashDispenseProcedures.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashDispenseProcedure object at the given index.
+            
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashDispenseProcedure</param>
+            <returns>The SWashDispenseProcedure at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="T:Sias.WashManager.SWashManager">
+            <summary>
+            The SWashManager is responsible for loading and storing wash programs and
+            provide them to the washer device driver.
+            It also provides an editor dialog to create and modify these programs.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.washProgramRepository">
+            <summary>Wash program repository
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.error">
+            <summary>Error status of the manager
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.manager">
+            <summary>The one and only wash program manager
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.classLock">
+            <summary>Lock object, used to synchronize calls in a multi threading environment
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.filePath">
+            <summary>Contains the path information if an xml file is loaded.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.fileName">
+            <summary>Contains the file or database name of the data source.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.providePropertyGrid">
+            <summary>Set this flag to true in order that the wash program editor provides 
+            the wash program data in a property grid also.
+            
+            The flag is set to false as default.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.GetErrorInfos">
+            <summary>This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.#ctor">
+            <summary>Creates a new SWashManager object
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.GetManager">
+            <summary>Instantiator/Factory method
+            
+            This static method gets the one and only wash program manager. 
+            If no wash program manager is available yet, a new wash program manager instance will get created.
+            </summary>
+            <returns>The one and only wash program manager</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.IsFileName(System.String)">
+            <summary>Check if the given wash program data has to be loaded from file or from db
+            </summary>
+            <param name="name">wash program component name</param>
+            <returns>True if name has to be loaded from file, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.LoadPath(System.String)">
+            <summary>create a full load path from given file name
+            </summary>
+            <param name="FileName">The file name</param>
+            <returns>A full path to the file</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.SavePath(System.String)">
+            <summary>create a full save path from given file name
+            </summary>
+            <param name="FileName">The file name</param>
+            <returns>A full path to the file</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.DoOverwrite(System.String,System.String,Sias.Core.SSaveOptions)">
+            <summary>Returns true if an existing object is allowed to be overwritten.
+            </summary>
+            <param name="aKind">The type of the object (File, Wash Program Repository)</param>
+            <param name="aName">The Name of the object</param>
+            <param name="options">The save options</param>
+            <returns>True if allowed to overwrite otherwise false</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.Load(System.String)">
+            <summary>Load wash program repository
+            
+            This method loads the whole program repository from database or from a file.\n
+            If the given name is a file name (recognized either by an appended ".xml"
+            or by a leading file path) the wash program repository get loaded from the file.\n
+            Otherwise the wash program repository get loaded from db.\n
+            \b IMPORTANT: All origin wash program data get removed!
+            </summary>
+            <param name="filename">wash program data file name</param>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.Load">
+            <summary>Load default wash program repository
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.Save(System.String,Sias.Core.SSaveOptions)">
+            <summary>Save wash program repository to file or database
+            </summary>
+            <param name="filename">The name of the file to store</param>
+            <param name="options">The save options</param>
+            <returns>true is successfully saved, otherwise false</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.Save(System.String)">
+            <summary>Store wash program repository at default location (with overwriting)
+            </summary>
+            <param name="filename">The name of the file to store</param>
+            <returns>true is successfully saved, otherwise false</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.Save">
+            <summary>Store wash program repository at default location (with overwriting)
+            </summary>
+            <returns>true is successfully saved, otherwise false</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.Edit(System.Boolean)">
+            <summary>Display the \link WashProgramEditor wash program editor dialog\endlink.
+            </summary>
+            <param name="modal">Determines whether the editor dialog should be a modal dialog or a modeless one.</param>
+        </member>
+        <member name="M:Sias.WashManager.SWashManager.GetWashProgramData(System.String)">
+            <summary>Get the wash program with the given name
+            </summary>
+            <param name="name">The name of the requested wash program</param>
+            <returns>The requested wash program or null if not available</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.Error">
+            <summary>Error status of the wash program manager
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.WashProgramRepository">
+            <summary>Wash program repostirory
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.DataAvailable">
+            <summary>Returns true, if the wash manager program contains at least one wash program.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.DefaultWashProgramFile">
+            <summary>  
+            Gets the DefaultWashProgramName of the SWashManager managed by SConfigurationManager
+            
+            To use the database any name without extension or leading path can be used.
+            </summary>
+            <details>
+            </details>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.ProvidePropertyGrid">
+            <summary>Set this flag to true in order that the wash program editor provides 
+            the wash program data in a property grid also.
+            
+            The flag is set to false as default.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.DataFilePath">
+            <summary>Path of the currently loaded repository.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.DataFileName">
+            <summary>File name or database name of the currently loaded repository.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashManager.DBPrefix">
+            <summary>Gets the WashProgramDBPrefix of the SWashManager
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashManager.ErrorCodes">
+            <summary>This static class keeps the error code constants of the \ref Sias::WashManager::SWashManager errors.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.ErrorCodes.NoError">
+            <summary>0x0000: No error occurred</summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.ErrorCodes.NoWashPrograms">
+            <summary>0x0001: No wash programs available</summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.ErrorCodes.UnableToLoadWashProgram">
+            <summary>0x0004: Wash program could not be loaded</summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashManager.ErrorCodes.UnableToSaveWashProgram">
+            <summary>0x0008: Wash program could not be saved</summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashUploadDialog">
+            <summary>Dialog to upload a wash program from a washer device
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashUploadDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashUploadDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashUploadDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashUploadDialog.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashProgramEditor">
+            <summary>Editor Dialog Frame
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.components">
+            <summary>Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.Dispose(System.Boolean)">
+            <summary>Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.InitializeComponent">
+            <summary>Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.propertyGrid">
+            <summary>Property grid member
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.modified">
+            <summary>Defining whether something of the data was changed.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.title">
+            <summary>Windows title string containing an asterisk if data has changed. 
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.newLabel">
+            <summary>Name used for new items in list views like programs and procedures
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.rowProcLabel">
+            <summary>Generic name used for row procedures.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.integerFormat">
+            <summary>Format strings used in the method ToString() to format it in whole numbers.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.floatFormat">
+            <summary>Format string used in the method ToString() to format it with decimal places.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.washManager">
+            <summary>Accessor to the singleton wash program manager
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashProgramEditor.DynamicWasherDeviceName">
+            <summary>Assembly name of the dynamic washer device
+            used to load names of dynamic washers only
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.#ctor">
+            <summary>Constructor of the SWashProgramEditor component.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.AddWashProgramDataToRepository(Sias.WashManager.SWashProgramData)">
+            <summary>Add the given wash program data to the wash program repository.
+            Check each named object against an already existing one and ask for
+            overwriting if the name is known but the content is different.
+            </summary>
+            <param name="programData">wash program data to add</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.NumericKeyInvalid(System.Windows.Forms.TextBox,System.Char,System.Decimal,System.Decimal)">
+            <summary>Check a key pressed event from a text box control
+            </summary>
+            <param name="field">Text box</param>
+            <param name="key">character entered</param>
+            <param name="min">minimum value</param>
+            <param name="max">maximum value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.TextBoxContentInvalid(System.Windows.Forms.TextBox,System.Decimal,System.Decimal,System.Decimal@)">
+            <summary>Check a text box validating event from a text box control
+            </summary>
+            <param name="field">Text box</param>
+            <param name="min">minimum value</param>
+            <param name="max">maximum value</param>
+            <param name="numValue">numerical value of the text field</param>
+            <returns>true if validation fails</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.IsSpeed(System.Windows.Forms.DataGridViewTextBoxCell)">
+            <summary>Checks whether the given cell contains a speed value
+            </summary>
+            <param name="cell">Text box cell from the data grid view</param>
+            <returns>True if the box contains a speed value</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.IsPosition(System.Windows.Forms.DataGridViewTextBoxCell)">
+            <summary>Checks whether the given cell contains a position value
+            </summary>
+            <param name="cell">Text box cell from the data grid view</param>
+            <returns>True if the box contains a position value</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.IsDelay(System.Windows.Forms.DataGridViewTextBoxCell)">
+            <summary>Checks whether the given cell contains a delay time
+            </summary>
+            <param name="cell">Text box cell from the data grid view</param>
+            <returns>True if the box contains a delay time</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.GetFormat(System.Windows.Forms.DataGridViewTextBoxCell)">
+            <summary>Returns the format string with the precision 
+            corresponding to the given cell.
+            </summary>
+            <param name="cell">Text box cell from the data grid view</param>
+            <returns>Format string with the precision required</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.SpeedChanged(System.Double,System.Double)">
+            <summary>Checks whether a speed value has changed 
+            by at least 1 mm/s
+            </summary>
+            <param name="originalValue">the previous value</param>
+            <param name="newValue">the new value</param>
+            <returns>true if changed</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.PositionChanged(System.Double,System.Double)">
+            <summary>Checks whether a position value has changed 
+            by at least 0.1 mm
+            </summary>
+            <param name="originalValue">the previous value</param>
+            <param name="newValue">the new value</param>
+            <returns>true if changed</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DelayChanged(System.Int16,System.Int16)">
+            <summary>Checks whether a delay time value has changed 
+            by at least 1 ms
+            </summary>
+            <param name="originalValue">the previous value</param>
+            <param name="newValue">the new value</param>
+            <returns>true if changed</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.UpdateTitle">
+            <summary>update the title in the frame window based on filename and modified flag.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.ProgramNameExist(System.String)">
+            <summary>Check whether the given name already exists in the repository.
+            </summary>
+            <param name="programName">wash program name to look for</param>
+            <returns>true if the name already exists</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.AspirateProcedureNameExist(System.String)">
+            <summary>Check whether the given name already exists in the repository.
+            </summary>
+            <param name="procedureName">aspirate procedure name to look for</param>
+            <returns>true if the name already exists</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DispenseProcedureNameExist(System.String)">
+            <summary>Check whether the given name already exists in the repository.
+            </summary>
+            <param name="procedureName">dispense procedure name to look for</param>
+            <returns>true if the name already exists</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInCustomizationFilters(System.Windows.Forms.ComboBox)">
+            <summary>Fill in the customization filters alreay defined
+            </summary>
+            <param name="comboBox"></param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.SelectCustomizationFilter(System.Windows.Forms.ComboBox,System.String)">
+            <summary>Select the given customization filter in the combo box
+            </summary>
+            <param name="comboBox">Combo box where the customization filter has to be selected</param>
+            <param name="filter">Customization filter as string to select</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInAspirateProcedures(System.Windows.Forms.ComboBox)">
+            <summary>Fill in the possible aspirate procedures into the given combo box
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInAspProceduresInDataGridViewCell(System.Windows.Forms.DataGridViewComboBoxCell)">
+            <summary>Fill in the available aspiration procedure into the given data grid view combo box cell
+            </summary>
+            <param name="comboBoxCell">the combo box to provide the different aspirate procedures</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInDispProceduresInDataGridViewCell(System.Windows.Forms.DataGridViewComboBoxCell)">
+            <summary>Fill in the available dispense procedure into the given data grid view combo box cell
+            </summary>
+            <param name="comboBoxCell">the combo box to provide the different dispense procedures</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInPrograms">
+            <summary>Add the wash program data to the program tab
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInAspirateProcedures">
+            <summary>Add the aspiration procedure data to the aspiration procedure tab
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInDispenseProcedures">
+            <summary>Add the dispense procedure data to the dispense procedure tab
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInCustomizationFilters">
+            <summary>Add the filter data to the customization filter tab
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInPowerModes(System.Windows.Forms.ComboBox)">
+            <summary>Fill in the available pump power modes into the given combo box
+            </summary>
+            <param name="comboBox">The combo box to provide the different modes</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.FillInPowerModesInDataGridViewCell(System.Windows.Forms.DataGridViewComboBoxCell)">
+            <summary>Fill in the available pump power modes into the given data grid view combo box cell
+            </summary>
+            <param name="comboBoxCell">The combo box to provide the different modes</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.SelectPowerMode(System.Windows.Forms.ComboBox,Sias.WashManager.SPowerModeValue)">
+            <summary>Select the given power mode in the combo box
+            </summary>
+            <param name="comboBox">Combo box where the power mode has to be selected</param>
+            <param name="mode">Power mode to select</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.SelectPowerMode(System.Windows.Forms.ComboBox,System.String)">
+            <summary>Select the given power mode in the combo box
+            </summary>
+            <param name="comboBox">Combo box where the power mode has to be selected</param>
+            <param name="mode">Power mode as string to select</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.GetPowerMode(System.Windows.Forms.ComboBox)">
+            <summary>Retrieve the selected power mode from a combo box
+            independent of the number of provided modes
+            </summary>
+            <param name="comboBox">ComboBox the modes are provided</param>
+            <returns>Selected power mode</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.GetPowerMode(System.Windows.Forms.DataGridViewComboBoxCell)">
+            <summary>Retrieve the selected power mode from a combo box
+            independent of the number of provided modes
+            </summary>
+            <param name="comboBox">ComboBox the modes are provided</param>
+            <returns>Selected power mode</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.SelectPowerModeInDataGridViewCell(System.Windows.Forms.DataGridViewComboBoxCell,Sias.WashManager.SPowerModeValue)">
+            <summary>Select the given power mode in the data grid view combo box cell
+            </summary>
+            <param name="powerCell">Combo box cell where the power mode as to be selected</param>
+            <param name="mode">Power mode to select</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.IsAspProcedureInUse(System.String,System.String@)">
+            <summary>Check whether the given aspirate procedure is used in a wash program
+            </summary>
+            <param name="procedureName">Name of the aspirate procedure</param>
+            <param name="programName">Name of the first wash program using this aspirate procedure</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.IsDispProcedureInUse(System.String,System.String@)">
+            <summary>Check whether the given dispense procedure is used in a wash program
+            </summary>
+            <param name="procedureName">Name of the dispense procedure</param>
+            <param name="programName">Name of the first wash program using this dispense procedure</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.IsFilterInUse(System.String,System.String@)">
+            <summary>Check whether the given customization filter is referenced elsewhere
+            </summary>
+            <param name="filterName">Name of the customization filter</param>
+            <param name="itemName">Name of the program or procedure referencing this filter</param>
+            <returns>True if the filter is referenced</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.NumberOfNameUsed(System.Windows.Forms.ListView,System.String)">
+            <summary>Count occurrence of the given names in the list view.
+            </summary>
+            <param name="listView">List View object where the name has to be checked</param>
+            <param name="label">Name to check against all others</param>
+            <returns>Number of occurrences</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.NameIsUnique(System.Windows.Forms.ListView,System.String)">
+            <summary>Check whether the given name is unique in the list view.
+            </summary>
+            <param name="listView">List View object where the name has to be checked</param>
+            <param name="label">Name to check against all others</param>
+            <returns>True if the name only appears once</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.NameAlreadyInUse(System.Windows.Forms.ListView,System.String)">
+            <summary>Check whether the given name is already used in the list view.
+            </summary>
+            <param name="listView">List View object where the name has to be checked</param>
+            <param name="label">Name to check against all others</param>
+            <returns>True if the name is already used</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.NewRowProcedureLabel(System.Int32)">
+            <summary>Create a new row procedure name based on the number of the item in the list view.
+            </summary>
+            <param name="counter">number of the procedure in the list view (starting with 1)</param>
+            <returns>A numbered label of the row procedure</returns>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.EnableWashProgramFields">
+            <summary>Enables the fields of the wash program.
+            This is used when a wash program is selected after no one was selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DisableWashProgramFields">
+            <summary>Disables and clears the fields of the wash program.
+            This is used in case no wash program is selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.EnableAspirateProcedureFields">
+            <summary>Enables the fields of the aspirate procedure.
+            This is used when a aspirate procedure is selected after no one was selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DisableAspirateProcedureFields">
+            <summary>Disables and clears the fields of the aspirate procedure.
+            This is used in case no aspirate procedure is selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.EnableDispenseProcedureFields">
+            <summary>Enables the fields of the dispense procedure.
+            This is used when a dispense procedure is selected after no one was selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DisableDispenseProcedureFields">
+            <summary>Disables and clears the fields of the dispense procedure.
+            This is used in case no dispense procedure is selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.EnableCustomizationSetFields">
+            <summary>Enables the fields of the customization filter.
+            This is used when a customization filter is selected after no one was selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DisableCustomizationSetFields">
+            <summary>Disables and clears the fields of the customization filter.
+            This is used in case no customization filter is selected.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DisableTextBox(System.Windows.Forms.TextBox)">
+            <summary>Disable a text box and delete its content
+            </summary>
+            <param name="textBox">TextBox control to disable</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.DisableCheckBox(System.Windows.Forms.CheckBox)">
+            <summary>Disable a text box and delete its content
+            </summary>
+            <param name="checkBox">TextBox control to disable</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.dataGridViewSteps_CellValidating(System.Object,System.Windows.Forms.DataGridViewCellValidatingEventArgs)">
+            <summary>Event occurs when the focus is left
+            </summary>
+            <param name="sender">Sender object</param>
+            <param name="e">event argument containing the cell</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashProgramEditor.dataGridViewSteps_CellEndEdit(System.Object,System.Windows.Forms.DataGridViewCellEventArgs)">
+            <summary>Event occurs when the cell loses the focus.
+            This event is used to show the '0' in the text box.
+            The CellValidating event is not able to do this.
+            </summary>
+            <param name="sender">DataGridView</param>
+            <param name="e">event arguments</param>
+        </member>
+        <member name="P:Sias.WashManager.GUI.SWashProgramEditor.PropertyGrid">
+            <summary>Public Access to the property grid.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.GUI.SWashProgramEditor.SelectedProgramIndex">
+            <summary>Get the index of the selected program
+            or 0 if no one is selected.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.GUI.SWashProgramEditor.Modified">
+            <summary>Property of the private member modified. \n
+            The set accessor modifies the title bar with an '*' if data has changed.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashDeviceComboBox">
+            <summary>ComboBox providing all washer devices of the current robot definition.
+            The control is disabled in case there is only one device available.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeviceComboBox.#ctor">
+            <summary>Default constructor 
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeviceComboBox.LoadWasherDevices(System.String)">
+            <summary>Load the available washer devices from the device managers robot interface
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashDeviceComboBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeviceComboBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeviceComboBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.GUI.SWashDeviceComboBox.WasherDevice">
+            <summary>Washer device selected in the combo box.
+            The value is "null" if there is no device available, 
+            the robot was not available while initializing or
+            the control is still not initialized.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashPrimeProcedure">
+            <summary>Data collection containing all parameters needed to 
+            execute a prime cycle of a washer device.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashPrimeProcedure.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashPrimeProcedure.Similar(Sias.WashManager.SWashPrimeProcedure)">
+            <summary>Compares this prime procedure with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            where also members of the base class are compared.
+            </summary>
+            <param name="testObject">prime procedure to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashPrimeProcedure.Options">
+            <summary>Options used by the prime procedure
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashPrimeProcedure.Power">
+            <summary>Power mode of the pump during the prime cycle.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashPrimeProcedure.Cycles">
+            <summary>Number of prime cycles.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashPrimeProcedure.Volume">
+            <summary>Volume used in one prime cycle 
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashPrimeProcedure.Delay">
+            <summary>Prime delay 
+            
+            Time in milli seconds the suck pump still works after the dispens pump has stopped.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashPrimeProcedure.OptionValue">
+            <summary>
+            Prime procedure option value\n
+            Only the value <b>IsInvalid</b> is used by row procedures.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashPrimeProcedure.OptionValue.IsInvalid">
+            <summary>This Option bit marks the program as invalid. </summary>
+            <remarks>This is mainly used for firmware compatibility. In wash program editor it will typically not be used.</remarks>
+        </member>
+        <member name="T:Sias.WashManager.SWashProgramRepository">
+            <summary>Top container containing all available WashPrograms.
+            
+            This may change since these wash program are intended for use by drivers
+            whereas the program structure used by the editor may differ.
+            It is planed to store only programs as used by the editor while 
+            program data used by the washer device drivers is build each time requested.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramRepository.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramRepository.Programs">
+            <summary>collection of one or more WashProgram
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramRepository.DispenseProcedures">
+            <summary>Collection containing all dispense procedures known by the wash program manager.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramRepository.AspirateProcedures">
+            <summary>Collection containing all aspirate procedures known by the wash program manager.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramRepository.Limitations">
+            <summary>Collection containing all washer device type limitations used by the eidtor.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashStartDialog">
+            <summary>Dialog to start wash programs by wash program editor.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashStartDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashStartDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashStartDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashStartDialog.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashStartDialog.waitOnProgramTermination">
+            <summary>Waiting for response of the device indicating the end of the wash program.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashStartDialog.setState(Sias.WashManager.GUI.SWashStartDialog.deviceState)">
+            <summary>Enable and disable functionality related to the running state.
+            </summary>
+            <param name="state">Actual state of the device</param>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashPrimeDialog">
+            <summary>Dialog to start wash prime procedure.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashPrimeDialog.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashPrimeDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashPrimeDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashPrimeDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashDownloadDialog">
+            <summary>Dialog to download a wash program to the washer device.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashDownloadDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDownloadDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDownloadDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDownloadDialog.#ctor">
+            <summary>Default constructor
+            Reads the wash programs from the program repository.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashRowProcedure">
+            <summary>Data collection containing all parameters needed to 
+            execute a row sequence.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashRowProcedure.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashRowProcedure.#ctor(System.String)">
+            <summary>Constructor with row procedure name
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashRowProcedure.Similar(Sias.WashManager.SWashRowProcedure)">
+            <summary>Compares this row procedure with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            where also members of the base class are compared.
+            </summary>
+            <param name="testObject">row procedure to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashRowProcedure.Options">
+            <summary>Options for one row procedure
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashRowProcedure.AspirateProcedures">
+            <summary>List with the name of the aspirate procedures.
+            
+            They are sorted in the sequence of execution.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashRowProcedure.DispenseProcedures">
+            <summary>List with the name of the dispense procedures.
+            
+            They are sorted in the sequence of execution.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashRowProcedure.OptionValue">
+            <summary>
+            Row procedure option values\n
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashRowProcedure.OptionValue.IsInvalid">
+            <summary>This Option bit marks the program as invalid. </summary>
+            <remarks>This is mainly used for firmware compatibility. In wash program editor it will typically not be used.</remarks>
+        </member>
+        <member name="F:Sias.WashManager.SWashRowProcedure.OptionValue.UseMinimumPlateCycleTime">
+            <summary>Use Minimum Plate Cycle Time
+            
+            Set this option bit to activate the minimum plate cycle time for this row procedure.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashRowProcedures">
+            <summary>Collections of row prcedures.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashRowProcedures.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashRowProcedures.Add(Sias.WashManager.SWashRowProcedure)">
+            <summary>Adds a SWashRowProcedure object to the collection
+            </summary>
+            <param name="rowProcedure">The SWashRowProcedure object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashRowProcedures.Similar(Sias.WashManager.SWashRowProcedures)">
+            <summary>Compares this row procedure collection with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            where also members of the base class are compared.
+            </summary>
+            <param name="testObject">row procedures to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashRowProcedures.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashRowProcedure object at the given index.
+            
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashRowProcedure</param>
+            <returns>The SWashRowProcedure at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="T:Sias.WashManager.SWashGUICustomizationSet">
+            <summary>This object contains all data used to guide the operator
+            during the editing process to mind the characteristics of the 
+            different washer device types and lab items to be washed.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashGUICustomizationSet.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashGUICustomizationSet.#ctor(System.String)">
+            <summary>Constructor defining the object name
+            </summary>
+            <param name="name">Name of this customization set</param>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.Name">
+            <summary>Name of the customization set.
+            
+            (The property ObjectName of SObject is used behind this property.)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.MaxRowProcedures">
+            <summary>Maximum number of row procedures in one wash program.
+            
+            A value of -1 indicates that there is no limitation.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.MaxDispenseProcedures">
+            <summary>Maximum number of dispense procedures in one row procedure.
+            
+            A value of -1 indicates that there is no limitation.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.MaxDispenseSteps">
+            <summary>Maximum number of dispense steps in one dispense procedure.
+            
+            A value of -1 indicates that there is no limitation.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.MaxAspirateProcedures">
+            <summary>Maximum number of aspirate procedures in one row procedure.
+            
+            A value of -1 indicates that there is no limitation.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.MaxAspirateSteps">
+            <summary>Maximum number of aspirate steps in one aspirate procedure.
+            
+            A value of -1 indicates that there is no limitation.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.YMovements">
+            <summary>Defines whether movements in y-direction should be programmable
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.DefineAspPowerForAspSteps">
+            <summary>Defines whether the aspiration power level should be programmable in aspiration steps
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.DefineAspPowerAtAspStart">
+            <summary>Defines whether the aspiration power level at aspiration procedure start should be programmable
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.SwitchVacuumAspInAspProc">
+            <summary>Defines whether the vacuum aspiration function for aspiration procedures should be programmable
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.SwitchAspInDispStep">
+            <summary>Defines whether the aspiration function during a dispens step should be programmable
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.DefineDispPowerAtDispStart">
+            <summary>Defines whether the dispense power level at dispense procedure start should be programmable
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.SwitchAspAtDispStart">
+            <summary>Defines whether the aspiration power level at dispense procedure start should be programmable
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.UseAsDefault">
+            <summary>Defines whether this customisation record set should be used as default values
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.LiquidChannels">
+            <summary>Defines which liquid channels are valid und how they should be called
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashGUICustomizationSet.PowerModes">
+            <summary>Defines the power mode levels used and how they should be called
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashGUICustomizationSet.LiquidChannel">
+            <summary>Defines which liquid channels are valid und how they should be called
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashGUICustomizationSet.LiquidChannel.used">
+            <summary>Defines whether this liquid channel is used
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashGUICustomizationSet.LiquidChannel.name">
+            <summary>Name of this liquid channel
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashGUICustomizationSet.PowerMode">
+            <summary>Defines the power mode levels used and their name
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashGUICustomizationSet.PowerMode.usedForAspProc">
+            <summary>Defines whether this power mode level is used in aspiration procedures
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashGUICustomizationSet.PowerMode.usedForDispProc">
+            <summary>Defines whether this power mode level is used in dispense procedures
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashGUICustomizationSet.PowerMode.name">
+            <summary>Name of this power mode level
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashProgramLimitations">
+            <summary>Collection of all SWashGUICustomizationSet
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramLimitations.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramLimitations.Add(Sias.WashManager.SWashGUICustomizationSet)">
+            <summary>Adds a SWashGUICustomizationSet object to the collection
+            
+            An already existing customization set with the same name will be overwritten.
+            </summary>
+            <param name="customizationSet">The SWashGUICustomizationSet object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramLimitations.Find(System.String)">
+            <summary>Find washer device type based on their name.
+            </summary>
+            <param name="name">Name of the customization set</param>
+            <returns>The customization set looked for</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramLimitations.FindPosition(System.String)">
+            <summary>Find list index of a customization set based on their name.
+            </summary>
+            <param name="name">Name of the customization set</param>
+            <returns>The list index of the customization set looked for</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramLimitations.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashGUICustomizationSet object at the given index.
+            
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashGUICustomizationSet</param>
+            <returns>The SWashGUICustomizationSet at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramLimitations.Item(System.String)">
+            <summary>String Indexer. Gets or sets the SWashGUICustomizationSet object with the given name.
+            
+            If the object is not found in the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="name">Name of the customization set</param>
+            <returns>The SWashGUICustomizationSet with the given name or null if the name is not known</returns>
+        </member>
+        <member name="T:Sias.WashManager.SWashItemInfo">
+            <summary>Data collection containing all information used to wash a layout item.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashItemInfo.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashItemInfo.Options">
+            <summary>Wash plate options
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashItemInfo.ZOffset">
+            <summary>Wash reference height
+            
+            (relative to the reference)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashItemInfo.ZTravel">
+            <summary>Wash travel height
+            
+            (relative to the reference)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashItemInfo.XYPositions">
+            <summary>Wash positions in x and y coordinates
+            
+            (relative to the reference)
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashXYPositions">
+            <summary>Collection of SWashXYPosition objects.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashXYPositions.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashXYPositions.Add(Sias.WashManager.SWashXYPosition)">
+            <summary>Adds a SWashXYPosition object to the collection
+            </summary>
+            <param name="washPosition">The SWashXYPosition object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashXYPositions.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashXYPosition object at the given index.
+            
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashXYPosition</param>
+            <returns>The SWashXYPosition at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="T:Sias.WashManager.SWashXYPosition">
+            <summary>Position on a layout item to be washed.
+            
+            This position defines only the x/y coordinates since the z value is 
+            specified for all positions on an item only once in common.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashXYPosition.#ctor">
+            <summary>Defautl constructor
+            
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashXYPosition.X">
+            <summary>X wash position (relative to the reference)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashXYPosition.Y">
+            <summary>Y wash position (relative to the reference)
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashAspirateProcedure">
+            <summary>Data collection containing all parameters needed to 
+            execute an aspirate sequence.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedure.#ctor">
+            <summary>Default constructor of a new aspirate procedure
+            without any information inside.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedure.#ctor(System.String)">
+            <summary>Constructor of a new aspirate procedure
+            without any information inside.
+            </summary>
+            <param name="name">Name of the aspirate procedure as unique identifier</param>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedure.Similar(Sias.WashManager.SWashAspirateProcedure)">
+            <summary>Compares this aspirate procedure with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            whereas also members of the base class are compared.
+            </summary>
+            <param name="testObject">aspirate procedure to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.Name">
+            <summary>Name of the aspirate procedure.
+            
+            (The property ObjectName of SObject is used behind this property.)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.CustomizationFilter">
+            <summary>Name of an optionally used  filter to customize the amount of procedure parameters.
+            
+            Without a name, the default setting will be used.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.Options">
+            <summary>Options for an aspirate procedure
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.StartPower">
+            <summary>Power mode of the pump at start of an aspirate procedure.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.StartPosition">
+            <summary>Position where procedure has to start.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.DelayAfterMove">
+            <summary>Delay before move in milliseconds
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.MinAspTime">
+            <summary>Minimum aspiration time in milliseconds
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedure.AspirateSteps">
+            <summary>Collection of aspiration steps
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashAspirateProcedure.OptionValue">
+            <summary>
+            Aspirate procedure option values\n
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashAspirateProcedure.OptionValue.IsInvalid">
+            <summary>This Option bit marks the aspirate procedure as invalid. </summary>
+            <remarks>This is mainly used for firmware compatibility. In wash program editor it will typically not be used.</remarks>
+        </member>
+        <member name="F:Sias.WashManager.SWashAspirateProcedure.OptionValue.NoVacuumAspirate">
+            <summary>
+            Disable vacuum aspirate
+            
+            This option disables the washers vacuum aspiration cycle (default).
+            Important: Only washers with vacuum station can work with enabled vacuum aspiration!
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashAspirateProcedures">
+            <summary>Collection of aspirate procedures.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedures.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedures.Add(Sias.WashManager.SWashAspirateProcedure)">
+            <summary>Adds a SWashAspirateProcedure object to the collection
+            
+            An already existing aspirate procedure with the same name will be overwritten.
+            </summary>
+            <param name="aspirateProcedure">The SWashAspirateProcedure object to be inserted</param>
+            <returns>Index of the newly inserted procedure</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedures.Find(System.String)">
+            <summary>Find an aspirate procedure based on their name.
+            </summary>
+            <param name="name">Name of the aspirate procedure</param>
+            <returns>The apirate procedure looked for</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashAspirateProcedures.FindPosition(System.String)">
+            <summary>Find list index of an aspirate procedure based on their name.
+            </summary>
+            <param name="name">Name of the aspirate procedure</param>
+            <returns>The list index of the apirate procedure looked for</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedures.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashAspirateProcedure object at the given index.
+            
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashAspirateProcedure</param>
+            <returns>The SWashAspirateProcedure at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashAspirateProcedures.Item(System.String)">
+            <summary>String Indexer. Gets or sets the SWashAspirateProcedure object with the given name.
+            
+            If the procedure is not found in the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="name">Name of the SWashAspirateProcedure</param>
+            <returns>The SWashAspirateProcedure with the given name or null if the name is not known</returns>
+        </member>
+        <member name="T:Sias.WashManager.SPowerModeStrings">
+            <summary>Name descriptions for power mode values
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeStrings.descriptions">
+            <summary>Textual descriptions for power mode values
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SPowerModeValue">
+            <summary>Pump power mode values.
+            
+            This power mode values are used to define the aspirate or dispense pumps powers.
+            This is improtant to make wash programs less depending on the used washer hardware.
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.NoPower">
+            <summary>Power off - The pump will be still.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.VeryLowPower">
+            <summary>Very low power.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.LowPower">
+            <summary>Low power.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.BelowMediumPower">
+            <summary>Lower then medium power.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.MediumPower">
+            <summary>Medium power.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.AboveMediumPower">
+            <summary>Higher then medium power.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.HighPower">
+            <summary>High power.</summary>
+        </member>
+        <member name="F:Sias.WashManager.SPowerModeValue.FullPower">
+            <summary>Full power.</summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashProgram">
+            <summary>A wash program as it is stored in the wash program repository.
+            
+            This calss does not contain any dispense and aspirte procedures.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgram.#ctor">
+            <summary>Default constructor to create an empty wash program.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgram.#ctor(System.String)">
+            <summary>Constructor to create an empty wash program.
+            </summary>
+            <param name="name">Name of the wash program</param>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgram.Similar(Sias.WashManager.SWashProgram)">
+            <summary>Compares this wash program with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            where also members of the base class are compared.
+            </summary>
+            <param name="testObject">wash program to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.Options">
+            <summary>Options for a wash program
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.Name">
+            <summary>Name of the wash program.
+            
+            (The property ObjectName of SObject is used behind this property.)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.CustomizationFilter">
+            <summary>Name of an optionally used  filter to customize the amount of program parameters.
+            
+            Without a name, the default setting will be used.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.LiquidIndex">
+            <summary>Liquid index identifying the source of the wash buffer.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.Cycles">
+            <summary>Number of cycles 
+            
+            This value defines how many times the wash program has to be performed on the specified rows.
+            The prime procedure is not affected by this counter.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.MinPlateCycleTime">
+            <summary>Minimum time between startings of succeeding wash cycles. 
+            
+            A wash cycle will wait at least this number of seconds from the last start of a cycle to the succeeding start.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.PrimeProcedure">
+            <summary>Contains the information used to prime the washer prior to a wash program.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.RowProcedures">
+            <summary>Collection of row procedures.
+            
+            (Each row procedure contains a cuple of wash steps for one row of a layout item.)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgram.FinalAspiration">
+            <summary>Name of the final aspirate procdure to empty the layout item washed by this procedure.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashProgram.OptionValue">
+            <summary>Wash program option values\n
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashProgram.OptionValue.IsInvalid">
+            <summary>This Option bit marks the program as invalid. </summary>
+            <remarks>This is mainly used for firmware compatibility. In wash program editor it will typically not be used.</remarks>
+        </member>
+        <member name="F:Sias.WashManager.SWashProgram.OptionValue.SimulateUnusedRows">
+            <summary>
+            Simultate unused rows
+            
+            This option forces the washer to simulate unused rows by waiting the approximatly wash time.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashProgramCollection">
+            <summary>Collection of one ore more objects SWashProgram
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramCollection.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramCollection.Add(Sias.WashManager.SWashProgram)">
+            <summary>Adds a SWashProgram object to the collection
+            
+            An already existing wash program with the same name will be overwritten.
+            </summary>
+            <param name="washProgram">The SWashProgram object to be inserted</param>
+            <returns>Index of the newly inserted SWashProgram</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramCollection.Find(System.String)">
+            <summary>Find an wash program based on their name.
+            </summary>
+            <param name="name">Name of the wash program</param>
+            <returns>The wash program looked for</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramCollection.FindPosition(System.String)">
+            <summary>Find list index of a wash program based on their name.
+            </summary>
+            <param name="name">Name of the wash program</param>
+            <returns>The list index of the wash program looked for</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramCollection.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashProgram object at the given index.
+            
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashProgram</param>
+            <returns>The SWashProgram at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramCollection.Item(System.String)">
+            <summary>String Indexer. Gets or sets the SWashProgram object with the given name.
+            
+            If the program is not found in the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="name">Name of the SWashProgram</param>
+            <returns>The SWashProgram with the given name or null if the name is not known</returns>
+        </member>
+        <member name="T:Sias.WashManager.IWasherDevice">
+            <summary>Washer device interface
+            
+            This interface provides the minimum methods a washer device has to implement as far has
+            it is able to work with dynamic loaded wash programs.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.CheckWashProgram(Sias.WashManager.SWashProgramData)">
+            <summary>Check wash program.
+            
+            This method forces the washer device driver to check the given wash program.
+            The method will report errors to the error manager.
+            </summary>
+            <remarks>\b Important: This method overwrites the tranfer memory of the dynamic washer devcice!</remarks>
+            <param name="WashProgramData">The program data block of the wash program to check.</param>
+            <returns>The Result of check, 0 if the wash program is correctly</returns>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.DeleteWashProgram(System.Byte)">
+            <summary>Delete wash program from flash memory
+            
+            This method forces the washer device driver to delete a wash program in flash memory.
+            The wash program gets identified by its <paramref name="WashProgramID"/>.
+            </summary>
+            <param name="WashProgramID">The wash program index to load (9..127).</param>
+            <returns>The Result of the operation, 0 if the wash program is deleted</returns>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.GetWashProgramFromWasher">
+            <summary>Get wash program from washer
+            
+            This method gets the wash program from washers transfer memory.
+            </summary>
+            <returns>The actual wash program.</returns>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.GetWashProgramFromWasher(System.Byte)">
+            <summary>Get a wash program from the washer device
+            
+            This method gets the specified wash program from the washer device.
+            </summary>
+            <param name="WashProgramID">
+            The index of the wash program looked for:\n
+             - 0:       wash program in RAM
+             - 1..8:    wash program from config memory
+             - 9..127:  wash program from flash pool
+            </param>
+            <returns>The wash program stored at the given position (index).</returns>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem)">
+            <summary>Transfer wash program to washer transfer memory.
+            
+            This method sends the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            </summary>
+            <param name="WashProgData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions.\n
+            If this parameter is null the item currently placed on the washer slot has to be used.</param>
+            <returns>True if wash program successfully sent, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.Byte)">
+            <summary>Transfer wash program into the specified place of the flash pool.
+            
+            This method sends the defined wash program together with the plate definitions 
+            of the given plate to the washer into the specified place.
+            </summary>
+            <param name="WashProgData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions.\n
+            If this parameter is null the item currently placed on the washer slot has to be used.</param>
+            <param name="WashProgramID">Wash program index to store (only flash indexes: 9..127)</param>
+            <returns>True if wash program successfully sent, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StartPrime(System.Byte,System.Byte,System.Int16,System.Int16,Sias.WashManager.SPowerModeValue)">
+            <summary>Start prime procedure.
+            
+            This command starts a prime procedure with the given parameters.
+            </summary>
+            <param name="LiquidIndex">Liquid index identifying the source of the wash buffer</param>
+            <param name="Cycles">Number of prime cycles</param>
+            <param name="Volume">Volume used in one prime cycle</param>
+            <param name="Delay">Delay in milli seconds the suck pump still works after the dispens pump has stopped.</param>
+            <param name="Power">Power mode of the pump during the prime cycles</param>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StartPrime(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>Start prime procedure.
+            
+            This command starts a prime procedure using a predefined SWashPrimeProcedure data structure.
+            </summary>
+            <param name="LiquidIndex">Liquid index identifying the source of the wash buffer</param>
+            <param name="PrimeProcedure">Data collection containing all parameters needed to execute a prime procedure</param>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StartWash(System.Byte,System.UInt16,System.Double)">
+            <summary>Start wash program command.
+            
+            This command starts the washer with the specified wash program.
+            </summary>
+            <param name="WashProgramID">
+            The index of wash program to get started:\n
+             - 0:       wash program in RAM
+             - 1..8:    wash program from config memory
+             - 9..127:  wash program from flash pool
+            </param>
+            <param name="Rows">Rows to be washed (each bit represents a row)\n
+            Attention:  Some Washers may not support individual row washing.\n
+                        In this case the Washer may wash unselected rows also.
+            </param>
+            <param name="WashVol">Wash volume</param>
+            <remarks>
+            \b Important: Not all washer devices will support this method!
+            </remarks>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StartWash(System.Byte,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>Start wash program command.
+            
+            This command starts the washer with the specified wash program.
+            </summary>
+            <param name="WashProgramID">
+            The index of wash program to get started:\n
+             - 0:       wash program in RAM
+             - 1..8:    wash program from config memory
+             - 9..127:  wash program from flash pool
+            </param>
+            <param name="WashPlate">The item where to get the wash positions.\n</param>
+            <param name="Rows">Rows to be washed (each bit represents a row)\n
+            Attention:  Some Washers may not support individual row washing.\n
+                        In this case the Washer may wash unselected rows also.
+            </param>
+            <param name="WashVol">Wash volume</param>
+            <remarks>
+            \b Important: Not all washer devices will support this method!
+            </remarks>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StartWash(Sias.WashManager.SWashProgramData,System.UInt16,System.Double)">
+            <summary>Start wash program command.
+            
+            This command starts the washer with the specified wash program.
+            </summary>
+            <param name="WashProgData">Wash program to get started</param>
+            <param name="Rows">Rows to be washed (each bit represents a row)\n
+            Attention:  Some Washers may not support individual row washing.\n
+                        In this case the Washer may wash unselected rows also.
+            </param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StartWash(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>Start wash program command.
+            
+            This command starts the washer with the specified wash program.
+            </summary>
+            <param name="WashProgData">Was program to be started</param>
+            <param name="WashPlate">The item where to get the wash positions.\n</param>
+            <param name="Rows">Rows to be washed (each bit represents a row)\n
+            Attention:  Some Washers may not support individual row washing.\n
+                        In this case the Washer may wash unselected rows also.
+            </param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.StopWash">
+            <summary>Stop a running wash program.
+            
+            Stops an already but still not finished wash program.
+            </summary>
+            <remarks>
+            \b Important: Not all washer devices will support wash program interruption!
+            </remarks>
+        </member>
+        <member name="M:Sias.WashManager.IWasherDevice.WaitForEndOfWashing">
+            <summary>Waits for the end of the running wash program.
+            
+            This method waits infinite until the wash program finishes.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.IWasherDevice.PauseWash">
+            <summary>Pause washing flag 
+            
+            This property is used to pause a wash program. The washer/wash head stops moving, but 
+            the wash program did not get aborted. The program can get continued by setting the
+            PauseWash flag back to false.
+            </summary>
+            <remarks>
+            \b Important: 
+             - The PausWash flag gets reset on start of a new wash program.
+             - No each washer device is able to interrupt washing!
+            </remarks>
+        </member>
+        <member name="P:Sias.WashManager.IWasherDevice.IsWashing">
+            <summary>Indicator whether a wash program is running.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashCheckProgramDialog">
+            <summary>Dialog to download a wash program to the washer device in order to check its consistence.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashCheckProgramDialog.#ctor">
+            <summary>Default constructor 
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashCheckProgramDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashCheckProgramDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashCheckProgramDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.GUI.SWashDeleteDialog">
+            <summary>Dialog to delete a wash program in a washer device
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.GUI.SWashDeleteDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeleteDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeleteDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.GUI.SWashDeleteDialog.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashStep">
+            <summary>Data collection containing all parameters needed to 
+            execute a single aspirate or dispense step.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashStep.#ctor">
+            <summary>Default constructor to ensure members are instantiated
+            and to enable to clone this object.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashStep.Similar(Sias.WashManager.SWashStep)">
+            <summary>Compares this wash step with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            whereas also members of the base class are compared.
+            </summary>
+            <param name="testObject">wash step to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashStep.Options">
+            <summary>Options used by one single aspirate or dispense step
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashStep.Power">
+            <summary>Power mode of the pump during a aspirate or dispense step.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashStep.DestinationPosition">
+            <summary>Position where the step has to move.
+            
+            (Only the x and y coordinates have to be considered.)
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashStep.Speeds">
+            <summary>Speed in each direction.
+            The position values for x, y and z are used for the moving speed 
+            in the corresponding direction.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashStep.DelayAfterMove">
+            <summary>Additional delay after movement
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashStep.OptionValue">
+            <summary>
+            Wash step option values\n
+            </summary>
+        </member>
+        <member name="F:Sias.WashManager.SWashStep.OptionValue.IsInvalid">
+            <summary>This Option bit marks the program as invalid. </summary>
+            <remarks>This is mainly used for firmware compatibility. In wash program editor it will typically not be used.</remarks>
+        </member>
+        <member name="F:Sias.WashManager.SWashStep.OptionValue.AspirateWhileDispense">
+            <summary>
+            Aspirate while dispense
+            
+            This option activates the aspirate pumpe while executing the dispense wash step. 
+            The flag is only recogniced in case of dispense wash steps (part of a dispense 
+            procedure). The aspirate power is defined at the dispense procedure.
+            </summary>
+        </member>
+        <member name="T:Sias.WashManager.SWashSteps">
+            <summary>Collection of SWashStep objects.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashSteps.#ctor">
+            <summary>Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashSteps.Add(Sias.WashManager.SWashStep)">
+            <summary>Adds a SWashStep object to the collection
+            </summary>
+            <param name="washStep">The SWashStep object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.WashManager.SWashSteps.Similar(Sias.WashManager.SWashSteps)">
+            <summary>Compares this wash step collection with the specified one.
+            Only washer specific items are compared in opposite to the method Equals()
+            whereas also members of the base class are compared.
+            </summary>
+            <param name="testObject">wash steps to compare</param>
+            <returns>True if all items are equal</returns>
+        </member>
+        <member name="P:Sias.WashManager.SWashSteps.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SWashStep object at the given index.
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the SWashStep</param>
+            <returns>The SWashStep at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="T:Sias.WashManager.SWashProgramData">
+            <summary>Data collection containing all parameters needed to 
+            execute a specific washer device program.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramData.#ctor">
+            <summary>Default constructor of a new wash program
+            without any wash information.
+            </summary>
+        </member>
+        <member name="M:Sias.WashManager.SWashProgramData.#ctor(System.String)">
+            <summary>Constructor of a new wash program
+            without any wash information.
+            </summary>
+            <param name="name">Name of the wash program as unique identifier</param>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramData.DispenseProcedures">
+            <summary>Collection containing all dispense procedures used by this wash program.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramData.AspirateProcedures">
+            <summary>Collection containing all apirate procedures used by this wash program.
+            </summary>
+        </member>
+        <member name="P:Sias.WashManager.SWashProgramData.WashProgram">
+            <summary>A wash program as it is stored in the wash program repository.
+            
+            This object does only reference dispense and aspirte procedures.
+            </summary>
+        </member>
+    </members>
+</doc>

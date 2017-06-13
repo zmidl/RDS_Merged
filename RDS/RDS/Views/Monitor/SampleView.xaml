@@ -1,0 +1,225 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rdscl="clr-namespace:RDSCL;assembly=RDSCL"
+             xmlns:common="clr-namespace:RDS.ViewModels.Common"
+             xmlns:behavior="clr-namespace:RDS.ViewModels.Behaviors"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:local="clr-namespace:RDS.Views.Monitor" x:Class="RDS.Views.Monitor.SampleView"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1900">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="EmergencyBordBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="#FFCBCBCB" Offset="1"/>
+        </LinearGradientBrush>
+
+
+        <DataTemplate x:Key="DataGridTemplateColumn_Emergency">
+            <CheckBox Style="{StaticResource RD_ElipseCheckBoxStyle}"  Height="18" IsChecked="{Binding IsEmergency,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,1,0,0"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataGridTemplateHeader_Emergency">
+            <Button Style="{StaticResource RD_ButtonBrightStyle}" Command="{Binding ViewModel.SetMultipleEmergency, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SampleView}}}"  Width="34" Height="23" >
+                <TextBlock Text="{DynamicResource SampleView_Emergency}" Foreground="White" VerticalAlignment="Center"/>
+            </Button>
+        </DataTemplate>
+
+        <Style BasedOn="{StaticResource TextBlockStyle}" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,2.1,0,0"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="DataGridColumn0Editing" TargetType="{x:Type TextBox}">
+            <Setter Property="Foreground" Value="{StaticResource BlueColor}"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BlueColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </UserControl.Resources>
+    <Viewbox Stretch="Fill" >
+        <Grid Width="950" Height="500">
+            <Canvas>
+              
+                <Button x:Name="Button_Exit" Style="{StaticResource RD_ButtonBrightStyle}" Command="{Binding ExitSampleView}" CommandParameter="True" Content="完成" Width="70" Height="28" Canvas.Left="790" Canvas.Top="447"/>
+                <Button x:Name="Button_Exit2" Style="{StaticResource RD_ButtonBrightStyle}" Command="{Binding ExitSampleView}" CommandParameter="False" Content="放弃" Width="70" Height="28" Canvas.Left="870" Canvas.Top="447"/>
+
+                <DataGrid 
+                    x:Name="ucDataGrid" 
+                    Style="{StaticResource RD_DataGridBrightStyle}"
+                    AllowDrop="True" ItemsSource="{Binding CurrentSampleInformations}"
+                    SelectionMode="Extended"
+                    VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"
+                    AutoGenerateColumns="False"
+                    Width="740" Height="450" 
+                    Canvas.Left="30" Canvas.Top="25">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="45" Header="{DynamicResource SampleView_HoleSite}" EditingElementStyle="{StaticResource DataGridColumn0Editing}"  Binding="{Binding HoleName}"/>
+                        <DataGridTextColumn MinWidth="90" Header="{DynamicResource SampleView_BarCode}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding Barcode}" />
+                        <DataGridTextColumn MinWidth="115" Header="{DynamicResource SampleView_SampleNumber}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding SampleId}" />
+                        <DataGridTextColumn MinWidth="80" Header="{DynamicResource SampleView_Name}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding Name}" />
+                        <DataGridTextColumn MinWidth="45" Header="{DynamicResource SampleView_Sex}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding Sex}" />
+                        <DataGridTextColumn MinWidth="45" Header="{DynamicResource SampleView_Age}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding Age}" />
+                        <DataGridTextColumn MinWidth="80" Header="{DynamicResource SampleView_Type}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding Type}" />
+                        <DataGridTextColumn MinWidth="80" Header="{DynamicResource SampleView_Reagent}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding Reagent}" />
+                        <DataGridTextColumn MinWidth="115" Header="{DynamicResource SampleView_DateTime}" EditingElementStyle="{StaticResource DataGridColumn0Editing}" Binding="{Binding DateTime}" />
+                        <!--<DataGridCheckBoxColumn MinWidth="40" Header="{DynamicResource SampleView_Emergency}"  Binding="{Binding IsEmergency}"/>-->
+                        <!--<DataGridTemplateColumn MinWidth="40" CellTemplate="{StaticResource DataGridTemplateColumn_Emergency}" Header="{DynamicResource SampleView_Emergency}" />-->
+                        <DataGridTemplateColumn MinWidth="40" CellTemplate="{StaticResource DataGridTemplateColumn_Emergency}" HeaderTemplate="{StaticResource DataGridTemplateHeader_Emergency}" />
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <rdscl:RD_SampleRack SampleRackState="{Binding FourSampleRackDescriptions[0].SampleRackState}" Samples="{Binding FourSampleRackDescriptions[0].Samples}" Width="26" Canvas.Left="802" Canvas.Top="48">
+                    <i:Interaction.Behaviors>
+                        <behavior:SampleRackMouseUp SampleRackIndex="RackA"  ViewModel="{Binding Mode=OneWay}"/>
+                    </i:Interaction.Behaviors>
+                </rdscl:RD_SampleRack>
+                <rdscl:RD_SampleRack SampleRackState="{Binding FourSampleRackDescriptions[1].SampleRackState}" Samples="{Binding FourSampleRackDescriptions[1].Samples}" Width="26" Canvas.Left="832" Canvas.Top="48">
+                    <i:Interaction.Behaviors>
+                        <behavior:SampleRackMouseUp SampleRackIndex="RackB"  ViewModel="{Binding Mode=OneWay}"/>
+                    </i:Interaction.Behaviors>
+                </rdscl:RD_SampleRack>
+                <rdscl:RD_SampleRack SampleRackState="{Binding FourSampleRackDescriptions[2].SampleRackState}" Samples="{Binding FourSampleRackDescriptions[2].Samples}" Width="26" Canvas.Left="862" Canvas.Top="48">
+                    <i:Interaction.Behaviors>
+                        <behavior:SampleRackMouseUp SampleRackIndex="RackC"  ViewModel="{Binding Mode=OneWay}"/>
+                    </i:Interaction.Behaviors>
+                </rdscl:RD_SampleRack>
+                <rdscl:RD_SampleRack SampleRackState="{Binding FourSampleRackDescriptions[3].SampleRackState}" Samples="{Binding FourSampleRackDescriptions[3].Samples}" Width="26" Canvas.Left="892" Canvas.Top="48">
+                    <i:Interaction.Behaviors>
+                        <behavior:SampleRackMouseUp SampleRackIndex="RackD"  ViewModel="{Binding Mode=OneWay}"/>
+                    </i:Interaction.Behaviors>
+                </rdscl:RD_SampleRack>
+
+
+                <StackPanel Orientation="Horizontal" Canvas.Left="811" Canvas.Top="30">
+                    <TextBlock Text="A" />
+                    <TextBlock Text="B" Margin="21,0,0,0"/>
+                    <TextBlock Text="C" Margin="21,0,0,0"/>
+                    <TextBlock Text="D" Margin="21,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Canvas.Left="783" Canvas.Top="71">
+                    <TextBlock Text="1" />
+                    <TextBlock Text="2" />
+                    <TextBlock Text="3" />
+                    <TextBlock Text="4" />
+                    <TextBlock Text="5" />
+                    <TextBlock Text="6" />
+                    <TextBlock Text="7" />
+                    <TextBlock Text="8" />
+                    <TextBlock Text="9" />
+                    <TextBlock Text="10" />
+                    <TextBlock Text="11" />
+                    <TextBlock Text="12" />
+                    <TextBlock Text="13" />
+                    <TextBlock Text="14" />
+                    <TextBlock Text="15" />
+                    <TextBlock Text="16" />
+                    <TextBlock Text="17" />
+                    <TextBlock Text="18" />
+                    <TextBlock Text="19" />
+                    <TextBlock Text="20" />
+                </StackPanel>
+            </Canvas>
+        </Grid>
+    </Viewbox>
+</UserControl>
+<!--
+      <StackPanel Orientation="Vertical" Height="358" Width="23" Canvas.Left="29" Canvas.Top="20" >
+                        <rdscl:Hole x:Name="A1" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[0].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <rdscl:Hole x:Name="A2" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[1].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A3" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[2].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A4" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[3].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A5" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[4].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A6" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[5].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A7" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[6].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A8" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[7].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A9" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[8].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A10" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[9].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                        <rdscl:Hole x:Name="A11" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[10].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A12" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[11].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A13" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[12].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A14" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[13].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A15" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[14].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A16" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[15].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A17" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[16].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A18" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[17].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A19" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[18].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="A20" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[19].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="358" Width="23" Canvas.Left="51" Canvas.Top="20">
+                        <rdscl:Hole x:Name="B1" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[20].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <rdscl:Hole x:Name="B2" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[21].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B3" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[22].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B4" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[23].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B5" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[24].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B6" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[25].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B7" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[26].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B8" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[27].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B9" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[28].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B10" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[29].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                        <rdscl:Hole x:Name="B11" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[30].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B12" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[31].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B13" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[32].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B14" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[33].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B15" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[34].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B16" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[35].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B17" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[36].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B18" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[37].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B19" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[38].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="B20" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[39].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="358" Width="23" Canvas.Left="73" Canvas.Top="20">
+                        <rdscl:Hole x:Name="C1" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[20].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <rdscl:Hole x:Name="C2" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[21].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C3" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[22].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C4" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[23].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C5" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[24].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C6" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[25].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C7" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[26].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C8" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[27].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C9" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[28].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C10" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[29].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                        <rdscl:Hole x:Name="C11" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[30].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C12" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[31].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C13" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[32].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C14" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[33].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C15" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[34].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C16" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[35].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C17" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[36].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C18" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[37].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C19" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[38].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="C20" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[39].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="358" Width="23" Canvas.Left="95" Canvas.Top="20">
+                        <rdscl:Hole x:Name="D1" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[60].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <rdscl:Hole x:Name="D2" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[61].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D3" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[62].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D4" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[63].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D5" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[64].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D6" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[65].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D7" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[66].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D8" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[67].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D9" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[68].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D10" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[69].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                        <rdscl:Hole x:Name="D11" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[70].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D12" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[71].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D13" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[72].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D14" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[73].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D15" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[74].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D16" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[75].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D17" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[76].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D18" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[77].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D19" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[78].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+                        <rdscl:Hole x:Name="D20" Width="18" Height="16" ContentColor="{Binding SampleDescriptions[79].State, Converter={StaticResource SamplingToSolidColorBrush}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,0" />
+
+                    </StackPanel>
+    -->

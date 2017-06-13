@@ -1,0 +1,39 @@
+<SDetectionClassCollection Type="Sias.DetectionManager.SDetectionClassCollection">
+  <Count>3</Count>
+  <SDetectionClass Type="Sias.DetectionManager.SDetectionClass">
+    <Name>Default</Name>
+    <DetectionParameters>
+      <ModeValue>16</ModeValue>
+      <ScanSpeed>50</ScanSpeed>
+      <RetractSpeed>50</RetractSpeed>
+      <Submerge>1</Submerge>
+      <Retract>0.5</Retract>
+      <DoubleLQCheckOffset>20</DoubleLQCheckOffset>
+      <LQMaxDeviation>0.5</LQMaxDeviation>
+    </DetectionParameters>
+  </SDetectionClass>
+  <SDetectionClass Type="Sias.DetectionManager.SDetectionClass">
+    <Name>SingleDetection</Name>
+    <DetectionParameters>
+      <ModeValue>16393</ModeValue>
+      <ScanSpeed>50</ScanSpeed>
+      <RetractSpeed>50</RetractSpeed>
+      <Submerge>1</Submerge>
+      <Retract>0.5</Retract>
+      <DoubleLQCheckOffset>20</DoubleLQCheckOffset>
+      <LQMaxDeviation>0.5</LQMaxDeviation>
+    </DetectionParameters>
+  </SDetectionClass>
+  <SDetectionClass Type="Sias.DetectionManager.SDetectionClass">
+    <Name>DoubleDetection</Name>
+    <DetectionParameters>
+      <ModeValue>1064969</ModeValue>
+      <ScanSpeed>50</ScanSpeed>
+      <RetractSpeed>50</RetractSpeed>
+      <Submerge>1</Submerge>
+      <Retract>0.5</Retract>
+      <DoubleLQCheckOffset>20</DoubleLQCheckOffset>
+      <LQMaxDeviation>0.5</LQMaxDeviation>
+    </DetectionParameters>
+  </SDetectionClass>
+</SDetectionClassCollection>

@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LayoutViewer</name>
+    </assembly>
+    <members>
+        <member name="F:Sias.Layout.Viewer.LabObjectVC.transparent">
+            <summary>
+            Indicates if the LabObject is transparent or not.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.LabObjectVC.parent">
+            <summary>
+            List of Primitives the LabObject is placed on and LabObject's position.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.LabObjectVC.touchPosition">
+            <summary>
+            Screen coordinates of the point at which the LabObject has been clicked.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.LabObjectVC.touchCorrection">
+            <summary>
+            Vector in screen coordinates between the touch point and LabObject screen position.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.LabObjectVC.PropagateSelection">
+            <summary>
+            Propagates the selection state down to the underlying LabObject.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.LabObjectVC.GetPosition">
+            <summary>
+            Gets LabObject position in screen coordinates.
+            </summary>
+            <returns>The position in screen coordinates.</returns>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LabObjectVC.State">
+            <summary>
+            Gets or sets the object state.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LabObjectVC.Selectable">
+            <summary>
+            Gets a value indicating whether the LabObject can be selected.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LabObjectVC.TouchPosition">
+            <summary>
+            Gets or sets the point at which the LabObject has been clicked.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LabObjectVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.ModelVC.acceptingPosition">
+            <summary>
+            Mouse position at which the object is accepted for placing.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.ModelVC.propagatingValue">
+            <summary>
+            Indicates that the model propagates a value throughout components.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.ModelVC.PropagateSelection">
+            <summary>
+            Propagates the selection state down to the underlying LabObject.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.ModelVC.State">
+            <summary>
+            Gets or sets the object state.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.ModelVC.PropagatingValue">
+            <summary>
+            Gets or sets the flag indicating that the model propagates a value throughout components.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.ModelVC.TouchPosition">
+            <summary>
+            Gets or sets the point at which the model has been clicked.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.PrimitiveVC.TouchPosition">
+            <summary>
+            Gets or sets the point at which the primitive has been clicked.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Viewer.OptionPanelControl">
+            <summary>
+            Summary description for OptionPanelControl.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.OptionPanelControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.OptionPanelControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.OptionPanelControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.DeviceInstanceVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Viewer.NavigationControl">
+            <summary>
+            Summary description for NavigationControl.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.NavigationControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.NavigationControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.TipPositionLayoutVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.StackerLayoutVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.RectSlotLayoutVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.IGUI.PrefillPositions">
+            <summary>
+            Fills selected positions with compatible models.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Viewer.LoggerManager">
+            <summary>
+            Summary description for LoggerManager.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Viewer.ILogger">
+            <summary>
+            Summary description for ILogger.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.ILogger.GetDeclaredNodes">
+            <summary>
+            This method is needed by wonderful PASS LogServer and declares log tree nodes
+            which can be used during logging. Each log send to logger can be mapped to appropriate
+            node by 'importance' field given in LogNodeInfo object and as Log function parameter
+            </summary>
+            <returns>list of allowed log tree nodes</returns>
+        </member>
+        <member name="M:Sias.Layout.Viewer.ILogger.Log(System.Int32,System.String,System.String)">
+            <summary>
+            Sends information to active logger.
+            </summary>
+            <param name="importance">message importance level. The lower number the higher priority (0==the highest)</param>
+            <param name="tag">tag under which information is logged. Used by Pass LogServer</param>
+            <param name="text">message to be logged</param>
+        </member>
+        <member name="M:Sias.Layout.Viewer.SLog.LResize(Sias.Layout.LabObject,Sias.Layout.LabObject,Sias.Core.SPosition)">
+            <summary>
+            here Position used to specify width (x) and height (y)
+            </summary>
+            <param name="what"></param>
+            <param name="from"></param>
+            <param name="to"></param>
+        </member>
+        <member name="T:Sias.Layout.Viewer.GSettings">
+            <summary>
+            Global application settings available
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.GSettings.gridOpacity">
+            <summary>
+            ranges from 0 (full transparent) to 255 (full opaque)
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.DecktrayInstanceVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.ItemInstanceVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.RectCavityLayoutVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.RoundSlotLayoutVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Viewer.LogNodeInfo">
+            <summary>
+            Describes log tree node info. The field 'allowedTags' describes names of tags which can 
+            be used during logging
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.PropagateSelection">
+            <summary>
+            Synchronizes the selected objects from Viewer down to the underlying edited object.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.toolsPrefillPositions_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles Click event of the context menu.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.Activate">
+            <summary>
+            Performs activation actions when project gets active.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.AlignLefts">
+            <summary>Align all selected objects with the left side of the first selected object
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.AlignCenters">
+            <summary>Align all selected objects with the horizontal center of the first selected object
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.AlignRights">
+            <summary>Align all selected objects with the right side of the first selected object
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.AlignTops">
+            <summary>Align all selected objects with the top of the first selected object
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.AlignMiddles">
+            <summary>Align all selected objects with the vertical center of the first selected object
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.AlignBottoms">
+            <summary>Align all selected objects with the bottom of the first selected object
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.RegisterUserAction(System.String,Sias.Layout.Viewer.VisualManager.A_UserAction)">
+            set action handler for action of given name
+        </member>
+        <member name="M:Sias.Layout.Viewer.VisualManager.RegisterUserActionEnableChecker(System.String,Sias.Layout.Viewer.VisualManager.UserActionEnableChecker)">
+            adds action enable/disable checker for given state
+            when state is null this checker is called always (after each state change)
+        </member>
+        <member name="P:Sias.Layout.Viewer.VisualManager.ShowScalingPoint">
+            <summary>
+            Gets or sets the flag indicating if the scaling point should be shown.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.VisualManager.ShowReferencePoint">
+            <summary>
+            Gets or sets the flag indicating if the reference point should be shown.
+            </summary>
+        </member>
+        <member name="T:Sias.Layout.Viewer.VisualManager.A_UserAction">
+            called when user action is being executed
+            returns false if processing should be stopped, true otherwise
+        </member>
+        <member name="T:Sias.Layout.Viewer.VisualManager.UserActionEnableChecker">
+            when called should set action(s) to enabled or disabled state depending on current
+            state and other conditions 
+        </member>
+        <member name="T:Sias.Layout.Viewer.VisualManager.StateEventAction">
+            used for storing info about state and event needed to fire an event
+        </member>
+        <member name="M:Sias.Layout.Viewer.LayouterControl.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Sias.Layout.Viewer.LayouterControl.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LayouterControl.ViewedPrimitive">
+            <summary>
+            Sets a primitive to be shown in the viewer.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LayouterControl.ViewedModel">
+            <summary>
+            Sets a model to be shown in the viewer.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.LayouterControl.ViewedLayout">
+            <summary>
+            Sets a layout to be shown in the viewer.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.RoundCavityLayoutVC.SelectionMode">
+            <summary>
+            Gets the selection mode this LabObject matches.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.VisualComponentStorage.showScalingPoint">
+            <summary>
+            Indicates if the scaling point should be shown.
+            </summary>
+        </member>
+        <member name="F:Sias.Layout.Viewer.VisualComponentStorage.showReferencePoint">
+            <summary>
+            Indicates if the reference point should be shown.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.VisualComponentStorage.ShowScalingPoint">
+            <summary>
+            Gets or sets the flag indicating if the scaling point should be shown.
+            </summary>
+        </member>
+        <member name="P:Sias.Layout.Viewer.VisualComponentStorage.ShowReferencePoint">
+            <summary>
+            Gets or sets the flag indicating if the reference point should be shown.
+            </summary>
+        </member>
+    </members>
+</doc>

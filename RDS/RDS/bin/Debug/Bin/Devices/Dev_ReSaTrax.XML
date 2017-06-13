@@ -1,0 +1,1027 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_ReSaTrax</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.ReSaTrax.RemoveStripDialog">
+            <summary>
+            This is the default ReSaTrax remove strip request form.
+            
+            It is used by the default ReSaTrax remove strip dialog helper <see cref="T:Sias.ReSaTrax.RemoveStripDialogHelper"/>.
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.RemoveStripDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialog.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <b>RemoveStripDialog</b> class.
+            </summary>
+            <param name="slotId">The Id of the strip (0..n-1)</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialog.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <b>RemoveStripDialog</b> class.
+            </summary>
+            <param name="slotIndex">The index of the strip (0..n-1)</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialog.Abort_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the Abort's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="T:Sias.ReSaTrax.RemoveStripDialogHelper">
+            <summary>
+            This is the default ReSaTrax remove strip dialog helper.
+            
+            The remove strip dialog helper is used for requesting the user to unload 
+            a defined strip. The remove strip dialog helper instance can be passed to 
+            the SReSaTraxDevice.AddStrip method.
+            </summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.IDialogHelper">
+            <summary>
+            The dialog helper interface
+            
+            This interface is used as communication interface between the ReSaTrax device 
+            and the load/unload user interface (typically implemented as dialogs). 
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.IDialogHelper.ShowDialog(System.Int32)">
+            <summary>
+            This Method is called to display the load dialog.
+            </summary>
+            <param name="slotIndex">The index of the strip slot to access</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.IDialogHelper.Done">
+            <summary>
+            This method is called if the requested actions are successfully completed.
+            
+            Typically it closes the dialog.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.IDialogHelper.Failed">
+            <summary>
+            This method is called if at least one of the requested actions failed.
+            
+            Typically it activates a retry button. However, some actions or applications
+            may not want to allow retry. In this case the dialog may close directly.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.IDialogHelper.IsAborted">
+            <summary>
+            The read only property is used to request if the user requested abort.
+            
+            An abort request may be activated either by pressing an abort button a defined
+            key or may be only closing the dialog by user or may be by other application 
+            parts.
+            </summary>
+            <value>true on abort requests, otherwise false</value>
+        </member>
+        <member name="P:Sias.ReSaTrax.IDialogHelper.IsRetryRequested">
+            <summary>
+            The read only property is used to request if the user requested abort.
+            
+            Typically the retry button did not get activated before the at least one
+            action fails. In addition it may be good to deactivate the retry button 
+            again after it is pressed. This will signal the user the recognition of 
+            the retry request even if the result can not be seen immediatly.
+            </summary>
+            <value>true on retry requests, otherwise false</value>
+        </member>
+        <member name="F:Sias.ReSaTrax.RemoveStripDialogHelper._OnGetSlotId">
+            <summary>Get Slot ID event field</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialogHelper.GetSlotID(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="slotIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialogHelper.ShowDialog(System.Windows.Forms.Control)">
+            <summary>
+            Show dialog internal method
+            
+            Show the dialog and wait until it gots closed.
+            </summary>
+            <param name="Parent"></param>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialogHelper.ShowDialog(System.Int32)">
+            <summary>
+            This Method is called to display the load dialog.
+            </summary>
+            <param name="slotIndex">The index of the strip slot to load</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialogHelper.Done">
+            <summary>
+            This method is called if the remove strip request is successfully completed.
+            
+            The method will close the remove strip request dialog.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.RemoveStripDialogHelper.Failed">
+            <summary>
+            This method is called if the remove strip request failed.
+            
+            The remove strip request is failed if the user did not remove the 
+            requested strip from ReSaTrax. As there is not timeout in our actual
+            RemoveStrip method this will not be called yet.\n
+            In Addition our remove strip request dialog does not implement a retry 
+            button, so if this method is called we will close the remove strip request 
+            dialog.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.RemoveStripDialogHelper.OnGetSlotId">
+            <summary>Get Slot ID event property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.RemoveStripDialogHelper.IsAborted">
+            <summary>
+            The read only property is used to request if the user requested abort.
+            
+            An abort request may be activated either by pressing an abort button a defined
+            key or may be only closing the dialog by user or may be by other application 
+            parts.
+            </summary>
+            <value>true on abort requests, otherwise false</value>
+        </member>
+        <member name="P:Sias.ReSaTrax.RemoveStripDialogHelper.IsRetryRequested">
+            <summary>
+            The read only property is used to request if the user requested abort.
+            
+            As the remove strip request dialog does not implement retry the method 
+            will always return false.
+            </summary>
+            <value>false</value>
+        </member>
+        <member name="T:Sias.ReSaTrax.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.AddStripDialog">
+            <summary>
+            This is the default ReSaTrax add strip request form.
+            
+            It is used by the default ReSaTrax add strip dialog helper <see cref="T:Sias.ReSaTrax.AddStripDialogHelper"/>.
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.AddStripDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <b>AddStripDialog</b> class.
+            </summary>
+            <param name="slotId">The index of the strip (0..n-1)</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <b>AddStripDialog</b> class.
+            </summary>
+            <param name="slotIndex">The index of the strip (0..n-1)</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.Abort_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the Abort's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.Retry_Click(System.Object,System.EventArgs)">
+            <summary>
+            This method is called when the Retry's Click event has been fired.
+            </summary>
+            <param name="sender">The <see cref="T:System.Object"/> that fired the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> of the event.</param>
+        </member>
+        <member name="F:Sias.ReSaTrax.AddStripDialog._IsRetryPressed">
+            <summary>retry button pressed flag field</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialog.ActivateRetry">
+            <summary>
+            Call this to activate the retry button
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.AddStripDialog.IsRetryPressed">
+            <summary>retry button pressed flag property</summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.SReSaTraxDevice">
+            <summary>
+            <b>Re</b>agent <b>Sa</b>mple <b>Trax</b> (ReSaTrax) device driver class.
+            
+            This class represents a ReSaTrax device.
+            </summary>
+            <details>
+            \ingroup	Dev_ReSaTrax
+            
+            The device includes the following methods and properties:
+             - configuration properties
+               - MaxSlot: The number of slots (strips) on the ReSaTrax
+               .
+             - layout properties
+               - An array of ReSaTrax slots
+               .
+             - Methods for controlled ReSaTrax strip placement
+             - Methods for controlled ReSaTrax strip removal
+             - Methods for getting/setting the access modes
+             .
+            
+            The ReSaTrax device needs to request the user for adding or removing the 
+            tube strips. This is typically done by a windows form (dialog). As the 
+            user interface may be application specific the ReSaTrax device is using 
+            a dialog helper object (<see cref="T:Sias.ReSaTrax.IDialogHelper"/>) to communicate with 
+            the user dialog.
+            
+            <div class="dynheader">%SReSaTraxDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SReSaTraxDevice.png"
+            </div>
+            
+            \b Supported \b Modules \b Types:
+             - \ref Sias::CanDev::eMODULE_TYPE_CONST "MT_RE_SA_TRAX" (0x003D)	
+                ReSaTrax modules (only basic support) \n
+                It is recommended to create an own device for ReSaTrax including a
+                user interface with load / unload dialogs.
+             .
+            \b IMPORTANT:   The 24 strip ReSaTrax is not supported yet. The 24 strip ReSaTrax 
+                            would need a second CAN-ID and a second group of slots.
+            </details>
+            <remarks>
+             -	ATTENTION:	When using the base class functions the actual strip number 
+            				(_ActStrip)	may get incorrect without recognition of the 
+            				ReSaTrax class! This can make problems when using SetAccessMode
+            				or GetAccessMode.
+             -	What about multi threading support for devices. Do we need to take care for 
+            	usage of the device at different threads ?
+             -	Take care not to use the device at different threads expect for Set/GetAccessMode
+             .
+            </remarks>
+            TODO: GetAccessMode/SetAccessMode design check
+            TODO: Implement and document access mode dependent device display modes (Visualizations)
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._MaxSlot">
+            <summary>No of slots.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._ExtensionDevice">
+            <summary>ReSaTrax extension device field</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._FirstExtensionSlot">
+            <summary>First slot on resatrax extension device field</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._Slot">
+            <summary>Slot array.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._StripInfo">
+            <summary>Strip information array.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._ActStrip">
+            <summary>Actual Strip number (255=unknown).</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._PrepareCount">
+            <summary>Block movements flag.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._OnGetSlotId">
+            <summary>Get Slot ID event field</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.#ctor">
+            <summary>
+            Default constructor.
+            
+            This constructor creates a device with all configuration members to 
+            its default values.
+            </summary>		
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.#ctor(System.Int16,System.Int16,System.String,System.String)">
+            <summary>
+            Manual generation constructor.
+            
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="Adr">ReSaTrax device address</param>
+            <param name="SlotCnt">Number of slots on the ReSaTrax device</param>
+            <param name="InitString">BCR initialization string (not used yet)</param>
+            <param name="Pattern">Barcode filter string</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetSlotID(System.Int32)">
+            <summary>
+            Get slot ID event
+            
+            This may get called by add/remove strip helpers to get the slot ID.
+            </summary>
+            <param name="slotIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._GetSlotIdDelegate">
+            <summary>delegate for get slot ID (to avoid always recreation) field</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.AddGetSlotIDExtender(Sias.ReSaTrax.IDialogHelper)">
+            <summary>
+            Add get slot id extender (if supported by dialog helper)
+            </summary>
+            <param name="helper">the dialog helper to add extension</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.DelGetSlotIDExtender(Sias.ReSaTrax.IDialogHelper)">
+            <summary>
+            Remove get slot id extender (if supported by dialog helper)
+            </summary>
+            <param name="helper">the dialog helper to add extension</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.StripOK(System.Int32)">
+            <summary>
+            Check if a strip is ok, that means if the strip number is less then the maximum 
+            number of strips and the strips strip information block is valid.
+            </summary>
+            <param name="StripNo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetRawBarcode(System.Int32,System.Int32)">
+            <summary>
+            Get the raw barcode of a specific tube on the given strip.
+            </summary>
+            <param name="StripNo">Strip index</param>
+            <param name="CodeIndex">Code (Tube) index</param>
+            <returns>barcode of the tube ("" if not read yet)</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetBarcode(System.Int32,System.Int32)">
+            <summary>
+            Get translated (filtered) barcode of a specific tube on the given strip.
+            </summary>
+            <param name="StripNo">Strip index</param>
+            <param name="CodeIndex">Code (Tube) index</param>
+            <returns>barcode of the tube ("" if not read yet or if filter does not match)</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetSlotIndex(System.Object)">
+            <summary>
+            Get index of ReSaTrax slot.
+            
+            This method searches for the given object in the ReSaTrax slot list. If the 
+            slot is found, it returns the slot list index, else it returns -1.
+            </summary>
+            <param name="SlotObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SetSlotState(System.Int32,Sias.ReSaTrax.SReSaTraxDevice.SSlotState)">
+            <summary>
+            Set new strip slot state
+            
+            Setting the ReSaTrax slot state means to define on of the expected 
+            condition: ExpectedEmpty, Loading, ExpectedFull or Unloading.
+            </summary>
+            <param name="SlotIndex">Strip slot index</param>
+            <param name="state">The new strip slot state (changed and occupied flags are ignored)</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SetSlotStates(System.Int32,System.Int32,Sias.ReSaTrax.SReSaTraxDevice.SSlotState)">
+            <summary>
+            Set new strip slot states
+            
+            Setting the ReSaTrax slot state means to define on of the expected 
+            condition: ExpectedEmpty, Loading, ExpectedFull or Unloading.
+            </summary>
+            <param name="SlotIndex">Strip slot index</param>
+            <param name="nSlots">No of Slots to set</param>
+            <param name="state">The new strip slot state (changed and occupied flags are ignored)</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetSlotState(System.Int32)">
+            <summary>
+            Get actual strip slot state
+            
+            The method is used to get the actual strip slot state. The slot state
+            includes the last expected state, a slot changed flag and a slot is 
+            occupied flag.
+            </summary>
+            <param name="SlotIndex">Strip slot index</param>
+            <returns>The actual strip slot state</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetStripName(System.Int32)">
+            <summary>
+            Get Name of the strip placed on the defined slot index.
+            
+            This method returns the name of the strip placed on the defined ReSaTrax 
+            slot index. Mostly this is used internally for preparation of error message
+            parameters.
+            </summary>
+            <param name="SlotIndex">Strip slot index</param>
+            <returns>The strip name or "UnknownStrip" in case of errors</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.CoveredByItemCustomProperty(Sias.Core.Interfaces.ISlot)">
+            <summary>
+            Get the covering item customproperty of the defined slot
+            </summary>
+            <param name="slot">The slot to get the custom property</param>
+            <returns>The covering item customproperty of the defined slot</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.CoveredByItemCustomProperty(System.Int32)">
+            <summary>
+            Get the covering item customproperty of the defined slot
+            </summary>
+            <param name="SlotIndex">index of teh resatrax slot</param>
+            <returns>The covering item customproperty of the defined slot</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetSlotCoverage(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Get the slot coverage from custom properties of the defined strip item.
+            </summary>
+            <param name="strip">The strip item to get the slot coverage</param>
+            <returns>the not of slots covered by the item</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.FirstSlotWithItem(System.Int32,System.Int32)">
+            <summary>
+            Return the index of the first slot containing an item.
+            </summary>
+            <param name="FirstSlot">First slot index to check </param>
+            <param name="nSlots">No of slots to verify</param>
+            <returns>Index of first slot with an item, -1 if no slot has an item.</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.FirstOccupiedSlot(System.Int32,System.Int32)">
+            <summary>
+            Check if any slot in defined slot range is used.
+            </summary>
+            <param name="FirstSlot">First slot index to check </param>
+            <param name="nSlots">No of slots to verify</param>
+            <returns>True if any is occupied, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.AddStrip(System.Int32,System.Int32,Sias.Core.Interfaces.IItem,Sias.ReSaTrax.IDialogHelper)">
+            <summary>
+            Add a strip to ReSaTrax
+            
+            This will also read the strip barcodes. 
+            </summary>
+            <param name="SlotIndex">Strip to move to</param>
+            <param name="nSlots">No of slots occupied by the item to add.</param>
+            <param name="ItemToAdd">The Item add to the strip</param>
+            <param name="AddStripHelper">Add strip dialog helper</param>
+            <remarks>The device may locked/unlocked in this method. Timeout: 1 hour</remarks>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.AddStrip(System.Int32,Sias.Core.Interfaces.IItem,Sias.ReSaTrax.IDialogHelper)">
+            <summary>
+            Add a strip to ReSaTrax
+            
+            This will also read the strip barcodes. 
+            </summary>
+            <param name="SlotIndex">Strip to move to</param>
+            <param name="ItemToAdd">The Item add to the strip</param>
+            <param name="AddStripHelper">Add strip dialog helper</param>
+            <remarks>The device may locked/unlocked in this method. Timeout: 1 hour</remarks>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.AddStrip(System.Int32,System.Int32,Sias.Core.Interfaces.IItem)">
+            <summary>
+            Add a strip to ReSaTrax
+            
+            This will also read the strip barcodes.
+            </summary>
+            <param name="SlotIndex">Strip to move to</param>
+            <param name="nSlot">Number of slots occupied by this item</param>
+            <param name="ItemToAdd">The Item add to the strip</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.AddStrip(System.Int32,Sias.Core.Interfaces.IItem)">
+            <summary>
+            Add a strip to ReSaTrax
+            This will also read the strip barcodes.
+            </summary>
+            <param name="SlotIndex">Strip to move to</param>
+            <param name="ItemToAdd">The Item add to the strip</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.RemoveStrip(System.Int32,Sias.ReSaTrax.IDialogHelper)">
+            <summary>
+            Remove a strip from ReSaTrax
+            
+            It is good to use this method to remove a strip from ReSaTrax
+            device. This will take care about the ReSaTrax slot state LEDs.
+            </summary>
+            <param name="SlotIndex">The strip slot number where to remove the strip</param>
+            <param name="RemoveStripHelper">Remove strip request dialog helper</param>
+            <returns>The removed strip item.</returns>
+            <remarks>The device may locked/unlocked in this method. Timeout: 1 hour</remarks>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.RemoveStrip(System.Int32)">
+            <summary>
+            Remove a strip from ReSaTrax
+            It is good to use this method to remove a strip from ReSaTrax
+            device. This will take care about the ReSaTrax slot state LEDs.
+            </summary>
+            <param name="SlotIndex">The strip slot number where to remove the strip</param>
+            <returns>The removed strip item.</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SReSaTrax devices. 
+            </summary>
+            <details>
+            Possible Module types:
+                - 0x003D ((\ref Sias::CanDev::eMODULE_TYPE_CONST "MT_RE_SA_TRAX")
+                .
+            Handled errors: 
+                - 0x50 (\ref Sias::CanDev::eMODULE_ERROR_CONST "ME_TIMEOUT_ERR")	at Error2
+                .
+            </details>
+            <param name="ForceHandling">True to force the handler to handle the error</param>
+            <param name="AddInfo">Additional error information's</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice._AccessMode">
+            <summary>Actual access mode of the ReSaTrax.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ActualLayoutDevice">
+            <summary>Actual layout device. E.g. for sending the display state to layout</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.AttachLayoutData(Sias.Core.Interfaces.ILayoutDevice)">
+            <summary>
+            Attach layout data. 
+            
+            This method tries to attach the layout data found at the given layout device 
+            to the  device. If this succeeds, it returns true. If it fails, it returns false.
+            In this case the calling method should retry until it finds a fitting layout 
+            device.
+            </summary>
+            <param name="LayoutDevice">The layout device to attach or null to unattach an attached layout device.</param>
+            <returns>True if attachable, false if not.</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.GetAccessMode(System.Object)">
+            <summary>
+            Get access mode.
+            
+            This method is used to request the current access mode. 
+            </summary>
+            <param name="CallerObject">The caller object</param>
+            <returns>Access mode for the given caller object</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SetAccessMode(System.Object,Sias.Core.Interfaces.SAccessMode,System.Int32)">
+            <summary>
+            Set access mode.
+            
+            This method prepares the ReSaTrax module to allow the requested access.
+            </summary>
+            <param name="CallerObject">The object calling the method</param>
+            <param name="AccessMode">Requested access mode</param>
+            <param name="TimeOut">Allowed timeout</param>
+            <returns>The resulted access mode</returns>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.MaxSlot">
+            <summary>
+            Number of slots property.
+            
+            This property defines how many strips can be placed on the ReSaTrax device.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.ExtensionDevice">
+            <summary>ReSaTrax extension device property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.FirstExtensionSlot">
+            <summary>First slot on resatrax extension device property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.Slot">
+            <summary>
+            Slot array property.
+            
+            This layout property defines the list of slots of the ReSaTrax device. 
+            Each slot can typically get one ReSaTrax strip.
+            This property will only be valid, if a layout is attached (\b see \ref AttachLayoutData).
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.StripInfo">
+            <summary>
+            Strip information array property.
+            
+            This property returns the strip information array. This array keeps one strip information 
+            block for each strip slot of the ReSaTrax device.
+            The strip information blocks are managing the barcodes of the tubes placed on the strips. 
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.StripInfoOK">
+            <summary>
+            Check if the slot information blocks are ok.
+            
+            This property checks the slot information blocks. If no strip information blocks are defined or 
+            if number of slots are changed, the method generates an slot information array.
+            Normally this method should NEVER return false!
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.BlockMoves">
+            <summary>
+            Block movements flag property.
+            
+            This flag defines if the ReSaTrax is allowed to be moved or not.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.DeviceName">
+            <summary>
+            Name of the pipetting Y/Z device.
+            Changing the name of the pipetting Y/Z device will result in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.ExecutionGroup">
+            <summary>
+            This property returns or sets the execution group of all sub modules connected to 
+            this pipetting Y/Z device.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.DeviceState">
+            <summary>
+            Get Device state.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.OnGetSlotId">
+            <summary>Get Slot ID event property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.MyGetSlotIdDelegate">
+            <summary>delegate for get slot ID (to avoid always recreation) property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.LayoutDisplayMode">
+            <summary>Get/Set device visualization mode.</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.LayoutDisplayModeString">
+            <summary>Get/Set device visualization mode.</summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.SReSaTraxDevice.GetSlotIdDelegate">
+            <summary>
+            GetSlotIdDelegate 
+            </summary>
+            <param name="slotIndex"></param>
+        </member>
+        <member name="T:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo">
+            <summary>
+            This sub class manages the strip information (all barcodes belonging to an ReSaTrax strip). 
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo._RawCode">
+            <summary>Raw barcode array.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo._First">
+            <summary>First used/read position index.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo._Last">
+            <summary>Last used/read position index.</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Strip information constructor.
+            
+            This constructor creates a strip information class with raw barcode buffers 
+            for Tubes [First to Last]
+            </summary>
+            <param name="First">Index of first tube to manage</param>
+            <param name="Last">Index of last tube to manage</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo.GetRawCode(System.Int32)">
+            <summary>
+            Get raw barcode of tube defined by the given index.
+            
+            If the index is lower then First or higher then Last the method returns an empty string.
+            </summary>
+            <param name="inx">Index of the tube</param>
+            <returns>barcode corresponding with the given index</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo.SetRawCode(System.Int32,System.String)">
+            <summary>
+            Set raw barcode of tube defined by the given index.
+            
+            If the index is lower then First or higher then Last, the barcode will not be set.
+            </summary>
+            <param name="inx">Index of the tube</param>
+            <param name="RawCode">new barcode for given index</param>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo.First">
+            <summary>
+            First used/read position index property.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SStripInfo.Last">
+            <summary>
+            Last used/read position index property.
+            </summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.SReSaTraxDevice.SSlotState">
+            <summary>
+            The slot state defines the state of a strip slot. It is represented directly 
+            by the ReSaTrax CAN Module by the slots state port. The state includes the  
+            expected condition of the slot, a changed flag and the real condition.
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.ExpectedEmptyValue">
+            <summary>0: Slot is expected to be empty</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.LoadingValue">
+            <summary>1: Slot is expected to get occupied</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.ExpectedFullValue">
+            <summary>2: Slot is expected to be occupied</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.UnloadingValue">
+            <summary>3: Slot is expected to get empty</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.ChangedBit">
+            <summary>4: Slot state changed bit (state change since last set)</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsFullBit">
+            <summary>8: Slot is occupied bit (this bit signals the real state of the slot)</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <b>SSlotState</b> class.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.#ctor">
+            <summary>
+            Initializes a new instance of the <b>SSlotState</b> class.
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.SSlotState._StateValue">
+            <summary>slot state value field</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.StateValue">
+            <summary>slot state value property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsChanged">
+            <summary>Slot state changed property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsOccupied">
+            <summary>Slot is occupied property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsExpectedEmpty">
+            <summary>Slot is expected to be empty property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsLoading">
+            <summary>Slot is expected to get loaded property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsExpectedFull">
+            <summary>Slot is expected to be occupied property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.IsUnloading">
+            <summary>Slot is expected to get unloaded property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.ExpectedEmpty">
+            <summary>Slot is expected to be empty slot state</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.Loading">
+            <summary>Slot is expected to get occupied slot state</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.ExpectedFull">
+            <summary>Slot is expected to be occupied slot state</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.SReSaTraxDevice.SSlotState.Unloading">
+            <summary>Slot is expected to get empty slot state</summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::ReSaTrax::SReSaTraxDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.ReadingTimeout">
+            <summary>0x1350: The module gets a read timeout while scanning for barcodes. 
+            The timeout is at least 20 seconds but will be increased to at least 2 seconds 
+            if a barcode gets available
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.SlotIndexOutOfRange">
+            <summary>0x2200: Slot index out of range</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.SlotNotConfiguredYet">
+            <summary>0x2201: Slot not configured yet</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.SlotNotEmpty">
+            <summary>0x2202: Slot is not empty. Unable to add strip.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.NoStripAtSlot">
+            <summary>0x2203: No strip at slot. Unable to remove strip.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.SlotReportedItem">
+            <summary>0x2204: Slot reported an item but its empty. </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.DeviceInUse">
+            <summary>0x2205: Device already in use, access refused</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.TooManySlotsOnItem">
+            <summary>0x2206: Too many slots on strip too add. Not all barcode can be read.</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.SReSaTraxDevice.ErrorCodes.ItemNotAccepted">
+            <summary>0x2207: The Item is not accepted.</summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.AddStripDialogHelper">
+            <summary>
+            This is the default ReSaTrax add strip request dialog helper.
+            
+            The add strip request dialog helper is used from the ReSaTrax device
+            for requesting the user to add a new strip.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.PeekMessage(Sias.ReSaTrax.AddStripDialogHelper.MSG@,System.Int32,System.Int32,System.Int32,Sias.ReSaTrax.AddStripDialogHelper.PeekMessageOption)">
+            <summary>
+            The PeekMessage function dispatches incoming sent messages, checks the thread 
+            message queue for a posted message, and retrieves the message (if any exist).
+            </summary>
+            <param name="lpMsg">Pointer to an MSG structure that receives message information.</param>
+            <param name="hwnd">
+            Handle to the window whose messages are to be retrieved. The window must belong to the 
+            current thread.\n
+            If hWnd is NULL, PeekMessage retrieves messages for any window that belongs to the 
+            current thread, and any messages on the current thread's message queue whose hwnd 
+            value is NULL (see the MSG structure). Therefore if hWnd is NULL, both window messages 
+            and thread messages are processed.\n
+            If hWnd is -1, PeekMessage retrieves only messages on the current thread's message 
+            queue whose hwnd value is NULL, that is, thread messages as posted by PostMessage 
+            (when the hWnd parameter is NULL) or PostThreadMessage.
+            </param>
+            <param name="wMsgFilterMin">
+            Specifies the value of the first message in the range of messages to be examined.\n
+            Use WM_KEYFIRST to specify the first keyboard message or WM_MOUSEFIRST to specify the 
+            first mouse message.\n
+            If wMsgFilterMin and wMsgFilterMax are both zero, PeekMessage returns all available 
+            messages (that is, no range filtering is performed).
+            </param>
+            <param name="wMsgFilterMax">
+            Specifies the value of the last message in the range of messages to be examined.\n
+            Use WM_KEYLAST to specify the last keyboard message or WM_MOUSELAST to specify the 
+            last mouse message. \n 
+            If wMsgFilterMin and wMsgFilterMax are both zero, PeekMessage returns all available 
+            messages (that is, no range filtering is performed).
+            </param>
+            <param name="wRemoveMsg">
+            Specifies how messages are handled. <see cref="T:Sias.ReSaTrax.AddStripDialogHelper.PeekMessageOption"/>
+            </param>
+            <returns>true, if a message is available, otherwise false</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.TranslateMessage(Sias.ReSaTrax.AddStripDialogHelper.MSG@)">
+            <summary>
+            The TranslateMessage function translates virtual-key messages into character messages. The character 
+            messages are posted to the calling thread's message queue, to be read the next time the thread calls 
+            the GetMessage or PeekMessage function.
+            </summary>
+            <param name="lpMsg">
+            Pointer to an MSG structure that contains message information retrieved from the calling thread's 
+            message queue by using the GetMessage or PeekMessage function.
+            </param>
+            <returns>
+             - If the message is translated (that is, a character message is posted to the thread's message queue), 
+               the return value is nonzero.\n
+             - If the message is WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN, or WM_SYSKEYUP, the return value is nonzero, 
+               regardless of the translation.\n
+             - If the message is not translated (that is, a character message is not posted to the thread's message 
+               queue), the return value is zero.
+             .
+            </returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.DispatchMessage(Sias.ReSaTrax.AddStripDialogHelper.MSG@)">
+            <summary>
+            The DispatchMessage function dispatches a message to a window procedure. It is typically used to 
+            dispatch a message retrieved by the GetMessage function.
+            </summary>
+            <param name="lpMsg">Pointer to an MSG structure that contains the message.</param>
+            <returns>
+            The return value specifies the value returned by the window procedure. Although its meaning 
+            depends on the message being dispatched, the return value generally is ignored.
+            </returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.ProcessSingleMessage">
+            <summary>
+            Process a single windows message from message loop.
+            If there was a message to process the method returns true, otherwise 
+            it returns false.
+            </summary>
+            <returns>true if a message is process, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.ProcessMessageLoop">
+            <summary>
+            Process all windows messages in the windows message loop. 
+            </summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.AddStripDialogHelper.dlg">
+            <summary>Add strip dialog</summary>
+        </member>
+        <member name="F:Sias.ReSaTrax.AddStripDialogHelper._OnGetSlotId">
+            <summary>Get Slot ID event field</summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.GetSlotID(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="slotIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.ShowDialog(System.Windows.Forms.Control)">
+            <summary>
+            Show dialog internal method
+            
+            Show the dialog and wait until it gots closed.
+            </summary>
+            <param name="Parent"></param>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.ShowDialog(System.Int32)">
+            <summary>
+            This Method is called to display the add strip request dialog.
+            </summary>
+            <param name="slotIndex">The index of the strip slot to load</param>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.Done">
+            <summary>
+            This method is called if the strip is added successfully.
+            
+            The method closes the dialog without any user interactivity.
+            </summary>
+        </member>
+        <member name="M:Sias.ReSaTrax.AddStripDialogHelper.Failed">
+            <summary>
+            This method is called if the strip was not successfully added.
+            
+            The method activates a retry button. The default dialog is allowing to 
+            press Retry only once after the retry button is activated. Then the button 
+            gets deactivated again.
+            </summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.AddStripDialogHelper.OnGetSlotId">
+            <summary>Get Slot ID event property</summary>
+        </member>
+        <member name="P:Sias.ReSaTrax.AddStripDialogHelper.IsAborted">
+            <summary>
+            The read only property is used to request if the user requested abort.
+            
+            An abort request may be activated either by pressing an abort button a defined
+            key or may be only closing the dialog by user or may be by other application 
+            parts.
+            </summary>
+            <value>true on abort requests, otherwise false</value>
+        </member>
+        <member name="P:Sias.ReSaTrax.AddStripDialogHelper.IsRetryRequested">
+            <summary>
+            The read only property is used to request if the user requested abort.
+            
+            Typically the retry button did not get activated before the at least one
+            action fails. In addition it may be good to deactivate the retry button 
+            again after it is pressed. This will signal the user the recognition of 
+            the retry request even if the result can not be seen immediately.
+            </summary>
+            <value>true on retry requests, otherwise false</value>
+        </member>
+        <member name="T:Sias.ReSaTrax.AddStripDialogHelper.POINTAPI">
+            <summary>(Screen) coordinate structure</summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.AddStripDialogHelper.MSG">
+            <summary>Windows message structure</summary>
+        </member>
+        <member name="T:Sias.ReSaTrax.AddStripDialogHelper.PeekMessageOption">
+            <summary>PeekMessage message option parameter values</summary>
+        </member>
+    </members>
+</doc>

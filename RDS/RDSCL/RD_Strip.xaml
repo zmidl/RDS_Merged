@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="RDSCL.RD_Strip"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RDSCL"
+             mc:Ignorable="d" 
+            d:DesignHeight="650" d:DesignWidth="90" >
+    <UserControl.Resources>
+     
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="UserControl">
+                        <Viewbox Stretch="Fill">
+                            <Canvas Width="90" Height="650">
+                                <Path x:Name="Path_Frame" Data="M 2,2 L 20,2 A 5,7 0 1 0 70,2 L88,2 88,650 70,650 A 5,7 0 1 0 20,650 L 20,650 L2,650z"  />
+                                <StackPanel x:Name="StackPanel_Body" Orientation="Vertical" Canvas.Left="11" Canvas.Top="40">
+                                    <local:RD_Hole x:Name="SingleTube1" Width="68" Height="68" Margin="0,20,0,0" ContentColor="{Binding Cells[0].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}"/>
+                                    <local:RD_Hole x:Name="SingleTube2" Width="68" Height="68" Margin="0,25,0,0" ContentColor="{Binding Cells[1].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}"/>
+                                    <local:RD_Hole x:Name="SingleTube3" Width="68" Height="68" Margin="0,25,0,0" ContentColor="{Binding Cells[2].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}"/>
+                                    <local:RD_Hole x:Name="SingleTube4" Width="68" Height="68" Margin="0,25,0,0" ContentColor="{Binding Cells[3].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}"/>
+                                    <local:RD_Hole x:Name="SingleTube5" Width="68" Height="68" Margin="0,25,0,0" ContentColor="{Binding Cells[4].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}"/>
+                                    <local:RD_Hole x:Name="SingleTube6" Width="68" Height="68" Margin="0,25,0,0" ContentColor="{Binding Cells[5].Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}"/>
+                                </StackPanel>
+
+                                <Grid Width="90" Height="740"  Canvas.Top="-50" >
+                                    <TextBlock x:Name="TextBlock_Number" Visibility="{Binding NumberVisibility,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}" Text="{Binding Number,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RD_Strip}}}" Foreground="{StaticResource GreenColor}"  FontSize="60"  FontWeight="Bold"  HorizontalAlignment="Center" />
+                                    <Path x:Name="Path_From" Visibility="Hidden" VerticalAlignment="Bottom" Stretch="Uniform" Width="50" Data="{StaticResource Download}" Fill="{StaticResource GreenColor}"/>
+                                    <Path x:Name="Path_To" Visibility="Hidden" VerticalAlignment="Bottom" Stretch="Uniform" Width="50" Data="{StaticResource Upload}" Fill="{StaticResource GreenColor}"/>
+                                </Grid>
+                            </Canvas>
+                        </Viewbox>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Style>
+
+</UserControl>

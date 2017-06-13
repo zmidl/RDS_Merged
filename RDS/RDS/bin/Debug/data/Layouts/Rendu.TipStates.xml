@@ -1,0 +1,51 @@
+<TipStateSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData">
+  <LayoutName>Rendu</LayoutName>
+  <LayoutTipState>
+    <Count>9</Count>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack1</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>000000000000000000000000000000000000000000000000000000110000001100000011000000110000001100000011</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack2</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>000000000000000000000000000000000000000000000000000111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack3</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack4</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack5</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack6</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack7</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack8</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+    <TipRackSaveData Type="RdCore.ProcessWorkbench+TipStateSaveData+TipRackSaveData">
+      <TipRackName>DTRack9</TipRackName>
+      <NoOfTipPos>96</NoOfTipPos>
+      <TipPosStates>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</TipPosStates>
+    </TipRackSaveData>
+  </LayoutTipState>
+</TipStateSaveData>

@@ -1,0 +1,1394 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UserManager</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.UserManager.SLoginDialog">
+            \ingroup gui
+            <summary>
+             Generic login dialog
+             
+             This is a generic login dialog for the Nelson environment. It keeps count 
+             of the login attempts, returns the password only in encrypted form and 
+             displays a warning label if the caps lock key is pressed.
+            </summary>
+        </member>
+        <member name="F:Sias.UserManager.SLoginDialog.exitOnCancel">
+            <summary>
+            Flag, that indicates whether or not the application should exit
+            if the user selects cancel at the login dialog
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SLoginDialog.#ctor">
+            <summary>
+            Creates a new SLoginDialog\n
+            If there's currently no user logged in, the dialog will display an "Exit" and "OK"
+            button. Otherwise the "Exit" button will be replaced by a "Cancel" button.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SLoginDialog.Dispose(System.Boolean)">
+            <summary>
+            Default dispose method
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Sias.UserManager.SLoginDialog.UpdateCapsLockLabel">
+            <summary>
+            Checks if the Caps Lock key is pressed and displays a warning if the Caps Lock key is
+            pressed as the passwords are case sensitive.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SLoginDialog.okButton_Click(System.Object,System.EventArgs)">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SLoginDialog.Password">
+            <summary>
+            Returns the password in encrypted form. The encryption is based on the HashUtil's
+            algorithm and salt value.
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SLoginDialog.Username">
+            <summary>
+            The user name of the user who tries to log in
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SLoginDialog.LoginAttempts">
+            <summary>
+            Returns the number of login attempts
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SLoginDialog.CancelButton">
+            <summary>
+            Returns the Cancel button 
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SLoginDialog.ExitButton">
+            <summary>
+            Returns the Exit button 
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SUserBase">
+            <summary>
+            \ingroup UsrMan_model
+            
+            The SUserBase object builds the base class for all user manager objects in the
+            Nelson environment. It is only an abstract base class to prevent code duplication.\n
+            A SUserBase object contains the following data:
+             -  ID:				ID of the object in the database
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserBase.#ctor">
+            <summary>
+            Creates a new SUserBase object
+            
+            </summary>
+            <returns>The newly created SUserBase object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SUserBase.ID">
+            <summary>
+            ID of the derived liquid class object
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SUser">
+            \ingroup UsrMan_model
+            <summary>
+             The SUser object represents a user in the Nelson environment. 
+             
+             A user contains the following data:
+            	 - ID:			ID of the object in the database
+            	 - User name:	Unique user name, used for login
+            	 - Password:		Password, stored as a hash of the actual password to increase security
+            	 - First name:	First name of the user
+            	 - Last name:	Last name of the user
+            	 - PrivilegeSet:	SPrivilegeSet object that contains all the privileges of the user
+             Each user must have a unique user name to ensure identification at login and other times.
+            
+             Upon deletion a user is not removed from the database but set to inactive to allow older
+             log data to be attached to the correct user. Inactive user names do not have to be unique.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUser.HasPrivilege(System.String)">
+            <summary>
+            Checks if the user has a given privilege
+            </summary>
+            <param name="privilegeName">Name of the requested privilege</param>
+            <returns>True if the User has requested privilege, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.#ctor">
+            <summary>
+            Creates a new SUser object
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUser.#ctor(System.String)">
+            <summary>
+            Creates a new SUser object with a given user name
+            </summary>
+            <param name="username">The user name of the new SUser object</param>
+        </member>
+        <member name="M:Sias.UserManager.SUser.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new SUser object with a given user name and password
+            </summary>
+            <param name="username">The user name of the new SUser object</param>
+            <param name="password">The password of the new SUser object</param>
+        </member>
+        <member name="M:Sias.UserManager.SUser.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new SUser object with a given user name, password, first and last name
+            </summary>
+            <param name="username">The user name of the new SUser object</param>
+            <param name="password">The password of the new SUser object</param>
+            <param name="firstName">The first name of the new SUser object</param>
+            <param name="lastName">The last name of the new SUser object</param>
+        </member>
+        <member name="M:Sias.UserManager.SUser.#ctor(System.String,System.String,System.String,System.String,Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Creates a new SUser object with a given user name, password, first, last name and
+            privilege set
+            </summary>
+            <param name="username">The user name of the new SUser object</param>
+            <param name="password">The password of the new SUser object</param>
+            <param name="firstName">The first name of the new SUser object</param>
+            <param name="lastName">The last name of the new SUser object</param>
+            <param name="privilegeSet">The privilege set of the new SUser object</param>
+        </member>
+        <member name="M:Sias.UserManager.SUser.#ctor(System.Int64,System.String,System.String,System.String,System.String,Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Creates a new SUser object with a given id, user name, password, first, last name and
+            privilege set
+            </summary>
+            <param name="id">The ID of the new SUser object</param>
+            <param name="username">The user name of the new SUser object</param>
+            <param name="password">The password of the new SUser object</param>
+            <param name="firstName">The first name of the new SUser object</param>
+            <param name="lastName">The last name of the new SUser object</param>
+            <param name="privilegeSet">The privilege set of the new SUser object</param>
+        </member>
+        <member name="M:Sias.UserManager.SUser.StoreToDB">
+            <summary>
+            Stores the current SUser object to the database
+            </summary>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.StoreToDB(System.Int64)">
+            <summary>
+            Stores the current SUser object with a given ID to the database. 
+            
+            If the requested ID is 0 and the user name of the current SUser object already 
+            exists in the database the operation will fail.
+            If the ID is not 0 and a user with this ID already exists in the database then 
+            the user will be updated only if there are any changes to its data.
+            Otherwise a new user will be inserted into the database.
+            </summary>
+            <param name="userID">ID with which the SUser object should be stored</param>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.UpdateDB">
+            <summary>
+            Updates the current SUser object in the database
+            </summary>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.UpdateDB(System.Int64)">
+            <summary>
+            Updates the current SUser object with a given ID in the database
+            </summary>
+            <param name="userID">ID of the user that should be updated</param>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.InsertIntoDB">
+            <summary>
+            Inserts the current SUser object as new user into the database.
+            
+            If the operation succeeded the ID of the current SUser object will be
+            set to the ID of the newly created user in the database.
+            </summary>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.DeleteFromDB">
+            <summary>
+            Deletes the current SUser object from the database.
+            </summary>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.DeleteFromDB(System.Int64)">
+            <summary>
+            Deletes the user with the given ID from the database.
+            
+            The operation will fail if the ID corresponds to the Administrator UserID.
+            </summary>
+            <param name="userID">ID of the user that should be deleted from the database</param>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.DeleteFromDB(System.String)">
+            <summary>
+            Deletes the user with the given user name from the database
+            
+            The operation will fail if the user name corresponds to the user with the Administrator UserID.
+            </summary>
+            <param name="username">Name of the user that should be deleted from the database</param>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.UserExists(System.Int64)">
+            <summary>
+            Checks the database if a user exists with the given ID
+            </summary>
+            <param name="userID">ID of the user whose existence in the database should be checked</param>
+            <returns>True a user with the given ID exists otherwise false.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.UserExists(System.String)">
+            <summary>
+            Checks the database if a user exists with the given user name
+            </summary>
+            <param name="username">Name of the user whose existence in the database should be checked</param>
+            <returns>True a user with the given user name exists otherwise false.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.ReadFromDB(System.Int64)">
+            <summary>
+            Reads the data for a user with a given ID from the database and assigns the values to
+            the current SUser object.
+            </summary>
+            <param name="userID">ID of the user that should be read from the database</param>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.ReadFromDB(System.String)">
+            <summary>
+            Reads the data for a user with a given user name from the database and assigns the
+            values to the current SUser object.
+            </summary>
+            <param name="username">Name of the user that should be read from the database</param>
+            <returns>True if the operation succeeded; false if operation failed.</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.ReadFromDB">
+            <summary>
+            Reads all active users from the database and returns them in a SUserCollection
+            
+            \return	Collection of all active users in the database
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUser.ToString">
+            <summary>
+            Returns a string representation of the current SUser object
+            
+            \return	First name and last name of the current SUser object separated by a space character
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUser.Equals(System.Object)">
+            <summary>
+            Checks if a given SUser object is equal to the current SUser object
+            </summary>
+            <param name="obj">The SUser object that should be checked for equality</param>
+            <returns>True if the object is equal to the current object otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.Clone">
+            <summary>
+            Creates a new SUser object as copy of the current SUser object with the new
+            object having ID 0.
+            
+            \return	Copy of the current SUser object.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUser.ToXml(System.Boolean)">
+            <summary>
+            Converts the object to xml.
+            </summary>
+            <param name="formated">Flat to indicate if the xml string should be formatted for better readability</param>
+            <returns>The object in xml representation</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUser.FromXml(System.String)">
+            <summary>
+            Converts an xml string to a SUser object
+            </summary>
+            <param name="xml">Xml string encoding the object</param>
+            <returns>The SUser object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SUser.Username">
+            <summary>
+            User Name of the user
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUser.Password">
+            <summary>
+            Password of the user
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUser.FirstName">
+            <summary>
+            First name of the user
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUser.LastName">
+            <summary>
+            Last name of the user
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUser.PrivilegeSet">
+            <summary>
+            Privilege set of the user
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SUserCollection">
+            \ingroup UsrMan_model
+            <summary>
+            Collection of SUser objects
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.Add(Sias.UserManager.SUser)">
+            <summary>
+            Adds a SUser object to the collection
+            </summary>
+            <param name="value">The SUser object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.IndexOf(Sias.UserManager.SUser)">
+            <summary>
+            Returns the index of a given SUser object
+            </summary>
+            <param name="value">The SUser object to be looked up</param>	
+            <returns>Index of the given object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.Insert(System.Int32,Sias.UserManager.SUser)">
+            <summary>
+            Inserts a SUser object into the collection at a given index
+            </summary>
+            <param name="index">Index at which the object should be inserted</param>
+            <param name="value">The SUser object to be inserted</param>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.Remove(Sias.UserManager.SUser)">
+            <summary>
+            Removes a SUser object from the collection
+            </summary>
+            <param name="value">The SUser object to be removed</param>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.Contains(Sias.UserManager.SUser)">
+            <summary>
+            Checks if a given SUser object exists in the collection
+            </summary>
+            <param name="value">The SUser object to be looked up</param>
+            <returns>
+            	<b>true</b>		If the object is in the collection
+            	<b>false</b>	If the object is not in the collection
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.OnValidate(System.Object)">
+            <summary>
+            Validates the type of the object that should be inserted
+            </summary>
+            <param name="value">Object whose type should be validated</param>
+             <exception cref="T:System.ArgumentException">Thrown if object is not of type SUser</exception>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.StoreToDB">
+            <summary>
+            Stores the content of the collection to the database.
+            The operation will only succeed if every object in the collection could be
+            stored to the database.
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.DeleteFromDB">
+            <summary>
+            Deletes the content of the collection from the database.
+            SUser objects which have an ID that corresponds to the Administrator UserID will
+            not be deleted.
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.Equals(System.Object)">
+            <summary>
+            Checks if a given SUserCollection is equal to the current SUserCollection
+            </summary>
+            <param name="obj">The SUserCollection object whose equality should be checked</param>
+            <returns>
+            	<b>true</b>		If the two objects are the same
+            	<b>false</b>	If the two objects are not the same
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.Clone">
+            <summary>
+            Creates a new SUserCollection object as a copy of the current SUserCollection object
+            </summary>
+            <returns>Copy of the current SUserCollection object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.ToXml(System.Boolean)">
+            <summary>
+            Converts the object to xml.
+            </summary>
+            <param name="formated">Flat to indicate if the xml string should be formatted for better readability</param>
+            <returns>The object in xml representation</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserCollection.FromXml(System.String)">
+            <summary>
+            Converts an xml string to a SUserCollection object
+            </summary>
+            <param name="xml">Xml string encoding the object</param>
+            <returns>The SUserCollection object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SUserCollection.Item(System.String)">
+            <summary>
+            Indexer. Gets the SUser object with the given user name. If the user name
+            can not be found in the collection, the indexer will return null.
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUserCollection.Item(System.Int32)">
+            <summary>
+            Indexer. Gets or sets the SUser object at the given index. If the index
+            is not within the bounds of the collection the get indexer will return null
+            and the set indexer will do nothing.
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SUserManagerDialog">
+            <summary>
+            \ingroup UsrMan_gui
+             
+            A user management dialog for the Nelson environment. The dialog features three tab
+            pages, one for users, one privilege sets and one for privileges and three buttons:
+            - The <b>'Cancel'</b> button' exits the dialog without changing any data in the database.
+            - The <b>'Apply'</b> button stores the changes made in the dialog to the database.
+            - The <b>'OK'</b> button exits the dialog after storing the changes to the database.\n
+            
+            All tab pages show a list of all respective elements on the left side and three buttons
+            just below the list. The buttons are used to create, copy or delete elements. On the right
+            side are detail controls to modify the data of the currently selected element.\n
+            If there are any changes that have not been stored to the database, the title of the dialog
+            will show a '*' character at the end.\n
+            Any changes made in the dialog are not automatically stored to the database but kept locally. 
+            Only after clicking the 'Apply' or 'OK' button will the changes be committed to the database. 
+            @{
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManagerDialog.#ctor">
+            <summary>
+            Creates a new SUserManagerDialog
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManagerDialog.Dispose(System.Boolean)">
+            <summary>
+            Dispose method
+            </summary>
+            <param name="disposing">Dispose flag</param>
+        </member>
+        <member name="M:Sias.UserManager.SUserManagerDialog.LoadFromDatabase">
+            <summary>
+            Loads the users, privilege sets and privileges from the database and connects the lists
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManagerDialog.StoreToDatabase">
+            <summary>
+            Stores the user, privilege set and privilege lists to the database
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManagerDialog.DeleteFromDatabase">
+            <summary>
+            Deletes the user, privilege set and privilege in the "to be deleted" lists 
+            from the database
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUserManagerDialog.Dirty">
+            <summary>
+            Flag that indicates if some data has been changed since the last store to database
+            operation. A '*' character after the title of the dialog indicates unsaved changes.
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUserManagerDialog.Title">
+            <summary>
+            The title of the dialog
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUserManagerDialog.PrivilegesCheckOnClick">
+            <summary>
+            Property to control the behavior of the privilege list in the privilege set tab.
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SPrivilege">
+            <summary>
+            \ingroup UsrMan_model
+            The SPrivilege object represents a privilege in the Nelson environment. A privilege
+            contains the following data:
+            		- ID:			ID of the object in the database
+            		- Name:			Unique name, used for referencing the privilege
+            		- Description:	Description of the privilege, used for display only
+            Each privilege must have a unique name to ensure unambiguous referencing.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.#ctor">
+            <summary>
+            Creates a new SPrivilege object
+            </summary>
+             <returns>
+            	The newly created SPrivilege object
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new SPrivilege object with a given name and description
+            </summary>
+             <param name="name">The name of the new SPrivilege object</param>
+            <param name="description">The description of the new SPrivilege object</param>
+            <returns>The newly created SPrivilege object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.#ctor(System.Int64,System.String,System.String)">
+            <summary>
+            Creates a new SPrivilege object with a given id, name and description
+            </summary>
+            <param name="id">The ID of the new SPrivilege object</param>
+            <param name="name">The name of the new SPrivilege object</param>
+            <param name="description">The description of the new SPrivilege object</param>
+            <returns>The newly created SPrivilege object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.StoreToDB">
+            <summary>
+            Stores the current SPrivilege object to the database
+            </summary>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.StoreToDB(System.Int64)">
+            <summary>
+            Stores the current SPrivilege object with a given ID to the database. If the requested
+            ID is 0 and the name of the current SPrivilege object already exists in the database
+            the operation will fail.
+            If the ID is not 0 and a privilege with this ID already exists in the database then the
+            privilege will be updated only if there are any changes to its data.
+            Otherwise a new privilege will be inserted into the database.
+            </summary>
+            <param name="privilegeID">ID with which the SPrivilege object should be stored</param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.UpdateDB">
+            <summary>
+            Updates the current SPrivilege object in the database
+            </summary>
+             <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.UpdateDB(System.Int64)">
+            <summary>
+            Updates the current SPrivilege object with a given ID in the database
+            </summary>
+            <param name="privilegeID">ID of the privilege that should be updated</param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.InsertIntoDB">
+            <summary>
+            Inserts the current SPrivilege object as new privilege into the database.
+            If the operation succeeded the ID of the current SPrivilege object will be
+            set to the ID of the newly created privilege in the database.
+            </summary>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.DeleteFromDB">
+            <summary>
+            Deletes the current SPrivilege object from the database.
+            </summary>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.DeleteFromDB(System.Int64)">
+            <summary>
+            Deletes the privilege with the given ID from the database
+            The operation will fail if the ID corresponds to the Administrator PrivilegeID.
+            </summary>
+            <param name="privilegeID">ID of the privilege that should be deleted from the database</param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.DeleteFromDB(System.String)">
+            <summary>
+            Deletes the privilege with the given name from the database
+            The operation will fail if the name corresponds to the privilege with the
+            Administrator PrivilegeID.
+            </summary>
+            <param name="privilegeName">Name of the privilege that should be deleted from the database</param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.PrivilegeExists(System.Int64)">
+            <summary>
+            Checks the database if a privilege exists with the given ID
+            </summary>
+            <returns>True if the operation succeeded, otherwise false</returns>
+            <param name="privilegeID">
+            ID of the privilege whose existence in the database should be checked
+            </param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.PrivilegeExists(System.String)">
+            <summary>
+            Checks the database if a privilege exists with the given name
+            </summary>
+            <param name="privilegeName">
+            Name of the privilege whose existence in the database should be checked
+            </param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.ReadFromDB(System.Int64)">
+            <summary>
+            Reads the data for a privilege with a given ID from the database and assigns the
+            values to the current SPrivilege object.
+            </summary>
+            <param name="privilegeID">ID of the privilege that should be read from the database</param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.ReadFromDB(System.String)">
+            <summary>
+            Reads the data for a privilege with a given name from the database and assigns the
+            values to the current SPrivilege object.
+            </summary>
+            <param name="privilegeName">Name of the privilege that should be read from the database</param>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.ReadFromDB">
+            <summary>
+            Reads all privileges from the database and returns them in a SPrivilegeCollection
+            </summary>
+            <returns>
+            	Collection of all privileges in the database
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.GetPrivilegesForPrivilegeSetByID(System.Int64)">
+            <summary>
+            Reads all privileges from the database that belong to a given privilege set
+            and returns them in a SPrivilegeCollection
+            </summary>
+            <param name="privilegeSetID">ID of the privilege set whose privileges are requested</param>
+            <returns>
+            	Collection of the privileges of the requested in the database
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.ToString">
+            <summary>
+            Returns a string representation of the current SPrivilege object
+            </summary>
+            <returns>
+            	Name of the current SPrivilege object
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.Equals(System.Object)">
+            <summary>
+            Checks if a given SPrivilege object is equal to the current SPrivilege object
+            </summary>
+            <param name="obj">The SPrivilege object that should be checked for equality</param>
+             <returns>True if the object is equal to the current object, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.Clone">
+            <summary>
+            Creates a new SPrivilege object as copy of the current SPrivilege object with the new
+            object having ID 0.
+            </summary>
+            <returns>
+            	Copy of the current SPrivilege object.
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.ToXml(System.Boolean)">
+            <summary>
+            Converts the object to xml.
+            </summary>
+            <param name="formated">Flat to indicate if the xml string should be formatted for better readability</param>
+            <returns>The object in xml representation</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilege.FromXml(System.String)">
+            <summary>
+            Converts an xml string to a SPrivilege object
+            </summary>
+            <param name="xml">Xml string encoding the object</param>
+            <returns>The SPrivilege object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilege.Name">
+            <summary>
+            Name of the privilege
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilege.Description">
+            <summary>
+            Description of the privilege
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SPrivilegeCollection">
+            <summary>
+            \ingroup UsrMan_model
+            Collection of SPrivilege objects
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.Add(Sias.UserManager.SPrivilege)">
+            <summary>
+            Adds a SPrivilege object to the collection
+            </summary>
+            <param name="value">The SPrivilege object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.IndexOf(Sias.UserManager.SPrivilege)">
+            <summary>
+            Returns the index of a given SPrivilege object
+            </summary>
+            <param name="value">The SPrivilege object to be looked up</param>
+            <returns>Index of the given object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.Insert(System.Int32,Sias.UserManager.SPrivilege)">
+            <summary>
+            Inserts a SPrivilege object into the collection at a given index
+            </summary>
+            <param name="index">Index at which the object should be inserted</param>
+             <param name="value">The SPrivilege object to be inserted</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.Remove(Sias.UserManager.SPrivilege)">
+            <summary>
+            Removes a SPrivilege object from the collection
+            </summary>
+            <param name="value">The SPrivilege object to be removed</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.Contains(Sias.UserManager.SPrivilege)">
+            <summary>
+            Checks if a given SPrivilege object exists in the collection
+            </summary>
+            <param name="value">The SPrivilege object to be looked up</param>
+            <returns>True if the object is in the collection otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.OnValidate(System.Object)">
+            <summary>
+            Validation routine
+            </summary>
+            <param name="value">object that should be validated</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.StoreToDB">
+            <summary>
+            Stores the content of the collection to the database.
+            The operation will only succeed if every object in the collection could be
+            stored to the database.
+            </summary>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.DeleteFromDB">
+            <summary>
+            Deletes the content of the collection from the database.
+            SPrivilege objects which have an ID that corresponds to the Administrator PrivilegeID will
+            not be deleted.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.Equals(System.Object)">
+            <summary>
+            Checks if a given SPrivilegeCollection is equal to the current SPrivilegeCollection
+            </summary>
+            <param name="obj">The SPrivilegeCollection object whose equality should be checked</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.Clone">
+            <summary>
+            Creates a new SPrivilegeCollection object as a copy of the 
+            current SPrivilegeCollection object
+            </summary>
+            <returns>Copy of the current SPrivilegeCollection object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.ToXml(System.Boolean)">
+            <summary>
+            Converts the object to xml.
+            </summary>
+            <param name="formated">Flat to indicate if the xml string should be formatted for better readability</param>
+            <returns>The object in xml representation</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeCollection.FromXml(System.String)">
+            <summary>
+            Converts an xml string to a SPrivilegeCollection object
+            </summary>
+            <param name="xml">Xml string encoding the object</param>
+            <returns>The SPrivilegeCollection object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilegeCollection.Item(System.String)">
+            <summary>
+            Indexer. Gets the SPrivilege object with the given name. If the name
+            can not be found in the collection, the indexer will return null.
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilegeCollection.Item(System.Int32)">
+            <summary>
+            Indexer. Gets or sets the SPrivilege object at the given index. If the index
+            is not within the bounds of the collection the get indexer will return null
+            and the set indexer will do nothing.
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.AdminID">
+            <summary>Contains the database IDs of the Administrator user, privilege and privilege set.</summary>
+        </member>
+        <member name="F:Sias.UserManager.AdminID.User">
+            <summary>User</summary>
+        </member>
+        <member name="F:Sias.UserManager.AdminID.PrivilegeSet">
+            <summary>PrivilegeSet</summary>
+        </member>
+        <member name="F:Sias.UserManager.AdminID.Privilege">
+            <summary>Privilege</summary>
+        </member>
+        <member name="T:Sias.UserManager.HashUtil">
+            \ingroup utility
+            <summary>
+            Controls how the passwords are encrypted before they are stored to the database
+            </summary>
+        </member>
+        <member name="F:Sias.UserManager.HashUtil.Type">
+            <summary>
+            Allows the usage of different hashing algorithms for the encryption of the
+            password. The following algorithms are available:
+            - Hash.Provider.CRC32
+            - Hash.Provider.SHA1
+            - Hash.Provider.SHA256
+            - Hash.Provider.SHA384
+            - Hash.Provider.SHA512
+            - Hash.Provider.MD5
+            </summary>
+        </member>
+        <member name="F:Sias.UserManager.HashUtil.Salt">
+            <summary>
+            Used to add more security to the encryption by adding a for the user unknown
+            value to the password before it is encrypted
+            \hideinitializer
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SUserManager">
+            <summary>
+            Central class of the user management in the Nelson environment.
+            </summary>
+        </member>
+        <member name="F:Sias.UserManager.SUserManager.DBManager">
+            <summary>
+            Database manager, used for all communication with the database
+            </summary>
+        </member>
+        <member name="F:Sias.UserManager.SUserManager.classLock">
+            <summary>
+            Lock object, used to synchronize calls in a multi threading environment
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.#ctor">
+            <summary>
+            Creates a new SUserManager object with a given database manager
+            </summary>
+            <returns>The newly created SUserManager object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.#ctor(Sias.DatabaseManager.Interfaces.IDatabaseManager)">
+            <summary>
+            Creates a new SUserManager object with a given database manager
+            </summary>
+            <param name="aDBManager">The database manager of the SUserManager object</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if aDBManager is null</exception>
+            <returns>The newly created SUserManager object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.GetUserManager">
+            <summary>
+            Factory method that ensures only one SUserManager object is available
+            </summary>
+            <returns>The SUserManager object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.GetUserManager(Sias.DatabaseManager.Interfaces.IDatabaseManager)">
+             <summary>
+             Factory method that ensures only one SUserManager object is available
+             </summary>
+            <param name="aDBManager">The database manager of the SUserManager object</param>
+             <returns>The SUserManager object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.ConnectPrivilegeSetsAndPrivileges">
+            <summary>
+            Combines the SUserManager object's PrivilegeSetList and PrivilegeList so that the
+            privilege list of a privilege set points to the privilege objects in the 
+            PrivilegeList.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.ConnectUsersAndPrivilegeSets">
+            <summary>
+            Combines the SUserManager object's UserList and PrivilegeSetList so that the
+            privilege sets of the users point to the privilege set objects in the 
+            PrivilegeSetList.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.CreateEncryptedPassword(System.String)">
+            <summary>
+            Encrypts the password using the HashUtils algorithm and salt value to prevent others
+            to read the plain text passwords.
+            </summary>
+            <param name="password">The password that should be encrypted</param>
+            <returns>The encrypted password</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.ConnectDataLists">
+            <summary>
+            Connects the SUserManager object's UserList, PrivilegeSetList and PrivilegeList
+            so that the privilege set of all users in the UserList point to a privilege set
+            in the PrivilegeSetList and all privileges of the privilege list of all privilege
+            sets in the PrivilegeSetList point to privileges in the PrivilegeList.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.GetUsername">
+            <summary>
+            Returns the user name of the currently logged in user
+            </summary>
+            <returns>
+            	<b>string</b>	The name of the currently logged in user
+            	<b>null</b>		If no user is currently logged in
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.LoginAsUserWithPassword(System.String,System.String)">
+            <summary>
+            Checks if a given user name and password combination match those of any active user
+            in the database.
+            </summary>
+            <param name="aPassword">The user name of the user who tries to log in</param>
+            <param name="aUsername">The password of the user who tries to log in</param>
+            <returns>
+            	<b>true</b>		If the user name and password match
+            	<b>false</b>	If the user name and password do not match or if no active user with the given user name exists
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.EncryptString(System.String)">
+            <summary>
+            Encrypts the text using the HashUtils algorithm and salt value
+            </summary>
+            <param name="text">The text that should be encrypted</param>
+            <returns>The encrypted text</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.Edit">
+            <summary>
+            Displays a \link Sias::UserManager::SUserManagerDialog user management dialog\endlink
+            that allows to create, modify and delete users, privilege sets and privileges.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.ShowLoginDialog">
+            <summary>
+            Displays a \link Sias::UserManager::SLoginDialog login dialog\endlink.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.IsUserPrivilegedTo(System.String,System.String)">
+            <summary>
+            Checks if a given user has a given privilege in its privilege set
+            </summary>
+            <param name="username">The user name of the user</param>
+             <param name="privilegeName">The name of the requested privilege</param>
+            <returns>
+            	<b>true</b>		If the user has the requested privilege
+            	<b>false</b>	If the user or privilege does not exists or if the user does not have the requested privilege
+             </returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.GetPrivilegesForUser(System.String)">
+            <summary>
+            Returns a SPrivilegeCollection containing all privileges of a user with a 
+            given user name
+            </summary>
+            <param name="username">The user name of the user</param>
+            <returns>The collection of all privileges of the requested user</returns>
+        </member>
+        <member name="M:Sias.UserManager.SUserManager.GetCurrentUser">
+            <summary>
+            Returns the currently logged in user
+            </summary>
+            <returns>The currently logged in user</returns>
+        </member>
+        <member name="P:Sias.UserManager.SUserManager.UserList">
+            <summary>
+            List of all active users
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUserManager.PrivilegeSetList">
+            <summary>
+            List of all privilege sets
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SUserManager.PrivilegeList">
+            <summary>
+            List of all privileges
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SDatabaseChecker">
+            <summary>
+            Allows to check the existence of the necessary database tables in the database.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SDatabaseChecker.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SDatabaseChecker.InitializeDatabaseForUserManagement">
+            <summary>
+            Sets up the database for the UserManager.
+            </summary>
+            <returns>
+            <b>true</b>		If the operation succeeded
+            <b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="P:Sias.UserManager.SDatabaseChecker.TableFile">
+            <summary>
+            Name of the table definition file
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SDatabaseChecker.StoredProcedureFile">
+            <summary>
+            Name of the stored procedures file
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SDatabaseChecker.DefaultDataFile">
+            <summary>
+            Name of the file containing the default data
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SPrivilegeSet">
+            <summary>
+            \ingroup UsrMan_model
+            The SPrivilegeSet object represents a privilege set in the Nelson environment. 
+            A privilege contains the following data:
+            - ID:				ID of the object in the database
+            - Name:				Name of the privilege set
+            - PrivilegeList:	SPrivilegeCollection object that contains all the privileges of the privilege set
+            Each privilege set must have a unique name to ensure unambiguous referencing.
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.#ctor">
+            <summary>
+            Creates a new SPrivilegeSet object
+            </summary>
+             <returns>The newly created SPrivilegeSet object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.#ctor(System.String)">
+            <summary>
+            Creates a new SPrivilegeSet object
+            </summary>
+            <param name="name">The name of the new SPrivilegeSet object</param>
+             <returns>The newly created SPrivilegeSet object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.#ctor(System.Int64,System.String,Sias.UserManager.SPrivilegeCollection)">
+            <summary>
+            Creates a new SPrivilegeSet object
+            </summary>
+            <param name="id">ID of the new SPrivilegeSet object</param>
+             <param name="name">The name of the new SPrivilegeSet object</param>
+             <param name="collection">The privilege collection of the new SPrivilege object</param>
+             <returns>The newly created SPrivilegeSet object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.StoreToDB">
+            <summary>
+            Stores the current SPrivilegeSet object to the database
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.StoreToDB(System.Int64)">
+            <summary>
+            Stores the current SPrivilegeSet object with a given ID to the database. If the requested
+            ID is 0 and the name of the current SPrivilegeSet object already exists in the database
+            the operation will fail.
+            If the ID is not 0 and a privilege set with this ID already exists in the database then
+            the privilege set will be updated only if there are any changes to its data.
+            Otherwise a new privilege set will be inserted into the database.
+            </summary>
+            <param name="privilegeSetID">ID with which the SPrivilegeSet object should be stored</param>
+            <returns>
+            	<b>true</b>			If the operation succeeded
+            	<b>false</b>		If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.UpdateDB">
+            <summary>
+            Updates the current SPrivilegeSet object in the database
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.UpdateDB(System.Int64)">
+            <summary>
+            Updates the current SPrivilegeSet object with a given ID in the database
+            </summary>
+            <param name="privilegeSetID">ID of the privilege set that should be updated</param>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.InsertIntoDB">
+            <summary>
+            Inserts the current SPrivilegeSet object as new privilege set into the database.
+            If the operation succeeded the ID of the current SPrivilegeSet object will be
+            set to the ID of the newly created privilege set in the database.
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.DeleteFromDB">
+            <summary>
+            Deletes the current SPrivilegeSet object from the database.
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.DeleteFromDB(System.Int64)">
+            <summary>
+            Deletes the privilege set with the given ID from the database
+            The operation will fail if the ID corresponds to the Administrator PrivilegeSetID.
+            </summary>
+            <param name="privilegeSetID">ID of the privilege set that should be deleted from the database</param>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.DeleteFromDB(System.String)">
+            <summary>
+            Deletes the privilege set with the given name from the database
+            The operation will fail if the name corresponds to the privilege set with the
+            Administrator PrivilegeSetID.
+            </summary>
+            <param name="privilegeSetName">ID of the privilege set that should be deleted from the database</param>
+            <returns>
+            	<b>true</b>			If the operation succeeded
+            	<b>false</b>		If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.PrivilegeSetExists(System.Int64)">
+            <summary>
+            Checks the database if a privilege set exists with the given ID
+            </summary>
+            <param name="privilegeSetID">ID of the privilege set whose existence in the database should be checked</param>
+            <returns>
+            	<b>true</b>		If a privilege set with the given ID exists
+            	<b>false</b>	If no privilege set with the given ID exists
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.PrivilegeSetExists(System.String)">
+            <summary>
+            Checks the database if a privilege set exists with the given name
+            </summary>
+            <param name="privilegeSetName">
+             Name of the privilege set whose existence in the database should be checked
+             </param>
+            <returns>
+            	<b>true</b>			If a privilege set with the given name exists
+            	<b>false</b>		If no privilege set with the given name exists
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.ReadFromDB(System.Int64)">
+            <summary>
+            Reads the data for a privilege set with a given ID from the database and assigns the
+            values to the current SPrivilegeSet object.
+            </summary>
+            <param name="privilegeSetID">ID of the privilege set that should be read from the database</param>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.ReadFromDB(System.String)">
+            <summary>
+            Reads the data for a privilege set with a given name from the database and assigns the
+            values to the current SPrivilegeSet object.
+            </summary>
+            <param name="privilegeSetName">Name of the privilege set that should be read from the database</param>
+            <returns>
+            	<b>true</b>			If the operation succeeded
+            	<b>false</b>		If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.ReadFromDB">
+            <summary>
+            Reads all privilege sets from the database and returns them in a SPrivilegeSetCollection
+            </summary>
+            <returns>Collection of all privilege sets in the database</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.ToString">
+            <summary>
+            Returns a string representation of the current SPrivilege object
+            </summary>
+            <returns>Name of the current SPrivilege object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.Equals(System.Object)">
+            <summary>
+            Checks if a given SPrivilegeSet object is equal to the current SPrivilegeSet object
+            </summary>
+            <param name="obj">The SPrivilegeSet object that should be checked for equality</param>
+            <returns>
+            	<b>true</b>		If the object is equal to the current object
+            	<b>false</b>	If the object is not equal to the current object
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.Clone">
+            <summary>
+            Creates a new SPrivilegeSet object as copy of the current SPrivilegeSet object with
+            the new object having ID 0.
+            </summary>
+            <returns>Copy of the current SPrivilegeSet object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.ToXml(System.Boolean)">
+            <summary>
+            Converts the object to xml.
+            </summary>
+            <param name="formated">Flat to indicate if the xml string should be formatted for better readability</param>
+            <returns>The object in xml representation</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSet.FromXml(System.String)">
+            <summary>
+            Converts an xml string to a SPrivilegeSet object
+            </summary>
+            <param name="xml">Xml string encoding the object</param>
+            <returns>The SPrivilegeSet object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilegeSet.Name">
+            <summary>
+            Name of the privilege set
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilegeSet.PrivilegeList">
+            <summary>
+            List of the privileges this privilege set contain
+            </summary>
+        </member>
+        <member name="T:Sias.UserManager.SPrivilegeSetCollection">
+            <summary>
+            \ingroup UsrMan_model
+            Collection of SPrivilegeSet objects
+            </summary>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.Add(Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Adds a SPrivilegeSet object to the collection
+            </summary>
+            <param name="value">The SPrivilegeSet object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.IndexOf(Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Returns the index of a given SPrivilegeSet object
+            </summary>
+            <param name="value">The SPrivilegeSet object to be looked up</param>
+            <returns>Index of the given object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.Insert(System.Int32,Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Inserts a SPrivilegeSet object into the collection at a given index
+            </summary>
+            <param name="index">Index at which the object should be inserted</param>
+            <param name="value">The SPrivilegeSet object to be inserted</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.Remove(Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Removes a SPrivilegeSet object from the collection
+            </summary>
+            <param name="value">The SPrivilegeSet object to be removed</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.Contains(Sias.UserManager.SPrivilegeSet)">
+            <summary>
+            Checks if a given SPrivilegeSet object exists in the collection
+            </summary>
+            <param name="value">The SPrivilegeSet object to be looked up</param>
+            <returns>
+            	<b>true</b>		If the object is in the collection
+            	<b>false</b>	If the object is not in the collection
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.OnValidate(System.Object)">
+            <summary>
+            Validation method
+            </summary>
+            <param name="value">Object that should be validated</param>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.StoreToDB">
+            <summary>
+            Stores the content of the collection to the database.
+            The operation will only succeed if every object in the collection could be
+            stored to the database.
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.DeleteFromDB">
+            <summary>
+            Deletes the content of the collection from the database.
+            SPrivilegeSet objects which have an ID that corresponds to the Administrator PrivilegeSetID will
+            not be deleted.
+            </summary>
+            <returns>
+            	<b>true</b>		If the operation succeeded
+            	<b>false</b>	If the operation failed
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.Equals(System.Object)">
+            <summary>
+            Checks if a given SPrivilegeSetCollection is equal to the current SPrivilegeSetCollection
+            </summary>
+            <param name="obj">The SPrivilegeSetCollection object whose equality should be checked</param>
+            <returns>
+            	<b>true</b>		If the two objects are the same
+            	<b>false</b>	If the two objects are not the same
+            </returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.GetHashCode">
+            <summary>overwrite GetHashcode to avoid warning</summary>
+            <returns>hash code</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.ToString">
+            <summary>
+            Returns a string representation of the object
+            </summary>
+            <returns>The string representation of the object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.Clone">
+            <summary>
+            Creates a new SPrivilegeSetCollection object as a copy of the 
+            current SPrivilegeSetCollection object
+            </summary>
+            <returns>Copy of the current SPrivilegeSetCollection object</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.ToXml(System.Boolean)">
+            <summary>
+            Converts the object to xml.
+            </summary>
+            <param name="formated">Flat to indicate if the xml string should be formatted for better readability</param>
+            <returns>The object in xml representation</returns>
+        </member>
+        <member name="M:Sias.UserManager.SPrivilegeSetCollection.FromXml(System.String)">
+            <summary>
+            Converts an xml string to a SPrivilegeSetCollection object
+            </summary>
+            <param name="xml">Xml string encoding the object</param>
+            <returns>The SPrivilegeSetCollection object</returns>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilegeSetCollection.Item(System.String)">
+            <summary>
+            Indexer. Gets the SPrivilegeSet object with the given name. If the name
+            can not be found in the collection, the indexer will return null.
+            </summary>
+        </member>
+        <member name="P:Sias.UserManager.SPrivilegeSetCollection.Item(System.Int32)">
+            <summary>
+            Indexer. Gets or sets the SPrivilegeSet object at the given index. If the index
+            is not within the bounds of the collection the get indexer will return null
+            and the set indexer will do nothing.
+            </summary>
+        </member>
+    </members>
+</doc>

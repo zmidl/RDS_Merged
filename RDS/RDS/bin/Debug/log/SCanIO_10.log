@@ -1,0 +1,737 @@
+01002017/6/12 14:15 NewLogFile for client SCanIO
+040414:15:42.001 Assembly: vshost32, ProductVersion=14.0.23107.0, Version=14.0.0.0, FileVersion=14.0.23107.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDS.vshost.exe
+040414:15:42.019 Assembly: Microsoft.Expression.Drawing, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Drawing.dll
+040414:15:42.033 Assembly: Microsoft.Expression.Effects, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Effects.dll
+040414:15:42.045 Assembly: Microsoft.Expression.Interactions, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Interactions.dll
+400414:15:42.051 Unsigned Assembly: System.Data.SQLite, Version=1.0.104.0, FileVersion=1.0.104.0 of Company https://system.data.sqlit loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\System.Data.SQLite.dll
+040414:15:42.062 Assembly: System.Windows.Interactivity, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\System.Windows.Interactivity.dll
+040414:15:42.065 Assembly: RDS, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDS.exe
+400414:15:42.070 Unsigned Assembly: RdEntity, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RdEntity.dll
+400414:15:42.073 Unsigned Assembly: RdCore, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RdCore.dll
+100414:15:42.079 Signed Assembly Core, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Core.dll
+020414:15:42.084 No key for Assembly: SmartPropertyGrid, Version=3.0.0.45, FileVersion=3.0.0.45 of Company VisualHint loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\SmartPropertyGrid.dll
+100414:15:42.086 Signed Assembly DEV_CanDev, ProductVersion=1.4.1, Version=1.2.7.0, FileVersion=1.2.7.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dll
+040414:15:42.094 Startup:
+040414:15:42.117  - Work Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040414:15:42.137  - StartPath = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\
+040414:15:42.137  - Core Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin
+040414:15:42.138  - SetupFile = Sias.Config.xml
+040414:15:42.139 SConfigurationManager base paths:
+040414:15:42.140  - Old  Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040414:15:42.140  - Bin. Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\
+040414:15:42.141  - Data Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040414:15:42.143 SConfigurationManager:
+040414:15:42.143  - Driver Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices
+040414:15:42.143  - Data   Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data
+040414:15:42.144  - Layout Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Layouts
+040414:15:42.144  - Device Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Devices
+100414:15:42.144 Signed Assembly Dev_BaseDev, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BaseDev.dll
+100414:15:42.150 Signed Assembly TipManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\TipManager.dll
+100414:15:42.157 Signed Assembly LiquidManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LiquidManager.dll
+100414:15:42.165 Signed Assembly DetectionManager, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DetectionManager.dll
+100414:15:42.172 Signed Assembly Dev_Robot, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Robot.dll
+100414:15:42.181 Signed Assembly Dev_PipArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PipArm.dll
+100414:15:42.189 Signed Assembly Dev_DropStation, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DropStation.dll
+100414:15:42.198 Signed Assembly LayoutManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LayoutManager.dll
+100414:15:42.212 Signed Assembly DatabaseManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DatabaseManager.dll
+100414:15:42.225 Signed Assembly Layout, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Layout.dll
+100414:15:42.233 Signed Assembly LayoutDB, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LayoutDB.dll
+100414:15:42.495 Signed Assembly DeviceManager, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DeviceManager.dll
+100414:15:42.504 Signed Assembly Dev_BarcodeYZ, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BarcodeYZ.dll
+100414:15:42.521 Signed Assembly Dev_BCReader, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BCReader.dll
+100414:15:42.527 Signed Assembly Dev_BottleSensor, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BottleSensor.dll
+100414:15:42.566 Signed Assembly Dev_Centrifuge, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Centrifuge.dll
+100414:15:42.572 Signed Assembly Dev_CombiArm, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_CombiArm.dll
+100414:15:42.654 Signed Assembly Dev_GripArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripArm.dll
+100414:15:42.805 Signed Assembly Dev_Motor, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Motor.dll
+100414:15:42.812 Signed Assembly Dev_Cover, ProductVersion=1.4.1, Version=0.9.1.0, FileVersion=0.9.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Cover.dll
+100414:15:42.818 Signed Assembly Dev_DownHolder, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DownHolder.dll
+100414:15:42.825 Signed Assembly Dev_DynamicWasher, ProductVersion=1.4.1, Version=1.0.4.0, FileVersion=1.0.4.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DynamicWasher.dll
+100414:15:42.850 Signed Assembly Dev_Washer, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Washer.dll
+100414:15:42.863 Signed Assembly WashManager, ProductVersion=1.4.1, Version=1.2.0.0, FileVersion=1.2.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\WashManager.dll
+100414:15:42.870 Signed Assembly Dev_GripperBarcodeYZ, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperBarcodeYZ.dll
+100414:15:42.880 Signed Assembly Dev_GripperFlexBcrYZ, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperFlexBcrYZ.dll
+100414:15:42.889 Signed Assembly Dev_HeatPos, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_HeatPos.dll
+100414:15:42.895 Signed Assembly Dev_HumidityChamber, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_HumidityChamber.dll
+100414:15:42.901 Signed Assembly Dev_IDTrax, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_IDTrax.dll
+100414:15:42.907 Signed Assembly Dev_IOPort, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_IOPort.dll
+100414:15:42.917 Signed Assembly Dev_PipPump, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PipPump.dll
+100414:15:43.253 Signed Assembly Dev_PlateTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PlateTrax.dll
+100414:15:43.260 Signed Assembly Dev_Reader, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Reader.dll
+100414:15:43.278 Signed Assembly Dev_ReSaTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_ReSaTrax.dll
+100414:15:43.293 Signed Assembly Dev_Scale, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Scale.dll
+100414:15:43.303 Signed Assembly Dev_Shaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Shaker.dll
+100414:15:43.311 Signed Assembly Dev_ThermoShaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_ThermoShaker.dll
+100414:15:43.322 Signed Assembly Dev_TipWasher, ProductVersion=1.4.1, Version=1.0.5.0, FileVersion=1.0.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_TipWasher.dll
+100414:15:43.339 Signed Assembly Dev_Ultrasonic, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Ultrasonic.dll
+100414:15:43.660 Signed Assembly Dev_VacuumStation, ProductVersion=1.4.1, Version=1.0.0.0, FileVersion=1.0.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_VacuumStation.dll
+100414:15:43.680 Signed Assembly Dev_WashHead, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_WashHead.dll
+100414:15:43.698 Signed Assembly UserManager, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\UserManager.dll
+040414:15:43.704 Clear Devices
+040414:15:43.826 No Object for Property DefaultWashStationName!
+040414:15:43.873 No Object for Property DefaultWashStationName!
+040414:15:44.625 No Object for Property DefaultWashStationName!
+040414:15:44.709 Clear Devices
+040414:15:44.733 No Object for Property PipettingArmName!
+040414:15:53.422 Clear Devices
+040414:15:53.433 Add Device PipArm.XMot to Devices[51] as 0
+040414:15:53.816 No valid type for Token DefaultWashStationName ==> use String
+040414:15:53.874 Add Device PipArm.Tip1.YMotor to Devices[31] as 0
+040414:15:53.876 Add Device PipArm.Tip1.ZMotor to Devices[21] as 0
+040414:15:53.877 Add Device PipArm.Tip1.Pump to Devices[11] as 0
+040414:15:53.878 Add Device PipArm.Tip2.YMotor to Devices[32] as 0
+040414:15:53.879 Add Device PipArm.Tip2.ZMotor to Devices[22] as 0
+040414:15:53.880 Add Device PipArm.Tip2.Pump to Devices[12] as 0
+040414:15:53.880 Add Device PipArm.Tip3.YMotor to Devices[33] as 0
+040414:15:53.881 Add Device PipArm.Tip3.ZMotor to Devices[23] as 0
+040414:15:53.881 Add Device PipArm.Tip3.Pump to Devices[13] as 0
+040414:15:53.885 Add Device Resatrax1 to Devices[93] as 0
+040414:15:53.892 Clear Devices
+040414:15:53.897 Add Device PipArm.XMot to Devices[51] as 0
+040414:15:53.905 No valid type for Token DefaultWashStationName ==> use String
+040414:15:53.959 Add Device PipArm.Tip1.YMotor to Devices[31] as 0
+040414:15:53.960 Add Device PipArm.Tip1.ZMotor to Devices[21] as 0
+040414:15:53.960 Add Device PipArm.Tip1.Pump to Devices[11] as 0
+040414:15:53.961 Add Device PipArm.Tip2.YMotor to Devices[32] as 0
+040414:15:53.962 Add Device PipArm.Tip2.ZMotor to Devices[22] as 0
+040414:15:53.962 Add Device PipArm.Tip2.Pump to Devices[12] as 0
+040414:15:53.963 Add Device PipArm.Tip3.YMotor to Devices[33] as 0
+040414:15:53.963 Add Device PipArm.Tip3.ZMotor to Devices[23] as 0
+040414:15:53.964 Add Device PipArm.Tip3.Pump to Devices[13] as 0
+040414:15:53.966 Add Device Resatrax1 to Devices[93] as 0
+040414:15:53.972 Startup C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dllDEV_CanDev, Version=1.2.7.0, Culture=neutral, PublicKeyToken=null
+040014:15:53.972 SetRobotError(1100)
+040014:15:54.034 Add Client0: 'CAN_IO', 0
+040014:15:54.034 Loaded CanApi2.DLL V2.56.2.0
+040014:15:54.034 Startup CAN I/O.DLL V1, 4, 3, 4 from (Dec 18 2014 14:04:36)
+040014:15:54.034 CanIO length: 364
+040014:15:54.034 CAN VersionInfo: PCAN_USB 3.8.2.10146;(KMDF, WLH_amd64);Copyright (C) 1995-2012 by;PEAK-System Technik GmbH, Darmstadt
+040014:15:54.034 debfile: C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\\debug.ini
+040014:15:54.034 Debug Options: LogFile=0,0; LogOpt=0000; DlgOpt=0000
+040014:15:54.035 0000=CAN_RegisterClient(RD_Robot,00000000,0000001C);
+040014:15:54.035 0000=CAN_ConnectToNet(001C, 1MBit, CE7945C);
+800014:15:54.035 CAN I/O Thread: 00000DD4 00001DE4
+040014:15:54.035 SetRobotError(0000)
+040014:15:54.035 SetRobotError(0000)
+080014:15:54.098 <Modul#11   SerNo   0000152EC2B6.00 
+080014:15:54.125 <PipArm.Tip1.Pump Info3: Type=    17     V1.53           Build      1    iv=0 
+080014:15:54.127 <PipArm.Tip1.Pump Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.129 <PipArm.Tip1.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.131 <Modul#12   SerNo   0000152D6702.00 
+080014:15:54.132 <Modul#13   SerNo   0000152EC2B6.01 
+080014:15:54.133 <PipArm.Tip2.Pump Info3: Type=    17     V1.53           Build      1    iv=0 
+080014:15:54.134 <PipArm.Tip3.Pump Info3: Type=    17     V1.53           Build      1    iv=0 
+080014:15:54.135 <PipArm.Tip2.Pump Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.136 <PipArm.Tip3.Pump Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.137 <PipArm.Tip2.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.138 <PipArm.Tip3.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.145 <Modul#21   SerNo   0000152E1894.01 
+080014:15:54.146 <Modul#22   SerNo   0000152D8BE9.01 
+080014:15:54.147 <PipArm.Tip1.ZMotor Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.148 <Modul#23   SerNo   0000152D91BB.01 
+080014:15:54.148 <PipArm.Tip2.ZMotor Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.149 <PipArm.Tip1.ZMotor Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.151 <PipArm.Tip3.ZMotor Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.151 <PipArm.Tip1.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.151 <PipArm.Tip2.ZMotor Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.153 <PipArm.Tip3.ZMotor Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.153 <PipArm.Tip2.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.155 <PipArm.Tip3.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.162 <Modul#31   SerNo   0000152E1894.00 
+080014:15:54.163 <Modul#32   SerNo   0000152D8BE9.00 
+080014:15:54.164 <Modul#33   SerNo   0000152D91BB.00 
+080014:15:54.164 <PipArm.Tip1.YMotor Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.165 <PipArm.Tip2.YMotor Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.166 <PipArm.Tip3.YMotor Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.166 <PipArm.Tip1.YMotor Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.167 <PipArm.Tip2.YMotor Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.168 <PipArm.Tip3.YMotor Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.168 <PipArm.Tip1.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.169 <PipArm.Tip2.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.169 <PipArm.Tip3.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+080014:15:54.195 <Modul#51   SerNo   000015318538.00 
+080014:15:54.196 <PipArm.XMot Info3: Type=     5     V1.62           Build      5    iv=0 
+080014:15:54.197 <PipArm.XMot Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.198 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+200414:15:54.218 Set number of slots in device Resatrax1 to 6.
+080014:15:54.218 >Modul#62   RequestInfo(4)
+020414:15:54.269 Attach exception: System.NullReferenceException: 未将对象引用设置到对象的实例。|    在 Sias.ReSaTrax.SReSaTraxDevice.AttachLayoutData(ILayoutDevice LayoutDevice)
+080014:15:54.286 <Modul#93   SerNo   000019192644.00 
+080014:15:54.287 <Resatrax1  Info3: Type=    61     V0.28           Build      1    iv=0 
+080014:15:54.288 <Resatrax1  Info2: res=    255     res1=      0    res2=      0    res3=          0 
+080014:15:54.290 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+800014:15:54.409 New robot thread: 000014D0
+040414:15:54.422 Start Thread ...
+040414:15:54.424 Start a new workthread
+040014:15:54.431 SetRobotError(0000)
+800014:15:54.432 New robot thread: 00002580
+010414:15:54.432 Init Robot (0)
+200414:15:54.435 SRobotDevice::Init(Sias.BaseDev.SDeviceInitOptions)
+080014:15:54.441 >PipArm.Tip1.ZMotor SetExecGroup(01)
+080014:15:54.442 <PipArm.Tip1.ZMotor Ackn.: Cmd=00      
+080014:15:54.444 >PipArm.Tip1.ZMotor RequestInfo(2)
+080014:15:54.445 <PipArm.Tip1.ZMotor Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:54.447 >PipArm.Tip1.ZMotor Init(  1000,    80,P_______)
+080014:15:54.449 >PipArm.Tip2.ZMotor SetExecGroup(01)
+080014:15:54.450 <PipArm.Tip1.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:54.451 <PipArm.Tip2.ZMotor Ackn.: Cmd=00      
+080014:15:54.452 >PipArm.Tip2.ZMotor RequestInfo(2)
+080014:15:54.453 <PipArm.Tip2.ZMotor Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:54.454 >PipArm.Tip2.ZMotor Init(  1000,    80,P_______)
+080014:15:54.454 >PipArm.Tip3.ZMotor SetExecGroup(01)
+080014:15:54.455 <PipArm.Tip3.ZMotor Ackn.: Cmd=00      
+080014:15:54.456 >PipArm.Tip3.ZMotor RequestInfo(2)
+080014:15:54.456 <PipArm.Tip2.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:54.457 <PipArm.Tip3.ZMotor Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:54.458 >PipArm.Tip3.ZMotor Init(  1000,    80,P_______)
+080014:15:54.459 <PipArm.Tip3.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:54.460 >AllModules Execute(01)
+080014:15:54.462 <PipArm.Tip3.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:54.462 <PipArm.Tip2.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:54.462 <PipArm.Tip1.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:54.463 <PipArm.Tip3.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:54.463 <PipArm.Tip1.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:54.463 <PipArm.Tip2.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+040414:15:54.503 No valid type for Token LayoutName ==> use String
+080014:15:54.996 <PipArm.Tip3.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:15:54.999 <PipArm.Tip2.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:15:55.003 <PipArm.Tip1.ZMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:15:55.006 >PipArm.XMot SetExecGroup(01)
+080014:15:55.007 <PipArm.XMot Ackn.: Cmd=00      
+080014:15:55.008 >PipArm.XMot RequestInfo(2)
+080014:15:55.009 <PipArm.XMot Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:55.011 >PipArm.XMot Move(      0,  1000,   100,P_______)
+080014:15:55.012 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:55.017 >PipArm.XMot Execute(01)
+080014:15:55.019 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.020 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ________ 
+040014:15:55.020 Init Flag not set at end of action but no init check at this module
+080014:15:55.021 >PipArm.Tip1.YMotor SetExecGroup(01)
+080014:15:55.023 <PipArm.Tip1.YMotor Ackn.: Cmd=00      
+080014:15:55.023 >PipArm.Tip1.YMotor RequestInfo(2)
+080014:15:55.024 <PipArm.Tip1.YMotor Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:55.025 >PipArm.Tip1.YMotor Init(   750,   150,P_______)
+080014:15:55.026 <PipArm.Tip1.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:55.027 >AllModules Execute(01)
+080014:15:55.029 <PipArm.Tip1.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.029 <PipArm.Tip1.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.284 <PipArm.Tip1.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0200    Flags=  ___W___I 
+080014:15:55.285 >PipArm.Tip2.YMotor SetExecGroup(01)
+080014:15:55.286 <PipArm.Tip2.YMotor Ackn.: Cmd=00      
+080014:15:55.287 >PipArm.Tip2.YMotor RequestInfo(2)
+080014:15:55.288 <PipArm.Tip2.YMotor Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:55.289 >PipArm.Tip2.YMotor Init(   750,   150,P_______)
+080014:15:55.290 <PipArm.Tip2.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:55.291 >AllModules Execute(01)
+080014:15:55.292 <PipArm.Tip2.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.293 <PipArm.Tip2.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.549 <PipArm.Tip2.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0200    Flags=  ___W___I 
+080014:15:55.550 >PipArm.Tip3.YMotor SetExecGroup(01)
+080014:15:55.551 <PipArm.Tip3.YMotor Ackn.: Cmd=00      
+080014:15:55.552 >PipArm.Tip3.YMotor RequestInfo(2)
+080014:15:55.553 <PipArm.Tip3.YMotor Info2: res=      1     res1=      0    res2=      1    res3=          7 
+080014:15:55.554 >PipArm.Tip3.YMotor Init(   750,   150,P_______)
+080014:15:55.556 <PipArm.Tip3.YMotor Info1: Pos1=     1     Pos2=      7    Error=  0000    Flags=  ______P_ 
+080014:15:55.556 >AllModules Execute(01)
+080014:15:55.558 <PipArm.Tip3.YMotor Info1: Pos1=     0     Pos2=      7    Error=  0000    Flags=  _____A__ 
+080014:15:55.558 <PipArm.Tip3.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.816 <PipArm.Tip3.YMotor Info1: Pos1=     0     Pos2=      0    Error=  0200    Flags=  ___W___I 
+080014:15:55.817 >PipArm.Tip1.YMotor Move(      0,   750,   150,P_______)
+080014:15:55.817 >PipArm.Tip2.YMotor Move(      0,   750,   150,P_______)
+080014:15:55.817 >PipArm.Tip3.YMotor Move(      0,   750,   150,P_______)
+080014:15:55.819 <PipArm.Tip1.YMotor Info1: Pos1=     2     Pos2=     31    Error=  0200    Flags=  ___W__PI 
+080014:15:55.819 <PipArm.Tip2.YMotor Info1: Pos1=     3     Pos2=     40    Error=  0200    Flags=  ___W__PI 
+080014:15:55.819 <PipArm.Tip3.YMotor Info1: Pos1=     2     Pos2=     33    Error=  0200    Flags=  ___W__PI 
+080014:15:55.821 >AllModules Execute(01)
+080014:15:55.823 <PipArm.Tip2.YMotor Info1: Pos1=     3     Pos2=     40    Error=  0000    Flags=  _____A_I 
+080014:15:55.823 <PipArm.Tip3.YMotor Info1: Pos1=     4     Pos2=     64    Error=  0000    Flags=  _____A_I 
+080014:15:55.823 <PipArm.Tip1.YMotor Info1: Pos1=     2     Pos2=     31    Error=  0000    Flags=  _____A_I 
+080014:15:55.849 <PipArm.Tip1.YMotor Info1: Pos1=     2     Pos2=     24    Error=  0000    Flags=  _______I 
+080014:15:55.854 <PipArm.Tip2.YMotor Info1: Pos1=     2     Pos2=     31    Error=  0000    Flags=  _______I 
+080014:15:55.859 <PipArm.Tip3.YMotor Info1: Pos1=     2     Pos2=     31    Error=  0000    Flags=  _______I 
+080014:15:55.860 >PipArm.XMot Init(  1000,   100,P_______)
+080014:15:55.861 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:55.862 >PipArm.XMot Execute(01)
+080014:15:55.863 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:55.863 <PipArm.XMot Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:56.385 <PipArm.XMot Info1: Pos1=     0     Pos2=      1    Error=  0000    Flags=  _______I 
+080014:15:56.386 >Resatrax1  SetExecGroup(80)
+080014:15:56.387 <Resatrax1  Ackn.: Cmd=00      
+080014:15:56.388 >Resatrax1  RequestInfo(2)
+080014:15:56.389 <Resatrax1  Info2: res=    128     res1=      0    res2=      0    res3=          0 
+080014:15:56.390 >Resatrax1  Init(     0,     0,P_______)
+080014:15:56.391 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:15:56.392 >Resatrax1  Execute(80)
+080014:15:56.393 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A_I 
+080014:15:56.396 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:15:56.417 >PipArm.Tip1.Pump SetExecGroup(01)
+080014:15:56.419 <PipArm.Tip1.Pump Ackn.: Cmd=00      
+080014:15:56.421 >PipArm.Tip1.Pump RequestInfo(2)
+080014:15:56.422 <PipArm.Tip1.Pump Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:56.423 >PipArm.Tip1.Pump Init(     0,     0,P_______)
+080014:15:56.423 >PipArm.Tip2.Pump SetExecGroup(01)
+080014:15:56.424 <PipArm.Tip2.Pump Ackn.: Cmd=00      
+080014:15:56.424 <PipArm.Tip1.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:56.425 >PipArm.Tip2.Pump RequestInfo(2)
+080014:15:56.426 <PipArm.Tip2.Pump Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:56.427 >PipArm.Tip2.Pump Init(     0,     0,P_______)
+080014:15:56.427 >PipArm.Tip3.Pump SetExecGroup(01)
+080014:15:56.429 <PipArm.Tip2.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:56.429 <PipArm.Tip3.Pump Ackn.: Cmd=00      
+080014:15:56.431 >PipArm.Tip3.Pump RequestInfo(2)
+080014:15:56.432 <PipArm.Tip3.Pump Info2: res=      1     res1=      0    res2=      0    res3=          0 
+080014:15:56.433 >PipArm.Tip3.Pump Init(     0,     0,P_______)
+080014:15:56.434 <PipArm.Tip3.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______P_ 
+080014:15:56.435 >AllModules Execute(01)
+080014:15:56.437 <PipArm.Tip2.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:56.437 <PipArm.Tip1.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:56.437 <PipArm.Tip3.Pump Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A__ 
+080014:15:56.636 <PipArm.Tip1.Pump Info1: Pos1=     0     Pos2=     17    Error=  0000    Flags=  _______I 
+080014:15:56.636 <PipArm.Tip3.Pump Info1: Pos1=     0     Pos2=     17    Error=  0000    Flags=  _______I 
+080014:15:56.738 <PipArm.Tip2.Pump Info1: Pos1=     0     Pos2=     17    Error=  0000    Flags=  _______I 
+040414:15:56.739 thread finished
+400414:15:58.379 Unsigned Assembly: RDSCL, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDSCL.dll
+080014:16:02.900 >Resatrax1  GetPort(33)
+080014:16:02.910 <Resatrax1  PortData(33,12, 0,(    12,    -1)) 
+080014:16:02.913 >Resatrax1  SetPort(80,33,10,     0,(    10))
+080014:16:02.915 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:02.916 >Resatrax1  Execute(80)
+080014:16:02.918 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:02.919 >Resatrax1  GetPort(34)
+080014:16:02.924 <Resatrax1  PortData(34,12, 0,(    12,    -1)) 
+080014:16:02.926 >Resatrax1  SetPort(80,34,10,     0,(    10))
+080014:16:02.927 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:02.928 >Resatrax1  Execute(80)
+080014:16:02.929 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:02.930 >Resatrax1  GetPort(35)
+080014:16:02.935 <Resatrax1  PortData(35,12, 0,(    12,    -1)) 
+080014:16:02.937 >Resatrax1  SetPort(80,35,10,     0,(    10))
+080014:16:02.938 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:02.939 >Resatrax1  Execute(80)
+080014:16:02.940 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:02.941 >Resatrax1  GetPort(36)
+080014:16:02.946 <Resatrax1  PortData(36,12, 0,(    12,    -1)) 
+080014:16:02.948 >Resatrax1  SetPort(80,36,10,     0,(    10))
+080014:16:02.949 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:02.950 >Resatrax1  Execute(80)
+080014:16:02.951 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:02.953 >Resatrax1  GetPort(37)
+080014:16:02.962 <Resatrax1  PortData(37,12, 0,(    12,    -1)) 
+080014:16:02.963 >Resatrax1  SetPort(80,37,10,     0,(    10))
+080014:16:02.964 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:02.965 >Resatrax1  Execute(80)
+080014:16:02.966 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:02.968 >Resatrax1  GetPort(38)
+080014:16:02.973 <Resatrax1  PortData(38,12, 0,(    12,    -1)) 
+080014:16:02.974 >Resatrax1  SetPort(80,38,10,     0,(    10))
+080014:16:02.975 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:02.976 >Resatrax1  Execute(80)
+080014:16:02.977 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:02.979 >Resatrax1  GetPort(35)
+080014:16:02.984 <Resatrax1  PortData(35,10, 0,(    10,    -1)) 
+080014:16:02.992 >Resatrax1  GetPort(35)
+080014:16:02.998 <Resatrax1  PortData(35,10, 0,(    10,    -1)) 
+080014:16:02.998 >Resatrax1  SetPort(80,35, 3,     0,(     3))
+080014:16:03.000 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:03.002 >Resatrax1  Execute(80)
+080014:16:03.003 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:03.111 >Resatrax1  GetPort(35)
+080014:16:03.118 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.180 >Resatrax1  GetPort(35)
+080014:16:03.185 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.245 >Resatrax1  GetPort(35)
+080014:16:03.250 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.305 >Resatrax1  GetPort(35)
+080014:16:03.310 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.363 >Resatrax1  GetPort(35)
+080014:16:03.372 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.427 >Resatrax1  GetPort(35)
+080014:16:03.433 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.485 >Resatrax1  GetPort(35)
+080014:16:03.490 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.542 >Resatrax1  GetPort(35)
+080014:16:03.547 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.599 >Resatrax1  GetPort(35)
+080014:16:03.604 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.656 >Resatrax1  GetPort(35)
+080014:16:03.661 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.713 >Resatrax1  GetPort(35)
+080014:16:03.718 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.770 >Resatrax1  GetPort(35)
+080014:16:03.780 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.833 >Resatrax1  GetPort(35)
+080014:16:03.838 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.890 >Resatrax1  GetPort(35)
+080014:16:03.895 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:03.947 >Resatrax1  GetPort(35)
+080014:16:03.952 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.004 >Resatrax1  GetPort(35)
+080014:16:04.009 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.061 >Resatrax1  GetPort(35)
+080014:16:04.066 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.119 >Resatrax1  GetPort(35)
+080014:16:04.123 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.178 >Resatrax1  GetPort(35)
+080014:16:04.187 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.241 >Resatrax1  GetPort(35)
+080014:16:04.246 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.299 >Resatrax1  GetPort(35)
+080014:16:04.304 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.356 >Resatrax1  GetPort(35)
+080014:16:04.361 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.413 >Resatrax1  GetPort(35)
+080014:16:04.418 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.470 >Resatrax1  GetPort(35)
+080014:16:04.475 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.528 >Resatrax1  GetPort(35)
+080014:16:04.533 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.586 >Resatrax1  GetPort(35)
+080014:16:04.595 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.648 >Resatrax1  GetPort(35)
+080014:16:04.653 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.705 >Resatrax1  GetPort(35)
+080014:16:04.710 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.762 >Resatrax1  GetPort(35)
+080014:16:04.767 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.819 >Resatrax1  GetPort(35)
+080014:16:04.824 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.876 >Resatrax1  GetPort(35)
+080014:16:04.881 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.934 >Resatrax1  GetPort(35)
+080014:16:04.939 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:04.991 >Resatrax1  GetPort(35)
+080014:16:04.996 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.048 >Resatrax1  GetPort(35)
+080014:16:05.055 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.107 >Resatrax1  GetPort(35)
+080014:16:05.111 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.164 >Resatrax1  GetPort(35)
+080014:16:05.169 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.222 >Resatrax1  GetPort(35)
+080014:16:05.227 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.279 >Resatrax1  GetPort(35)
+080014:16:05.283 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.335 >Resatrax1  GetPort(35)
+080014:16:05.340 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.392 >Resatrax1  GetPort(35)
+080014:16:05.397 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.449 >Resatrax1  GetPort(35)
+080014:16:05.454 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.506 >Resatrax1  GetPort(35)
+080014:16:05.514 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.568 >Resatrax1  GetPort(35)
+080014:16:05.573 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.626 >Resatrax1  GetPort(35)
+080014:16:05.631 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.685 >Resatrax1  GetPort(35)
+080014:16:05.689 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.742 >Resatrax1  GetPort(35)
+080014:16:05.746 <Resatrax1  PortData(35,11, 0,(    11,    -1)) 
+080014:16:05.799 >Resatrax1  GetPort(35)
+080014:16:05.804 <Resatrax1  PortData(35, 7, 0,(     7,    -1)) 
+080014:16:05.856 >Resatrax1  GetPort(35)
+080014:16:05.861 <Resatrax1  PortData(35, 7, 0,(     7,    -1)) 
+080014:16:05.913 >Resatrax1  GetPort(35)
+080014:16:05.922 <Resatrax1  PortData(35, 7, 0,(     7,    -1)) 
+080014:16:05.974 >Resatrax1  GetPort(35)
+080014:16:05.979 <Resatrax1  PortData(35, 7, 0,(     7,    -1)) 
+080014:16:06.033 >Resatrax1  GetPort(35)
+080014:16:06.038 <Resatrax1  PortData(35, 7, 0,(     7,    -1)) 
+080014:16:06.102 >Resatrax1  SetPort(80,35, 0,     0,(     0))
+080014:16:06.104 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:06.106 >Resatrax1  Execute(80)
+080014:16:06.107 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+080014:16:06.108 >Resatrax1  GetPort(35)
+080014:16:06.113 <Resatrax1  PortData(35, 0, 0,(     0,    -1)) 
+080014:16:06.118 >Resatrax1  GetPort(35)
+080014:16:06.127 <Resatrax1  PortData(35, 0, 0,(     0,    -1)) 
+080014:16:06.129 >Resatrax1  Get BC-BufInfo
+080014:16:06.130 <Resatrax1  BC-BufInfo: MaxTubes=20, Adr=022E, BC-Size=40, Pos-Ofs=0, Len-Ofs=4, BC-Ofs=5 
+080014:16:06.131 >Resatrax1  SetPort(80,35, 9,     0,(     9))
+080014:16:06.133 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:06.133 >Resatrax1  Execute(80)
+080014:16:06.134 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _______I 
+200414:16:06.188 start reading strip 
+080014:16:06.189 >Resatrax1  ReadRack(2,0,0 .. 19,P_______)
+080014:16:06.190 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  ______PI 
+080014:16:06.191 >Resatrax1  Execute(80)
+080014:16:06.199 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  _____A_I 
+080014:16:06.613 <Resatrax1  Info2: res=    128     res1=   1003    res2=      2    res3=        255 
+080014:16:09.081 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  D______I 
+080014:16:09.088 >Resatrax1  GetPort(35)
+080014:16:09.098 <Resatrax1  PortData(35,13, 0,(    13,    -1)) 
+080014:16:09.100 >Resatrax1  GetPort(35)
+080014:16:09.108 <Resatrax1  PortData(35,13, 0,(    13,    -1)) 
+080014:16:09.110 >Resatrax1  GetPort(35)
+080014:16:09.118 <Resatrax1  PortData(35,13, 0,(    13,    -1)) 
+080014:16:09.208 >Resatrax1  GetMem(00022E,6)
+080014:16:09.209 <Resatrax1  MemData(01 00 02 00 0A 32 ) 
+080014:16:09.209 >Resatrax1  GetMem(000234,6)
+080014:16:09.211 <Resatrax1  MemData(30 30 39 31 36 31 ) 
+080014:16:09.211 >Resatrax1  GetMem(00023A,6)
+080014:16:09.213 <Resatrax1  MemData(36 32 39 00 00 00 ) 
+080014:16:09.213 >Resatrax1  GetMem(000240,6)
+080014:16:09.214 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.214 >Resatrax1  GetMem(000246,6)
+080014:16:09.216 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.216 >Resatrax1  GetMem(00024C,6)
+080014:16:09.218 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.218 >Resatrax1  GetMem(000252,6)
+080014:16:09.219 <Resatrax1  MemData(00 00 00 00 02 00 ) 
+080014:16:09.219 >Resatrax1  GetMem(000258,6)
+080014:16:09.221 <Resatrax1  MemData(03 00 0A 32 30 30 ) 
+080014:16:09.221 >Resatrax1  GetMem(00025E,6)
+080014:16:09.222 <Resatrax1  MemData(39 31 37 39 38 34 ) 
+080014:16:09.222 >Resatrax1  GetMem(000264,6)
+080014:16:09.223 <Resatrax1  MemData(35 00 00 00 00 00 ) 
+080014:16:09.223 >Resatrax1  GetMem(00026A,6)
+080014:16:09.225 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.225 >Resatrax1  GetMem(000270,6)
+080014:16:09.226 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.226 >Resatrax1  GetMem(000276,6)
+080014:16:09.227 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.228 >Resatrax1  GetMem(00027C,6)
+080014:16:09.229 <Resatrax1  MemData(00 00 03 00 04 00 ) 
+080014:16:09.229 >Resatrax1  GetMem(000282,6)
+080014:16:09.230 <Resatrax1  MemData(0A 32 30 30 39 31 ) 
+080014:16:09.230 >Resatrax1  GetMem(000288,6)
+080014:16:09.236 <Resatrax1  MemData(36 38 36 39 31 00 ) 
+080014:16:09.236 >Resatrax1  GetMem(00028E,6)
+080014:16:09.237 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.237 >Resatrax1  GetMem(000294,6)
+080014:16:09.238 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.238 >Resatrax1  GetMem(00029A,6)
+080014:16:09.240 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.240 >Resatrax1  GetMem(0002A0,6)
+080014:16:09.241 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.241 >Resatrax1  GetMem(0002A6,6)
+080014:16:09.242 <Resatrax1  MemData(04 00 05 00 0A 32 ) 
+080014:16:09.242 >Resatrax1  GetMem(0002AC,6)
+080014:16:09.244 <Resatrax1  MemData(30 30 39 31 36 34 ) 
+080014:16:09.244 >Resatrax1  GetMem(0002B2,6)
+080014:16:09.245 <Resatrax1  MemData(34 30 34 00 00 00 ) 
+080014:16:09.245 >Resatrax1  GetMem(0002B8,6)
+080014:16:09.246 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.246 >Resatrax1  GetMem(0002BE,6)
+080014:16:09.248 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.248 >Resatrax1  GetMem(0002C4,6)
+080014:16:09.249 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.249 >Resatrax1  GetMem(0002CA,6)
+080014:16:09.250 <Resatrax1  MemData(00 00 00 00 05 00 ) 
+080014:16:09.250 >Resatrax1  GetMem(0002D0,6)
+080014:16:09.252 <Resatrax1  MemData(06 00 0A 32 30 30 ) 
+080014:16:09.252 >Resatrax1  GetMem(0002D6,6)
+080014:16:09.253 <Resatrax1  MemData(39 31 37 32 32 33 ) 
+080014:16:09.253 >Resatrax1  GetMem(0002DC,6)
+080014:16:09.254 <Resatrax1  MemData(38 00 00 00 00 00 ) 
+080014:16:09.254 >Resatrax1  GetMem(0002E2,6)
+080014:16:09.256 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.256 >Resatrax1  GetMem(0002E8,6)
+080014:16:09.257 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.257 >Resatrax1  GetMem(0002EE,6)
+080014:16:09.258 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.258 >Resatrax1  GetMem(0002F4,6)
+080014:16:09.259 <Resatrax1  MemData(00 00 06 00 07 00 ) 
+080014:16:09.260 >Resatrax1  GetMem(0002FA,6)
+080014:16:09.261 <Resatrax1  MemData(0A 32 30 30 39 31 ) 
+080014:16:09.261 >Resatrax1  GetMem(000300,6)
+080014:16:09.262 <Resatrax1  MemData(37 38 35 30 36 00 ) 
+080014:16:09.262 >Resatrax1  GetMem(000306,6)
+080014:16:09.263 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.264 >Resatrax1  GetMem(00030C,6)
+080014:16:09.265 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.265 >Resatrax1  GetMem(000312,6)
+080014:16:09.266 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.266 >Resatrax1  GetMem(000318,6)
+080014:16:09.267 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.268 >Resatrax1  GetMem(00031E,6)
+080014:16:09.269 <Resatrax1  MemData(07 00 08 00 0A 32 ) 
+080014:16:09.269 >Resatrax1  GetMem(000324,6)
+080014:16:09.270 <Resatrax1  MemData(30 30 39 31 37 31 ) 
+080014:16:09.270 >Resatrax1  GetMem(00032A,6)
+080014:16:09.271 <Resatrax1  MemData(36 36 38 00 00 00 ) 
+080014:16:09.271 >Resatrax1  GetMem(000330,6)
+080014:16:09.273 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.273 >Resatrax1  GetMem(000336,6)
+080014:16:09.274 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.274 >Resatrax1  GetMem(00033C,6)
+080014:16:09.275 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.275 >Resatrax1  GetMem(000342,6)
+080014:16:09.277 <Resatrax1  MemData(00 00 00 00 08 00 ) 
+080014:16:09.277 >Resatrax1  GetMem(000348,6)
+080014:16:09.278 <Resatrax1  MemData(09 00 0A 32 30 30 ) 
+080014:16:09.278 >Resatrax1  GetMem(00034E,6)
+080014:16:09.279 <Resatrax1  MemData(39 31 37 30 37 30 ) 
+080014:16:09.279 >Resatrax1  GetMem(000354,6)
+080014:16:09.281 <Resatrax1  MemData(37 00 00 00 00 00 ) 
+080014:16:09.281 >Resatrax1  GetMem(00035A,6)
+080014:16:09.286 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.286 >Resatrax1  GetMem(000360,6)
+080014:16:09.288 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.288 >Resatrax1  GetMem(000366,6)
+080014:16:09.290 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.290 >Resatrax1  GetMem(00036C,6)
+080014:16:09.291 <Resatrax1  MemData(00 00 09 00 0A 00 ) 
+080014:16:09.291 >Resatrax1  GetMem(000372,6)
+080014:16:09.293 <Resatrax1  MemData(0A 32 30 30 39 31 ) 
+080014:16:09.293 >Resatrax1  GetMem(000378,6)
+080014:16:09.294 <Resatrax1  MemData(36 39 37 38 34 00 ) 
+080014:16:09.294 >Resatrax1  GetMem(00037E,6)
+080014:16:09.296 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.296 >Resatrax1  GetMem(000384,6)
+080014:16:09.298 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.298 >Resatrax1  GetMem(00038A,6)
+080014:16:09.299 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.299 >Resatrax1  GetMem(000390,6)
+080014:16:09.300 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.300 >Resatrax1  GetMem(000396,6)
+080014:16:09.302 <Resatrax1  MemData(0A 00 0B 00 0A 32 ) 
+080014:16:09.302 >Resatrax1  GetMem(00039C,6)
+080014:16:09.303 <Resatrax1  MemData(30 30 39 31 36 38 ) 
+080014:16:09.303 >Resatrax1  GetMem(0003A2,6)
+080014:16:09.305 <Resatrax1  MemData(38 36 39 00 00 00 ) 
+080014:16:09.305 >Resatrax1  GetMem(0003A8,6)
+080014:16:09.306 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.307 >Resatrax1  GetMem(0003AE,6)
+080014:16:09.308 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.308 >Resatrax1  GetMem(0003B4,6)
+080014:16:09.310 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.310 >Resatrax1  GetMem(0003BA,6)
+080014:16:09.312 <Resatrax1  MemData(00 00 00 00 0B 00 ) 
+080014:16:09.312 >Resatrax1  GetMem(0003C0,6)
+080014:16:09.313 <Resatrax1  MemData(0C 00 0A 32 30 30 ) 
+080014:16:09.313 >Resatrax1  GetMem(0003C6,6)
+080014:16:09.315 <Resatrax1  MemData(39 31 36 35 39 35 ) 
+080014:16:09.315 >Resatrax1  GetMem(0003CC,6)
+080014:16:09.316 <Resatrax1  MemData(35 00 00 00 00 00 ) 
+080014:16:09.316 >Resatrax1  GetMem(0003D2,6)
+080014:16:09.318 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.318 >Resatrax1  GetMem(0003D8,6)
+080014:16:09.319 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.319 >Resatrax1  GetMem(0003DE,6)
+080014:16:09.321 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.321 >Resatrax1  GetMem(0003E4,6)
+080014:16:09.322 <Resatrax1  MemData(00 00 0C 00 0D 00 ) 
+080014:16:09.322 >Resatrax1  GetMem(0003EA,6)
+080014:16:09.324 <Resatrax1  MemData(0A 32 30 30 39 31 ) 
+080014:16:09.324 >Resatrax1  GetMem(0003F0,6)
+080014:16:09.325 <Resatrax1  MemData(36 34 30 37 33 00 ) 
+080014:16:09.325 >Resatrax1  GetMem(0003F6,6)
+080014:16:09.327 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.327 >Resatrax1  GetMem(0003FC,6)
+080014:16:09.328 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.328 >Resatrax1  GetMem(000402,6)
+080014:16:09.330 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.330 >Resatrax1  GetMem(000408,6)
+080014:16:09.331 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.331 >Resatrax1  GetMem(00040E,6)
+080014:16:09.337 <Resatrax1  MemData(0D 00 0E 00 0A 32 ) 
+080014:16:09.337 >Resatrax1  GetMem(000414,6)
+080014:16:09.338 <Resatrax1  MemData(30 30 39 31 36 34 ) 
+080014:16:09.338 >Resatrax1  GetMem(00041A,6)
+080014:16:09.340 <Resatrax1  MemData(30 37 37 00 00 00 ) 
+080014:16:09.340 >Resatrax1  GetMem(000420,6)
+080014:16:09.341 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.342 >Resatrax1  GetMem(000426,6)
+080014:16:09.343 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.343 >Resatrax1  GetMem(00042C,6)
+080014:16:09.344 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.344 >Resatrax1  GetMem(000432,6)
+080014:16:09.346 <Resatrax1  MemData(00 00 00 00 0E 00 ) 
+080014:16:09.346 >Resatrax1  GetMem(000438,6)
+080014:16:09.347 <Resatrax1  MemData(0F 00 0A 32 30 30 ) 
+080014:16:09.347 >Resatrax1  GetMem(00043E,6)
+080014:16:09.348 <Resatrax1  MemData(39 31 37 37 34 35 ) 
+080014:16:09.348 >Resatrax1  GetMem(000444,6)
+080014:16:09.350 <Resatrax1  MemData(35 00 00 00 00 00 ) 
+080014:16:09.350 >Resatrax1  GetMem(00044A,6)
+080014:16:09.351 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.351 >Resatrax1  GetMem(000450,6)
+080014:16:09.352 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.352 >Resatrax1  GetMem(000456,6)
+080014:16:09.354 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.354 >Resatrax1  GetMem(00045C,6)
+080014:16:09.355 <Resatrax1  MemData(00 00 0F 00 10 00 ) 
+080014:16:09.355 >Resatrax1  GetMem(000462,6)
+080014:16:09.356 <Resatrax1  MemData(0A 32 30 30 39 31 ) 
+080014:16:09.356 >Resatrax1  GetMem(000468,6)
+080014:16:09.358 <Resatrax1  MemData(37 30 31 37 30 00 ) 
+080014:16:09.358 >Resatrax1  GetMem(00046E,6)
+080014:16:09.359 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.359 >Resatrax1  GetMem(000474,6)
+080014:16:09.360 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.360 >Resatrax1  GetMem(00047A,6)
+080014:16:09.362 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.362 >Resatrax1  GetMem(000480,6)
+080014:16:09.363 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.363 >Resatrax1  GetMem(000486,6)
+080014:16:09.364 <Resatrax1  MemData(10 00 11 00 08 37 ) 
+080014:16:09.364 >Resatrax1  GetMem(00048C,6)
+080014:16:09.365 <Resatrax1  MemData(36 35 34 33 32 31 ) 
+080014:16:09.366 >Resatrax1  GetMem(000492,6)
+080014:16:09.367 <Resatrax1  MemData(30 00 00 00 00 00 ) 
+080014:16:09.367 >Resatrax1  GetMem(000498,6)
+080014:16:09.368 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.368 >Resatrax1  GetMem(00049E,6)
+080014:16:09.369 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.370 >Resatrax1  GetMem(0004A4,6)
+080014:16:09.371 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.371 >Resatrax1  GetMem(0004AA,6)
+080014:16:09.372 <Resatrax1  MemData(00 00 00 00 11 00 ) 
+080014:16:09.372 >Resatrax1  GetMem(0004B0,6)
+080014:16:09.373 <Resatrax1  MemData(12 00 09 39 39 39 ) 
+080014:16:09.373 >Resatrax1  GetMem(0004B6,6)
+080014:16:09.375 <Resatrax1  MemData(39 39 39 39 39 39 ) 
+080014:16:09.375 >Resatrax1  GetMem(0004BC,6)
+080014:16:09.376 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.376 >Resatrax1  GetMem(0004C2,6)
+080014:16:09.378 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.378 >Resatrax1  GetMem(0004C8,6)
+080014:16:09.379 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.379 >Resatrax1  GetMem(0004CE,6)
+080014:16:09.380 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.380 >Resatrax1  GetMem(0004D4,6)
+080014:16:09.382 <Resatrax1  MemData(00 00 12 00 13 00 ) 
+080014:16:09.382 >Resatrax1  GetMem(0004DA,6)
+080014:16:09.388 <Resatrax1  MemData(0A 32 30 30 39 31 ) 
+080014:16:09.388 >Resatrax1  GetMem(0004E0,6)
+080014:16:09.389 <Resatrax1  MemData(37 37 39 39 37 00 ) 
+080014:16:09.389 >Resatrax1  GetMem(0004E6,6)
+080014:16:09.391 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.391 >Resatrax1  GetMem(0004EC,6)
+080014:16:09.392 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.392 >Resatrax1  GetMem(0004F2,6)
+080014:16:09.394 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.394 >Resatrax1  GetMem(0004F8,6)
+080014:16:09.396 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.396 >Resatrax1  GetMem(0004FE,6)
+080014:16:09.397 <Resatrax1  MemData(13 00 14 00 08 38 ) 
+080014:16:09.397 >Resatrax1  GetMem(000504,6)
+080014:16:09.398 <Resatrax1  MemData(38 38 38 38 38 38 ) 
+080014:16:09.398 >Resatrax1  GetMem(00050A,6)
+080014:16:09.400 <Resatrax1  MemData(38 00 00 00 00 00 ) 
+080014:16:09.400 >Resatrax1  GetMem(000510,6)
+080014:16:09.401 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.401 >Resatrax1  GetMem(000516,6)
+080014:16:09.402 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.402 >Resatrax1  GetMem(00051C,6)
+080014:16:09.403 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.403 >Resatrax1  GetMem(000522,6)
+080014:16:09.405 <Resatrax1  MemData(00 00 00 00 14 00 ) 
+080014:16:09.405 >Resatrax1  GetMem(000528,6)
+080014:16:09.406 <Resatrax1  MemData(15 00 0A 31 38 31 ) 
+080014:16:09.406 >Resatrax1  GetMem(00052E,6)
+080014:16:09.407 <Resatrax1  MemData(37 31 36 31 35 31 ) 
+080014:16:09.407 >Resatrax1  GetMem(000534,6)
+080014:16:09.409 <Resatrax1  MemData(34 00 00 00 00 00 ) 
+080014:16:09.409 >Resatrax1  GetMem(00053A,6)
+080014:16:09.410 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.410 >Resatrax1  GetMem(000540,6)
+080014:16:09.411 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.411 >Resatrax1  GetMem(000546,6)
+080014:16:09.413 <Resatrax1  MemData(00 00 00 00 00 00 ) 
+080014:16:09.413 >Resatrax1  GetMem(00054C,2)
+080014:16:09.414 <Resatrax1  MemData(00 00     ) 
+080014:16:09.455 >Resatrax1  SetPort(80,35,10,     0,(    10))
+080014:16:09.458 <Resatrax1  Info1: Pos1=     0     Pos2=      0    Error=  0000    Flags=  D_____PI 
+080014:16:09.459 >Resatrax1  Execute(80)

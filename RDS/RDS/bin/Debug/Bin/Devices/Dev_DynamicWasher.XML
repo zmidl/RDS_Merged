@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_DynamicWasher</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer">
+            <summary>
+            Wash program buffer class
+            
+            This class is designed as a wrapper class for the washers memory structures.
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.GetAspirateIndex(System.String)">
+            <summary>
+            Get Aspirate index from name
+            </summary>
+            <param name="Name">Name of the aspirate procedure index</param>
+            <returns>index of aspirate procedure</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.GetAspirateIndex(System.Collections.Generic.List{System.String},System.Int32)">
+            <summary>
+            Get Aspirate Index from aspirate procedure reference list and an index
+            </summary>
+            <param name="ProcList">Aspirate procedure reference list </param>
+            <param name="index">Index into aspirate procedure reference list</param>
+            <returns>Aspirate proecdure index</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.GetDispenseIndex(System.Collections.Generic.List{System.String},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ProcList"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.ResetProcedureNameList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.ToPos(System.Double)">
+            <summary>
+            Convert washer distance from mm to washer motor units
+            </summary>
+            <param name="mm">distance in mm</param>
+            <returns>The distance in washer motor units.</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.ToMm(System.Int16)">
+            <summary>
+            Convert washer distance from washer motor units to mm
+            </summary>
+            <param name="Pos">Disnatce in washer motor units</param>
+            <returns>Disnatce in mm</returns>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer._WashProg">
+            <summary>wash program structure field</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer._WashPlate">
+            <summary>Wash plate structure field</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer._AspProcArray">
+            <summary>Aspirate procedure array field</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer._DispProcArray">
+            <summary>Dispense procedure array field</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.#ctor(Sias.CanDev.SBCBufInfo)">
+            <summary>
+            Initializes a new instance of the <b>SWashProgramBuffer</b> class.
+            </summary>
+            <param name="BufInfo">buffer information structure from device</param>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer._BufferLength">
+            <summary>length of full data buffer field</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer._RevertRows">
+            <summary>Revert rows field</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.GetWashProgramFromDevice(Sias.CanDev.SCanDevice)">
+            <summary>
+            Get wash program from device.
+            </summary>
+            <param name="dev">The can device to get the wash program from.</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SendWashProgramToDevice(Sias.CanDev.SCanDevice)">
+            <summary>
+            Send wash program to device.
+            </summary>
+            <param name="dev">The CAN device to sen dthe wash program to.</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.GetWashPlateFromDevice(Sias.CanDev.SCanDevice)">
+            <summary>
+            Get wash plate from device.
+            </summary>
+            <param name="dev">The can device to get the wash program from.</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SendWashPlateToDevice(Sias.CanDev.SCanDevice)">
+            <summary>
+            Send wash plate to device.
+            </summary>
+            <param name="dev">The CAN device to send the wash program to.</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SetWashProgramData(Sias.WashManager.SWashProgramData)">
+            <summary>
+            Set wash program from wash program managers wash proecedure data structure
+            </summary>
+            <param name="WashProgramData">Wash program data structure</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.GetWashProgramData">
+            <summary>
+            Get wash program as wash program managers wash procedure data structure
+            </summary>
+            <returns>The wash procedure data</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SetPrimeData(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            Set wash program data for prime only wash program
+            </summary>
+            <param name="LiquidIndex">Index of liquid to prime</param>
+            <param name="PrimeProcedure">Prime parameters</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.AddWashItem(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Add another sub wash item 
+            </summary>
+            <param name="item">The wash item to add</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SetWashPlate(Sias.Core.Interfaces.IItem)">
+            <summary>
+            Convert wash Item to washers plate information data block 
+            </summary>
+            <param name="ItemToWash">The wash item to convert</param>
+            <remarks>
+            Important: In Cavity mode this does only support an 8 tip wash head with 9 mm distance!
+            </remarks>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.TraceData(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="PreFix"></param>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.WashProg">
+            <summary>wash program structure property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.WashPlate">
+            <summary>Wash plate structure property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.AspProcArray">
+            <summary>Aspirate procedure array property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.DispProcArray">
+            <summary>Dispense procedure array property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.BufferLength">
+            <summary>length of full data buffer property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.UsedAspirationProcedures">
+            <summary>Used Aspiration Procedure indexes property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.UsedDispenseProcedures">
+            <summary>Used Dispense Procedure indexes property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.MaxAspirateIndex">
+            <summary>Highest aspirate procedure index property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.MaxDispenseIndex">
+            <summary>Highest dispense procedure index property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.RevertRows">
+            <summary>Revert rows property</summary>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc">
+            <summary>
+            row procedure structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc.Options">
+            <summary>0x00: Options / flags</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc.AspirateProcedure">
+            <summary>0x01: Aspirate procedure indexes (255=not used)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc.DispenseProcedure">
+            <summary>0x09: Dispense procedure indexes (255=not used)</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc.ToSRowProcedure(System.Int32,System.Int32)">
+            <summary>
+            Copy row procedure structure to wash manager row procedure structure
+            </summary>
+            <param name="MaxAspProc">Maximum valid index for aspirate procedures</param>
+            <param name="MaxDspProc">Maximum valid index for dispense procedures</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_RowProc.FromSRowProcedure(Sias.WashManager.SWashRowProcedure,Sias.WashManager.SWashProgram)">
+            <summary>
+            
+            </summary>
+            <param name="RowProc"></param>
+            <param name="WashProg"></param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram">
+            <summary>
+            wash program structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.Name">
+            <summary>0x000: Program ID (max. 15 char)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.Options">
+            <summary>0x010: Options / flags</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.LiquidIndex">
+            <summary>0x011: Liquid type index</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PlateIndex">
+            <summary>0x012: Plate type index</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PrimeOptions">
+            <summary>0x013: Prime Options</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PrimePower">
+            <summary>0x014: Prime power mode</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PrimeCycles">
+            <summary>0x015: Prime Cycles</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PrimeVol">
+            <summary>0x016: Prime Volume</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PrimeDelay">
+            <summary>0x018: Prime Delay (each cycle)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.MinPlateCycleTime">
+            <summary>0x01A: Minimum Row cycle type (not implemented yet!)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PlateCycles">
+            <summary>0x01C: no of plate cycles</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.PlateEmptyIndex">
+            <summary>0x01D: Plate empty aspirate index</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.res2">
+            <summary>0x01E: reserved</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.RowProc">
+            <summary>0x020: Row procedures</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.MakeTestData">
+            <summary>
+            Create dummy test data (not working)
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.TraceData(System.String)">
+            <summary>
+            Send data to trace/debug output
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.ToSWashProgram(System.Int32,System.Int32)">
+            <summary>
+            Copy wash program data to wash manager wash program
+            </summary>
+            <param name="MaxAspProc">Maximum valid index for aspirate procedures</param>
+            <param name="MaxDspProc">Maximum valid index for dispense procedures</param>
+            <returns>The Wash manager wash proceudre</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.FromSWashProgram(Sias.WashManager.SWashProgram)">
+            <summary>
+            
+            </summary>
+            <param name="WashProgram"></param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.FromPrimeData(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            Create prime only wash program
+            </summary>
+            <param name="liquidIndex">Index of the liquid for priming</param>
+            <param name="PrimeProcedure">Prime parameters</param>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashProgram.ProgID">
+            <summary>Program ID/Name property (only use ASCII coding)</summary>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate">
+            <summary>
+            Wash plate (wash positions) structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.Options">
+            <summary>0x000: Wash plate options</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.res1">
+            <summary>0x001: reserved </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.ZOffset">
+            <summary>0x002: Wash reference height (relative to Reference)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.ZTravel">
+            <summary>0x004: Wash travel height (relative to Reference)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate._PlateID">
+            <summary>0x006: Plate ID (max. 9 char)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.X">
+            <summary>0x010: X wash positions (relative to Reference)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.Y">
+            <summary>0x030: Y wash positions (relative to Reference)</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.TraceData(System.String)">
+            <summary>
+            Write data to trace log
+            </summary>
+            <param name="Category">category name</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate.PlateID">
+            <summary>Plate ID/Name property (only use ASCII coding)</summary>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep">
+            <summary>
+            Aspirate step structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.Options">
+            <summary>0x000: Options / flags</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.AspPower">
+            <summary>0x001: Aspirate Power (see POWER_MODE)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.X">
+            <summary>0x002: X destination position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.Y">
+            <summary>0x004: Y destination position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.Z">
+            <summary>0x006: Z destination position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.XSpeed">
+            <summary>0x008: X speed</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.YSpeed">
+            <summary>0x00A: Y speed</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.ZSpeed">
+            <summary>0x00C: Z speed</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.AspDelay">
+            <summary>0x00E: Additional delay after movement [ms]</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.ToSWashStep">
+            <summary>
+            Convert to WashManager wash step class
+            </summary>
+            <returns>Aspiration step data as WashManager wash step class</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspStep.FromSWashStep(Sias.WashManager.SWashStep)">
+            <summary>
+            
+            </summary>
+            <param name="step"></param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc">
+            <summary>
+            Aspirate procedure structure 
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.Options">
+            <summary>0x000: Options / flags</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.StartAspPower">
+            <summary>0x001: Start aspirate Power (see POWER_MODE)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.StartX">
+            <summary>0x002: X start position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.StartY">
+            <summary>0x004: Y start position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.StartZ">
+            <summary>0x006: Z start position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.StartDelay">
+            <summary>0x008:	Delay between aspiration start of start of first movement [ms]</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.MinAspTime">
+            <summary>0x00A:	Minimum aspiration time [ms]</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.res1">
+            <summary>0x00C:	reserved</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.res2">
+            <summary>0x00E:	reserved</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.AspStep">
+            <summary>0x010: Aspirate steps</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.TraceData(System.String)">
+            <summary>
+            Send data to trace log
+            </summary>
+            <param name="Category">Category</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.ToSWashAspirateProcedure(System.String)">
+            <summary>
+            Convert to WashManager.SWashAspirateProcedure class
+            </summary>
+            <param name="Name">Name for WashManager.SWashAspirateProcedure class</param>
+            <returns>Aspiration procedure data as WashManager.SWashAspirateProcedure class</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProc.FromSWashAspirateProcedure(Sias.WashManager.SWashAspirateProcedure,Sias.WashManager.SWashProgram)">
+            <summary>
+            
+            </summary>
+            <param name="AspProc"></param>
+            <param name="WashProg"></param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProcArray">
+            <summary>
+            Aspirate procedure array structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_AspProcArray.AspProc">
+            <summary>0x000: Aspirate steps</summary>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep">
+            <summary>
+            Dispense step procedure 
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.Options">
+            <summary>0x000: Options / flags</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.DispPower">
+            <summary>0x001: Dispense Power (see POWER_MODE)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.X">
+            <summary>0x002: X destination position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.Y">
+            <summary>0x004: Y destination position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.Z">
+            <summary>0x006: Z destination position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.XSpeed">
+            <summary>0x008: X speed</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.YSpeed">
+            <summary>0x00A: Y speed</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.ZSpeed">
+            <summary>0x00C: Z speed</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.DispDelay">
+            <summary>0x00E: Additional delay after movement [ms]</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.ToSWashStep">
+            <summary>
+            Convert to WashManager wash step class
+            </summary>
+            <returns>Dispense step data as WashManager wash step class</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispStep.FromSWashStep(Sias.WashManager.SWashStep,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="step"></param>
+            <param name="StepID"></param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc">
+            <summary>
+            Dispense procedure structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.Options">
+            <summary>0x000: Options / flags</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.StartDispPower">
+            <summary>0x001: Start dispense Power (see POWER_MODE)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.StartX">
+            <summary>0x002: X start position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.StartY">
+            <summary>0x004: Y start position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.StartZ">
+            <summary>0x006: Z start position (relative to wash position)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.StartDelay">
+            <summary>0x008:	Delay between dispense start of start of first movement [ms]</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.AspiratePower">
+            <summary>0x00A: Aspiration power mode while dispense</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.resb">
+            <summary>0x00B:	reserved byte</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.res1">
+            <summary>0x00C:	reserved</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.res2">
+            <summary>0x00E:	reserved</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.DispStep">
+            <summary>0x010: Dispense steps</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.TraceData(System.String)">
+            <summary>
+            Send data to trace log
+            </summary>
+            <param name="Category">Category</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.Clear">
+            <summary>clear memory</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.ToSWashDispenseProcedure(System.String)">
+            <summary>
+            Convert to WashManager.SWashDispenseProcedure class
+            </summary>
+            <param name="Name">Name for WashManager.SWashDispenseProcedure class</param>
+            <returns>Aspiration procedure data as WashManager.SWashDispenseProcedure class</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProc.FromSWashDispenseProcedure(Sias.WashManager.SWashDispenseProcedure,Sias.WashManager.SWashProgram)">
+            <summary>
+            Convert from SWashDispenseProcedure
+            </summary>
+            <param name="DispProc">The SWashDispenseProcedure to convert</param>
+            <param name="WashProg"></param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProcArray">
+            <summary>
+            Dispense procedure array structure
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProcArray.DispProc">
+            <summary>Dispense procedures</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.Struct_DispProcArray.Clear">
+            <summary>
+            clear dispense procedure array
+            </summary>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.SPlateConverter">
+            <summary>Plate (Item) converter for items with orientation 0°</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlateConverter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlateConverter.CalcPos(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="TipInx"></param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlateConverter.#ctor(Sias.Core.SPosition,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Initializes a new instance of the <b>SPlateConverter</b> class.
+            </summary>
+            <param name="SlotRefreence">The slot reference position</param>
+            <param name="Cavities">The list of cavities</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlateConverter.MakeWashPlate(Sias.DynamicWasher.SWashProgramBuffer.Struct_WashPlate@,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="_WashPlate">The wash plate structure to fill</param>
+            <param name="ItemTurned">false to indicate the plate orientation is identical to teh slot, true otherwise</param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.SPlate090Converter">
+            <summary>Plate (Item) converter for items with orientation 90°</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate090Converter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate090Converter.CalcPos(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="TipInx"></param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate090Converter.#ctor(Sias.Core.SPosition,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Initializes a new instance of the <b>SPlate090Converter</b> class.
+            </summary>
+            <param name="SlotRefreence">The slot reference position</param>
+            <param name="Cavities">The list of cavities</param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.SPlate180Converter">
+            <summary>Plate (Item) converter for items with orientation 180°</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate180Converter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate180Converter.CalcPos(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="TipInx"></param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate180Converter.#ctor(Sias.Core.SPosition,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Initializes a new instance of the <b>SPlate180Converter</b> class.
+            </summary>
+            <param name="SlotRefreence">The slot reference position</param>
+            <param name="Cavities">The list of cavities</param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SWashProgramBuffer.SPlate270Converter">
+            <summary>Plate (Item) converter for items with orientation 270°</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate270Converter.Compare(System.Object,System.Object)">
+            <summary>
+            Compare method
+            
+            This comparer allows to sort tip positions by its X/Y positions. 
+            Cavities with smaller X values are sorted before those with higher 
+            X value. If the X values are identical cavities with higher Y
+            values are sorted before the ones with smaller Y values.
+            </summary>
+            <param name="x">first cavity</param>
+            <param name="y">second cavity</param>
+            <returns>-1, 0 or 1</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate270Converter.CalcPos(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="TipInx"></param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SWashProgramBuffer.SPlate270Converter.#ctor(Sias.Core.SPosition,Sias.Core.Interfaces.SCavityCollection)">
+            <summary>
+            Initializes a new instance of the <b>SPlate270Converter</b> class.
+            </summary>
+            <param name="SlotRefreence">The slot reference position</param>
+            <param name="Cavities">The list of cavities</param>
+        </member>
+        <member name="T:Sias.DynamicWasher.SDynamicWasherDevice">
+            <summary>
+            Dynamic Washer device
+            
+            The Dynamic Washer device is an \ref AccessibleDevices "accessible device" representing exactly 
+            one dynamic Washer module on a sias instrument. In difference to the standard washer the dynamic
+            Washer is able to load wash programs at runtime.
+            </summary>
+            <details>
+            \ingroup	Dev_DynamicWasher
+            
+            The interface includes 
+             - configuration properties for DynamicWasher scaling factor and offset
+             - a layout property for the DynamicWasher slot
+             - methods for wash volume and wash item conversions
+             - methods for starting a wash process
+             - methods for receive, send and store wash programs
+             .
+            \b Important: This device only supports full featured DynamicWashers. Those DynamicWashers  
+            are able to process a full wash with a single command. The DynamicWasher type adaption is 
+            done by the modules firmware.
+            <div class="dynheader">%SDynamicWasherDevice class diagram</div>
+            <div class="dynsection">
+            \image html "SDynamicWasherDevice.png"
+            </div>
+            </details>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice._Flags">
+            <summary>Dynamic washer flags field</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice._RevertRows">
+            <summary>Revert rows field</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice._WashProgramBuffer">
+            <summary>Wash program buffer field</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.#ctor(System.String)">
+            <summary>
+            Configuration string constructor
+            </summary>
+            <param name="Config">configuration string</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.#ctor(System.Int16)">
+            <summary>
+            Data constructor
+            </summary>
+            <param name="Adr">Address of DynamicWasher device</param>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.LastProgramID">
+            <summary>Last used program ID (used for error messages)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.Errors">
+            <summary>list of washer errors</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.AddError(System.Int64,System.Object[])">
+            <summary>
+            Add another error to washer error list
+            </summary>
+            <param name="ErrorCode">The code of the error to add</param>
+            <param name="AddInfo">Additional error information</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.ResetErrors">
+            <summary>
+            remove all errors from washer error list
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.ReportErrors(System.Object)">
+            <summary>
+            Check dynamic washer error list and report errors
+            
+            This method checks the internal error list and reports the errors. 
+            </summary>
+            <param name="sender">the device reporting the errors</param>
+            <returns>True if the error list is empty or the error have to be ignored otherwise false</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.GetErrorInfos">
+            <summary>
+            Error information provider
+            
+            This method returns the default error messages for all errors which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.HandleModuleError(System.Boolean,System.Object[])">
+            <summary>
+            This method handles the module errors of SMotor devices 
+            </summary>
+            <details>
+            Possible Module types:
+            	- 0x0061 (\ref Sias::CanDev::eMODULE_TYPE_CONST::MT_SIAS_WASHER "MT_SIAS_WASHER")
+            	.
+            Handled errors: 
+            	- eMODULE_ERROR_CONST.ME_TIMEOUT_ERR
+            	- eMODULE_ERROR_CONST.ME_INIT_ERROR
+            	- eMODULE_ERROR_CONST.ME_INIT_ERROR2
+            	- eMODULE_ERROR_CONST.ME_NOT_ALLOWED
+            	- eMODULE_ERROR_CONST.ME_NOT_INIT
+            	- eMODULE_ERROR_CONST.ME_CMD_ERROR1 
+            	- eMODULE_ERROR_CONST.ME_WRONG_VALVE 
+            	.
+            </details>
+            <param name="ForceHandling">true to force the handler to handle the error</param>
+            <param name="AddInfo">additional error information</param>
+            <returns>Result of the error handling.</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StoreWashProgram(System.Byte)">
+            <summary>
+            Store wash program (from tranfer memory)
+            
+            This method forces the dynamic washer to store the wash program the washers 
+            transfer memory using the defined <para>WashProgramID</para>.
+            </summary>
+            <param name="WashProgramID">Wash program index to store (only flash indexes: 9..127)</param>
+            <returns>The error code of the operation, 0 if the wash program transferred successfully</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.LoadWashProgram(System.Byte)">
+            <summary>
+            Load wash program to transfer memory
+            
+            This method forces the dynamic washer to load the wash program identified by
+            <para>WashProgramID</para> into the washer transfer memory area.
+            </summary>
+            <param name="WashProgramID">
+            The wash program index to load:\n
+             - 1..8:   wash program from config buffer
+             - 9..127: wash program from flash pool
+             .
+            </param>
+            <returns>The error code of the operation, 0 if the wash program transfered successfully</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.CheckWashProgram(System.Byte)">
+            <summary>
+            Check wash program.
+            
+            This method forces the dynamic washer to check a wash program in transfer, 
+            config or flash memory. 
+            The wash program gets identified by its <para>WashProgramID</para>.
+            </summary>
+            <param name="WashProgramID">
+            The wash program index to load:\n
+             - 0:       wash program in RAM
+             - 1..8:    wash program from config memory
+             - 9..127:  wash program from flash pool
+             .
+            </param>
+            <returns>The Result of check, 0 if the wash program is correctly</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.DeleteWashProgram(System.Byte)">
+            <summary>
+            Delete wash program from flash memory
+            
+            This method forces the dynamic washer to delete a wash program in flash memory.
+            The wash program gets identified by its <para>WashProgramID</para>.
+            </summary>
+            <param name="WashProgramID">The wash program index to load (9..127).</param>
+            <returns>The Result of the operation, 0 if the wash program is deleted</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.SetPlateDefinitionMode(System.Byte)">
+            <summary>
+            Set Plate definition mode
+            
+            This method is used to define the plate definition mode.
+            </summary>
+            <param name="Mode">Plate Use Mode:
+             - 0: Use plate definition stored with wash program
+             - 1: Use plate definition in transfer memory (dynamic)
+            </param>
+            <returns>0 for normal plate mode 1 for transfer memory plate mode</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StartWash(System.Byte,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.  
+            
+            This command starts the defined wash program on the washer.
+            </summary>
+            <param name="WashProg">The identifier of the wash program</param>
+            <param name="WashItem">The Item to wash (null for using the default plate definition)</param>
+            <param name="Rows">Rows to wash (each bit represents a row)\n
+            Attention: Some Washers may not support individual row washing. In this case the
+            DynamicWasher may wash unselected rows also.
+            </param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StartWash(System.Byte,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.  
+            
+            This method starts execution of the wash program identified by <paramref name="WashProg"/>.
+            For execution the plate definition of the actual item on the washer slot is used.
+            If there is no item on washer slot the plate definition stored at the washer is used.
+            </summary>
+            <param name="WashProg">The identifier of the wash program</param>
+            <param name="Rows">Rows to wash (each bit represents a row)\n
+            Attention: Some Washers may not support individual row washing. In this case the
+            DynamicWasher may wash unselected rows also.
+            </param>
+            <param name="WashVol">The wash volume</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StartWash(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.
+            
+            This method sends the defined wash program to dynamic washer and starts its excution.
+            The plate definition is taken from given wash plate item. 
+            If the item is not defined (null) the plate definition stored at the washer is used.
+            </summary>
+            <param name="WashProgramData">wash program number</param>
+            <param name="WashItem">The Item to be used for wash plate definition</param>
+            <param name="Rows">Rows to wash (each bit represents a row)\n
+            Attention:  Some dynamic washers may not support individual row washing. 
+                        In this case the DynamicWasher may wash unselected rows also.
+            </param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StartWash(Sias.WashManager.SWashProgramData,System.UInt16,System.Double)">
+            <summary>
+            Start wash program execution.
+            
+            This method sens the defined wash program to the dynamic washer and starts its execution.
+            For execution the plate definition of the actual item on the washer slot is used.
+            If there is no item on washer slot the plate definition stored at the washer is used.
+            </summary>
+            <param name="WashProgramData">Wash program</param>
+            <param name="Rows">Rows to wash (each bit represents a row)\n
+            Attention: Some DynamicWashers may not support individual row washing. In this case the
+            DynamicWasher may wash unselected rows also.
+            </param>
+            <param name="WashVol">Wash volume</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StartPrime(System.Byte,System.Byte,System.Int16,System.Int16,Sias.WashManager.SPowerModeValue)">
+            <summary>
+            Start prime procedure
+            
+            This method starts a prime sequence for the defined liquid.
+            </summary>
+            <param name="LiquidIndex">Index of the liquid</param>
+            <param name="Cycles">Number of prime cycles</param>
+            <param name="Volume">Prime volume (one cycle)</param>
+            <param name="Delay">Prime delay</param>
+            <param name="Power">Prime Power</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StartPrime(System.Byte,Sias.WashManager.SWashPrimeProcedure)">
+            <summary>
+            Start prime procedure
+            
+            This method starts a prime sequence for the defined liquid.
+            </summary>
+            <param name="LiquidIndex">The liquid used for priming</param>
+            <param name="PrimeProcedure">The prime procedure (cycles, volume, delay and power)</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.WaitForEndOfWashing">
+            <summary>
+            Waits for the end of the running wash program.
+            
+            This method waits infinite until the wash program finishes.
+            </summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.StopWash">
+            <summary>
+            Stop a running wash program.
+            
+            Stops an already but still not finished wash program.
+            </summary>
+            <remarks>
+            \b Important:   This method will only work if the connected washer device supports
+                            wash program interruption. Not all washer devices will support wash 
+                            program interruption!
+            </remarks>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice._PauseWash">
+            <summary>Pause washing flag field</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.CheckWashProgram(Sias.WashManager.SWashProgramData)">
+            <summary>Check wash program.
+            
+            This method forces the washer device driver to check the given wash program.
+            The method will report errors to teh error manager.
+            </summary>
+            <remarks>\b Important: This method overwrites the tranfer memory of the dynamic washer devcice!</remarks>
+            <param name="WashProgramData">The program data block of the wash program to check.</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem)">
+            <summary>
+            Transfer wash procedure to washer transfer memory.
+            
+            This method send the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            </summary>
+            <param name="WashProgramData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions (null to use item from wash slot)</param>
+            <returns>True if wash program successfully send, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.SendWashProgramToWasher(Sias.WashManager.SWashProgramData,Sias.Core.Interfaces.IItem,System.Byte)">
+            <summary>
+            Transfer wash procedure to washer transfer memory.
+            
+            This method send the defined wash program together with the plate definitions 
+            of the given plate to the washer (in RAM section).
+            </summary>
+            <param name="WashProgramData">The wash program to send</param>
+            <param name="WashPlate">The item where to get the wash positions (null to use item from wash slot)</param>
+            <param name="WashProgramID">Wash program index to store (only flash indexes: 9..127)</param>
+            <returns>True if wash program successfully send, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.GetWashProgramFromWasher">
+            <summary>
+            Get wash program from washer
+            
+            This method gets the actual wash program from washer (RAM section).
+            </summary>
+            <returns>The actual wash program.</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.GetWashProgramFromWasher(System.Byte)">
+            <summary>
+            Get wash program from washer
+            
+            This method gets the actual wash program from washer (RAM section).
+            </summary>
+            <param name="WashProgramID">
+            The wash program index to load:\n
+             - 0:       wash program in RAM
+             - 1..8:    wash program from config memory
+             - 9..127:  wash program from flash pool
+             .
+            </param>
+            <returns>The actual wash program.</returns>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.AttachLayoutData(Sias.Core.Interfaces.ILayoutDevice)">
+            <summary>
+            Attach layout data. 
+            
+            This method tries to attach the layout data found at the given layout device 
+            to the  device. If this succeeds, it returns true. If it fails, it returns false.
+            In this case the calling method should retry until it finds a fitting layout 
+            device.
+            </summary>
+            <param name="LayoutDevice">The layout device to attach or null to unattach an attached layout device.</param>
+            <returns>True if attachable, false if not.</returns>
+        </member>
+        <member name="P:Sias.DynamicWasher.SDynamicWasherDevice.Flags">
+            <summary>Dynamic washer flags property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SDynamicWasherDevice.UseDynamicPlates">
+            <summary>
+            Use dynamic plate definition flag
+            
+            Activating this option will force the washer using always the layout
+            plate data. Otherwise the stored plate information will be used
+            </summary>
+            <value>true if dynamic plate usage is active otherwise false.</value>
+        </member>
+        <member name="P:Sias.DynamicWasher.SDynamicWasherDevice.RevertRows">
+            <summary>Revert rows property</summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SDynamicWasherDevice.WashProgramBuffer">
+            <summary>
+            Wash program buffer property (use only with lot of care)
+            </summary>
+        </member>
+        <member name="P:Sias.DynamicWasher.SDynamicWasherDevice.IsWashing">
+            <summary>
+            Gets the IsWashing flag from dynamic washer.
+            </summary>
+            <value>True as long as the dynaic washer is active (washing), otherwise false.</value>
+        </member>
+        <member name="P:Sias.DynamicWasher.SDynamicWasherDevice.PauseWash">
+            <summary>
+            Pause washing flag 
+            
+            This property is used to pause a wash program. The washer/wash head stops moving, but 
+            the wash program did not get aborted. The program can get continued by setting the
+            PauseWash flag back to false.
+            </summary>
+            <remarks>
+            \b Important: The PausWash flag gets reset on start of a new wash program.
+            </remarks>
+        </member>
+        <member name="T:Sias.DynamicWasher.SDynamicWasherDevice.SDynamicWasherFlags">
+            <summary>
+            Dynamic washer flags enumerator.
+            
+            This enumerator defines the dynamic washer flags. 
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.SDynamicWasherFlags.UseDynamicPlates">
+            <summary>First robot flag (only for demo, not used yet)</summary>
+        </member>
+        <member name="T:Sias.DynamicWasher.SDynamicWasherDevice.WashErrorInfo">
+            <summary>Wash error information class</summary>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.WashErrorInfo.#ctor(System.Int64,System.Object[])">
+            <summary>
+            Initializes a new instance of the <b>WashErrorInfo</b> class.
+            </summary>
+            <param name="code">error code</param>
+            <param name="info">additional information</param>
+        </member>
+        <member name="M:Sias.DynamicWasher.SDynamicWasherDevice.WashErrorInfo.GetInfoString(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="Sender"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::DynamicWasher::SDynamicWasherDevice errors.
+            </summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TimeoutError">
+            <summary>0x1350: Timeout error e.g. vacuum not reached in time</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InitError">
+            <summary>0x1301: Initialisation error</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InitError2">
+            <summary>0x1302: Initialisation error</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.DeviceAlreadyActive">
+            <summary>0x13F4: Command not allowed as module is already active.</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.DeviceNotInit">
+            <summary>0x13F1: Command not allowed as module is not init yet.</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.IncorectCommandMessageLength">
+            <summary>0x13F1: Incorrect command message length.</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.NoWashProgram">
+            <summary>0x0B10: no valid wash program pointer</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidWashProgram">
+            <summary>0x0B11: program not valid</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidFinalAspirateIndex">
+            <summary>0x0B12: invalid empty plate aspirate index</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidAspirateIndex">
+            <summary>0x0B13: invalid aspirate index</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidDispenseIndex">
+            <summary>0x0B14: invalid dispense index</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.NoWashPlate">
+            <summary>0x0B20: no valid wash plate pointer</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidWashPlate">
+            <summary>0x0B21: plate not valid</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.MissingAspirateProcedure">
+            <summary>0x0B30: no valid wash aspirate procedure pointer</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidAspirateProcedure">
+            <summary>0x0B31: invalid aspirate procedure</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidFinalAspirateProcedure">
+            <summary>0x0B32: invalid empty procedure</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.MissingDispenseProcedure">
+            <summary>0x0B40: no valid wash dispense procedure pointer</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidDispenseProcedure">
+            <summary>0x0B41: invalid dispense procedure</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidWashStep">
+            <summary>0x0B51: invalid dispense procedure</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TooManyDispenseProcedures">
+            <summary>0x10001: Conversion error - Too many dispense procedures</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TooManyAspirateProcedures">
+            <summary>0x10002: Conversion error - Too many aspirate procedures</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TooManyRowProcedures">
+            <summary>0x10003: Conversion error - Too many row procedures</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TooManyAspirateSteps">
+            <summary>0x10004: Conversion error - Too many aspirate steps</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TooManyDispenseSteps">
+            <summary>0x10005: Conversion error - Too many dispense steps</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.AspirateNameListError">
+            <summary>0x10006: Conversion error - No of used aspirate procedure indexes does not match to no of aspirate procedure names</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.DispenseNameListError">
+            <summary>0x10007: Conversion error - No of used dispense procedure indexes does not match to no of dispense procedure names</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.TooManyWashPositions">
+            <summary>0x10011: Item Conversion error - Too many wash positions (rows)</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidHeightDeviation">
+            <summary>0x10012: Item Conversion warning - Invalid height deviation this washer only support one wash height per program</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.InvalidItemOrientation">
+            <summary>0x10013: Item Conversion warning - Invalid Item orientation, this washer only supports orientation of 0°, 90°, 180° and 270°</summary>
+        </member>
+        <member name="F:Sias.DynamicWasher.SDynamicWasherDevice.ErrorCodes.MultiError">
+            <summary>0x20000: Multi error - reports a collection of errors</summary>
+        </member>
+    </members>
+</doc>

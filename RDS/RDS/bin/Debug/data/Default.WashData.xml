@@ -1,0 +1,216 @@
+<SWashProgramRepository Type="Sias.WashManager.SWashProgramRepository">
+  <Programs>
+    <Count>5</Count>
+    <SWashProgram Type="Sias.WashManager.SWashProgram">
+      <Options>126</Options>
+      <Name>wash1 w prime</Name>
+      <LiquidIndex>1</LiquidIndex>
+      <Cycles>2</Cycles>
+      <MinPlateCycleTime>-1</MinPlateCycleTime>
+      <PrimeProcedure>
+        <Options>0</Options>
+        <Power>FullPower</Power>
+        <Cycles>2</Cycles>
+        <Volume>1500</Volume>
+        <Delay>2000</Delay>
+      </PrimeProcedure>
+      <FinalAspiration>AspProc00</FinalAspiration>
+      <RowProcedures>
+        <Count>1</Count>
+        <SWashRowProcedure Type="Sias.WashManager.SWashRowProcedure">
+          <Options>127</Options>
+          <AspirateProcedures>
+            <Count>3</Count>
+            <String>AspProc00</String>
+            <String>AspProc00</String>
+            <String>AspProc00</String>
+          </AspirateProcedures>
+          <DispenseProcedures>
+            <Count>3</Count>
+            <String>DispProc00</String>
+            <String>DispProc00</String>
+            <String>DispProc00</String>
+          </DispenseProcedures>
+        </SWashRowProcedure>
+      </RowProcedures>
+    </SWashProgram>
+    <SWashProgram Type="Sias.WashManager.SWashProgram">
+      <Options>126</Options>
+      <Name>wash2 wo prime</Name>
+      <LiquidIndex>1</LiquidIndex>
+      <Cycles>1</Cycles>
+      <MinPlateCycleTime>-1</MinPlateCycleTime>
+      <PrimeProcedure>
+        <Options>0</Options>
+        <Power>FullPower</Power>
+        <Cycles>0</Cycles>
+        <Volume>2000</Volume>
+        <Delay>100</Delay>
+      </PrimeProcedure>
+      <FinalAspiration>AspProc00</FinalAspiration>
+      <RowProcedures>
+        <Count>1</Count>
+        <SWashRowProcedure Type="Sias.WashManager.SWashRowProcedure">
+          <Options>112</Options>
+          <AspirateProcedures>
+            <Count>1</Count>
+            <String>AspProc00</String>
+          </AspirateProcedures>
+          <DispenseProcedures>
+            <Count>1</Count>
+            <String>DispProc00</String>
+          </DispenseProcedures>
+        </SWashRowProcedure>
+      </RowProcedures>
+    </SWashProgram>
+    <SWashProgram Type="Sias.WashManager.SWashProgram">
+      <Options>126</Options>
+      <Name>Prime</Name>
+      <LiquidIndex>1</LiquidIndex>
+      <Cycles>1</Cycles>
+      <MinPlateCycleTime>-1</MinPlateCycleTime>
+      <PrimeProcedure>
+        <Options>0</Options>
+        <Power>BelowMediumPower</Power>
+        <Cycles>3</Cycles>
+        <Volume>1500</Volume>
+        <Delay>2000</Delay>
+      </PrimeProcedure>
+      <FinalAspiration />
+      <RowProcedures>
+        <Count>0</Count>
+      </RowProcedures>
+    </SWashProgram>
+    <SWashProgram Type="Sias.WashManager.SWashProgram">
+      <Options>126</Options>
+      <Name>empty only</Name>
+      <LiquidIndex>1</LiquidIndex>
+      <Cycles>1</Cycles>
+      <MinPlateCycleTime>-1</MinPlateCycleTime>
+      <PrimeProcedure>
+        <Options>0</Options>
+        <Power>FullPower</Power>
+        <Cycles>0</Cycles>
+        <Volume>1500</Volume>
+        <Delay>2000</Delay>
+      </PrimeProcedure>
+      <FinalAspiration />
+      <RowProcedures>
+        <Count>1</Count>
+        <SWashRowProcedure Type="Sias.WashManager.SWashRowProcedure">
+          <Options>127</Options>
+          <AspirateProcedures>
+            <Count>1</Count>
+            <String>AspProc00</String>
+          </AspirateProcedures>
+          <DispenseProcedures>
+            <Count>1</Count>
+            <String />
+          </DispenseProcedures>
+        </SWashRowProcedure>
+      </RowProcedures>
+    </SWashProgram>
+    <SWashProgram Type="Sias.WashManager.SWashProgram">
+      <Options>126</Options>
+      <Name>fill only</Name>
+      <LiquidIndex>1</LiquidIndex>
+      <Cycles>1</Cycles>
+      <MinPlateCycleTime>-1</MinPlateCycleTime>
+      <PrimeProcedure>
+        <Options>0</Options>
+        <Power>FullPower</Power>
+        <Cycles>1</Cycles>
+        <Volume>1500</Volume>
+        <Delay>2000</Delay>
+      </PrimeProcedure>
+      <FinalAspiration />
+      <RowProcedures>
+        <Count>1</Count>
+        <SWashRowProcedure Type="Sias.WashManager.SWashRowProcedure">
+          <Options>112</Options>
+          <AspirateProcedures>
+            <Count>1</Count>
+            <String />
+          </AspirateProcedures>
+          <DispenseProcedures>
+            <Count>1</Count>
+            <String>DispProc00</String>
+          </DispenseProcedures>
+        </SWashRowProcedure>
+      </RowProcedures>
+    </SWashProgram>
+  </Programs>
+  <DispenseProcedures>
+    <Count>1</Count>
+    <SWashDispenseProcedure Type="Sias.WashManager.SWashDispenseProcedure">
+      <Name>DispProc00</Name>
+      <Options>120</Options>
+      <StartPower>FullPower</StartPower>
+      <StartPosition>2;0;10.5</StartPosition>
+      <DelayAfterMove>50</DelayAfterMove>
+      <AspiratePower>FullPower</AspiratePower>
+      <DispenseSteps>
+        <Count>1</Count>
+        <SWashStep Type="Sias.WashManager.SWashStep">
+          <Options>120</Options>
+          <Power>FullPower</Power>
+          <DestinationPosition>2;0;10.5</DestinationPosition>
+          <Speeds>0;0;0</Speeds>
+          <DelayAfterMove>50</DelayAfterMove>
+        </SWashStep>
+      </DispenseSteps>
+    </SWashDispenseProcedure>
+  </DispenseProcedures>
+  <AspirateProcedures>
+    <Count>1</Count>
+    <SWashAspirateProcedure Type="Sias.WashManager.SWashAspirateProcedure">
+      <Name>AspProc00</Name>
+      <Options>112</Options>
+      <StartPower>FullPower</StartPower>
+      <StartPosition>-2;0;12</StartPosition>
+      <DelayAfterMove>0</DelayAfterMove>
+      <MinAspTime>1000</MinAspTime>
+      <AspirateSteps>
+        <Count>5</Count>
+        <SWashStep Type="Sias.WashManager.SWashStep">
+          <Options>112</Options>
+          <Power>FullPower</Power>
+          <DestinationPosition>-2;0;-0.5</DestinationPosition>
+          <Speeds>0;0;20</Speeds>
+          <DelayAfterMove>1000</DelayAfterMove>
+        </SWashStep>
+        <SWashStep Type="Sias.WashManager.SWashStep">
+          <Options>112</Options>
+          <Power>FullPower</Power>
+          <DestinationPosition>-2;0;1</DestinationPosition>
+          <Speeds>0;0;0</Speeds>
+          <DelayAfterMove>0</DelayAfterMove>
+        </SWashStep>
+        <SWashStep Type="Sias.WashManager.SWashStep">
+          <Options>112</Options>
+          <Power>FullPower</Power>
+          <DestinationPosition>2;0;1</DestinationPosition>
+          <Speeds>50;0;0</Speeds>
+          <DelayAfterMove>0</DelayAfterMove>
+        </SWashStep>
+        <SWashStep Type="Sias.WashManager.SWashStep">
+          <Options>112</Options>
+          <Power>FullPower</Power>
+          <DestinationPosition>2;0;-0.5</DestinationPosition>
+          <Speeds>0;0;20</Speeds>
+          <DelayAfterMove>1000</DelayAfterMove>
+        </SWashStep>
+        <SWashStep Type="Sias.WashManager.SWashStep">
+          <Options>112</Options>
+          <Power>FullPower</Power>
+          <DestinationPosition>2;0;12</DestinationPosition>
+          <Speeds>0;0;0</Speeds>
+          <DelayAfterMove>0</DelayAfterMove>
+        </SWashStep>
+      </AspirateSteps>
+    </SWashAspirateProcedure>
+  </AspirateProcedures>
+  <Limitations>
+    <Count>0</Count>
+  </Limitations>
+</SWashProgramRepository>

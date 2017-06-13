@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_DropStation</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.DropStation.SDropStation">
+            <summary>
+            Drop Station device driver class.
+            
+            The basic drop station is a passive device. 
+            </summary>
+            <details>
+            \ingroup	Dev_DropStation
+            
+            It will only keep the relative coordinates and offsets for dropping tips. 
+            A derivated drop station may include the tip moving belt or other active device 
+            components in addition.
+            
+            <div class="dynheader">%SDropStation class diagram</div>
+            <div class="dynsection">
+            \image html "SDropStation.png"
+            </div>
+            
+            </details>
+            ToDo: Implement and document access mode dependent device display modes (Visualizations)
+        </member>
+        <member name="F:Sias.DropStation.SDropStation._Slot">
+            <summary>Internal drop station slot variable.</summary>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.#ctor(System.String)">
+            <summary>
+            XML creation constructor.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.#ctor(System.Int32,System.Double,Sias.Core.SPosition,Sias.Core.SPosition,Sias.Core.Interfaces.ISlot)">
+            <summary>
+            Manual creation constructor.
+            
+            This constructor can be used to create a drop station object by setting its data.
+            </summary>
+            <param name="nTips">Number of tips</param>
+            <param name="TipDist">Tip distance</param>
+            <param name="Offset1">Drop Offset 1</param>
+            <param name="Offset2">Drop Offset 2</param>
+            <param name="RefSlot">Drop station reference slot</param>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.#ctor(System.Int32,System.Double,Sias.Core.SPosition,Sias.Core.SPosition)">
+            <summary>
+            Manual creation constructor.
+            
+            This constructor can be used to create a drop station object by setting its data.
+            </summary>
+            <param name="nTips">Number of tips</param>
+            <param name="TipDist">Tip distance</param>
+            <param name="Offset1">Drop Offset 1</param>
+            <param name="Offset2">Drop Offset 2</param>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.MoveToStart(Sias.RobotDev.SArmDevice)">
+            <summary>
+            Move to drop start position 
+            </summary>
+            <param name="Arm">The arm used for movement</param>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.MoveToDrop(Sias.RobotDev.SArmDevice)">
+            <summary>
+            Move to drop position
+            
+            typically Arm.NoTravelMove is set to true when this method is called!
+            </summary>
+            <param name="Arm">Teh arm used for movement</param>
+        </member>
+        <member name="F:Sias.DropStation.SDropStation.ActualLayoutDevice">
+            <summary>Actual layout device. E.g. for sending the display state to layout.</summary>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.AttachLayoutData(Sias.Core.Interfaces.ILayoutDevice)">
+            <summary>
+            Attach layout data. 
+            
+            This method tries to attach the layout data found at the given layout device 
+            to the device. If this succeeds, it returns actual access true. If it fails, it returns false.
+            In this case the calling method should retry until it finds a fitting layout 
+            device.
+            </summary>
+            <param name="LayoutDevice">The layout device to attach or null to unattach an attached layout device.</param>
+            <returns>True if attachable, false if not</returns>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.GetAccessMode(System.Object)">
+            <summary>
+            Get Access mode.
+            This Method is used to request the current access mode. As the drop station has 
+            no special access options, the function will get the access mode from the 
+            connected slot.
+            </summary>
+            <param name="CallerObject">The object calling the method.</param>
+            <returns>The resulted access mode.</returns>
+        </member>
+        <member name="M:Sias.DropStation.SDropStation.SetAccessMode(System.Object,Sias.Core.Interfaces.SAccessMode,System.Int32)">
+            <summary>
+            Set access mode.
+            As the drop station has no special access options the function passes the 
+            access mode to the connected slot.
+            </summary>
+            <param name="CallerObject">The object calling the method</param>
+            <param name="AccessMode">Requested access mode</param>
+            <param name="TimeOut">Allowed timeout</param>
+            <returns>The resulted access mode</returns>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.Slot">
+            <summary>
+            Drop station slot layout property.
+            </summary>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.NoOfTipSlots">
+            <summary>Number of tips slots at the drop station.</summary>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.TipSlotDistance">
+            <summary>Tip slot distance [mm].</summary>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.DropOffset1">
+            <summary>First drop offset.</summary>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.DropOffset2">
+            <summary>Second drop offset.</summary>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.DropPosition1">
+            <summary>First drop position (in front of the tip slots, down) property.</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.DropPosition2">
+            <summary>Second drop position (at the drop position above the slots) property.</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.LayoutDisplayMode">
+            <summary>Get/Set device visualization mode.</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DropStation.SDropStation.LayoutDisplayModeString">
+            <summary>Get/Set device visualization mode.</summary>
+            <value></value>
+        </member>
+    </members>
+</doc>

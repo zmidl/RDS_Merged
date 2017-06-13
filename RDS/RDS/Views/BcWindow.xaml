@@ -1,0 +1,12 @@
+﻿<Window x:Class="RDS.Views.BcWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BcWindow" Height="232" Width="510.4">
+    <Grid>
+        <Button x:Name="BtnRetry" Content="Retry" HorizontalAlignment="Left" Margin="258,150,0,0" VerticalAlignment="Top" Width="90" Click="BtnRetry_Click" Height="28"/>
+        <Button x:Name="BtnAbort" Content="Abort" HorizontalAlignment="Left" Margin="385,150,0,0" VerticalAlignment="Top" Width="90" Click="BtnAbort_Click" Height="28"/>
+        <TextBlock x:Name="TxtInfo" HorizontalAlignment="Left" Margin="99,38,0,0" TextWrapping="Wrap" Text="Please Unload Strip" VerticalAlignment="Top" Height="43" Width="291" FontSize="30"/>
+        <TextBlock x:Name="TxtSlotIndex" HorizontalAlignment="Left" Margin="188,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Height="43" Width="60" TextAlignment="Center"/>
+
+    </Grid>
+</Window>

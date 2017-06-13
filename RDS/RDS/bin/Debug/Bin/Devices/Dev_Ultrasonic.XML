@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev_Ultrasonic</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.Ultrasonic.SUltrasonicPipYZDevice">
+            <summary>
+            Ultrasonic Pipetting Y/Z device class.
+            
+            The ultrasonic pipetting Y/Z device is pipetting Y/Z device with an attached ultrasonic 
+            distance sensor. The ultrasonic distance sensor is mounted at an independent Z axis.
+            </summary>
+            <details>
+            \ingroup    Dev_Ultrasonic
+            
+            In addition to the standard pipetting Y/Z device \nlink{Sias::PipArm,SPipYZDevice} 
+            the Ultrasonic Pipetting Y/Z device has an additional Z- \nlink{Sias::Motor,SMotorDevice} 
+            with an ultrasonic distance sensor.
+            
+            \image html "SUltrasonicPipYZDevice.png"
+            </details>
+        </member>
+        <member name="F:Sias.Ultrasonic.SUltrasonicPipYZDevice._UltrasonicZMotor">
+            <summary>Ultrasonic Z Motor device variable</summary>
+        </member>
+        <member name="F:Sias.Ultrasonic.SUltrasonicPipYZDevice._UltrasonicOffset">
+            <summary>Ultrasonic sensor offset field</summary>
+        </member>
+        <member name="F:Sias.Ultrasonic.SUltrasonicPipYZDevice._UltrasonicSensor">
+            <summary>Ultrasonic Sensor device field</summary>
+        </member>
+        <member name="F:Sias.Ultrasonic.SUltrasonicPipYZDevice._UltrasonicSensitivity">
+            <summary>Ultrasonic Sensitivity field</summary>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.#ctor(System.String)">
+            <summary>
+            XML string configuration constructor.
+            
+            This constructor creates a device by parsing the device parameters from 
+            the given XML configuration string.
+            </summary>
+            <param name="Config">XML configuration string</param>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.#ctor(System.String,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.Motor.SMotorDevice,System.Double,System.Int32,Sias.PipPump.SPipPumpDevice)">
+            <summary>
+            Manual generation constructor.
+            This constructor creates a device by using the given parameters.
+            </summary>
+            <param name="AdapterName">Tip adapter type name</param>
+            <param name="YMotor">Y Motor device</param>
+            <param name="YFactor">Y Factor</param>
+            <param name="YOffset">Y Offset</param>
+            <param name="ZMotor">Z Motor device</param>
+            <param name="ZFactor">Z Factor</param>
+            <param name="ZOffset">Z Offset</param>
+            <param name="ultrasonicZMotor">Down holder Z Motor device</param>
+            <param name="ultrasonicZFactor">Down holder Z factor</param>
+            <param name="ultrasonicZOffset">Down holder Z offset</param>
+            <param name="PipPump">Pipetting pump device</param>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZWorktablePos(System.Double)">
+            <summary>
+            Calculate down holder worktable position from a given motor position
+            </summary>
+            <param name="MotorPos">Down holder motor position</param>
+            <returns>Down holder worktable position</returns>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZMotorPos(System.Double)">
+            <summary>
+            Calculate down holder motor position from a given worktable position
+            
+            This function is taking care about a valid down holder position.
+             - On down moves it tries to keep the guide offset as long as the position 
+               does not become lower then the defined hold position.
+             - On up moves it tries to stay (move) to hold position.
+             .
+            Important:  Independent of guide offset and hold position the down holder 
+                        will not move below the tip peak or above tip holder case!
+                        In addition the move is limited to defined move range of the 
+                        down holder motor.
+            </summary>
+            <param name="ZWorktablePos">Tip Z worktable position</param>
+            <returns>Down holder motor position</returns>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.Init(Sias.BaseDev.SDeviceInitOptions)">
+            <summary>
+            Init pipetting Y/Z device.
+            This first calls the base initialization initializing the Z, X and Y motor. Then it 
+            initializes the pipetting pump.
+            Take care that the pipetting pump is not initialized above a wash station !
+            </summary>
+            <param name="InitOptions">not used yet</param>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.PrepareUltrasonicZMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor move to an absolute worktable position.
+            
+            The method will take care about the down holder Z device:
+             - I down holding inactive the down holder will move in parallel to the tip Z motor.
+            
+            
+            Take care there are no position validation checks. If there is another component 
+            blocking the way you may get a movement blocked error.
+            </summary>
+            <param name="ZWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.PrepareTravelMove(System.Double,System.Double,System.Double)">
+            <summary>
+            Prepare Z motor travel move if necessary.
+            
+            This method makes sure, that the Z motor moves at least to the defined travel height.
+            If the Z motor is above the defined travel height it will not move.
+            </summary>
+            <param name="ZTravelWorktablePos">Worktable Z position</param>
+            <param name="Speed">Z moving speed [mm/s]</param>
+            <param name="Ramp">Z moving acceleration [mm/s²]</param>
+            <returns>The execution group of the prepared CAN devices</returns>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.DetectHeight(System.Double,System.Byte)">
+            <summary>
+            Detect height
+            
+            This method is used to detect the height of an object (or liquid) below the 
+            ultrasonic sensor. it moves to the defined detect position and measures the 
+            disance. The returned position is an absolute height!
+            </summary>
+            <param name="DetectPos">Ultrasonice sensor height while detection</param>
+            <param name="Sensitivity">Ultrasonice sensor sensitivity</param>
+            <returns>The absolute height of the object or liquid below the sensor</returns>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.DetectLiquid(Sias.Core.Interfaces.ICavity,System.Byte)">
+            <summary>
+            Detect liquid
+            
+            This method is designed to move the ultrasonic above the (pipetiing area) center 
+            of the defined cavity. Then it detects the distance and returns the volume for
+            this liquid surfeace height.
+            </summary>
+            <remarks>
+            The method returns -1 in case there is not valid configuration (no arm found or 
+            pipetting Y/Z device not on the found arms Y/Z devices).
+            </remarks>
+            <param name="Cavity">The cavity used fro detection</param>
+            <param name="Sensitivity">The used sensitivity</param>
+            <returns>The detected volume; negative value if not detectable</returns>
+        </member>
+        <member name="M:Sias.Ultrasonic.SUltrasonicPipYZDevice.AddArmMethods(Sias.BaseDev.SBaseArmMethodsCollection,Sias.BaseDev.SBaseArmDevice)">
+            <summary>
+            Add supported arm methods to given arm method collection a collection.
+            </summary>
+            <param name="ArmMethods"></param>
+            <param name="Arm"></param>
+            <remarks>
+            Take care each arm should not have each method block more then once!
+            </remarks>
+            <returns>A collection of all supported arm method blocks</returns>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZMotor">
+            <summary>Ultrasonic Z Motor property</summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZMax">
+            <summary>
+            Maximum Z motor move range [mm].
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicOffset">
+            <summary>
+            Ultrasonic sensor offset property
+            
+            Take care: The ultrasonic sensor may be shiftesd in X, Y and Z, 
+            but is defined to have the same Z Factor!
+            </summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicSensor">
+            <summary>Ultrasonic Sensor device property</summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.DefaultExecutionGroup">
+            <summary>Default execution group for the Ultrasonic Y/Z device property</summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.DeviceName">
+            <summary>
+            Name of the pipetting Y/Z device.
+            Changing the name of the pipetting Y/Z device will result in changing the 
+            names of all connected sub devices. 
+            </summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.ExecutionGroup">
+            <summary>
+            This property returns or sets the execution group of all sub modules connected to 
+            this pipetting Y/Z device.
+            </summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.DeviceState">
+            <summary>
+            Get Device state.
+            </summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZWorktablePosition">
+            <summary>
+            Z Worktable position from device.
+            
+            This property returns the last known Z motor position as worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZWorktablePositionFromDevice">
+            <summary>
+            Z Worktable position from device.
+            
+            This property requests the current motor position from the Z motor device and 
+            translates it to worktable coordinates.
+            </summary>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZRange_Min">
+            <summary>
+            Minimum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicZRange_Max">
+            <summary>
+            Maximum reachable Z worktable position for this Y/Z device
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.Ultrasonic.SUltrasonicPipYZDevice.UltrasonicSensitivity">
+            <summary>Ultrasonic Sensitivity property</summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DetectionManager</name>
+    </assembly>
+    <members>
+        <member name="T:Sias.DetectionManager.SDetectionClass">
+            <summary>Data collection containing all parameters needed to 
+            specify how the liquid detection should work.
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.#ctor(System.String)">
+            <summary>Initializes a new instance of the <b>SDetectionClass</b> class.
+            </summary>
+            <param name="name">Detection class name</param>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.Duplicate">
+            <summary>
+            Duplicates the current SDetectionClass object
+            </summary>
+            <returns>The duplicated SDetectionClass object</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.ToString">
+            <summary>
+            Returns a string representation of the current SDetectionClass object
+            </summary>
+            <returns>String representation of the current SDetectionClass object</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.Equals(System.Object)">
+            <summary>
+            Checks if a given SDetectionClass object is equal to the current SDetectionClass object
+            </summary>
+            <param name="obj">The SDetectionClass object that should be checked for equality</param>
+            <returns>
+            true, if the object is equal to the current object
+            false, if the object is not equal to the current object
+            </returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type, suitable for use in hashing algorithms and data structures like a hash table.
+            </summary>
+            <returns>A hash code for the current SDetectionClass.</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.op_Equality(Sias.DetectionManager.SDetectionClass,Sias.DetectionManager.SDetectionClass)">
+            <summary>Compares two SDetectionClass objects for equality</summary>
+            <param name="c1">First SDetectionClass object</param>
+            <param name="c2">Second SDetectionClass object</param>
+            <returns>true if both objects contain the same values, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.op_Inequality(Sias.DetectionManager.SDetectionClass,Sias.DetectionManager.SDetectionClass)">
+            <summary>Compares two SDetectionClass objects for inequality</summary>
+            <param name="c1">First SDetectionClass object</param>
+            <param name="c2">Second SDetectionClass object</param>
+            <returns>true if both objects contain the not same values, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.StoreToDB">
+            <summary>
+            Stores the current SDetectionClass object to the database
+            </summary>
+            <returns>True if the operation succeeded, otherwise false</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.DeleteFromDB">
+            <summary>Deletes the current SDetectionClass object from the database.
+            </summary>
+            <returns>"true" if the operation succeeds</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.DeleteFromDB(System.String)">
+            <summary>Deletes the detection parameter with the given name from the database.
+            </summary>
+            <param name="inName">Name identifying the parameter set</param>
+            <returns>"true" if the deletion was successful</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.ReadFromDB(System.String)">
+            <summary>Reads the data for a detection class with the given name from the database 
+            and assigns the values to the current SDetectionClass object.
+            </summary>
+            <param name="inName">Name identifying the parameter set</param>
+            <returns>"true" if the parameter set was found</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClass.ReadFromDB">
+            <summary>Read all detection parameter records from the database.
+            </summary>
+            <returns>Collection containing all detection parameter records</returns>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionClass.Name">
+            <summary>Detection class name property</summary>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionClass.DetectionParameters">
+            <summary>Detection parameter data already defined in Sias.PipArm
+            </summary>
+        </member>
+        <member name="T:Sias.DetectionManager.SDetectionClassCollection">
+            <summary>Collection of detection parameter records.
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.Add(Sias.DetectionManager.SDetectionClass)">
+            <summary>
+            Adds a SDetectionClass object to the collection
+            </summary>
+            <param name="value">The SDetectionClass object to be inserted</param>
+            <returns>Index of the newly inserted object</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.IndexOf(Sias.DetectionManager.SDetectionClass)">
+            <summary>
+            Returns the index of a given SDetectionClass object
+            </summary>
+            <param name="value">The SDetectionClass object to be looked up</param>
+            <returns>Index of the given object</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.Insert(System.Int32,Sias.DetectionManager.SDetectionClass)">
+            <summary>
+            Inserts a SDetectionClass object into the collection at a given index
+            </summary>
+            <param name="index">Index at which the object should be inserted</param>
+            <param name="value">The SDetectionClass object to be inserted</param>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.Remove(Sias.DetectionManager.SDetectionClass)">
+            <summary>
+            Removes a SDetectionClass object from the collection
+            </summary>
+            <param name="value">The SDetectionClass object to be removed</param>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.Contains(Sias.DetectionManager.SDetectionClass)">
+            <summary>
+            Checks if a given SDetectionClass object exists in the collection
+            </summary>
+            <param name="value">The SDetectionClass object to be looked up</param>
+            <returns>
+            true, if the object is in the collection
+            false, if the object is not in the collection
+            </returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.OnValidate(System.Object)">
+            <summary>
+            Validates the type of the object that should be inserted
+            </summary>
+            <param name="value">Object whose type should be validated</param>
+            <remarks>An ArgumentException is thrown if object is not of type SDetectionClass</remarks>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.StoreToDB">
+            <summary>Stores all detection classes of the collection to the database.
+            </summary>
+            <returns>"true" if all records are stored successfully to the database</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.DeleteFromDB">
+            <summary>Deletes all detection parameter records of this collection 
+            from the database.
+            </summary>
+            <returns>"true" if all records are deleted successfully</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.Clone">
+            <summary>Creates a new SDetectionClassCollection object as a copy of the current one.
+            </summary>
+            <returns>A copy of this collection object</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.Equals(System.Object)">
+            <summary>Compares whether the specified detection parameter collection is 
+            identical to this collection.
+            </summary>
+            <param name="obj">An SDetectionClassCollection to compare</param>
+            <returns>"treu" if the collection in the argument is identical with this collection</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type, suitable for use in hashing algorithms and data structures like a hash table.
+            </summary>
+            <returns>A hash code for the current SDetectionClassCollection.</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.op_Equality(Sias.DetectionManager.SDetectionClassCollection,Sias.DetectionManager.SDetectionClassCollection)">
+            <summary>Compares two SDetectionClassCollection object for equality.</summary>
+            <param name="c1">First SDetectionClassCollection object</param>
+            <param name="c2">Second SDetectionClassCollection object</param>
+            <returns>true if both collections contain the same objects, false otherwise.</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionClassCollection.op_Inequality(Sias.DetectionManager.SDetectionClassCollection,Sias.DetectionManager.SDetectionClassCollection)">
+            <summary>Compares two SDetectionClassCollection objects for unequality</summary>
+            <param name="c1">First SDetectionClassCollection object</param>
+            <param name="c2">Second SDetectionClassCollection object</param>
+            <returns>true if both objects contain the not same values, false otherwise.</returns>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionClassCollection.Item(System.String)">
+            <summary>
+            Indexer. Gets the SDetectionClass object with the given name. If the name
+            can not be found in the collection, the indexer will return null.
+            </summary>
+            <param name="name">Name of the desired detection class</param>
+            <returns>The SDetectionClass object with the given name or null if the
+            given name does not exist in the collection.</returns>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionClassCollection.Item(System.Int32)">
+            <summary>Indexer. Gets or sets the SDetectionClass object at the given index.
+            If the index is not within the bounds of the collection the get indexer will 
+            return null and the set indexer will do nothing.
+            </summary>
+            <param name="index">Index of the detection parameter class</param>
+            <returns>The SDetectionClass at the given index or null if the index is out of bounds</returns>
+        </member>
+        <member name="T:Sias.DetectionManager.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Sias.DetectionManager.GUI.SDetectionEditor">
+            <summary>Editor Dialog Frame
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.GUI.SDetectionEditor.detectionRecords">
+            <summary>loacal repository used for databinding to the ListBox DetectionClassList
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.GUI.SDetectionEditor.dirty">
+            <summary>Defining whether something of the data was changed.
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.GUI.SDetectionEditor.title">
+            <summary>Windows title string containing an asterisk if data has changed. 
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.GUI.SDetectionEditor.newLabel">
+            <summary>Name used for new items in list views like programs and procedures
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.GUI.SDetectionEditor.detectionManager">
+            <summary>Accessor to the singleton detection manager
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.GUI.SDetectionEditor.#ctor">
+            <summary>Constructor of the SDetectionEditor component.
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.GUI.SDetectionEditor.NumberOfNameUsed(System.Windows.Forms.ListView,System.String)">
+            <summary>Count occurence of the given names in the list view.
+            </summary>
+            <param name="listView">List View object where the name has to be checed</param>
+            <param name="label">Name to check against all ohters</param>
+            <returns>Number of occurence</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.GUI.SDetectionEditor.NameIsUnique(System.Windows.Forms.ListView,System.String)">
+            <summary>Check whether the given name is unique in the list view.
+            </summary>
+            <param name="listView">List View object where the name has to be checed</param>
+            <param name="label">Name to check against all ohters</param>
+            <returns>True if the name only appears once</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.GUI.SDetectionEditor.NameAlreadyInUse(System.Windows.Forms.ListView,System.String)">
+            <summary>Check whether the given name is already used in the list view.
+            </summary>
+            <param name="listView">List View object where the name has to be checed</param>
+            <param name="label">Name to check against all ohters</param>
+            <returns>True if the name is already used</returns>
+        </member>
+        <member name="F:Sias.DetectionManager.GUI.SDetectionEditor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.GUI.SDetectionEditor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Sias.DetectionManager.GUI.SDetectionEditor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.GUI.SDetectionEditor.selectedClass">
+            <summary>Property to access the slected detection class directly
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.GUI.SDetectionEditor.selectedParameters">
+            <summary>Property to access the detection parameters of the selected detection class directly
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.GUI.SDetectionEditor.Dirty">
+            <summary>Property of the private member dirty. \n
+            The set accessor modifies the title bar with an '*' if data has changed.
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.GUI.SDetectionEditor.DetectionRecords">
+            <summary>Property to access the local repository used for databinding to the ListBox DetectionClassList
+            </summary>
+        </member>
+        <member name="T:Sias.DetectionManager.SDetectionManager">
+            <summary>
+            The DetectionManager is responsible for loading and storing detection parameter records
+            for the rest of the framework. It also provides an editor dialog to manipulate the 
+            detection parameters records.
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.GetErrorInfos">
+            <summary>
+            This interface function returns the default error messages which can be 
+            generated by this device.
+            </summary>
+            <returns>A collection with error information</returns>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.error">
+            <summary>Error status of the manager</summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.detectionClasses">
+            <summary>Detection classes field</summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.#ctor">
+            <summary>Creates a new SDetectionManager object
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.manager">
+            <summary>The one and only detection manager</summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager._classLock">
+            <summary>Lock object, used to synchronize calls in a multi threading environment</summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.GetManager">
+            <summary>
+            Instantiator/Factory method
+            
+            This static method gets the one and only detection manager. 
+            If no detection manager is available yet, a new detection manager instance will get created.
+            </summary>
+            <returns>The one and only detection manager</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.IsFileName(System.String)">
+            <summary>Check if the given detection name has to be loaded from file or from db
+            </summary>
+            <param name="name">detection component name</param>
+            <returns>True if name has to be loaded from file, otherwise false.</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.LoadPath(System.String)">
+            <summary>create a full load path from given file name
+            </summary>
+            <param name="FileName">The file name</param>
+            <returns>A full path to the file</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.SavePath(System.String)">
+            <summary>create a full save path from given file name
+            </summary>
+            <param name="FileName">The file name</param>
+            <returns>A full path to the file</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.DoOverwrite(System.String,System.String,Sias.Core.SSaveOptions)">
+            <summary>Returns true if an existing object is allowed to be overwritten.
+            </summary>
+            <param name="aKind">The type of the object (File, Detection Record)</param>
+            <param name="aName">The Name of the object</param>
+            <param name="options">The save options</param>
+            <returns>True if allowed to overwrite otherwise false</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.Load(System.String)">
+            <summary>Load detection classes \n
+            This method loads a set of detection classes from database or from a file.
+            If the given name is a file name (recognized either by an appended ".xml"
+            or by a leading file path) the detetion classes get loaded from the file. 
+            Otherwise the detection classes get loaded from db. \n
+            \b IMPORTANT: All origin detection classes get removed!
+            </summary>
+            <param name="filename">detection classes file name</param>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.Load">
+            <summary>load default detection classes
+            </summary>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.Save(System.String,Sias.Core.SSaveOptions)">
+            <summary>Save detection data to file or database
+            </summary>
+            <param name="filename">The name of the file to store</param>
+            <param name="options">The save options</param>
+            <returns>true is successfully saved, otherwise false</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.Save(System.String)">
+            <summary>Store detection classes at default location (with overwriting)
+            </summary>
+            <param name="filename">The name of the file to store</param>
+            <returns>true is successfully saved, otherwise false</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.Save">
+            <summary>Store detection classes at default location (with overwriting)
+            </summary>
+            <returns>true is successfully saved, otherwise false</returns>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.Edit(System.Boolean)">
+            <summary>Display the default detection class editor dialog.
+            </summary>
+            <param name="modal">Determines whether the editor dialog should be a modal dialog or a modeless one.</param>
+        </member>
+        <member name="M:Sias.DetectionManager.SDetectionManager.GetDetectionClass(System.String)">
+            <summary>Get the detection class with the given name
+            </summary>
+            <param name="ClassName">The name of the requested detection class</param>
+            <returns>The requested detection class or null if not available</returns>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionManager.DetectionClasses">
+            <summary>Detection classes property</summary>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionManager.Error">
+            <summary>Error status of the manager</summary>
+            <value></value>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionManager.DataAvailable">
+            <summary>
+            Returns true, if the detection manager contains at least one detection class.
+            </summary>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionManager.DefaultDetectionFile">
+            <summary>  
+            Gets the DefaultDetectionName of the SDetectionManager managed by SConfigurationManager
+            To use the database any name without extension or leading path can be used.
+            </summary>
+            <details>
+            </details>
+        </member>
+        <member name="P:Sias.DetectionManager.SDetectionManager.DBPrefix">
+            <summary>Gets the DetectionDBPrefix of the SDetectionManager
+            </summary>
+        </member>
+        <member name="T:Sias.DetectionManager.SDetectionManager.ErrorCodes">
+            <summary>
+            This static class keeps the error code constants of the \ref Sias::DetectionManager::SDetectionManager errors.
+            </summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.ErrorCodes.NoError">
+            <summary>0x0000: No error occurred</summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.ErrorCodes.NoDetectionRecords">
+            <summary>0x0001: No detection records available</summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.ErrorCodes.UnableToLoadDetectionRecord">
+            <summary>0x0004: Detection record could not be loaded</summary>
+        </member>
+        <member name="F:Sias.DetectionManager.SDetectionManager.ErrorCodes.UnableToSaveDetectionRecord">
+            <summary>0x0008: Detection record could not be saved</summary>
+        </member>
+    </members>
+</doc>
