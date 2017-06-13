@@ -1,76 +1,156 @@
-01002017/6/11 14:32 NewLogFile for client SCanIO
-040414:32:59.000 Assembly: vshost32, ProductVersion=14.0.23107.0, Version=14.0.0.0, FileVersion=14.0.23107.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RDS.vshost.exe
-040414:32:59.003 Assembly: Microsoft.Expression.Drawing, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Drawing.dll
-040414:32:59.004 Assembly: Microsoft.Expression.Effects, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Effects.dll
-040414:32:59.005 Assembly: Microsoft.Expression.Interactions, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Interactions.dll
-400414:32:59.006 Unsigned Assembly: MWArray, Version=2.14.0.0, FileVersion=2.14.0.0 of Company The_MathWorks loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\MWArray.dll
-400414:32:59.008 Unsigned Assembly: System.Data.SQLite, Version=1.0.104.0, FileVersion=1.0.104.0 of Company https://system.data.sqlit loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\System.Data.SQLite.dll
-040414:32:59.009 Assembly: System.Windows.Interactivity, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\Apps\Dlls\System.Windows.Interactivity.dll
-040414:32:59.009 Assembly: RDS, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RDS.exe
-400414:32:59.010 Unsigned Assembly: RdEntity, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RdEntity.dll
-400414:32:59.011 Unsigned Assembly: RdCore, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RdCore.dll
-100414:32:59.013 Signed Assembly Core, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Core.dll
-020414:32:59.015 No key for Assembly: SmartPropertyGrid, Version=3.0.0.45, FileVersion=3.0.0.45 of Company VisualHint loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\SmartPropertyGrid.dll
-100414:32:59.017 Signed Assembly DEV_CanDev, ProductVersion=1.4.1, Version=1.2.7.0, FileVersion=1.2.7.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dll
-040414:32:59.020 Startup:
-040414:32:59.021  - Work Path = D:\Develop\MyProject\RDS\RDS\bin\Debug
-040414:32:59.021  - StartPath = D:\Develop\MyProject\RDS\RDS\bin\Debug\
-040414:32:59.028  - Core Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\bin
-040414:32:59.029  - SetupFile = Sias.Config.xml
-100414:32:59.029 Signed Assembly Dev_BaseDev, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BaseDev.dll
-040414:32:59.070  - Old  Base Path = D:\Develop\MyProject\RDS\RDS\bin\Debug
-040414:32:59.071  - Bin. Base Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\
-040414:32:59.072  - Data Base Path = D:\Develop\MyProject\RDS\RDS\bin\Debug
-040414:32:59.072 SConfigurationManager:
-040414:32:59.073  - Driver Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices
-040414:32:59.073  - Data   Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\data
-040414:32:59.074  - Layout Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\data\Layouts
-040414:32:59.075  - Device Path = D:\Develop\MyProject\RDS\RDS\bin\Debug\data\Devices
-100414:32:59.082 Signed Assembly TipManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\TipManager.dll
-100414:32:59.103 Signed Assembly LiquidManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\LiquidManager.dll
-100414:32:59.112 Signed Assembly DetectionManager, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\DetectionManager.dll
-100414:32:59.120 Signed Assembly Dev_Robot, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Robot.dll
-100414:32:59.131 Signed Assembly Dev_PipArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_PipArm.dll
-100414:32:59.142 Signed Assembly Dev_DropStation, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_DropStation.dll
-100414:32:59.153 Signed Assembly LayoutManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\LayoutManager.dll
-100414:32:59.163 Signed Assembly DatabaseManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\DatabaseManager.dll
-100414:32:59.179 Signed Assembly Layout, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Layout.dll
-100414:32:59.190 Signed Assembly LayoutDB, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\LayoutDB.dll
-100414:32:59.591 Signed Assembly DeviceManager, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\DeviceManager.dll
-100414:32:59.604 Signed Assembly Dev_BarcodeYZ, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BarcodeYZ.dll
-100414:32:59.621 Signed Assembly Dev_BCReader, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BCReader.dll
-100414:32:59.628 Signed Assembly Dev_BottleSensor, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_BottleSensor.dll
-100414:32:59.637 Signed Assembly Dev_Centrifuge, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Centrifuge.dll
-100414:32:59.645 Signed Assembly Dev_CombiArm, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_CombiArm.dll
-100414:32:59.659 Signed Assembly Dev_GripArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_GripArm.dll
-100414:32:59.668 Signed Assembly Dev_Motor, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Motor.dll
-100414:32:59.685 Signed Assembly Dev_Cover, ProductVersion=1.4.1, Version=0.9.1.0, FileVersion=0.9.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Cover.dll
-100414:32:59.720 Signed Assembly Dev_DownHolder, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_DownHolder.dll
-100414:32:59.734 Signed Assembly Dev_DynamicWasher, ProductVersion=1.4.1, Version=1.0.4.0, FileVersion=1.0.4.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_DynamicWasher.dll
-100414:32:59.745 Signed Assembly Dev_Washer, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Washer.dll
-100414:32:59.755 Signed Assembly WashManager, ProductVersion=1.4.1, Version=1.2.0.0, FileVersion=1.2.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\WashManager.dll
-100414:32:59.776 Signed Assembly Dev_GripperBarcodeYZ, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperBarcodeYZ.dll
-100414:32:59.805 Signed Assembly Dev_GripperFlexBcrYZ, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperFlexBcrYZ.dll
-100414:32:59.826 Signed Assembly Dev_HeatPos, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_HeatPos.dll
-100414:32:59.835 Signed Assembly Dev_HumidityChamber, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_HumidityChamber.dll
-100414:32:59.842 Signed Assembly Dev_IDTrax, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_IDTrax.dll
-100414:32:59.861 Signed Assembly Dev_IOPort, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_IOPort.dll
-100414:32:59.874 Signed Assembly Dev_PipPump, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_PipPump.dll
-100414:32:59.883 Signed Assembly Dev_PlateTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_PlateTrax.dll
-100414:32:59.892 Signed Assembly Dev_Reader, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Reader.dll
-100414:32:59.902 Signed Assembly Dev_ReSaTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_ReSaTrax.dll
-100414:32:59.915 Signed Assembly Dev_Scale, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Scale.dll
-100414:32:59.925 Signed Assembly Dev_Shaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Shaker.dll
-100414:32:59.932 Signed Assembly Dev_ThermoShaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_ThermoShaker.dll
-100414:32:59.943 Signed Assembly Dev_TipWasher, ProductVersion=1.4.1, Version=1.0.5.0, FileVersion=1.0.5.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_TipWasher.dll
-100414:32:59.957 Signed Assembly Dev_Ultrasonic, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_Ultrasonic.dll
-100414:32:59.965 Signed Assembly Dev_VacuumStation, ProductVersion=1.4.1, Version=1.0.0.0, FileVersion=1.0.0.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_VacuumStation.dll
-100414:32:59.973 Signed Assembly Dev_WashHead, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\Devices\Dev_WashHead.dll
-100414:32:59.992 Signed Assembly UserManager, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\bin\UserManager.dll
-040414:32:59.998 Clear Devices
-040414:33:00.165 No Object for Property DefaultWashStationName!
-040414:33:00.227 No Object for Property DefaultWashStationName!
-040414:33:00.407 No Object for Property DefaultWashStationName!
-040414:33:00.450 Clear Devices
-040414:33:00.495 No Object for Property PipettingArmName!
-400414:33:04.568 Unsigned Assembly: RDSCL, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from D:\Develop\MyProject\RDS\RDS\bin\Debug\RDSCL.dll
+01002017/6/13 10:00 NewLogFile for client SCanIO
+040410:00:33.000 Assembly: vshost32, ProductVersion=14.0.23107.0, Version=14.0.0.0, FileVersion=14.0.23107.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDS.vshost.exe
+040410:00:33.015 Assembly: Microsoft.Expression.Drawing, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Drawing.dll
+040410:00:33.027 Assembly: Microsoft.Expression.Effects, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Effects.dll
+040410:00:33.028 Assembly: Microsoft.Expression.Interactions, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\Microsoft.Expression.Interactions.dll
+400410:00:33.169 Unsigned Assembly: System.Data.SQLite, Version=1.0.104.0, FileVersion=1.0.104.0 of Company https://system.data.sqlit loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\System.Data.SQLite.dll
+040410:00:33.171 Assembly: System.Windows.Interactivity, Version=4.5.0.0, FileVersion=3.0.40218.0 of Company Microsoft_Corporation loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\Apps\Dlls\System.Windows.Interactivity.dll
+040410:00:33.172 Assembly: RDS, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDS.exe
+400410:00:33.172 Unsigned Assembly: RdEntity, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RdEntity.dll
+400410:00:33.180 Unsigned Assembly: RdCore, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RdCore.dll
+100410:00:33.184 Signed Assembly Core, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Core.dll
+020410:00:33.187 No key for Assembly: SmartPropertyGrid, Version=3.0.0.45, FileVersion=3.0.0.45 of Company VisualHint loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\SmartPropertyGrid.dll
+100410:00:33.188 Signed Assembly DEV_CanDev, ProductVersion=1.4.1, Version=1.2.7.0, FileVersion=1.2.7.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dll
+040410:00:33.191 Startup:
+040410:00:33.191  - Work Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040410:00:33.192  - StartPath = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\
+040410:00:33.210  - Core Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin
+100410:00:33.211 Signed Assembly Dev_BaseDev, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BaseDev.dll
+040410:00:33.254 SConfigurationManager base paths:
+040410:00:33.255  - Old  Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040410:00:33.255  - Bin. Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\
+040410:00:33.256  - Data Base Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug
+040410:00:33.256 SConfigurationManager:
+040410:00:33.256  - Driver Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices
+040410:00:33.257  - Data   Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data
+040410:00:33.257  - Layout Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Layouts
+040410:00:33.258  - Device Path = C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\data\Devices
+100410:00:33.290 Signed Assembly TipManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\TipManager.dll
+100410:00:33.305 Signed Assembly LiquidManager, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LiquidManager.dll
+100410:00:33.326 Signed Assembly DetectionManager, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DetectionManager.dll
+100410:00:33.338 Signed Assembly Dev_Robot, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Robot.dll
+100410:00:33.443 Signed Assembly Dev_PipArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PipArm.dll
+100410:00:33.452 Signed Assembly Dev_DropStation, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DropStation.dll
+100410:00:33.466 Signed Assembly LayoutManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LayoutManager.dll
+100410:00:33.504 Signed Assembly DatabaseManager, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DatabaseManager.dll
+100410:00:33.632 Signed Assembly Layout, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Layout.dll
+100410:00:33.690 Signed Assembly LayoutDB, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\LayoutDB.dll
+100410:00:35.521 Signed Assembly DeviceManager, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\DeviceManager.dll
+100410:00:35.589 Signed Assembly Dev_BarcodeYZ, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BarcodeYZ.dll
+100410:00:37.117 Signed Assembly Dev_BCReader, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BCReader.dll
+100410:00:37.343 Signed Assembly Dev_BottleSensor, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_BottleSensor.dll
+100410:00:41.306 Signed Assembly Dev_Centrifuge, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Centrifuge.dll
+100410:00:42.231 Signed Assembly Dev_CombiArm, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_CombiArm.dll
+100410:00:42.929 Signed Assembly Dev_GripArm, ProductVersion=1.4.1, Version=1.2.6.0, FileVersion=1.2.6.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripArm.dll
+100410:00:43.462 Signed Assembly Dev_Motor, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Motor.dll
+100410:00:43.491 Signed Assembly Dev_Cover, ProductVersion=1.4.1, Version=0.9.1.0, FileVersion=0.9.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Cover.dll
+100410:00:43.558 Signed Assembly Dev_DownHolder, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DownHolder.dll
+100410:00:43.953 Signed Assembly Dev_DynamicWasher, ProductVersion=1.4.1, Version=1.0.4.0, FileVersion=1.0.4.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_DynamicWasher.dll
+100410:00:44.011 Signed Assembly Dev_Washer, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Washer.dll
+100410:00:44.214 Signed Assembly WashManager, ProductVersion=1.4.1, Version=1.2.0.0, FileVersion=1.2.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\WashManager.dll
+100410:00:44.239 Signed Assembly Dev_GripperBarcodeYZ, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperBarcodeYZ.dll
+100410:00:44.369 Signed Assembly Dev_GripperFlexBcrYZ, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_GripperFlexBcrYZ.dll
+100410:00:44.483 Signed Assembly Dev_HeatPos, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_HeatPos.dll
+100410:00:44.531 Signed Assembly Dev_HumidityChamber, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_HumidityChamber.dll
+100410:00:44.584 Signed Assembly Dev_IDTrax, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_IDTrax.dll
+100410:00:44.615 Signed Assembly Dev_IOPort, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_IOPort.dll
+100410:00:44.656 Signed Assembly Dev_PipPump, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PipPump.dll
+100410:00:44.706 Signed Assembly Dev_PlateTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_PlateTrax.dll
+100410:00:44.805 Signed Assembly Dev_Reader, ProductVersion=1.4.1, Version=1.2.3.0, FileVersion=1.2.3.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Reader.dll
+100410:00:44.863 Signed Assembly Dev_ReSaTrax, ProductVersion=1.4.1, Version=1.2.5.0, FileVersion=1.2.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_ReSaTrax.dll
+100410:00:44.939 Signed Assembly Dev_Scale, ProductVersion=1.4.1, Version=1.0.1.0, FileVersion=1.0.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Scale.dll
+100410:00:45.019 Signed Assembly Dev_Shaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Shaker.dll
+100410:00:45.065 Signed Assembly Dev_ThermoShaker, ProductVersion=1.4.1, Version=1.2.2.0, FileVersion=1.2.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_ThermoShaker.dll
+100410:00:45.095 Signed Assembly Dev_TipWasher, ProductVersion=1.4.1, Version=1.0.5.0, FileVersion=1.0.5.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_TipWasher.dll
+100410:00:45.125 Signed Assembly Dev_Ultrasonic, ProductVersion=1.4.1, Version=0.9.0.0, FileVersion=0.9.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_Ultrasonic.dll
+100410:00:45.165 Signed Assembly Dev_VacuumStation, ProductVersion=1.4.1, Version=1.0.0.0, FileVersion=1.0.0.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_VacuumStation.dll
+100410:00:45.239 Signed Assembly Dev_WashHead, ProductVersion=1.4.1, Version=1.0.2.0, FileVersion=1.0.2.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\Dev_WashHead.dll
+100410:00:45.283 Signed Assembly UserManager, ProductVersion=1.4.1, Version=1.2.1.0, FileVersion=1.2.1.2129 of Company Sias_AG loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\UserManager.dll
+040410:00:45.287 Clear Devices
+040410:00:45.429 No Object for Property DefaultWashStationName!
+040410:00:45.486 No Object for Property DefaultWashStationName!
+040410:00:45.827 No Object for Property DefaultWashStationName!
+040410:00:45.873 Clear Devices
+040410:00:45.925 No Object for Property PipettingArmName!
+040410:00:49.541 Clear Devices
+040410:00:49.552 Add Device PipArm.XMot to Devices[51] as 0
+040410:00:49.738 No valid type for Token DefaultWashStationName ==> use String
+040410:00:49.800 Add Device PipArm.Tip1.YMotor to Devices[31] as 0
+040410:00:49.801 Add Device PipArm.Tip1.ZMotor to Devices[21] as 0
+040410:00:49.803 Add Device PipArm.Tip1.Pump to Devices[11] as 0
+040410:00:49.803 Add Device PipArm.Tip2.YMotor to Devices[32] as 0
+040410:00:49.804 Add Device PipArm.Tip2.ZMotor to Devices[22] as 0
+040410:00:49.804 Add Device PipArm.Tip2.Pump to Devices[12] as 0
+040410:00:49.804 Add Device PipArm.Tip3.YMotor to Devices[33] as 0
+040410:00:49.805 Add Device PipArm.Tip3.ZMotor to Devices[23] as 0
+040410:00:49.805 Add Device PipArm.Tip3.Pump to Devices[13] as 0
+040410:00:49.809 Add Device Resatrax1 to Devices[93] as 0
+040410:00:49.816 Clear Devices
+040410:00:49.821 Add Device PipArm.XMot to Devices[51] as 0
+040410:00:49.830 No valid type for Token DefaultWashStationName ==> use String
+040410:00:49.879 Add Device PipArm.Tip1.YMotor to Devices[31] as 0
+040410:00:49.880 Add Device PipArm.Tip1.ZMotor to Devices[21] as 0
+040410:00:49.881 Add Device PipArm.Tip1.Pump to Devices[11] as 0
+040410:00:49.881 Add Device PipArm.Tip2.YMotor to Devices[32] as 0
+040410:00:49.882 Add Device PipArm.Tip2.ZMotor to Devices[22] as 0
+040410:00:49.882 Add Device PipArm.Tip2.Pump to Devices[12] as 0
+040410:00:49.883 Add Device PipArm.Tip3.YMotor to Devices[33] as 0
+040410:00:49.883 Add Device PipArm.Tip3.ZMotor to Devices[23] as 0
+040410:00:49.884 Add Device PipArm.Tip3.Pump to Devices[13] as 0
+040410:00:49.886 Add Device Resatrax1 to Devices[93] as 0
+040410:00:49.893 Startup C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\DEV_CanDev.dllDEV_CanDev, Version=1.2.7.0, Culture=neutral, PublicKeyToken=null
+040010:00:49.893 SetRobotError(1100)
+040010:00:50.135 Add Client0: 'CAN_IO', 0
+040010:00:50.135 Loaded CanApi2.DLL V2.56.2.0
+040010:00:50.135 Startup CAN I/O.DLL V1, 4, 3, 4 from (Dec 18 2014 14:04:36)
+040010:00:50.135 CanIO length: 364
+040010:00:50.135 CAN VersionInfo: PCAN_USB 3.8.2.10146;(KMDF, WLH_amd64);Copyright (C) 1995-2012 by;PEAK-System Technik GmbH, Darmstadt
+040010:00:50.135 debfile: C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\bin\Devices\\debug.ini
+040010:00:50.135 Debug Options: LogFile=0,0; LogOpt=0000; DlgOpt=0000
+040010:00:50.135 0000=CAN_RegisterClient(RD_Robot,00000000,00000013);
+040010:00:50.135 0000=CAN_ConnectToNet(0013, 1MBit, BEE945C);
+800010:00:50.135 CAN I/O Thread: 00000A40 000022FC
+040010:00:50.135 SetRobotError(0000)
+040010:00:50.135 SetRobotError(0000)
+200410:00:50.316 Set number of slots in device Resatrax1 to 6.
+020410:00:50.362 Attach exception: System.NullReferenceException: 未将对象引用设置到对象的实例。|    在 Sias.ReSaTrax.SReSaTraxDevice.AttachLayoutData(ILayoutDevice LayoutDevice)
+800010:00:50.455 New robot thread: 00001AF0
+040410:00:50.474 Start Thread ...
+040410:00:50.476 Start a new workthread
+040010:00:50.484 SetRobotError(0000)
+800010:00:50.484 New robot thread: 00002050
+010410:00:50.485 Init Robot (0)
+200410:00:50.496 SRobotDevice::Init(Sias.BaseDev.SDeviceInitOptions)
+080010:00:50.502 >PipArm.Tip1.ZMotor SetExecGroup(01)
+040410:00:50.530 No valid type for Token LayoutName ==> use String
+080010:00:51.503 >PipArm.Tip1.ZMotor RequestInfo(2)
+080010:00:52.506 >PipArm.Tip1.ZMotor Init(  1000,    80,P_______)
+080010:00:52.507 >PipArm.Tip2.ZMotor SetExecGroup(01)
+080010:00:53.507 >PipArm.Tip2.ZMotor RequestInfo(2)
+400410:00:53.953 Unsigned Assembly: RDSCL, Version=1.0.0.0, FileVersion=1.0.0.0 loaded from C:\zhaomin\sourcecode\RDS\RDS\RDS\bin\Debug\RDSCL.dll
+080010:00:54.508 >PipArm.Tip2.ZMotor Init(  1000,    80,P_______)
+080010:00:54.508 >PipArm.Tip3.ZMotor SetExecGroup(01)
+080010:00:55.507 >PipArm.Tip3.ZMotor RequestInfo(2)
+080010:00:56.507 >PipArm.Tip3.ZMotor Init(  1000,    80,P_______)
+080010:00:56.908 >PipArm.Tip1.ZMotor RequestInfo(1)
+080010:00:56.908 >PipArm.Tip2.ZMotor RequestInfo(1)
+080010:00:56.908 >PipArm.Tip3.ZMotor RequestInfo(1)
+080010:00:57.009 >PipArm.Tip1.ZMotor RequestInfo(1)
+080010:00:57.009 >PipArm.Tip2.ZMotor RequestInfo(1)
+080010:00:57.009 >PipArm.Tip3.ZMotor RequestInfo(1)
+400010:00:57.109 Action not started at Modules:  PipArm.Tip1.ZMotor(21) PipArm.Tip2.ZMotor(22) PipArm.Tip3.ZMotor(23), retry ...
+080010:00:57.109 >PipArm.Tip1.ZMotor Init(  1000,    80,P_______)
+080010:00:57.109 >PipArm.Tip2.ZMotor Init(  1000,    80,P_______)
+080010:00:57.109 >PipArm.Tip3.ZMotor Init(  1000,    80,P_______)
+080010:00:57.509 >PipArm.Tip1.ZMotor RequestInfo(1)
+080010:00:57.509 >PipArm.Tip2.ZMotor RequestInfo(1)
+080010:00:57.509 >PipArm.Tip3.ZMotor RequestInfo(1)
+080010:00:57.610 >PipArm.Tip1.ZMotor RequestInfo(1)
+080010:00:57.610 >PipArm.Tip2.ZMotor RequestInfo(1)
+080010:00:57.610 >PipArm.Tip3.ZMotor RequestInfo(1)
+400010:00:57.709 Action not started at Modules:  PipArm.Tip1.ZMotor(21) PipArm.Tip2.ZMotor(22) PipArm.Tip3.ZMotor(23)
+040010:00:57.711 ErrorBox(4372, 35, ...)
+020410:00:57.722 Error 00001114 at SMotorDevice(PipArm.Tip3.ZMotor): Action not started within 600 ms.  State=_______I, Action Message: Init(  1000,    80,P_______)
+200410:01:02.135 Error Result for Error 00001114: Abort
+040010:01:02.137 ErrorResult=3SetRobotError(1114)
+400010:01:02.137 , interrupted or ignored
